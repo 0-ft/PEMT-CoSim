@@ -87,5 +87,9 @@ object house {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F{vpp_idx}_house_{phase}{house_idx}_EV;
+     parent house_F{vpp_idx}_tpm_{phase}{house_idx};
+ };
 }
 

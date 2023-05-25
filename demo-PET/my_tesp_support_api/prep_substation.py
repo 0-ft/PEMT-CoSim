@@ -567,6 +567,17 @@ def ProcessGLM (fileroot, global_config):
             for prop in props:
                 subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":key, "property":prop}})
 
+    # for EV control
+    for house_name, val in glm_dict['houses'].items():
+        # meterName = val['name']
+        subs.append({
+            "key": f"ev1/{house_name}_EV/load",
+            "type": "double",
+            "info": {
+                "object": f"{house_name}_EV",
+                "property": "constant_power_A_real"
+            }
+        })
 
     # for inverters
     inverts_dict = glm_dict['inverters']

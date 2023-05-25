@@ -49,7 +49,8 @@ stop_time  = '2013-07-03 00:00:00'
 
 """2. configure weather data"""
 tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to specify the weather in a specific location
-tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
+tmy_file_dir = os.getenv('TESP_INSTALL') + '/repository/tesp/data/weather/'
+# tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
 tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
 

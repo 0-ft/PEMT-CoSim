@@ -72,10 +72,14 @@ object transformer_configuration {
 	name substation_config;
 	connect_type WYE_WYE;
 	install_type PADMOUNT;
-	power_rating 450;
-	powerA_rating 150 kVA;
-	powerB_rating 150;
-	powerC_rating 150;
+//	power_rating 450;
+//	powerA_rating 150 kVA;
+//	powerB_rating 150;
+//	powerC_rating 150;
+	power_rating 90000;
+	powerA_rating 30000 kVA;
+	powerB_rating 30000;
+	powerC_rating 30000;
 	primary_voltage 133000;
 	secondary_voltage 7200;
 	impedance +0.0015+0.00675j;
@@ -95,8 +99,8 @@ object transformer_configuration {
 	name default_transformer_A;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
 	install_type PADMOUNT;
-	power_rating 150;
-	powerA_rating 150 kVA;
+	power_rating 30000;
+	powerA_rating 30000 kVA;
 	primary_voltage 7200;
 	secondary_voltage 120;
 	impedance +0.015+0.0675j;
@@ -106,8 +110,8 @@ object transformer_configuration {
 	name default_transformer_B;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
 	install_type PADMOUNT;
-	power_rating 150;
-	powerB_rating 150;
+	power_rating 30000;
+	powerB_rating 30000;
 	primary_voltage 7200;
 	secondary_voltage 120;
 	impedance +0.015+0.0675j;
@@ -117,8 +121,8 @@ object transformer_configuration {
 	name default_transformer_C;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
 	install_type PADMOUNT;
-	power_rating 150;
-	powerC_rating 150;
+	power_rating 30000;
+	powerC_rating 30000;
 	primary_voltage 7200;
 	secondary_voltage 120;
 	impedance +0.015+0.0675j;
@@ -454,6 +458,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A0_EV;
+     parent house_F0_tpm_A0;
+ };
 }
 
 
@@ -699,6 +707,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A1_EV;
+     parent house_F0_tpm_A1;
+ };
 }
 
 
@@ -943,6 +955,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A2_EV;
+     parent house_F0_tpm_A2;
  };
 }
 
@@ -1200,6 +1216,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A3_EV;
+     parent house_F0_tpm_A3;
+ };
 }
 
 
@@ -1444,6 +1464,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A4_EV;
+     parent house_F0_tpm_A4;
  };
 }
 
@@ -1712,6 +1736,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A5_EV;
+     parent house_F0_tpm_A5;
+ };
 }
 
 
@@ -1957,6 +1985,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A6_EV;
+     parent house_F0_tpm_A6;
+ };
 }
 
 
@@ -2201,6 +2233,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A7_EV;
+     parent house_F0_tpm_A7;
  };
 }
 
@@ -2458,6 +2494,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A8_EV;
+     parent house_F0_tpm_A8;
+ };
 }
 
 
@@ -2714,6 +2754,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A9_EV;
+     parent house_F0_tpm_A9;
+ };
 }
 
 
@@ -2959,6 +3003,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A10_EV;
+     parent house_F0_tpm_A10;
+ };
 }
 
 
@@ -3203,6 +3251,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A11_EV;
+     parent house_F0_tpm_A11;
  };
 }
 
@@ -3460,6 +3512,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A12_EV;
+     parent house_F0_tpm_A12;
+ };
 }
 
 
@@ -3715,6 +3771,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A13_EV;
+     parent house_F0_tpm_A13;
  };
 }
 
@@ -3972,6 +4032,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A14_EV;
+     parent house_F0_tpm_A14;
+ };
 }
 
 
@@ -4216,6 +4280,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A15_EV;
+     parent house_F0_tpm_A15;
  };
 }
 
@@ -4484,6 +4552,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A16_EV;
+     parent house_F0_tpm_A16;
+ };
 }
 
 
@@ -4728,6 +4800,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A17_EV;
+     parent house_F0_tpm_A17;
  };
 }
 
@@ -4974,6 +5050,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A18_EV;
+     parent house_F0_tpm_A18;
+ };
 }
 
 
@@ -5218,6 +5298,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A19_EV;
+     parent house_F0_tpm_A19;
  };
 }
 
@@ -5475,6 +5559,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A20_EV;
+     parent house_F0_tpm_A20;
+ };
 }
 
 
@@ -5719,6 +5807,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A21_EV;
+     parent house_F0_tpm_A21;
  };
 }
 
@@ -5987,6 +6079,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A22_EV;
+     parent house_F0_tpm_A22;
+ };
 }
 
 
@@ -6254,6 +6350,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A23_EV;
+     parent house_F0_tpm_A23;
+ };
 }
 
 
@@ -6510,6 +6610,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A24_EV;
+     parent house_F0_tpm_A24;
+ };
 }
 
 
@@ -6754,6 +6858,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A25_EV;
+     parent house_F0_tpm_A25;
  };
 }
 
@@ -7011,6 +7119,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A26_EV;
+     parent house_F0_tpm_A26;
+ };
 }
 
 
@@ -7267,6 +7379,10 @@ object ZIPload {
  object metrics_collector {
   interval 300;
  };
+ object load {
+     name F0_house_A27_EV;
+     parent house_F0_tpm_A27;
+ };
 }
 
 
@@ -7511,6 +7627,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A28_EV;
+     parent house_F0_tpm_A28;
  };
 }
 
@@ -7767,6 +7887,10 @@ object ZIPload {
 
  object metrics_collector {
   interval 300;
+ };
+ object load {
+     name F0_house_A29_EV;
+     parent house_F0_tpm_A29;
  };
 }
 

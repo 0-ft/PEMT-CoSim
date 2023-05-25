@@ -227,6 +227,14 @@ class GLM_HELPER:
 
         return b_code
 
+    def configure_ev(self):
+        ev_code = """object load {
+    name ev_zip_load;
+    parent house_F0_tpm_A29;
+};"""
+
+
+
     def get_house_parameters(self, vpp_idx, phase, house_idx):
 
         dict = {}

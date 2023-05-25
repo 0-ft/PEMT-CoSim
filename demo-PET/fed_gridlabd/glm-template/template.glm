@@ -81,7 +81,7 @@ object transformer_configuration {
 	impedance +0.0015+0.00675j;
 }
 
-object transformer_configuration {
+    object transformer_configuration {
 	name Eplus_transformer_config;
 	connect_type WYE_WYE;
 	install_type PADMOUNT;

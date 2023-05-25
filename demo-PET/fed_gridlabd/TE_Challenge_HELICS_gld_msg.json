@@ -6755,6 +6755,246 @@
         "object": "batt_inv_F0_house_A29",
         "property": "discharge_off_threshold"
       }
+    },
+    {
+      "key": "ev1/F0_house_A0_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A0_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A1_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A1_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A2_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A2_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A3_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A3_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A4_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A4_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A5_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A5_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A6_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A6_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A7_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A7_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A8_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A8_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A9_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A9_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A10_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A10_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A11_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A11_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A12_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A12_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A13_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A13_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A14_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A14_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A15_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A15_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A16_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A16_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A17_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A17_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A18_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A18_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A19_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A19_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A20_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A20_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A21_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A21_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A22_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A22_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A23_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A23_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A24_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A24_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A25_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A25_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A26_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A26_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A27_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A27_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A28_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A28_EV",
+        "property": "constant_power_A_real"
+      }
+    },
+    {
+      "key": "ev1/F0_house_A29_EV/load",
+      "type": "double",
+      "info": {
+        "object": "F0_house_A29_EV",
+        "property": "constant_power_A_real"
+      }
     }
   ]
 }

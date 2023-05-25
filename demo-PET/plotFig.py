@@ -4,7 +4,7 @@ import json
 import matplotlib.pyplot as plt
 
 path_base = './fed_substation/data/'
-exp1 = 'exp(dyB-1-3kw)'
+exp1 = 'exp(test)'
 path = path_base + exp1 +'/'
 with open(path+'data.pkl', 'rb') as f:
     data_dict = pickle.load(f)

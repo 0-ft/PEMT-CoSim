@@ -33,6 +33,25 @@ class FEDERATE_HELPER:
         self.is_destroyed = True
         self.pubCount = 0
         self.subCount = 0
+        TESP_INSTALL = os.environ['TESP_INSTALL']
+        TESP_SUPPORT = TESP_INSTALL+'/share/support'
+        SCHED_PATH = TESP_SUPPORT+'/schedules'
+        EPW = TESP_SUPPORT+'/energyplus/USA_AZ_Tucson.Intl.AP.722740_TMY3.epw'
+
+        self.other_federate_commands = [
+            # command to launch gridlabd federate
+            "cd ../fed_gridlabd/ && gridlabd -D SCHED_PATH={} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1".format(SCHED_PATH),
+            # command to launch weather federate
+            "cd ../fed_weather/ && python3 launch_weather.py >weather.log 2>&1",
+            # command to launch pypower federate
+            "cd ../fed_pypower/ && python3 launch_pypower.py >pypower.log 2>&1",
+            # command to launch energyplus federate
+            "cd ../fed_energyplus/ && export HELICS_CONFIG_FILE=helics_eplus.json && exec energyplus -w {} -d output -r MergedH.idf >eplus.log 2>&1".format(EPW),
+            # command to launch energyplus agent (it is also a federate)
+            "cd ../fed_energyplus/ && eplus_agent_helics 172800s 300s SchoolDualController eplus_TE_ChallengeH_metrics.json  0.02 25 4 4 helics_eplus_agent.json >eplus_agent.log 2>&1",
+            # command to launch EV federate
+            "cd ../fed_ev/ && python3 launch_ev.py >ev.log 2>&1"
+        ]
 
         self.vpp_name_list = list(self.agents_dict['VPPs'].keys())
         self.house_name_list = list(self.agents_dict['houses'].keys())
@@ -125,7 +144,7 @@ class FEDERATE_HELPER:
         self.processes_list = []
 
     def create_broker(self):
-        cmd0 = "helics_broker -f 6 --loglevel=1 --name=mainbroker >helics_broker.log 2>&1"
+        cmd0 = f"helics_broker -f {len(self.other_federate_commands) + 1} --loglevel=1 --name=mainbroker >helics_broker.log 2>&1"
         self.processes_list.append(subprocess.Popen(cmd0, stdout=subprocess.PIPE, shell=True))
         print("HELICS broker created!")
 
@@ -295,29 +314,15 @@ class FEDERATE_HELPER:
         self.run_other_federates()
         # 5. execute the main federate (it should be in the final)
         self.FederateEnterExecutingMode()
+        print("Cosimulation started...")
 
     def run_other_federates(self):
-        TESP_INSTALL = os.environ['TESP_INSTALL']
-        TESP_SUPPORT = TESP_INSTALL+'/share/support'
-        SCHED_PATH = TESP_SUPPORT+'/schedules'
-        EPW = TESP_SUPPORT+'/energyplus/USA_AZ_Tucson.Intl.AP.722740_TMY3.epw'
+        print("Starting other federates...")
 
-        # command to launch gridlabd federate
-        cmd1 = "cd ../fed_gridlabd/ && gridlabd -D SCHED_PATH={} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1".format(SCHED_PATH)
-        # command to launch weather federate
-        cmd2 = "cd ../fed_weather/ && python3 launch_weather.py >weather.log 2>&1"
-        # command to launch pypower federate
-        cmd3 = "cd ../fed_pypower/ && python3 launch_pypower.py >pypower.log 2>&1"
-        # command to launch energyplus federate
-        cmd4 = "cd ../fed_energyplus/ && export HELICS_CONFIG_FILE=helics_eplus.json && exec energyplus -w {} -d output -r MergedH.idf >eplus.log 2>&1".format(EPW)
-        # command to launch energyplus agent (it is also a federate)
-        cmd5 = "cd ../fed_energyplus/ && eplus_agent_helics 172800s 300s SchoolDualController eplus_TE_ChallengeH_metrics.json  0.02 25 4 4 helics_eplus_agent.json >eplus_agent.log 2>&1"
-
-        self.processes_list.append(subprocess.Popen(cmd1, stdout=subprocess.PIPE, shell=True))
-        self.processes_list.append(subprocess.Popen(cmd2, stdout=subprocess.PIPE, shell=True))
-        self.processes_list.append(subprocess.Popen(cmd3, stdout=subprocess.PIPE, shell=True))
-        self.processes_list.append(subprocess.Popen(cmd4, stdout=subprocess.PIPE, shell=True))
-        self.processes_list.append(subprocess.Popen(cmd5, stdout=subprocess.PIPE, shell=True))
+        self.processes_list += [
+            subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            for cmd in self.other_federate_commands
+        ]
         print("Gridlabd, Weather, Pypower, EnergyPlus, EnergyPlus Agent, launched!")
 
 
@@ -340,6 +345,10 @@ class FEDERATE_HELPER:
             if proc.name() == "python3" and "launch_pypower.py" in proc.cmdline():
                 os.system("kill -9 {}".format(proc.pid))
                 killed_list.append("launch_pypower.py")
+                continue
+            if proc.name() == "python3" and "launch_ev.py" in proc.cmdline():
+                os.system("kill -9 {}".format(proc.pid))
+                killed_list.append("launch_ev.py")
                 continue
             if proc.name() == "energyplus" and "energyplus" in proc.cmdline():
                 os.system("kill -9 {}".format(proc.pid))
