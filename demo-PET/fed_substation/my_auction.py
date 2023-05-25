@@ -14,6 +14,8 @@ Todo:
 import math
 import helics
 import my_tesp_support_api.helpers as helpers
+from my_tesp_support_api.helpers import ClearingType
+
 
 # Class definition
 class AUCTION:
@@ -48,15 +50,16 @@ class AUCTION:
         agg_deg (int): degree of the aggregate bid curve polynomial, should be 0 (zero or one bids), 1 (2 bids) or 2 (more bids)
         agg_c2 (float): second-order coefficient of the aggregate bid curve
         agg_c1 (float): first-order coefficient of the aggregate bid curve
-        clearing_type (helpers.ClearingType): describes the solution type or boundary case for the latest market clearing
+        clearing_type (ClearingType): describes the solution type or boundary case for the latest market clearing
         clearing_quantity (float): quantity at the last market clearing
         clearing_price (float): price at the last market clearing
         marginal_quantity (float): quantity of a partially accepted bid
         marginal_frac (float): fraction of the bid quantity accepted from a marginal buyer or seller 
         clearing_scalar (float): used for interpolation at boundary cases, always 0.5
     """
+
     # ====================Define instance variables ===================================
-    def __init__(self,dict,key):
+    def __init__(self, dict, key):
         self.name = key
         self.std_dev = float(dict['init_stdev'])
         self.mean = float(dict['init_price'])
@@ -75,9 +78,9 @@ class AUCTION:
         self.curve_buyer = None
         self.curve_seller = None
 
-        self.refload = 0.0 # kVA
-        self.refload_p = 0.0 # kV
-        self.refload_q = 0.0 # kVar
+        self.refload = 0.0  # kVA
+        self.refload_p = 0.0  # kV
+        self.refload_q = 0.0  # kVar
         self.lmp = self.mean
         self.unresp = 0.0
         self.agg_unresp = 0.0
@@ -85,25 +88,25 @@ class AUCTION:
         self.agg_deg = 0
         self.agg_c2 = 0.0
         self.agg_c1 = 0.0
-        self.clearing_type = helpers.ClearingType.NULL
+        self.clearing_type = ClearingType.NULL
         self.clearing_quantity = 0
         self.clearing_price = self.mean
         self.marginal_quantity = 0.0
         self.marginal_frac = 0.0
 
-# added
+        # added
         self.num_sellers = 0
         self.num_buyers = 0
         self.num_nontcp = 0
         self.market_condition = "double_auction"
-        self.unresp_seller = 0.0 # this is for the extral power supply by the substation when too much load but few solars
+        self.unresp_seller = 0.0  # this is for the extral power supply by the substation when too much load but few solars
         self.agg_unresp_seller = 0.0
         self.agg_resp_max_seller = 0.0
         self.agg_deg_seller = 0
         self.agg_c2_seller = 0.0
         self.agg_c1_seller = 0.0
         # 可以弄成和这个相关的，反正多余不够的确实就是从电网来走 self.max_capacity_reference_bid_quantity = float(dict['max_capacity_reference_bid_quantity'])
-# added finished
+        # added finished
 
         self.clearing_scalar = 0.5
 
@@ -112,61 +115,53 @@ class AUCTION:
         self.supplierSurplus = 0.0
         self.unrespSupplierSurplus = 0.0
 
-        self.bid_offset = 1e-4 # for numerical checks
+        self.bid_offset = 1e-4  # for numerical checks
 
         # publications and subscriptions
         self.subs = None
         self.pubs = None
 
-    def get_helics_subspubs(self,input):
+    def set_helics_subspubs(self, input):
         self.subs = input[0]
         self.pubs = input[1]
 
-    def get_refload (self):
+    def update_refload(self):
         """Sets the refload attribute
 
         Args:
             kw (float): GridLAB-D substation load in kw
         """
-        c = helics.helicsInputGetComplex (self.subs['subFeeder'])
-        self.refload_p = c[0]*0.001
-        self.refload_q = c[1]*0.001
-        self.refload =  self.refload_p #math.sqrt(self.refload_p**2 + self.refload_q**2)
-        # self.refload = 0.001 * helics.helicsInputGetDouble (self.subs['subFeeder']) # it is supposed to be complex, but double is also ok (unit: kVA)
+        c = helics.helicsInputGetComplex(self.subs['subFeeder'])
+        self.refload_p = c[0] * 0.001
+        self.refload_q = c[1] * 0.001
+        self.refload = self.refload_p  # math.sqrt(self.refload_p**2 + self.refload_q**2)
 
-
-    def get_lmp (self):
+    def update_lmp(self):
         """Sets the lmp attribute
 
         Args:
             lmp (float): locational marginal price from the bulk system market
         """
-        self.lmp = helics.helicsInputGetDouble (self.subs['subLMP'])
+        self.lmp = helics.helicsInputGetDouble(self.subs['subLMP'])
 
-                
-    def initAuction (self):
+    def init_auction(self):
         """Sets the clearing_price and lmp to the mean price
         """
         self.clearing_price = self.lmp = self.mean
 
-    def update_statistics (self):
-        """Update price history statistics - not implemented
-        """
-        sample_need = 0
-
-    def clear_bids (self):
+    def clear_bids(self):
         """Re-initializes curve_buyer and curve_seller, sets the unresponsive load estimate to the total substation load.
         """
-        self.curve_buyer = helpers.curve ()
-        self.curve_seller = helpers.curve ()
+        self.curve_buyer = helpers.curve()
+        self.curve_seller = helpers.curve()
         self.bids.clear()
         # self.unresp = self.refload
-        self.unresp = 0 # modified by Yuanliang
+        self.unresp = 0  # modified by Yuanliang
         # added
         self.unresp_seller = self.max_capacity_reference_bid_quantity
         # added finishend
 
-    def supplier_bid (self, bid):
+    def supplier_bid(self, bid):
         """Gather supplier bids into curve_seller
 
         Use this to enter curves in step-wise blocks.
@@ -176,9 +171,9 @@ class AUCTION:
         """
         price = bid[0]
         quantity = bid[1]
-        self.curve_seller.add_to_curve (price, quantity, False)
+        self.curve_seller.add_to_curve(price, quantity, False)
 
-    def collect_bid (self, bid):
+    def collect_bid(self, bid):
         """Gather HVAC bids into curve_buyer
 
         Also adjusts the unresponsive load estimate, by subtracting the HVAC power
@@ -188,7 +183,7 @@ class AUCTION:
             bid ([float, float, Boolean]): price in $/kwh, quantity in kW and the HVAC on state
         """
 
-        self.bids.append(bid) # receive bids
+        self.bids.append(bid)  # receive bids
         price = bid[0]
         quantity = bid[1]
         hvac_needed = bid[2]
@@ -199,12 +194,12 @@ class AUCTION:
         if role == "seller":
             self.unresp_seller -= quantity
             if price > 0 and quantity > 0.0:
-                self.curve_seller.add_to_curve (price, quantity, True)
+                self.curve_seller.add_to_curve(price, quantity, True)
         elif role == "buyer" and not base_covered:
-            self.unresp += unresp_load # the calculation of unresponsive load may need be updated
+            self.unresp += unresp_load  # the calculation of unresponsive load may need be updated
             # it should collect the unresponsive load from houses, but also from other devices and loss
             if price > 0 and quantity > 0.0:
-                self.curve_buyer.add_to_curve (price, quantity, hvac_needed)
+                self.curve_buyer.add_to_curve(price, quantity, hvac_needed)
 
         # if is_on:
         #     self.unresp -= quantity
@@ -213,47 +208,46 @@ class AUCTION:
         # if price > 0.0 and role == 'seller':
         #     self.curve_seller.add_to_curve (price, -1*quantity, is_on)
 
-
     def add_unresponsive_load(self, quantity):
         self.unresp += quantity
 
     def aggregate_bids(self):
 
         # for buyers
-        #Aggregates the unresponsive load and responsive load bids for submission to the bulk system market
+        # Aggregates the unresponsive load and responsive load bids for submission to the bulk system market
         if self.unresp > 0:
-            self.curve_buyer.add_to_curve (self.pricecap, self.unresp, True)
+            self.curve_buyer.add_to_curve(self.pricecap, self.unresp, True)
         else:
-            print ('$$ Unresp,BuyCount,BuyTotal,BuyOn,BuyOff', flush=True)
-            print ('{:.3f}'.format(self.unresp),
-                   self.curve_buyer.count, 
-                   '{:.3f}'.format(self.curve_buyer.total), 
-                   '{:.3f}'.format(self.curve_buyer.total_on), 
-                   '{:.3f}'.format(self.curve_buyer.total_off), 
-                   sep=',', flush=True)
+            print('$$ Unresp,BuyCount,BuyTotal,BuyOn,BuyOff', flush=True)
+            print('{:.3f}'.format(self.unresp),
+                  self.curve_buyer.count,
+                  '{:.3f}'.format(self.curve_buyer.total),
+                  '{:.3f}'.format(self.curve_buyer.total_on),
+                  '{:.3f}'.format(self.curve_buyer.total_off),
+                  sep=',', flush=True)
         if self.curve_buyer.count > 0:
-            self.curve_buyer.set_curve_order ('descending')
-        self.agg_unresp, self.agg_resp_max, self.agg_deg, self.agg_c2, self.agg_c1 = helpers.aggregate_bid(self.curve_buyer)
-
+            self.curve_buyer.set_curve_order('descending')
+        self.agg_unresp, self.agg_resp_max, self.agg_deg, self.agg_c2, self.agg_c1 = helpers.aggregate_bid(
+            self.curve_buyer)
 
         # for sellers
         # Aggregates the unresponsive load and responsive load bids for submission to the bulk system market # 这个处理的是buyer_curve那个向下的
         # 这个就相当于把unresponsive加进去，然后输出一个平滑的buyer_curve,然后还想把这个平滑的buyer_curve输出，但是没用到
-        if self.unresp_seller > 0: # 把unresponsive弄入buyer_curve了
-            self.curve_seller.add_to_curve (self.lmp, self.unresp_seller, True) # the substation price is lmp
-        else: # 当unresp=<0,就是打印出一堆东西，对unresp的部分啥都不做
-            print ('$$ Unresp_seller,SellCount,SellTotal,SellOn,SellOff', flush=True)
-            print ('{:.3f}'.format(self.unresp_seller),
-                   self.curve_buyer.count,
-                   '{:.3f}'.format(self.curve_seller.total),
-                   '{:.3f}'.format(self.curve_seller.total_on),
-                   '{:.3f}'.format(self.curve_seller.total_off),
-                   sep=',', flush=True)
+        if self.unresp_seller > 0:  # 把unresponsive弄入buyer_curve了
+            self.curve_seller.add_to_curve(self.lmp, self.unresp_seller, True)  # the substation price is lmp
+        else:  # 当unresp=<0,就是打印出一堆东西，对unresp的部分啥都不做
+            print('$$ Unresp_seller,SellCount,SellTotal,SellOn,SellOff', flush=True)
+            print('{:.3f}'.format(self.unresp_seller),
+                  self.curve_buyer.count,
+                  '{:.3f}'.format(self.curve_seller.total),
+                  '{:.3f}'.format(self.curve_seller.total_on),
+                  '{:.3f}'.format(self.curve_seller.total_off),
+                  sep=',', flush=True)
         if self.curve_seller.count > 0:
-            self.curve_seller.set_curve_order ('ascending')
-        self.agg_unres_seller, self.agg_resp_max_seller, self.agg_deg_seller, self.agg_c2_seller, self.agg_c1_seller = helpers.aggregate_bid(self.curve_seller)
+            self.curve_seller.set_curve_order('ascending')
+        self.agg_unres_seller, self.agg_resp_max_seller, self.agg_deg_seller, self.agg_c2_seller, self.agg_c1_seller = helpers.aggregate_bid(
+            self.curve_seller)
         # 这个只是弄了个curve_buyer的线，并没有对curve_buyer做什么
-
 
         # analyze the market condition
         self.num_sellers = self.num_buyers = self.num_nontcp = 0
@@ -264,26 +258,24 @@ class AUCTION:
                 self.num_sellers += 1
             else:
                 self.num_nontcp += 1
-        if  self.num_buyers == 0 and self.num_sellers != 0:
+        if self.num_buyers == 0 and self.num_sellers != 0:
             self.market_condition = "flexible-generation"
         elif self.num_sellers == 0 and self.num_buyers != 0:
             self.market_condition = "flexible-load"
         else:
             self.market_condition = "double-auction"
 
-
-
     def publish_agg_bids_for_buyer(self):
-        helics.helicsPublicationPublishDouble (self.pubs['pubUnresp'], self.agg_unresp)
-        helics.helicsPublicationPublishDouble (self.pubs['pubMax'], self.agg_resp_max)
-        helics.helicsPublicationPublishDouble (self.pubs['pubC2'], self.agg_c2)
-        helics.helicsPublicationPublishDouble (self.pubs['pubC1'], self.agg_c1)
-        helics.helicsPublicationPublishInteger (self.pubs['pubDeg'], self.agg_deg)
+        helics.helicsPublicationPublishDouble(self.pubs['pubUnresp'], self.agg_unresp)
+        helics.helicsPublicationPublishDouble(self.pubs['pubMax'], self.agg_resp_max)
+        helics.helicsPublicationPublishDouble(self.pubs['pubC2'], self.agg_c2)
+        helics.helicsPublicationPublishDouble(self.pubs['pubC1'], self.agg_c1)
+        helics.helicsPublicationPublishInteger(self.pubs['pubDeg'], self.agg_deg)
 
     def publish_clearing_price(self):
-        helics.helicsPublicationPublishDouble (self.pubs['pubAucPrice'], self.clearing_price)
+        helics.helicsPublicationPublishDouble(self.pubs['pubAucPrice'], self.clearing_price)
 
-    def clear_market (self, tnext_clear=0, time_granted=0):
+    def clear_market(self, tnext_clear=0, time_granted=0):
         """Solves for the market clearing price and quantity
 
         Uses the current contents of curve_seller and curve_buyer.
@@ -294,21 +286,7 @@ class AUCTION:
             tnext_clear (int): next clearing time in FNCS seconds, should be <= time_granted, for the log file only
             time_granted (int): the current time in FNCS seconds, for the log file only
         """
-        # if self.max_capacity_reference_bid_quantity > 0:
-        #     self.curve_seller.add_to_curve (self.lmp, self.max_capacity_reference_bid_quantity, True)
-        # if self.curve_seller.count > 0:
-        #     self.curve_seller.set_curve_order ('ascending')
-
         self.unresponsive_sell = self.responsive_sell = self.unresponsive_buy = self.responsive_buy = 0
-
-        ## add
-        # if self.curve_buyer.count == 1 and self.curve_seller.count == 1:
-        #     self.clearing_price = float(self.curve_buyer.price[0])
-        #     self.clearing_quantity = int(self.curve_buyer.quantity[0])
-        #     self.clearing_type = helpers.ClearingType.NULL #"ClearingType.NULL"
-        #     #print(f"##,{tnext_clear},{tnext_clear},{self.clearing_type},{self.clearing_quantity},{self.clearing_price},{self.curve_buyer.count},{self.unresp},0,{self.curve_seller.count},{self.unresp_seller},0,0.000,0.000000,0,0,0.0000,0.0000,0.0000,0.0000")
-        #     return
-        ## add finish
 
         if self.curve_buyer.count > 0 and self.curve_seller.count > 0:
             a = self.pricecap
@@ -328,9 +306,10 @@ class AUCTION:
             # Calculate clearing quantity and price here
             # Define the section number of the buyer and the seller curves respectively as i and j
             i = j = 0
-            self.clearing_type = helpers.ClearingType.NULL
+            self.clearing_type = ClearingType.NULL
             self.clearing_quantity = self.clearing_price = 0
-            while i < self.curve_buyer.count and j < self.curve_seller.count and self.curve_buyer.price[i] >= self.curve_seller.price[j]:
+            while i < self.curve_buyer.count and j < self.curve_seller.count and self.curve_buyer.price[i] >= \
+                    self.curve_seller.price[j]:
                 buy_quantity = demand_quantity + self.curve_buyer.quantity[i]
                 sell_quantity = supply_quantity + self.curve_seller.quantity[j]
                 # If marginal buyer currently:
@@ -339,14 +318,14 @@ class AUCTION:
                     a = b = self.curve_buyer.price[i]
                     j += 1
                     check = 0
-                    self.clearing_type = helpers.ClearingType.BUYER
+                    self.clearing_type = ClearingType.BUYER
                 # If marginal seller currently:
                 elif buy_quantity < sell_quantity:
                     self.clearing_quantity = demand_quantity = buy_quantity
                     a = b = self.curve_seller.price[j]
                     i += 1
                     check = 0
-                    self.clearing_type = helpers.ClearingType.SELLER
+                    self.clearing_type = ClearingType.SELLER
                 # Buy quantity equal sell quantity but price split  
                 else:
                     self.clearing_quantity = demand_quantity = supply_quantity = buy_quantity
@@ -357,57 +336,51 @@ class AUCTION:
                     check = 1
             # End of the curve comparison, and if EXACT, get the clear price
             if a == b:
-                self.clearing_price = a 
-            # If there was price agreement or quantity disagreement
+                self.clearing_price = a
+                # If there was price agreement or quantity disagreement
             if check:
-                self.clearing_price = a 
+                self.clearing_price = a
                 if supply_quantity == demand_quantity:
                     # At least one side exhausted at same quantity
                     if i == self.curve_buyer.count or j == self.curve_seller.count:
-                        if a == b:
-                            self.clearing_type = helpers.ClearingType.EXACT
-                        else:
-                            self.clearing_type = helpers.ClearingType.PRICE
+                        self.clearing_type = ClearingType.EXACT if a == b else ClearingType.PRICE
                     # Exhausted buyers, sellers unsatisfied at same price
                     elif i == self.curve_buyer.count and b == self.curve_seller.price[j]:
-                        self.clearing_type = helpers.ClearingType.SELLER
+                        self.clearing_type = ClearingType.SELLER
                     # Exhausted sellers, buyers unsatisfied at same price
                     elif j == self.curve_seller.count and a == self.curve_buyer.price[i]:
-                        self.clearing_type = helpers.ClearingType.BUYER
+                        self.clearing_type = ClearingType.BUYER
                     # Both sides satisfied at price, but one side exhausted  
                     else:
-                        if a == b:
-                            self.clearing_type = helpers.ClearingType.EXACT
-                        else:
-                            self.clearing_type = helpers.ClearingType.PRICE
+                        self.clearing_type = ClearingType.EXACT if a == b else ClearingType.PRICE
                 # No side exausted
                 else:
                     # Price changed in both directions
                     if a != self.curve_buyer.price[i] and b != self.curve_seller.price[j] and a == b:
-                        self.clearing_type = helpers.ClearingType.EXACT
+                        self.clearing_type = ClearingType.EXACT
                     # Sell price increased ~ marginal buyer since all sellers satisfied
                     elif a == self.curve_buyer.price[i] and b != self.curve_seller.price[j]:
-                        self.clearing_type = helpers.ClearingType.BUYER
+                        self.clearing_type = ClearingType.BUYER
                     # Buy price increased ~ marginal seller since all buyers satisfied
                     elif a != self.curve_buyer.price[i] and b == self.curve_seller.price[j]:
-                        self.clearing_type = helpers.ClearingType.SELLER
-                        self.clearing_price = b # use seller's price, not buyer's price
+                        self.clearing_type = ClearingType.SELLER
+                        self.clearing_price = b  # use seller's price, not buyer's price
                     # Possible when a == b, q_buy == q_sell, and either the buyers or sellers are exhausted
                     elif a == self.curve_buyer.price[i] and b == self.curve_seller.price[j]:
                         if i == self.curve_buyer.count and j == self.curve_seller.count:
-                            self.clearing_type = helpers.ClearingType.EXACT
+                            self.clearing_type = ClearingType.EXACT
                         elif i == self.curve_buyer.count:
-                            self.clearing_type = helpers.ClearingType.SELLER
+                            self.clearing_type = ClearingType.SELLER
                         elif j == self.curve_seller.count:
-                            self.clearing_type = helpers.ClearingType.BUYER
+                            self.clearing_type = ClearingType.BUYER
                     else:
                         # Marginal price
-                        self.clearing_type = helpers.ClearingType.PRICE
-                
+                        self.clearing_type = ClearingType.PRICE
+
                 # If ClearingType.PRICE, calculate the clearing price here
                 dHigh = dLow = 0
-                if self.clearing_type == helpers.ClearingType.PRICE:
-                    avg = (a+b)/2.0
+                if self.clearing_type == ClearingType.PRICE:
+                    avg = (a + b) / 2.0
                     # Calculating clearing price limits:   
                     dHigh = a if i == self.curve_buyer.count else self.curve_buyer.price[i]
                     dLow = b if j == self.curve_seller.count else self.curve_seller.price[j]
@@ -416,36 +389,36 @@ class AUCTION:
                         if self.curve_buyer.price[i] > b:
                             self.clearing_price = self.curve_buyer.price[i] + self.bid_offset
                         else:
-                            self.clearing_price = b 
+                            self.clearing_price = b
                     elif a != self.pricecap and b == -self.pricecap:
                         if self.curve_seller.price[j] < a:
                             self.clearing_price = self.curve_seller.price[j] - self.bid_offset
                         else:
-                            self.clearing_price = a 
+                            self.clearing_price = a
                     elif a == self.pricecap and b == -self.pricecap:
                         if i == self.curve_buyer.count and j == self.curve_seller.count:
-                            self.clearing_price = 0 # no additional bids on either side
-                        elif j == self.curve_seller.count: # buyers left
+                            self.clearing_price = 0  # no additional bids on either side
+                        elif j == self.curve_seller.count:  # buyers left
                             self.clearing_price = self.curve_buyer.price[i] + self.bid_offset
-                        elif i == self.curve_buyer.count: # sellers left
+                        elif i == self.curve_buyer.count:  # sellers left
                             self.clearing_price = self.curve_seller.price[j] - self.bid_offset
-                        else: # additional bids on both sides, just no clearing
-                            self.clearing_price = (dHigh + dLow)/2
+                        else:  # additional bids on both sides, just no clearing
+                            self.clearing_price = (dHigh + dLow) / 2
                     else:
                         if i != self.curve_buyer.count and self.curve_buyer.price[i] == a:
-                            self.clearing_price = a 
+                            self.clearing_price = a
                         elif j != self.curve_seller.count and self.curve_seller.price[j] == b:
-                            self.clearing_price = b 
+                            self.clearing_price = b
                         elif i != self.curve_buyer.count and avg < self.curve_buyer.price[i]:
                             self.clearing_price = dHigh + self.bid_offset
                         elif j != self.curve_seller.count and avg > self.curve_seller.price[j]:
                             self.clearing_price = dLow - self.bid_offset
                         else:
-                            self.clearing_price = avg 
-                                
-            # Check for zero demand but non-zero first unit sell price
+                            self.clearing_price = avg
+
+                            # Check for zero demand but non-zero first unit sell price
             if self.clearing_quantity == 0:
-                self.clearing_type = helpers.ClearingType.NULL
+                self.clearing_type = ClearingType.NULL
                 if self.curve_seller.count > 0 and self.curve_buyer.count == 0:
                     self.clearing_price = self.curve_seller.price[0] - self.bid_offset
                 elif self.curve_seller.count == 0 and self.curve_buyer.count > 0:
@@ -454,44 +427,46 @@ class AUCTION:
                     if self.curve_seller.price[0] == self.pricecap:
                         self.clearing_price = self.curve_buyer.price[0] + self.bid_offset
                     elif self.curve_seller.price[0] == -self.pricecap:
-                        self.clearing_price = self.curve_seller.price[0] - self.bid_offset  
+                        self.clearing_price = self.curve_seller.price[0] - self.bid_offset
                     else:
-                        self.clearing_price = self.curve_seller.price[0] + (self.curve_buyer.price[0] - self.curve_seller.price[0]) * self.clearing_scalar
-           
+                        self.clearing_price = self.curve_seller.price[0] + (
+                                self.curve_buyer.price[0] - self.curve_seller.price[0]) * self.clearing_scalar
+
             elif self.clearing_quantity < self.unresponsive_buy:
-                self.clearing_type = helpers.ClearingType.FAILURE
+                self.clearing_type = ClearingType.FAILURE
                 self.clearing_price = self.pricecap
-            
+
             elif self.clearing_quantity < self.unresponsive_sell:
-                self.clearing_type = helpers.ClearingType.FAILURE
+                self.clearing_type = ClearingType.FAILURE
                 self.clearing_price = -self.pricecap
-            
+
             elif self.clearing_quantity == self.unresponsive_buy and self.clearing_quantity == self.unresponsive_sell:
                 # only cleared unresponsive loads
-                self.clearing_type = helpers.ClearingType.PRICE
+                self.clearing_type = ClearingType.PRICE
                 self.clearing_price = 0.0
-            
+
         # If the market mode MD_NONE and at least one side is not given
         else:
             if self.curve_seller.count > 0 and self.curve_buyer.count == 0:
                 self.clearing_price = self.curve_seller.price[0] - self.bid_offset
-            elif self.curve_seller.count == 0 and self.curve_buyer.count > 0: # in TE-30 example
+            elif self.curve_seller.count == 0 and self.curve_buyer.count > 0:  # in TE-30 example
                 self.clearing_price = self.curve_buyer.price[0] + self.bid_offset
             elif self.curve_seller.count > 0 and self.curve_buyer.count > 0:
-                self.clearing_price = self.curve_seller.price[0] + (self.curve_buyer.price[0] - self.curve_seller.price[0]) * self.clearing_scalar
+                self.clearing_price = self.curve_seller.price[0] + (
+                        self.curve_buyer.price[0] - self.curve_seller.price[0]) * self.clearing_scalar
             elif self.curve_seller.count == 0 and self.curve_buyer.count == 0:
                 self.clearing_price = 0.0
             self.clearing_quantity = 0
-            self.clearing_type = helpers.ClearingType.NULL
-            if self.curve_seller.count == 0 :
+            self.clearing_type = ClearingType.NULL
+            if self.curve_seller.count == 0:
                 missingBidder = "seller"
             elif self.curve_buyer.count == 0:
                 missingBidder = "buyer"
-            print ('  Market %s fails to clear due to missing %s' % (self.name, missingBidder), flush=True)
-            
+            print('  Market %s fails to clear due to missing %s' % (self.name, missingBidder), flush=True)
+
         # Calculation of the marginal 
         marginal_total = self.marginal_quantity = self.marginal_frac = 0.0
-        if self.clearing_type == helpers.ClearingType.BUYER:
+        if self.clearing_type == ClearingType.BUYER:
             marginal_subtotal = 0
             i = 0
             for i in range(self.curve_buyer.count):
@@ -499,7 +474,7 @@ class AUCTION:
                     marginal_subtotal = marginal_subtotal + self.curve_buyer.quantity[i]
                 else:
                     break
-            self.marginal_quantity =  self.clearing_quantity - marginal_subtotal
+            self.marginal_quantity = self.clearing_quantity - marginal_subtotal
             for j in range(i, self.curve_buyer.count):
                 if self.curve_buyer.price[i] == self.clearing_price:
                     marginal_total += self.curve_buyer.quantity[i]
@@ -507,8 +482,8 @@ class AUCTION:
                     break
             if marginal_total > 0.0:
                 self.marginal_frac = float(self.marginal_quantity) / marginal_total
-       
-        elif self.clearing_type == helpers.ClearingType.SELLER:
+
+        elif self.clearing_type == ClearingType.SELLER:
             marginal_subtotal = 0
             i = 0
             for i in range(0, self.curve_seller.count):
@@ -516,15 +491,15 @@ class AUCTION:
                     marginal_subtotal = marginal_subtotal + self.curve_seller.quantity[i]
                 else:
                     break
-            self.marginal_quantity =  self.clearing_quantity - marginal_subtotal
+            self.marginal_quantity = self.clearing_quantity - marginal_subtotal
             for j in range(i, self.curve_seller.count):
                 if self.curve_seller.price[i] == self.clearing_price:
                     marginal_total += self.curve_seller.quantity[i]
                 else:
                     break
             if marginal_total > 0.0:
-                self.marginal_frac = float (self.marginal_quantity) / marginal_total 
-        
+                self.marginal_frac = float(self.marginal_quantity) / marginal_total
+
         else:
             self.marginal_quantity = 0.0
             self.marginal_frac = 0.0
@@ -536,7 +511,7 @@ class AUCTION:
         #        self.consumerSurplus, self.averageConsumerSurplus, self.supplierSurplus,
         #        self.unrespSupplierSurplus, sep=',', flush=True)
 
-    def surplusCalculation(self, tnext_clear=0, time_granted=0):
+    def calculate_surplus(self, tnext_clear=0, time_granted=0):
         """Calculates consumer surplus (and its average) and supplier surplus.
 
         This function goes through all the bids higher than clearing price from buyers to calculate consumer surplus,
@@ -570,7 +545,8 @@ class AUCTION:
                 else:
                     grantedRespQuantity += self.curve_buyer.quantity[i]
                     numberOfResponsiveBuyerAboveClearingPrice += 1
-                    self.consumerSurplus += (self.curve_buyer.price[i] - self.clearing_price) * self.curve_buyer.quantity[i]
+                    self.consumerSurplus += (self.curve_buyer.price[i] - self.clearing_price) * \
+                                            self.curve_buyer.quantity[i]
             # if a buy pays lower than clearing_price, it does not get the quantity requested
             else:
                 declinedQuantity += self.curve_buyer.quantity[i]
@@ -583,17 +559,20 @@ class AUCTION:
                 # satisfy quantity requested by unresponsive load first since they pay infinite price
                 # when the unresponsive load use up all power from the supplier
                 if grantedUnrespQuantity >= self.curve_seller.quantity[i]:
-                    self.unrespSupplierSurplus += (self.clearing_price - self.curve_seller.price[i]) * self.curve_seller.quantity[i]
+                    self.unrespSupplierSurplus += (self.clearing_price - self.curve_seller.price[i]) * \
+                                                  self.curve_seller.quantity[i]
                     grantedUnrespQuantity -= self.curve_seller.quantity[i]
                 # when the unresponsive load use part of the power from the supplier
                 elif grantedUnrespQuantity != 0.0:
-                    self.unrespSupplierSurplus += (self.clearing_price - self.curve_seller.price[i]) * grantedUnrespQuantity
+                    self.unrespSupplierSurplus += (self.clearing_price - self.curve_seller.price[
+                        i]) * grantedUnrespQuantity
                     leftOverQuantityFromSeller = self.curve_seller.quantity[i] - grantedUnrespQuantity
                     grantedUnrespQuantity = 0.0
                     # leftover quantity from this supplier will be used by responsive load
                     # when leftover quantity is used up by the responsive load
                     if grantedRespQuantity >= leftOverQuantityFromSeller:
-                        self.supplierSurplus += (self.clearing_price - self.curve_seller.price[i]) * leftOverQuantityFromSeller
+                        self.supplierSurplus += (self.clearing_price - self.curve_seller.price[
+                            i]) * leftOverQuantityFromSeller
                         grantedRespQuantity -= leftOverQuantityFromSeller
                     # when leftover quantity satisfies all the quantity the responsive load asked
                     else:
@@ -603,7 +582,8 @@ class AUCTION:
                 # if the quantity requested by unresponsive load are satisfied, responsive load requests are considered
                 # when supplier quantity is used up by the responsive load
                 elif grantedRespQuantity >= self.curve_seller.quantity[i]:
-                    self.supplierSurplus += (self.clearing_price - self.curve_seller.price[i]) * self.curve_seller.quantity[i]
+                    self.supplierSurplus += (self.clearing_price - self.curve_seller.price[i]) * \
+                                            self.curve_seller.quantity[i]
                     grantedRespQuantity -= self.curve_seller.quantity[i]
                 # when supplier quantity satisfies all the quantity the responsive load requested
                 else:
@@ -612,24 +592,26 @@ class AUCTION:
                     break
         if grantedRespQuantity != 0.0:
             print('cleared {:.4f} more quantity than supplied.'.format(grantedRespQuantity))
-        print ('##', 
-               time_granted, 
-               tnext_clear, 
-               self.clearing_type, 
-               '{:.3f}'.format(self.clearing_quantity), 
-               '{:.6f}'.format(self.clearing_price),
-               self.curve_buyer.count, 
-               '{:.3f}'.format(self.unresponsive_buy), 
-               '{:.3f}'.format(self.responsive_buy),
-               self.curve_seller.count, 
-               '{:.3f}'.format(self.unresponsive_sell), 
-               '{:.3f}'.format(self.responsive_sell),
-               '{:.3f}'.format(self.marginal_quantity), 
-               '{:.6f}'.format(self.marginal_frac), 
-               '{:.6f}'.format(self.lmp), 
-               '{:.3f}'.format(self.refload),
-               '{:.4f}'.format(self.consumerSurplus), 
-               '{:.4f}'.format(self.averageConsumerSurplus), 
-               '{:.4f}'.format(self.supplierSurplus),
-               '{:.4f}'.format(self.unrespSupplierSurplus), 
-               sep=',', flush=True)
+        print(
+            f"auction: time {time_granted}, clearing price {self.clearing_price:.3f}, {self.curve_buyer.count} buyers, {self.curve_seller.count} sellers")
+        # print('##',
+        #       time_granted,
+        #       tnext_clear,
+        #       self.clearing_type,
+        #       '{:.3f}'.format(self.clearing_quantity),
+        #       '{:.6f}'.format(self.clearing_price),
+        #       self.curve_buyer.count,
+        #       '{:.3f}'.format(self.unresponsive_buy),
+        #       '{:.3f}'.format(self.responsive_buy),
+        #       self.curve_seller.count,
+        #       '{:.3f}'.format(self.unresponsive_sell),
+        #       '{:.3f}'.format(self.responsive_sell),
+        #       '{:.3f}'.format(self.marginal_quantity),
+        #       '{:.6f}'.format(self.marginal_frac),
+        #       '{:.6f}'.format(self.lmp),
+        #       '{:.3f}'.format(self.refload),
+        #       '{:.4f}'.format(self.consumerSurplus),
+        #       '{:.4f}'.format(self.averageConsumerSurplus),
+        #       '{:.4f}'.format(self.supplierSurplus),
+        #       '{:.4f}'.format(self.unrespSupplierSurplus),
+        #       sep=',', flush=True)

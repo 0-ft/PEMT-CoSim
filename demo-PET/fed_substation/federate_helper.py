@@ -6,9 +6,31 @@ import json
 import pickle
 import psutil
 import subprocess
+
+from my_tesp_support_api.utils import DotDict
+
 if sys.platform != 'win32':
   import resource
 
+TESP_INSTALL = os.environ['TESP_INSTALL']
+TESP_SUPPORT = TESP_INSTALL+'/share/support'
+SCHED_PATH = TESP_SUPPORT+'/schedules'
+EPW = TESP_SUPPORT+'/energyplus/USA_AZ_Tucson.Intl.AP.722740_TMY3.epw'
+
+OTHER_FEDERATE_COMMANDS = [
+    # command to launch gridlabd federate
+    "cd ../fed_gridlabd/ && gridlabd -D SCHED_PATH={} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1".format(SCHED_PATH),
+    # command to launch weather federate
+    "cd ../fed_weather/ && python3 launch_weather.py >weather.log 2>&1",
+    # command to launch pypower federate
+    "cd ../fed_pypower/ && python3 launch_pypower.py >pypower.log 2>&1",
+    # command to launch energyplus federate
+    "cd ../fed_energyplus/ && export HELICS_CONFIG_FILE=helics_eplus.json && exec energyplus -w {} -d output -r MergedH.idf >eplus.log 2>&1".format(EPW),
+    # command to launch energyplus agent (it is also a federate)
+    "cd ../fed_energyplus/ && eplus_agent_helics 172800s 300s SchoolDualController eplus_TE_ChallengeH_metrics.json  0.02 25 4 4 helics_eplus_agent.json >eplus_agent.log 2>&1",
+    # command to launch EV federate
+    "cd ../fed_ev/ && python3 launch_ev.py >ev.log 2>&1"
+]
 
 
 class FEDERATE_HELPER:
@@ -17,7 +39,7 @@ class FEDERATE_HELPER:
         self.configfile = configfile
         self.helicsConfig = helicsConfig
         with open(configfile, encoding='utf-8') as f:
-            self.agents_dict = json.loads(f.read()) # federate_config is the dict data structure
+            self.agents = DotDict(json.loads(f.read())) # federate_config is the dict data structure
             f.close()
         with open(helicsConfig, encoding='utf-8') as f:
             self.helics_config = json.loads(f.read()) # federate_config is the dict data structure
@@ -26,38 +48,19 @@ class FEDERATE_HELPER:
         """helics configuration related"""
         # basic information
         self.dt = float(self.helics_config['period'])
-        self.gldName = self.agents_dict['GridLABD']
+        self.gldName = self.agents.GridLABD
         self.bulkName = 'pypower'
         self.hFed = None # the helics period is 15 seconds
         self.fedName = self.helics_config['name']
         self.is_destroyed = True
         self.pubCount = 0
         self.subCount = 0
-        TESP_INSTALL = os.environ['TESP_INSTALL']
-        TESP_SUPPORT = TESP_INSTALL+'/share/support'
-        SCHED_PATH = TESP_SUPPORT+'/schedules'
-        EPW = TESP_SUPPORT+'/energyplus/USA_AZ_Tucson.Intl.AP.722740_TMY3.epw'
 
-        self.other_federate_commands = [
-            # command to launch gridlabd federate
-            "cd ../fed_gridlabd/ && gridlabd -D SCHED_PATH={} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1".format(SCHED_PATH),
-            # command to launch weather federate
-            "cd ../fed_weather/ && python3 launch_weather.py >weather.log 2>&1",
-            # command to launch pypower federate
-            "cd ../fed_pypower/ && python3 launch_pypower.py >pypower.log 2>&1",
-            # command to launch energyplus federate
-            "cd ../fed_energyplus/ && export HELICS_CONFIG_FILE=helics_eplus.json && exec energyplus -w {} -d output -r MergedH.idf >eplus.log 2>&1".format(EPW),
-            # command to launch energyplus agent (it is also a federate)
-            "cd ../fed_energyplus/ && eplus_agent_helics 172800s 300s SchoolDualController eplus_TE_ChallengeH_metrics.json  0.02 25 4 4 helics_eplus_agent.json >eplus_agent.log 2>&1",
-            # command to launch EV federate
-            "cd ../fed_ev/ && python3 launch_ev.py >ev.log 2>&1"
-        ]
-
-        self.vpp_name_list = list(self.agents_dict['VPPs'].keys())
-        self.house_name_list = list(self.agents_dict['houses'].keys())
-        self.billingmeter_name_list = [self.agents_dict['houses'][house]['billingmeter_id'] for house in self.house_name_list]
+        self.vpp_name_list = list(self.agents.VPPs.keys())
+        self.house_name_list = list(self.agents.houses.keys())
+        self.billingmeter_name_list = [self.agents.houses[house]['billingmeter_id'] for house in self.house_name_list]
         self.hvac_name_list = [houseName + '_hvac' for houseName in self.house_name_list]
-        self.inverter_name_list = list(self.agents_dict['inverters'].keys())
+        self.inverter_name_list = list(self.agents.inverters.keys())
 
 
         self.housesInfo_dict = {} # where the house name is the key,
@@ -71,14 +74,14 @@ class FEDERATE_HELPER:
             self.housesInfo_dict[houseName] = {}
             hvacName = self.hvac_name_list[i]
             meter = self.billingmeter_name_list[i]
-            vpp = self.agents_dict['houses'][houseName]['house_class']
+            vpp = self.agents.houses[houseName]['house_class']
             self.housesInfo_dict[houseName]['VPP'] = vpp
             self.housesInfo_dict[houseName]['meter'] = meter
             self.housesInfo_dict[houseName]['HVAC'] = hvacName
             self.housesInfo_dict[houseName]['PV'] = None
             self.housesInfo_dict[houseName]['battery'] = None
 
-        for key, dict in self.agents_dict['inverters'].items():
+        for key, dict in self.agents.inverters.items():
             billingmeter_id = dict['billingmeter_id']
             if billingmeter_id in self.billingmeter_name_list:
                 house_name = self.house_name_list[self.billingmeter_name_list.index(billingmeter_id)]
@@ -130,8 +133,8 @@ class FEDERATE_HELPER:
 
 
         """agents related"""
-        self.market_key = list(self.agents_dict['markets'].keys())[0]  # only using the first market
-        self.market_row = self.agents_dict['markets'][self.market_key]
+        self.market_key = list(self.agents.markets.keys())[0]  # only using the first market
+        self.market_row = self.agents.markets[self.market_key]
 
         """metrics related"""
         unit = self.market_row['unit']
@@ -144,7 +147,7 @@ class FEDERATE_HELPER:
         self.processes_list = []
 
     def create_broker(self):
-        cmd0 = f"helics_broker -f {len(self.other_federate_commands) + 1} --loglevel=1 --name=mainbroker >helics_broker.log 2>&1"
+        cmd0 = f"helics_broker -f {len(OTHER_FEDERATE_COMMANDS) + 1} --loglevel=1 --name=mainbroker >helics_broker.log 2>&1"
         self.processes_list.append(subprocess.Popen(cmd0, stdout=subprocess.PIPE, shell=True))
         print("HELICS broker created!")
 
@@ -167,7 +170,7 @@ class FEDERATE_HELPER:
         for house_name, val in self.housesInfo_dict.items():
             hvac_name = val['HVAC']
             meter_name = val['meter']
-            house_meter_name = self.agents_dict['houses'][house_name]['parent']
+            house_meter_name = self.agents.houses[house_name]['parent']
 
             houseSubTopic = self.gldName + '/' + house_name  # subs from gridlabd
             billMeterSubTopic = self.gldName + '/' + meter_name  # subs from meter
@@ -193,8 +196,8 @@ class FEDERATE_HELPER:
             self.pubsThermostatState[house_name] = helics.helicsFederateGetPublication (self.hFed, hvacPubTopic + '/thermostat_mode') # new added by Yuanliang
 
             if val['PV'] != None:
-                solar_meter_name = self.agents_dict['inverters'][val['PV']]['parent']
-                solar_array_name = self.agents_dict['inverters'][val['PV']]['resource_name']
+                solar_meter_name = self.agents.inverters[val['PV']]['parent']
+                solar_array_name = self.agents.inverters[val['PV']]['resource_name']
                 pvMeterSubTopic = self.gldName + '/' + solar_meter_name
                 pvArraySubTopic = self.gldName + '/' + solar_array_name
                 self.subsSolarPower[house_name] =  helics.helicsFederateGetSubscription (self.hFed, pvMeterSubTopic + '#measured_power')
@@ -207,8 +210,8 @@ class FEDERATE_HELPER:
                 self.pubsPVQout[house_name] = helics.helicsFederateGetPublication (self.hFed, pvCtlSubTopic + '/Q_Out')
 
             if val['battery'] != None:
-                battery_meter_name = self.agents_dict['inverters'][val['battery']]['parent']
-                battery_name = self.agents_dict['inverters'][val['battery']]['resource_name']
+                battery_meter_name = self.agents.inverters[val['battery']]['parent']
+                battery_name = self.agents.inverters[val['battery']]['resource_name']
                 battMeterSubTopic = self.gldName + '/' + battery_meter_name
                 battSubTopic = self.gldName + '/' + battery_name
                 self.subsBattPower[house_name] =  helics.helicsFederateGetSubscription (self.hFed, battMeterSubTopic + '#measured_power')
@@ -223,7 +226,7 @@ class FEDERATE_HELPER:
 
 
         for i, vpp_name in enumerate(self.vpp_name_list):
-            vpp_meter_name =  self.agents_dict['VPPs'][vpp_name]['VPP_meter']
+            vpp_meter_name =  self.agents.VPPs[vpp_name]['VPP_meter']
             vppSubTopic = self.gldName + '/' + vpp_meter_name
             self.subsVPPMtrPower[vpp_name] = helics.helicsFederateGetSubscription (self.hFed, vppSubTopic + '#measured_power')
 
@@ -321,7 +324,7 @@ class FEDERATE_HELPER:
 
         self.processes_list += [
             subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-            for cmd in self.other_federate_commands
+            for cmd in OTHER_FEDERATE_COMMANDS
         ]
         print("Gridlabd, Weather, Pypower, EnergyPlus, EnergyPlus Agent, launched!")
 
@@ -569,22 +572,22 @@ class CURVES_TO_PLOT:
 
             # temperature related data ============
             # house temperature
-            temp_list.append(house.air_temp)
+            temp_list.append(house.hvac.air_temp)
             # base-point
             base_temp_list.append(house.hvac.basepoint)
             # set-point
             set_temp_list.append(house.hvac.basepoint + house.hvac.offset)
 
             # power related data ============
-            hvac_load_list.append(house.hvac_kw)
+            hvac_load_list.append(house.hvac.hvac_kw)
             house_load_list.append(house.house_kw)
-            house_unres_list.append(house.unres_kw)
-            pv_power_list.append(house.solar_kw)
-            battery_power_list.append(house.battery_kw)
-            battery_soc_list.append(house.battery_SoC)
+            house_unres_list.append(house.unresponsive_kw)
+            pv_power_list.append(house.pv.solar_kw)
+            battery_power_list.append(house.battery.battery_kw)
+            battery_soc_list.append(house.battery.battery_soc)
 
             # hvac on ratio ===============
-            if house.hvac_on:
+            if house.hvac.hvac_on:
                 num_hvac_on += 1
 
 

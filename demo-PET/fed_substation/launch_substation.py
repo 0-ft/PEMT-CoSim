@@ -51,23 +51,22 @@ print(
 # initialize a user-defined Vpp coordinator object
 vpp_name = fh.vpp_name_list[0]  # select the first VPP
 vpp = VPP(vpp_name, vppEnable)
-vpp.get_helics_subspubs(fh.get_agent_pubssubs(vpp.name, 'VPP'))
+vpp.set_helics_subspubs(fh.get_agent_pubssubs(vpp.name, 'VPP'))
 
 # initialize a user-defined auction object
 auction = AUCTION(fh.market_row, fh.market_key)
-auction.get_helics_subspubs(fh.get_agent_pubssubs(auction.name, 'auction'))
-auction.initAuction()
+auction.set_helics_subspubs(fh.get_agent_pubssubs(auction.name, 'auction'))
+auction.init_auction()
 
 # initialize House objects
 houses = {}
 seed = 1
 for key, info in fh.housesInfo_dict.items():  # key: house name, info: information of the house, including names of PV, battery ...
-    houses[key] = HOUSE(key, info, fh.agents_dict, auction, seed)  # initialize a house object
-    houses[key].get_helics_subspubs(
+    houses[key] = HOUSE(key, info, fh.agents, auction, seed)  # initialize a house object
+    houses[key].set_helics_subspubs(
         fh.get_agent_pubssubs(key, 'house', info))  # get subscriptions and publications for house meters
     houses[key].set_meter_mode()  # set meter mode
-    houses[key].get_cleared_price(auction.clearing_price)
-    houses[key].hvac.turn_OFF()  # at the beginning of the simulation, turn off all HVACs
+    houses[key].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
     seed += 1
 last_house_name = key
 
@@ -104,7 +103,7 @@ time_last = 0
 
 """============================Substation Loop=================================="""
 
-while (time_granted < StopTime):
+while time_granted < StopTime:
 
     """ 1. step the co-simulation time """
     nextHELICSTime = int(
@@ -112,7 +111,6 @@ while (time_granted < StopTime):
     time_granted = int(helics.helicsFederateRequestTime(fh.hFed, nextHELICSTime))
     time_delta = time_granted - time_last
     time_last = time_granted
-    hour_of_day = 24.0 * ((float(time_granted) / 86400.0) % 1.0)
     dt_now = dt_now + timedelta(seconds=time_delta)  # this is the actual time
     day_of_week = dt_now.weekday()  # get the day of week
     hour_of_day = dt_now.hour  # get the hour of the day
@@ -136,17 +134,14 @@ while (time_granted < StopTime):
         including the control for battery"""
     if time_granted >= tnext_control:
         for key, house in houses.items():
-            if house.hasBatt:
-                house.battery.auto_control()  # real-time basic control of battery to track the HVAC load
-            # house.hvac.auto_control()
+            if house.battery:
+                house.battery.auto_control(house.unresponsive_kw)  # real-time basic control of battery to track the HVAC load
         tnext_control += control_period
 
     """ 4. market gets the local marginal price (LMP) from the bulk power grid,"""
     if time_granted >= tnext_lmp:
-        auction.get_lmp()  # get local marginal price (LMP) from the bulk power grid
-        auction.get_refload()  # get distribution load from gridlabd
-        for key, house in houses.items():
-            house.get_lmp_from_market(auction.lmp)  # houses get LMP from the market
+        auction.update_lmp()  # get local marginal price (LMP) from the bulk power grid
+        auction.update_refload()  # get distribution load from gridlabd
         tnext_lmp += market_period
 
     """ 5. houses formulate and send their bids"""
@@ -171,11 +166,10 @@ while (time_granted < StopTime):
     if time_granted >= tnext_clear:
         if hasMarket:
             auction.clear_market(tnext_clear, time_granted)
-            auction.surplusCalculation(tnext_clear, time_granted)
+            auction.calculate_surplus(tnext_clear, time_granted)
             auction.publish_clearing_price()
-            print("!!The cleared price is: ", auction.clearing_price)
+            # print("Published auction clearing price: ", auction.clearing_price)
             for key, house in houses.items():
-                house.get_cleared_price(auction.clearing_price)
                 house.publish_meter_price()
                 house.post_market_control(auction.market_condition,
                                           auction.marginal_quantity)  # post-market control is needed

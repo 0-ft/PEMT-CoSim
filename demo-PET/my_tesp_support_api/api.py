@@ -43,7 +43,6 @@ from .tesp_case import make_monte_carlo_cases
 from .tesp_case import add_tesp_feeder
 from .TMY2EPW import convert_tmy2_to_epw
 from .TMY3toCSV import weathercsv 
-from .substation import substation_loop
 from .weatherAgent import startWeatherAgent
 
 from .case_merge import merge_glm
