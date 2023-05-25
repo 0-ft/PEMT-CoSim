@@ -1,0 +1,11 @@
+{
+  "name": "ev1",
+  "period": 1,
+  "publications": [
+    {
+      "key": "ev/load",
+      "type": "double",
+      "global": false
+    }
+  ]
+}
