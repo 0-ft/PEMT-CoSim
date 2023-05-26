@@ -7,11 +7,10 @@ bid quantity, and thermostat setting changes as the response
 mechanism.
 """
 import math
-import my_tesp_support_api.helpers as helpers
-import math
 import random
-import helics
 from collections import deque
+
+import helics
 
 from my_auction import AUCTION
 
@@ -144,9 +143,9 @@ class HVAC:
         if self.air_temp < lower_bound:
             self.power_needed = False
 
-        if self.air_temp < (lower_bound - 3) and self.hvac_on:
-            print(
-                f"WARN: HVAC {self.name}: Air temperature {self.air_temp} is lower than {lower_bound} - 3, while HVAC is on")
+        # if self.air_temp < (lower_bound - 3) and self.hvac_on:
+        #     print(
+        #         f"WARN: HVAC {self.name}: Air temperature {self.air_temp} is lower than {lower_bound} - 3, while HVAC is on")
 
     def auto_control(self):
         self.determine_power_needed()

@@ -11,8 +11,8 @@ Todo:
     * Distribute marginal quantities and fractions; these are not currently applied to HVACs
 
 """
-import math
 import helics
+
 import my_tesp_support_api.helpers as helpers
 from my_tesp_support_api.helpers import ClearingType
 

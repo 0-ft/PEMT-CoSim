@@ -3,21 +3,16 @@ from datetime import datetime, timedelta
 import helics
 
 from EVProfiles import EVProfiles, EVProfile
-from pytz import UTC
 
 
 class EVFederate:
     def __init__(self, start_time: str, fed_name, num_evs):
         self.quant = None
-        # self.helics_config_file = helics_config_file
         self.fed_name = fed_name
         self.time_period_hours = 0.125
         self.num_evs = num_evs
         self.helics_fed = None
-        # self.helics_config_file = helics_config_file
-        # with open(helics_config_file, "r") as f:
-        #     self.helics_config = json.load(f)
-        self.hour_stop = 48  # simulation duration (default 48 hours)
+        self.hour_stop = 48
         self.start_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
         self.current_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
 
@@ -26,6 +21,7 @@ class EVFederate:
         self.ev_pubs = []
 
         self.stop_seconds = int(self.hour_stop * 3600)  # co-simulation stop time in seconds
+        self.enabled = True
 
     def create_federate(self):
         print(f"Creating EV federate")
@@ -48,13 +44,13 @@ class EVFederate:
         print(f"EV federate publishing loads for t={self.current_time}")
         current_loads = self.ev_profiles.get_loads_at_time(time=self.current_time)
         for i, pub in enumerate(self.ev_pubs):
-            helics.helicsPublicationPublishDouble(pub, current_loads[i])
+            helics.helicsPublicationPublishDouble(pub, current_loads[i] if self.enabled else 0.0)
         print(f"EV federate published loads {current_loads} at time {self.current_time}")
 
     def run_federate(self):
         helics.helicsFederateEnterExecutingMode(self.helics_fed)
         print("EV federate entered execution mode")
-        pub_count = helics.helicsFederateGetPublicationCount(self.helics_fed)
+        # pub_count = helics.helicsFederateGetPublicationCount(self.helics_fed)
         # pub_ID = helics.helicsFederateGetPublicationByIndex(self.helics_fed, 1)
         # pub_name = helics.helicsPublicationGetKey(pub_ID)
         # print(f"EV federate has {pub_count} publications, pub_ID = {pub_name}")
@@ -65,15 +61,8 @@ class EVFederate:
             print(f"EV federate granted time {time_granted_seconds} ({self.current_time})")
             self.publish_loads()
 
-        # for i in range(3001):
-        #     print(f"EV federate granted time {time_granted}")
-        #     # val = helics.helicsInputGetDouble(self.quant)
-        #     # print(val)
-        #     for ev in self.evs:
-        #         ev["load"] = 10000.0
-        #     self.publish_loads()
-
 
 federate = EVFederate("2013-07-01 00:00:00", "ev1", 30)
 federate.create_federate()
+federate.enabled = False
 federate.run_federate()

@@ -11,19 +11,14 @@ import sys
 sys.path.append('..')
 # this is necessary since running this file is actually opening a new process
 # where my_tesp_support_api package is not inside the path list
-import time
 import os
 import json
 import helics
-import random
-import psutil
-import subprocess
 from PET_Prosumer import HOUSE, VPP  # import user-defined my_hvac class for hvac controllers
 from datetime import datetime
 from datetime import timedelta
 from my_auction import AUCTION  # import user-defined my_auction class for market
 import matplotlib.pyplot as plt
-import my_tesp_support_api.helpers as helpers
 from federate_helper import FEDERATE_HELPER, CURVES_TO_PLOT
 
 """================================Declare something====================================="""

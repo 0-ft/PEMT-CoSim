@@ -72,20 +72,16 @@ object transformer_configuration {
 	name substation_config;
 	connect_type WYE_WYE;
 	install_type PADMOUNT;
-//	power_rating 450;
-//	powerA_rating 150 kVA;
-//	powerB_rating 150;
-//	powerC_rating 150;
-	power_rating 90000;
-	powerA_rating 30000 kVA;
-	powerB_rating 30000;
-	powerC_rating 30000;
+	power_rating 450;
+	powerA_rating 150 kVA;
+	powerB_rating 150;
+	powerC_rating 150;
 	primary_voltage 133000;
 	secondary_voltage 7200;
 	impedance +0.0015+0.00675j;
 }
 
-object transformer_configuration {
+    object transformer_configuration {
 	name Eplus_transformer_config;
 	connect_type WYE_WYE;
 	install_type PADMOUNT;
@@ -99,8 +95,8 @@ object transformer_configuration {
 	name default_transformer_A;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
 	install_type PADMOUNT;
-	power_rating 30000;
-	powerA_rating 30000 kVA;
+	power_rating 150;
+	powerA_rating 150 kVA;
 	primary_voltage 7200;
 	secondary_voltage 120;
 	impedance +0.015+0.0675j;
@@ -110,8 +106,8 @@ object transformer_configuration {
 	name default_transformer_B;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
 	install_type PADMOUNT;
-	power_rating 30000;
-	powerB_rating 30000;
+	power_rating 150;
+	powerB_rating 150;
 	primary_voltage 7200;
 	secondary_voltage 120;
 	impedance +0.015+0.0675j;
@@ -121,8 +117,8 @@ object transformer_configuration {
 	name default_transformer_C;
 	connect_type SINGLE_PHASE_CENTER_TAPPED;
 	install_type PADMOUNT;
-	power_rating 30000;
-	powerC_rating 30000;
+	power_rating 150;
+	powerC_rating 150;
 	primary_voltage 7200;
 	secondary_voltage 120;
 	impedance +0.015+0.0675j;

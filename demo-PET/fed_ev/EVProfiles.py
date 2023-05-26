@@ -8,13 +8,11 @@ from collections import namedtuple
 from datetime import datetime, timedelta
 from multiprocessing import Pool
 from random import choices
-import plotly.express as px
 
 import numpy as np
 import pandas as pd
 from emobpy import Mobility, Consumption, HeatInsulation, BEVspecs, Availability, Charging, ModelSpecs
 from emobpy.tools import set_seed
-from pandas import DataFrame
 from plotly.subplots import make_subplots
 
 sys.path.append('..')
@@ -49,16 +47,6 @@ CAR_MODELS_DISTRIBUTION = np.array([
     [BEVspecs().model(('Tesla', 'Model 3 Long Range AWD', 2020)), 0.6],
     [BEVspecs().model(('Volkswagen', 'ID.3', 2020)), 0.4],
 ])
-
-#
-# class MemoryDB:
-#     def __init__(self):
-#         self.db = {}
-#
-#     def __setitem__(self, key, value):
-#         # optional processing here
-#         # self.db[key] = pickle.loads(pickle.dumps(value))
-#         self.db[key] = value
 
 EVProfile = namedtuple("EVProfile", ["mobility", "consumption", "availability", "demand", "car_model"])
 
