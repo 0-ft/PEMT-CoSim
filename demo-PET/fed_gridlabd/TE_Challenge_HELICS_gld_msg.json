@@ -2723,7 +2723,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A0#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A0",
         "property": "V_Out"
@@ -2732,7 +2732,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A0#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A0",
         "property": "I_Out"
@@ -2750,7 +2750,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A1#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A1",
         "property": "V_Out"
@@ -2759,7 +2759,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A1#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A1",
         "property": "I_Out"
@@ -2777,7 +2777,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A2#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A2",
         "property": "V_Out"
@@ -2786,7 +2786,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A2#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A2",
         "property": "I_Out"
@@ -2804,7 +2804,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A3#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A3",
         "property": "V_Out"
@@ -2813,7 +2813,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A3#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A3",
         "property": "I_Out"
@@ -2831,7 +2831,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A4#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A4",
         "property": "V_Out"
@@ -2840,7 +2840,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A4#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A4",
         "property": "I_Out"
@@ -2858,7 +2858,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A5#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A5",
         "property": "V_Out"
@@ -2867,7 +2867,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A5#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A5",
         "property": "I_Out"
@@ -2885,7 +2885,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A6#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A6",
         "property": "V_Out"
@@ -2894,7 +2894,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A6#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A6",
         "property": "I_Out"
@@ -2912,7 +2912,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A7#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A7",
         "property": "V_Out"
@@ -2921,7 +2921,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A7#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A7",
         "property": "I_Out"
@@ -2939,7 +2939,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A8#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A8",
         "property": "V_Out"
@@ -2948,7 +2948,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A8#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A8",
         "property": "I_Out"
@@ -2966,7 +2966,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A9#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A9",
         "property": "V_Out"
@@ -2975,7 +2975,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A9#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A9",
         "property": "I_Out"
@@ -2993,7 +2993,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A10#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A10",
         "property": "V_Out"
@@ -3002,7 +3002,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A10#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A10",
         "property": "I_Out"
@@ -3020,7 +3020,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A11#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A11",
         "property": "V_Out"
@@ -3029,7 +3029,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A11#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A11",
         "property": "I_Out"
@@ -3047,7 +3047,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A12#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A12",
         "property": "V_Out"
@@ -3056,7 +3056,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A12#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A12",
         "property": "I_Out"
@@ -3074,7 +3074,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A13#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A13",
         "property": "V_Out"
@@ -3083,7 +3083,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A13#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A13",
         "property": "I_Out"
@@ -3101,7 +3101,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A14#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A14",
         "property": "V_Out"
@@ -3110,7 +3110,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A14#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A14",
         "property": "I_Out"
@@ -3128,7 +3128,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A15#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A15",
         "property": "V_Out"
@@ -3137,7 +3137,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A15#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A15",
         "property": "I_Out"
@@ -3155,7 +3155,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A16#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A16",
         "property": "V_Out"
@@ -3164,7 +3164,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A16#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A16",
         "property": "I_Out"
@@ -3182,7 +3182,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A17#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A17",
         "property": "V_Out"
@@ -3191,7 +3191,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A17#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A17",
         "property": "I_Out"
@@ -3209,7 +3209,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A18#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A18",
         "property": "V_Out"
@@ -3218,7 +3218,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A18#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A18",
         "property": "I_Out"
@@ -3236,7 +3236,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A19#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A19",
         "property": "V_Out"
@@ -3245,7 +3245,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A19#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A19",
         "property": "I_Out"
@@ -3263,7 +3263,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A20#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A20",
         "property": "V_Out"
@@ -3272,7 +3272,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A20#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A20",
         "property": "I_Out"
@@ -3290,7 +3290,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A21#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A21",
         "property": "V_Out"
@@ -3299,7 +3299,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A21#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A21",
         "property": "I_Out"
@@ -3317,7 +3317,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A22#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A22",
         "property": "V_Out"
@@ -3326,7 +3326,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A22#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A22",
         "property": "I_Out"
@@ -3344,7 +3344,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A23#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A23",
         "property": "V_Out"
@@ -3353,7 +3353,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A23#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A23",
         "property": "I_Out"
@@ -3371,7 +3371,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A24#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A24",
         "property": "V_Out"
@@ -3380,7 +3380,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A24#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A24",
         "property": "I_Out"
@@ -3398,7 +3398,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A25#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A25",
         "property": "V_Out"
@@ -3407,7 +3407,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A25#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A25",
         "property": "I_Out"
@@ -3425,7 +3425,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A26#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A26",
         "property": "V_Out"
@@ -3434,7 +3434,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A26#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A26",
         "property": "I_Out"
@@ -3452,7 +3452,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A27#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A27",
         "property": "V_Out"
@@ -3461,7 +3461,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A27#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A27",
         "property": "I_Out"
@@ -3479,7 +3479,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A28#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A28",
         "property": "V_Out"
@@ -3488,7 +3488,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A28#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A28",
         "property": "I_Out"
@@ -3506,7 +3506,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A29#V_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A29",
         "property": "V_Out"
@@ -3515,7 +3515,7 @@
     {
       "global": false,
       "key": "solar_F0_house_A29#I_Out",
-      "type": "complex",
+      "type": "double",
       "info": {
         "object": "solar_F0_house_A29",
         "property": "I_Out"
@@ -6758,242 +6758,242 @@
     },
     {
       "key": "ev1/F0_house_A0_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A0_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A1_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A1_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A2_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A2_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A3_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A3_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A4_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A4_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A5_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A5_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A6_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A6_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A7_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A7_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A8_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A8_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A9_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A9_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A10_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A10_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A11_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A11_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A12_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A12_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A13_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A13_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A14_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A14_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A15_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A15_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A16_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A16_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A17_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A17_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A18_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A18_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A19_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A19_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A20_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A20_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A21_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A21_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A22_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A22_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A23_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A23_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A24_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A24_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A25_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A25_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A26_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A26_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A27_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A27_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A28_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A28_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     },
     {
       "key": "ev1/F0_house_A29_EV/load",
-      "type": "double",
+      "type": "complex",
       "info": {
         "object": "F0_house_A29_EV",
-        "property": "constant_power_A_real"
+        "property": "constant_power_A"
       }
     }
   ]

@@ -24,8 +24,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F{vpp_idx}_house_{phase}{house_idx};
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power {rated_power_solar};

@@ -34,7 +34,7 @@ class EVFederate:
         print(f"EV federate {self.fed_name} created")
         self.ev_pubs = [
             helics.helicsFederateRegisterPublication(self.helics_fed, f"F0_house_A{i}_EV/load",
-                                                     helics.helics_data_type_double, "")
+                                                     helics.helics_data_type_complex, "")
             for i in range(self.num_evs)
         ]
 
@@ -44,7 +44,7 @@ class EVFederate:
         print(f"EV federate publishing loads for t={self.current_time}")
         current_loads = self.ev_profiles.get_loads_at_time(time=self.current_time)
         for i, pub in enumerate(self.ev_pubs):
-            helics.helicsPublicationPublishDouble(pub, current_loads[i] if self.enabled else 0.0)
+            helics.helicsPublicationPublishComplex(pub, current_loads[i] if self.enabled else 0.0, 0.0)
         print(f"EV federate published loads {current_loads} at time {self.current_time}")
 
     def run_federate(self):

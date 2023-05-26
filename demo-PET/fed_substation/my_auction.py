@@ -132,8 +132,8 @@ class AUCTION:
             kw (float): GridLAB-D substation load in kw
         """
         c = helics.helicsInputGetComplex(self.subs['subFeeder'])
-        self.refload_p = c[0] * 0.001
-        self.refload_q = c[1] * 0.001
+        self.refload_p = c.real * 0.001
+        self.refload_q = c.imag * 0.001
         self.refload = self.refload_p  # math.sqrt(self.refload_p**2 + self.refload_q**2)
 
     def update_lmp(self):

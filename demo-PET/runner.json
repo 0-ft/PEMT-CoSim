@@ -2,39 +2,39 @@
   "federates": [
     {
       "directory": ".",
-      "exec": "helics_broker -f 2",
+      "exec": "helics_broker -f 5",
       "host": "localhost",
       "name": "broker"
     },
     {
+      "directory": "./fed_substation",
+      "exec": "python3 launch_substation.py",
+      "host": "localhost",
+      "name": "sub1"
+    },
+    {
+      "directory": "./fed_ev",
+      "exec": "python3 launch_ev.py",
+      "host": "localhost",
+      "name": "ev1"
+    },
+    {
       "directory": "./fed_gridlabd",
-      "exec": "gridlabd -D SCHED_PATH=/PEMT-CoSim/demo-PET/tesp_support/schedules -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1",
+      "exec": "gridlabd -D SCHED_PATH=/PEMT-CoSim/demo-PET/tesp_support/schedules -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm",
       "host": "localhost",
       "name": "gld1"
     },
     {
       "directory": "./fed_weather",
-      "exec": "python3 launch_weather.py >weather.log 2>&1",
+      "exec": "python3 launch_weather.py",
       "host": "localhost",
       "name": "localWeather"
     },
     {
       "directory": "./fed_pypower",
-      "exec": "python3 launch_pypower.py >pypower.log 2>&1",
+      "exec": "python3 launch_pypower.py",
       "host": "localhost",
       "name": "pypower"
-    },
-    {
-      "directory": "./fed_energyplus",
-      "exec": "sh run_eplus.sh >eplus.log 2>&1",
-      "host": "localhost",
-      "name": "energyPlus"
-    },
-    {
-      "directory": "./fed_energyplus",
-      "exec": "sh run_eplus_agent.sh >eplus_agent.log 2>&1",
-      "host": "localhost",
-      "name": "eplus_agent"
     }
   ],
   "name": "pet_runner"

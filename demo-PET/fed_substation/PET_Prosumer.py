@@ -234,9 +234,9 @@ class PV:
         self.subs = None
 
     def update_state(self):
-        self.solar_kw = abs(helics.helicsInputGetComplex(self.subs['subSolarPower'])[0] * 0.001)  # unit. kW
-        self.solar_DC_V_out = helics.helicsInputGetComplex(self.subs['subSolarVout'])[0]  # unit. V
-        self.solar_DC_I_out = helics.helicsInputGetComplex(self.subs['subSolarIout'])[0]  # unit. A
+        self.solar_kw = abs(helics.helicsInputGetComplex(self.subs['subSolarPower']).real * 0.001)  # unit. kW
+        self.solar_DC_V_out = helics.helicsInputGetComplex(self.subs['subSolarVout']).real  # unit. V
+        self.solar_DC_I_out = helics.helicsInputGetComplex(self.subs['subSolarIout']).real  # unit. A
 
     def pq_control(self, P, Q):
         helics.helicsPublicationPublishDouble(self.pubs['pubPVPout'], P * 1000)
@@ -265,7 +265,7 @@ class BATTERY:
         self.subs = None
 
     def update_state(self):
-        self.battery_kw = helics.helicsInputGetComplex(self.subs['subBattPower'])[0] * 0.001  # unit. kW
+        self.battery_kw = helics.helicsInputGetComplex(self.subs['subBattPower']).real * 0.001  # unit. kW
         self.battery_soc = helics.helicsInputGetDouble(self.subs['subBattSoC'])
 
     def auto_control(self, unresponsive_kw):
@@ -336,14 +336,13 @@ class HOUSE:
     def update_measurements(self):
         # for billing meter measurements ==================
         # billing meter voltage
-        cval = helics.helicsInputGetComplex(self.subs['subVolt'])
-        self.mtr_voltage = abs(complex(cval[0], cval[1]))
+        self.mtr_voltage = abs(helics.helicsInputGetComplex(self.subs['subVolt']))
         # billing meter power
-        self.mtr_power = helics.helicsInputGetComplex(self.subs['subMtrPower'])[0] * 0.001  # unit. kW
+        self.mtr_power = helics.helicsInputGetComplex(self.subs['subMtrPower']).real * 0.001  # unit. kW
 
         # for house meter measurements ==================
         # house meter power
-        self.house_kw = helics.helicsInputGetComplex(self.subs['subHousePower'])[0] * 0.001  # unit. kW
+        self.house_kw = helics.helicsInputGetComplex(self.subs['subHousePower']).real * 0.001  # unit. kW
 
         # for HVAC measurements  ==================
         self.hvac.update_state()  # state update for control
@@ -521,8 +520,8 @@ class VPP:
 
     def get_vpp_load(self):
         cval = helics.helicsInputGetComplex(self.subs['vppPower'])
-        self.vpp_load_p = cval[0] * 0.001
-        self.vpp_load_q = cval[1] * 0.001
+        self.vpp_load_p = cval.real * 0.001
+        self.vpp_load_q = cval.imag * 0.001
 
 
     def update_balance_signal(self):

@@ -13,22 +13,19 @@ from my_tesp_support_api.utils import DotDict
 if sys.platform != 'win32':
     import resource
 
-TESP_INSTALL = os.environ['TESP_INSTALL']
-TESP_SUPPORT = TESP_INSTALL + '/share/support'
+TESP_SUPPORT = '../tesp_support'
 SCHED_PATH = TESP_SUPPORT + '/schedules'
 EPW = TESP_SUPPORT + '/energyplus/USA_AZ_Tucson.Intl.AP.722740_TMY3.epw'
 
 OTHER_FEDERATE_COMMANDS = [
     # command to launch gridlabd federate
-    "cd ../fed_gridlabd/ && gridlabd -D SCHED_PATH={} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1".format(
-        SCHED_PATH),
+    f"cd ../fed_gridlabd/ && gridlabd -D SCHED_PATH={SCHED_PATH} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm >gridlabd.log 2>&1",
     # command to launch weather federate
     "cd ../fed_weather/ && python3 launch_weather.py >weather.log 2>&1",
     # command to launch pypower federate
     "cd ../fed_pypower/ && python3 launch_pypower.py >pypower.log 2>&1",
     # command to launch energyplus federate
-    "cd ../fed_energyplus/ && export HELICS_CONFIG_FILE=helics_eplus.json && exec energyplus -w {} -d output -r MergedH.idf >eplus.log 2>&1".format(
-        EPW),
+    f"cd ../fed_energyplus/ && export HELICS_CONFIG_FILE=helics_eplus.json && exec energyplus -w {EPW} -d output -r MergedH.idf >eplus.log 2>&1"
     # command to launch energyplus agent (it is also a federate)
     "cd ../fed_energyplus/ && eplus_agent_helics 172800s 300s SchoolDualController eplus_TE_ChallengeH_metrics.json  0.02 25 4 4 helics_eplus_agent.json >eplus_agent.log 2>&1",
     # command to launch EV federate
@@ -330,17 +327,17 @@ class FEDERATE_HELPER:
     def cosimulation_start(self):
 
         # 1. kill processes of all federates and broker
-        self.kill_processes(True)
+        # self.kill_processes(True)
         # 2. create a global broker
-        self.create_broker()
+        # self.create_broker()
         # 3. create the main federate
-        while not self.is_destroyed:
-            self.destroy_federate()
+        # while not self.is_destroyed:
+        #     self.destroy_federate()
         self.create_federate()
         self.register_pubssubs()
         self.is_destroyed = False
         # 4. execute other federates
-        self.run_other_federates()
+        # self.run_other_federates()
         # 5. execute the main federate (it should be in the final)
         self.FederateEnterExecutingMode()
         print("Cosimulation started...")

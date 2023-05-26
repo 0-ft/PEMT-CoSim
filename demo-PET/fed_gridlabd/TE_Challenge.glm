@@ -486,8 +486,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A0;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 6720;
@@ -735,8 +735,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A1;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 4800;
@@ -984,8 +984,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A2;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 3840;
@@ -1244,8 +1244,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A3;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 5280;
@@ -1493,8 +1493,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A4;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 5280;
@@ -1764,8 +1764,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A5;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 8160;
@@ -2013,8 +2013,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A6;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 9600;
@@ -2262,8 +2262,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A7;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 6240;
@@ -2522,8 +2522,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A8;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 5280;
@@ -2782,8 +2782,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A9;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 7200;
@@ -3031,8 +3031,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A10;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 8160;
@@ -3280,8 +3280,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A11;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 7200;
@@ -3540,8 +3540,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A12;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 7200;
@@ -3800,8 +3800,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A13;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 5760;
@@ -4060,8 +4060,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A14;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 4320;
@@ -4309,8 +4309,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A15;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 5280;
@@ -4580,8 +4580,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A16;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 6240;
@@ -4829,8 +4829,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A17;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 7680;
@@ -5078,8 +5078,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A18;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 4800;
@@ -5327,8 +5327,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A19;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 8640;
@@ -5587,8 +5587,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A20;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 9120;
@@ -5836,8 +5836,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A21;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 4800;
@@ -6107,8 +6107,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A22;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 4800;
@@ -6378,8 +6378,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A23;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 9600;
@@ -6638,8 +6638,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A24;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 9120;
@@ -6887,8 +6887,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A25;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 6720;
@@ -7147,8 +7147,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A26;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 9120;
@@ -7407,8 +7407,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A27;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 8640;
@@ -7656,8 +7656,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A28;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 4320;
@@ -7916,8 +7916,8 @@ object inverter {
     P_Out 0;
 	object solar {
 		name solar_F0_house_A29;
-		generator_mode SUPPLY_DRIVEN;
-		generator_status ONLINE;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;
 		orientation FIXED_AXIS; 
 		rated_power 7680;

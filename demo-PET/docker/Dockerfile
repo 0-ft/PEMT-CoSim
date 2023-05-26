@@ -14,7 +14,20 @@ RUN apt install -y \
   libzmq5-dev python3-dev \
   build-essential swig cmake git
 
-RUN pip install helics
+RUN apt install -y nano libxtst6 libxi6 libxrender1 wget firefox
+
+WORKDIR $HOME
+RUN wget https://github.com/gridlab-d/gridlab-d/releases/download/v5.1/GridLAB-D-5.1.0-Linux.deb
+RUN dpkg -i GridLAB-D-5.1.0-Linux.deb
+
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b
+
+WORKDIR /PEMT-CoSim/demo-PET/
+RUN conda create -n cosim python=3.10
+RUN conda activate cosim && pip install -r requirements.txt
+
+#RUN apt install libzmq3-dev libczmq-dev
 ## Java support
 #RUN apt -y install openjdk-11-jdk
 #RUN ln -sf /usr/lib/jvm/java-11-openjdk-amd64 /usr/lib/jvm/default-java

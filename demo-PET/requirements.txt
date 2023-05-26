@@ -1,0 +1,11 @@
+helics==3.4.0
+pandas==1.5.3
+numpy
+scipy
+python-dateutil
+glm==0.4.4
+matplotlib==3.7.1
+psutil==5.9.5
+pypower==5.1.16
+emobpy==0.6.2
+plotly

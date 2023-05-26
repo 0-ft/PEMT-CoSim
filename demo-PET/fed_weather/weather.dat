@@ -1,4 +1,4 @@
-datetime,temperature,humidity,solar_direct,solar_diffuse,pressure,wind_speed
+Date (MM/DD/YYYY)_Time (HH:MM),temperature,humidity,solar_direct,solar_diffuse,pressure,wind_speed
 2013-07-01 00:00:00,87.0800,0.2400,0.0000,0.0000,927.0000,6.2648
 2013-07-01 00:05:00,86.8941,0.2407,0.0005,0.0000,926.8639,6.2852
 2013-07-01 00:10:00,86.7106,0.2419,0.0008,0.0000,926.5814,6.3050

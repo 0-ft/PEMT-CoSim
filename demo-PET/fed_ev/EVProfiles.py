@@ -7,6 +7,7 @@ import sys
 from collections import namedtuple
 from datetime import datetime, timedelta
 from multiprocessing import Pool
+from pathlib import Path
 from random import choices
 
 import numpy as np
@@ -82,6 +83,7 @@ class EVProfiles:
 
     def clear_output_folder(self):
         print(f"Clearing output folder {self.output_folder}")
+        Path(self.output_folder).mkdir(parents=True, exist_ok=True)
         files = glob.glob(f"{self.output_folder}/*")
         for f in files:
             os.remove(f)

@@ -23,7 +23,7 @@ import my_tesp_support_api.helpers as helpers
 # write the json agent dictionary for post-processing, and run-time configuration of substation.py
 
 # we want the same psuedo-random thermostat schedules each time, for repeatability
-np.random.seed (0)
+np.random.seed(0)
 
 ######################################################
 # top-level data, not presently configurable from JSON
@@ -31,24 +31,24 @@ broker = 'tcp://localhost:5570'
 network_node = 'network_node'
 marketName = 'Market_1'
 unit = 'kW'
-control_mode = 'CN_RAMP' # 'CN_NONE'
+control_mode = 'CN_RAMP'  # 'CN_NONE'
 use_predictive_bidding = 0
 use_override = 'OFF'
 price_cap = 3.78
-special_mode = 'MD_NONE' #'MD_BUYERS'
+special_mode = 'MD_NONE'  # 'MD_BUYERS'
 use_future_mean_price = 0
 clearing_scalar = 0.0
 latency = 0
 ignore_pricecap = 0
 ignore_failedmarket = 0
 statistic_mode = 1
-stat_mode =  ['ST_CURR', 'ST_CURR']
+stat_mode = ['ST_CURR', 'ST_CURR']
 interval = [86400, 86400]
 stat_type = ['SY_MEAN', 'SY_STDEV']
-#value = [0.02078, 0.01] # 0.00361]
+# value = [0.02078, 0.01] # 0.00361]
 capacity_reference_object = 'substation_transformer'
 max_capacity_reference_bid_quantity = 5000
-air_temperature = 78.0 # initial house air temperature
+air_temperature = 78.0  # initial house air temperature
 
 ###################################################
 # top-level data that can be reconfigured from JSON, defaults for TE30
@@ -105,8 +105,10 @@ std_dev = 0.01
 
 latitude = 30.0
 longitude = -110.0
+
+
 #####################################################
-def ProcessGLM (fileroot, global_config):
+def ProcessGLM(fileroot, global_config):
     """Helper function that processes one GridLAB-D file
 
     Reads fileroot.glm and writes:
@@ -118,23 +120,23 @@ def ProcessGLM (fileroot, global_config):
     Args:
         fileroot (str): path to and base file name for the GridLAB-D file, without an extension
     """
-    dirname = os.path.dirname (fileroot) + '/'
-    basename = os.path.basename (fileroot)
+    dirname = os.path.dirname(fileroot) + '/'
+    basename = os.path.basename(fileroot)
     glmname = fileroot + '.glm'
-    print ( fileroot, dirname, basename, glmname)
-    ip = open ('./fed_gridlabd/' + glmname, 'r')
+    print(fileroot, dirname, basename, glmname)
+    ip = open('./fed_gridlabd/' + glmname, 'r')
 
     # timings based on period and dt
     global dt, period
     dt = global_config.minimum_timestep
     period = global_config.market_period
     periodController = period
-    bid_delay = 3.0 * dt # time controller bids before market clearing
+    bid_delay = 3.0 * dt  # time controller bids before market clearing
     periodMarket = period
 
     controllers = {}
     auctions = {}
-    ip.seek(0,0)
+    ip.seek(0, 0)
     inFNCSmsg = False
     inHELICSmsg = False
     inHouses = False
@@ -219,248 +221,242 @@ def ProcessGLM (fileroot, global_config):
                         isELECTRIC = True
         elif len(lst) == 1:
             inHELICSmsg = False
-            if inHouses == True: 
+            if inHouses == True:
                 inHouses = False
                 endedHouse = False
                 if isELECTRIC == True:
                     if ('BIGBOX' in houseClass) or ('OFFICE' in houseClass) or ('STRIPMALL' in houseClass):
-                        meterName = helpers.zoneMeterName (houseParent)
+                        meterName = helpers.zoneMeterName(houseParent)
                     nAirConditioners += 1
-                    if np.random.uniform (0, 1) <= agent_participation:
+                    if np.random.uniform(0, 1) <= agent_participation:
                         nControllers += 1
                         control_mode = 'CN_RAMP'
                     else:
-                        control_mode = 'CN_NONE' # still follows the time-of-day schedule
+                        control_mode = 'CN_NONE'  # still follows the time-of-day schedule
                     controller_name = houseName + '_hvac'
-                    wakeup_start = np.random.uniform (wakeup_start_lo, wakeup_start_hi)
-                    daylight_start = np.random.uniform (daylight_start_lo, daylight_start_hi)
-                    evening_start = np.random.uniform (evening_start_lo, evening_start_hi)
-                    night_start = np.random.uniform (night_start_lo, night_start_hi)
-                    wakeup_set = np.random.uniform (wakeup_set_lo, wakeup_set_hi)
-                    daylight_set = np.random.uniform (daylight_set_lo, daylight_set_hi)
-                    evening_set = np.random.uniform (evening_set_lo, evening_set_hi)
-                    night_set = np.random.uniform (night_set_lo, night_set_hi)
-                    weekend_day_start = np.random.uniform (weekend_day_start_lo, weekend_day_start_hi)
-                    weekend_day_set = np.random.uniform (weekend_day_set_lo, weekend_day_set_hi)
-                    weekend_night_start = np.random.uniform (weekend_night_start_lo, weekend_night_start_hi)
-                    weekend_night_set = np.random.uniform (weekend_night_set_lo, weekend_night_set_hi)
-                    deadband = np.random.uniform (deadband_lo, deadband_hi)
-                    offset_limit = np.random.uniform (offset_limit_lo, offset_limit_hi)
-                    ramp = np.random.uniform (ramp_lo, ramp_hi)
-                    ctrl_cap = np.random.uniform (ctrl_cap_lo, ctrl_cap_hi)
-                    controllers[controller_name] = {'control_mode': control_mode, 
-                        'houseName': houseName,
-                        'houseClass': houseClass, 
-                        'meterName': meterName, 
-                        'period': periodController,
-                        'wakeup_start': float('{:.3f}'.format(wakeup_start)),
-                        'daylight_start': float('{:.3f}'.format(daylight_start)),
-                        'evening_start': float('{:.3f}'.format(evening_start)),
-                        'night_start': float('{:.3f}'.format(night_start)),
-                        'wakeup_set': float('{:.3f}'.format(wakeup_set)),
-                        'daylight_set': float('{:.3f}'.format(daylight_set)),
-                        'evening_set': float('{:.3f}'.format(evening_set)),
-                        'night_set': float('{:.3f}'.format(night_set)),
-                        'weekend_day_start': float('{:.3f}'.format(weekend_day_start)),
-                        'weekend_day_set': float('{:.3f}'.format(weekend_day_set)),
-                        'weekend_night_start': float('{:.3f}'.format(weekend_night_start)),
-                        'weekend_night_set': float('{:.3f}'.format(weekend_night_set)),
-                        'deadband': float('{:.3f}'.format(deadband)),
-                        'offset_limit': float('{:.3f}'.format(offset_limit)),
-                        'ramp': float('{:.4f}'.format(ramp)), 
-                        'price_cap': float('{:.3f}'.format(ctrl_cap)),
-                        'bid_delay': bid_delay, 
-                        'use_predictive_bidding': use_predictive_bidding, 
-                        'use_override': use_override}
+                    wakeup_start = np.random.uniform(wakeup_start_lo, wakeup_start_hi)
+                    daylight_start = np.random.uniform(daylight_start_lo, daylight_start_hi)
+                    evening_start = np.random.uniform(evening_start_lo, evening_start_hi)
+                    night_start = np.random.uniform(night_start_lo, night_start_hi)
+                    wakeup_set = np.random.uniform(wakeup_set_lo, wakeup_set_hi)
+                    daylight_set = np.random.uniform(daylight_set_lo, daylight_set_hi)
+                    evening_set = np.random.uniform(evening_set_lo, evening_set_hi)
+                    night_set = np.random.uniform(night_set_lo, night_set_hi)
+                    weekend_day_start = np.random.uniform(weekend_day_start_lo, weekend_day_start_hi)
+                    weekend_day_set = np.random.uniform(weekend_day_set_lo, weekend_day_set_hi)
+                    weekend_night_start = np.random.uniform(weekend_night_start_lo, weekend_night_start_hi)
+                    weekend_night_set = np.random.uniform(weekend_night_set_lo, weekend_night_set_hi)
+                    deadband = np.random.uniform(deadband_lo, deadband_hi)
+                    offset_limit = np.random.uniform(offset_limit_lo, offset_limit_hi)
+                    ramp = np.random.uniform(ramp_lo, ramp_hi)
+                    ctrl_cap = np.random.uniform(ctrl_cap_lo, ctrl_cap_hi)
+                    controllers[controller_name] = {'control_mode': control_mode,
+                                                    'houseName': houseName,
+                                                    'houseClass': houseClass,
+                                                    'meterName': meterName,
+                                                    'period': periodController,
+                                                    'wakeup_start': float('{:.3f}'.format(wakeup_start)),
+                                                    'daylight_start': float('{:.3f}'.format(daylight_start)),
+                                                    'evening_start': float('{:.3f}'.format(evening_start)),
+                                                    'night_start': float('{:.3f}'.format(night_start)),
+                                                    'wakeup_set': float('{:.3f}'.format(wakeup_set)),
+                                                    'daylight_set': float('{:.3f}'.format(daylight_set)),
+                                                    'evening_set': float('{:.3f}'.format(evening_set)),
+                                                    'night_set': float('{:.3f}'.format(night_set)),
+                                                    'weekend_day_start': float('{:.3f}'.format(weekend_day_start)),
+                                                    'weekend_day_set': float('{:.3f}'.format(weekend_day_set)),
+                                                    'weekend_night_start': float('{:.3f}'.format(weekend_night_start)),
+                                                    'weekend_night_set': float('{:.3f}'.format(weekend_night_set)),
+                                                    'deadband': float('{:.3f}'.format(deadband)),
+                                                    'offset_limit': float('{:.3f}'.format(offset_limit)),
+                                                    'ramp': float('{:.4f}'.format(ramp)),
+                                                    'price_cap': float('{:.3f}'.format(ctrl_cap)),
+                                                    'bid_delay': bid_delay,
+                                                    'use_predictive_bidding': use_predictive_bidding,
+                                                    'use_override': use_override}
                     isELECTRIC = False
 
-    print ('configured', nControllers, 'participating controllers for', nAirConditioners, 'air conditioners')
+    print('configured', nControllers, 'participating controllers for', nAirConditioners, 'air conditioners')
 
     # Write market dictionary
-    auctions[marketName] = {'market_id': 1, 
-                            'unit': unit, 
-                            'special_mode': special_mode, 
-                            'use_future_mean_price': use_future_mean_price, 
-                            'pricecap': price_cap, 
+    auctions[marketName] = {'market_id': 1,
+                            'unit': unit,
+                            'special_mode': special_mode,
+                            'use_future_mean_price': use_future_mean_price,
+                            'pricecap': price_cap,
                             'clearing_scalar': clearing_scalar,
-                            'period': periodMarket, 
-                            'latency': latency, 
-                            'init_price': initial_price, 
-                            'init_stdev': std_dev, 
-                            'ignore_pricecap': ignore_pricecap, 
+                            'period': periodMarket,
+                            'latency': latency,
+                            'init_price': initial_price,
+                            'init_stdev': std_dev,
+                            'ignore_pricecap': ignore_pricecap,
                             'ignore_failedmarket': ignore_failedmarket,
-                            'statistic_mode': statistic_mode, 
-                            'capacity_reference_object': capacity_reference_object, 
+                            'statistic_mode': statistic_mode,
+                            'capacity_reference_object': capacity_reference_object,
                             'max_capacity_reference_bid_quantity': max_capacity_reference_bid_quantity,
-                            'stat_mode': stat_mode, 
-                            'stat_interval': interval, 
-                            'stat_type': stat_type, 
+                            'stat_mode': stat_mode,
+                            'stat_interval': interval,
+                            'stat_type': stat_type,
                             'stat_value': [0 for i in range(len(stat_mode))]}
 
     # Close files
     ip.close()
 
-
     # glm_dict file
     with open('./fed_gridlabd/' + fileroot + '_glm_dict.json', encoding='utf-8') as f:
-        glm_dict = json.loads(f.read()) # federate_config is the dict data structure
+        glm_dict = json.loads(f.read())  # federate_config is the dict data structure
         f.close()
 
     # agent_dict file
-    meta = {'markets':auctions, 'VPPs':glm_dict['VPPs'],
+    meta = {'markets': auctions, 'VPPs': glm_dict['VPPs'],
             'billingmeters': glm_dict['billingmeters'], 'houses': glm_dict['houses'],
-            'hvacs':controllers, 'inverters': glm_dict['inverters'], 'dt':dt,'GridLABD':FedName}
+            'hvacs': controllers, 'inverters': glm_dict['inverters'], 'dt': dt, 'GridLABD': FedName}
     dictfile = './fed_substation/' + fileroot + '_agent_dict.json'
-    dp = open (dictfile, 'w')
-    json.dump (meta, dp, ensure_ascii=False, indent=2)
+    dp = open(dictfile, 'w')
+    json.dump(meta, dp, ensure_ascii=False, indent=2)
     dp.close()
-
 
     # write HELICS config file (_HELICS_substation.json)
     pubs = []
-    pubs.append ({"key":"clear_price", "type":"double", "global": False})
-    pubs.append ({"key":"unresponsive_mw", "type":"double", "global": False})
-    pubs.append ({"key":"responsive_max_mw", "type":"double", "global": False})
-    pubs.append ({"key":"responsive_c2", "type":"double", "global": False})
-    pubs.append ({"key":"responsive_c1", "type":"double", "global": False})
-    pubs.append ({"key":"responsive_deg", "type":"integer", "global": False})
+    pubs.append({"key": "clear_price", "type": "double", "global": False})
+    pubs.append({"key": "unresponsive_mw", "type": "double", "global": False})
+    pubs.append({"key": "responsive_max_mw", "type": "double", "global": False})
+    pubs.append({"key": "responsive_c2", "type": "double", "global": False})
+    pubs.append({"key": "responsive_c1", "type": "double", "global": False})
+    pubs.append({"key": "responsive_deg", "type": "integer", "global": False})
     subs = []
-    subs.append ({"key":"pypower/LMP_B7", "type":"double"})
-    subs.append ({"key":"gld1/distribution_load", "type":"complex"})
+    subs.append({"key": "pypower/LMP_B7", "type": "double"})
+    subs.append({"key": "gld1/distribution_load", "type": "complex"})
 
     # for VPP meters
     VPPs = glm_dict['VPPs']
     for key, val in VPPs.items():
         vpp_meter_name = val['VPP_meter']
-        subs.append ({"key":"gld1/"+vpp_meter_name+"#measured_power", "type":"complex"})
+        subs.append({"key": "gld1/" + vpp_meter_name + "#measured_power", "type": "complex"})
 
     pubSubMeters = set()
-    for key,val in controllers.items():
-      # meterName = val['meterName']
-      houseName = val['houseName']
-      meterName = glm_dict['houses'][houseName]['billingmeter_id']
-      subs.append ({"key":"gld1/"+houseName+"#air_temperature", "type":"double"}) #Tair
-      subs.append ({"key":"gld1/"+houseName+"#hvac_load", "type":"double"}) #Load
-      subs.append ({"key":"gld1/"+houseName+"#total_load", "type":"double"}) #Load
-      subs.append ({"key":"gld1/"+houseName+"#power_state", "type":"string"})   #On
-      pubs.append ({"key":key+"/cooling_setpoint", "type":"double", "global": False})
-      pubs.append ({"key":key+"/heating_setpoint", "type":"double", "global": False})
-      pubs.append ({"key":key+"/thermostat_deadband", "type":"double", "global": False})
-      pubs.append ({"key":key+"/thermostat_mode", "type":"string", "global": False}) # new added by Yuanliang
-      if meterName not in pubSubMeters:
-        pubSubMeters.add(meterName)
-        subs.append ({"key":"gld1/"+meterName+"#measured_voltage_1", "type":"complex"})  #V1
-        subs.append ({"key":"gld1/"+meterName+"#measured_power", "type":"complex"})
-        subs.append ({"key":"gld1/"+meterName+"#measured_demand", "type":"double"})
-        pubs.append ({"key":meterName+"/bill_mode", "type":"string", "global": False})
-        pubs.append ({"key":meterName+"/price", "type":"double", "global": False})
-        pubs.append ({"key":meterName+"/monthly_fee", "type":"double", "global": False})
+    for key, val in controllers.items():
+        # meterName = val['meterName']
+        houseName = val['houseName']
+        meterName = glm_dict['houses'][houseName]['billingmeter_id']
+        subs.append({"key": "gld1/" + houseName + "#air_temperature", "type": "double"})  # Tair
+        subs.append({"key": "gld1/" + houseName + "#hvac_load", "type": "double"})  # Load
+        subs.append({"key": "gld1/" + houseName + "#total_load", "type": "double"})  # Load
+        subs.append({"key": "gld1/" + houseName + "#power_state", "type": "string"})  # On
+        pubs.append({"key": key + "/cooling_setpoint", "type": "double", "global": False})
+        pubs.append({"key": key + "/heating_setpoint", "type": "double", "global": False})
+        pubs.append({"key": key + "/thermostat_deadband", "type": "double", "global": False})
+        pubs.append({"key": key + "/thermostat_mode", "type": "string", "global": False})  # new added by Yuanliang
+        if meterName not in pubSubMeters:
+            pubSubMeters.add(meterName)
+            subs.append({"key": "gld1/" + meterName + "#measured_voltage_1", "type": "complex"})  # V1
+            subs.append({"key": "gld1/" + meterName + "#measured_power", "type": "complex"})
+            subs.append({"key": "gld1/" + meterName + "#measured_demand", "type": "double"})
+            pubs.append({"key": meterName + "/bill_mode", "type": "string", "global": False})
+            pubs.append({"key": meterName + "/price", "type": "double", "global": False})
+            pubs.append({"key": meterName + "/monthly_fee", "type": "double", "global": False})
 
     # for house parent meter
     for key, val in glm_dict['houses'].items():
         meterName = val['parent']
-        subs.append ({"key":"gld1/"+meterName+"#measured_power", "type":"complex"})
+        subs.append({"key": "gld1/" + meterName + "#measured_power", "type": "complex"})
 
     # for inverter parent meter
     for key, val in glm_dict['inverters'].items():
         meterName = val['parent']
-        subs.append ({"key":"gld1/"+meterName+"#measured_power", "type":"complex"})
+        subs.append({"key": "gld1/" + meterName + "#measured_power", "type": "complex"})
 
     # for DC resource
     for key, val in glm_dict['inverters'].items():
         resource_name = val['resource_name']
         if val['resource'] == 'solar':
-            subs.append ({"key":"gld1/"+resource_name+"#V_Out", "type":"complex"})
-            subs.append ({"key":"gld1/"+resource_name+"#I_Out", "type":"complex"})
+            subs.append({"key": "gld1/" + resource_name + "#V_Out", "type": "complex"})
+            subs.append({"key": "gld1/" + resource_name + "#I_Out", "type": "complex"})
         if val['resource'] == 'battery':
-            subs.append ({"key":"gld1/"+resource_name+"#state_of_charge", "type":"double"})
+            subs.append({"key": "gld1/" + resource_name + "#state_of_charge", "type": "double"})
 
     # for PV inverter control
     for key, val in glm_dict['inverters'].items():
         if val['resource'] == 'solar':
             props = ['P_Out', 'Q_Out']
             for prop in props:
-                pubs.append ({"key":key+"/"+prop, "type":"double", "global": False})
+                pubs.append({"key": key + "/" + prop, "type": "double", "global": False})
 
     # for battery inverter control
     for key, val in glm_dict['inverters'].items():
         if val['resource'] == 'battery':
             props = ['charge_on_threshold', 'charge_off_threshold', 'discharge_on_threshold', 'discharge_off_threshold']
             for prop in props:
-                pubs.append ({"key":key+"/"+prop, "type":"double", "global": False})
-
+                pubs.append({"key": key + "/" + prop, "type": "double", "global": False})
 
     msg = {}
     msg["name"] = "sub1"
     msg["period"] = dt
     msg["publications"] = pubs
     msg["subscriptions"] = subs
-    op = open ('./fed_substation/' + fileroot + '_HELICS_substation.json', 'w', encoding='utf-8')
-    json.dump (msg, op, ensure_ascii=False, indent=2)
+    op = open('./fed_substation/' + fileroot + '_HELICS_substation.json', 'w', encoding='utf-8')
+    json.dump(msg, op, ensure_ascii=False, indent=2)
     op.close()
 
     # write YAML file
     yamlfile = './fed_substation/' + fileroot + '_substation.yaml'
-    yp = open (yamlfile, 'w')
-    print ('name: sub1', file=yp)
-    print ('time_delta: ' + str(dt) + 's', file=yp)
-    print ('broker:', broker, file=yp)
-    print ('aggregate_sub: true', file=yp)
-    print ('aggregate_pub: true', file=yp)
-    print ('values:', file=yp)
-    print ('  LMP:', file=yp)
-    print ('    topic: pypower/LMP_B7', file=yp)
-    print ('    default: 0.1', file=yp)
-    print ('    type: double', file=yp)
-    print ('    list: false', file=yp)
-    print ('  refload:', file=yp)
-    print ('    topic: gld1/distribution_load', file=yp)
-    print ('    default: 0', file=yp)
-    print ('    type: complex', file=yp)
-    print ('    list: false', file=yp)
-    for key,val in controllers.items():
-
+    yp = open(yamlfile, 'w')
+    print('name: sub1', file=yp)
+    print('time_delta: ' + str(dt) + 's', file=yp)
+    print('broker:', broker, file=yp)
+    print('aggregate_sub: true', file=yp)
+    print('aggregate_pub: true', file=yp)
+    print('values:', file=yp)
+    print('  LMP:', file=yp)
+    print('    topic: pypower/LMP_B7', file=yp)
+    print('    default: 0.1', file=yp)
+    print('    type: double', file=yp)
+    print('    list: false', file=yp)
+    print('  refload:', file=yp)
+    print('    topic: gld1/distribution_load', file=yp)
+    print('    default: 0', file=yp)
+    print('    type: complex', file=yp)
+    print('    list: false', file=yp)
+    for key, val in controllers.items():
         houseName = val['houseName']
         # meterName = val['meterName']
         meterName = glm_dict['houses'][houseName]['billingmeter_id']
-        print ('  ' + key + '#V1:', file=yp)
-        print ('    topic: gld1/' + meterName + '/measured_voltage_1', file=yp)
-        print ('    default: 120', file=yp)
-        print ('  ' + key + '#Tair:', file=yp)
-        print ('    topic: gld1/' + houseName + '/air_temperature', file=yp)
-        print ('    default: 80', file=yp)
-        print ('  ' + key + '#Load:', file=yp)
-        print ('    topic: gld1/' + houseName + '/hvac_load', file=yp)
-        print ('    default: 0', file=yp)
-        print ('  ' + key + '#On:', file=yp)
-        print ('    topic: gld1/' + houseName + '/power_state', file=yp)
-        print ('    default: 0', file=yp)
-    yp.close ()
-
-
+        print('  ' + key + '#V1:', file=yp)
+        print('    topic: gld1/' + meterName + '/measured_voltage_1', file=yp)
+        print('    default: 120', file=yp)
+        print('  ' + key + '#Tair:', file=yp)
+        print('    topic: gld1/' + houseName + '/air_temperature', file=yp)
+        print('    default: 80', file=yp)
+        print('  ' + key + '#Load:', file=yp)
+        print('    topic: gld1/' + houseName + '/hvac_load', file=yp)
+        print('    default: 0', file=yp)
+        print('  ' + key + '#On:', file=yp)
+        print('    topic: gld1/' + houseName + '/power_state', file=yp)
+        print('    default: 0', file=yp)
+    yp.close()
 
     # write the weather agent's configuration file
     if len(climateName) > 0:
         time_fmt = '%Y-%m-%d %H:%M:%S'
-        dt1 = datetime.strptime (StartTime, time_fmt)
-        dt2 = datetime.strptime (EndTime, time_fmt)
-        seconds = int ((dt2 - dt1).total_seconds())
+        dt1 = datetime.strptime(StartTime, time_fmt)
+        dt2 = datetime.strptime(EndTime, time_fmt)
+        seconds = int((dt2 - dt1).total_seconds())
         days = int(seconds / 86400)
         minutes = int(seconds / 60)
         hours = int(seconds / 3600)
-#        print (days, seconds)
-        wconfig = {'name':climateName,
-                   'StartTime':StartTime,
+        #        print (days, seconds)
+        wconfig = {'name': climateName,
+                   'StartTime': StartTime,
                    'time_stop': str(minutes) + 'm',
-                   'time_delta':'1s',
+                   'time_delta': '1s',
                    'publishInterval': '5m',
-                   'Forecast':1,
-                   'ForecastLength':'24h',
-                   'PublishTimeAhead':'3s',
-                   'AddErrorToForecast':1,
-                   'broker':'tcp://localhost:5570',
-                   'forecastPeriod':48,
-                   'parameters':{}}
+                   'Forecast': 1,
+                   'ForecastLength': '24h',
+                   'PublishTimeAhead': '3s',
+                   'AddErrorToForecast': 1,
+                   'broker': 'tcp://localhost:5570',
+                   'forecastPeriod': 48,
+                   'parameters': {}}
         for parm in ['temperature', 'humidity', 'pressure', 'solar_diffuse', 'solar_direct', 'wind_speed']:
             wconfig['parameters'][parm] = {'distribution': 2,
                                            'P_e_bias': 0.5,
@@ -471,111 +467,133 @@ def ProcessGLM (fileroot, global_config):
         # json.dump (wconfig, wp, ensure_ascii=False, indent=2)
         # wp.close()
 
-        wp = open ('./fed_weather/' + fileroot + '_HELICS_Weather_Config.json', 'w')
+        wp = open('./fed_weather/' + fileroot + '_HELICS_Weather_Config.json', 'w')
         wconfig['broker'] = 'HELICS'
-        json.dump (wconfig, wp, ensure_ascii=False, indent=2)
+        json.dump(wconfig, wp, ensure_ascii=False, indent=2)
         wp.close()
-
-
 
     # write the GridLAB-D publications and subscriptions for HELICS
     pubs = []
     subs = []
-    pubs.append ({"global":False, "key":"distribution_load", "type":"complex", "info":{"object":network_node,"property":"distribution_load"}})
-    subs.append ({"key":"pypower/three_phase_voltage_B7", "type":"complex", "info":{"object":network_node,"property":"positive_sequence_voltage"}})
+    pubs.append({"global": False, "key": "distribution_load", "type": "complex",
+                 "info": {"object": network_node, "property": "distribution_load"}})
+    subs.append({"key": "pypower/three_phase_voltage_B7", "type": "complex",
+                 "info": {"object": network_node, "property": "positive_sequence_voltage"}})
     if len(climateName) > 0:
-      for wTopic in ['temperature', 'humidity', 'solar_direct', 'solar_diffuse', 'pressure', 'wind_speed']:
-        subs.append ({"key": climateName + '/' + wTopic, "type":"double", "info":{"object":climateName, "property":wTopic}})
-    if len(Eplus_Bus) > 0: # hard-wired names for a single building
-      subs.append ({"key": "eplus_agent/power_A", "type":"complex", "info":{"object":Eplus_Load, "property":"constant_power_A"}})
-      subs.append ({"key": "eplus_agent/power_B", "type":"complex", "info":{"object":Eplus_Load, "property":"constant_power_B"}})
-      subs.append ({"key": "eplus_agent/power_C", "type":"complex", "info":{"object":Eplus_Load, "property":"constant_power_C"}})
-      subs.append ({"key": "eplus_agent/bill_mode", "type":"string", "info":{"object":Eplus_Meter, "property":"bill_mode"}})
-      subs.append ({"key": "eplus_agent/price", "type":"double", "info":{"object":Eplus_Meter, "property":"price"}})
-      subs.append ({"key": "eplus_agent/monthly_fee", "type":"double", "info":{"object":Eplus_Meter, "property":"monthly_fee"}})
+        for wTopic in ['temperature', 'humidity', 'solar_direct', 'solar_diffuse', 'pressure', 'wind_speed']:
+            subs.append({"key": climateName + '/' + wTopic, "type": "double",
+                         "info": {"object": climateName, "property": wTopic}})
+    if len(Eplus_Bus) > 0:  # hard-wired names for a single building
+        subs.append({"key": "eplus_agent/power_A", "type": "complex",
+                     "info": {"object": Eplus_Load, "property": "constant_power_A"}})
+        subs.append({"key": "eplus_agent/power_B", "type": "complex",
+                     "info": {"object": Eplus_Load, "property": "constant_power_B"}})
+        subs.append({"key": "eplus_agent/power_C", "type": "complex",
+                     "info": {"object": Eplus_Load, "property": "constant_power_C"}})
+        subs.append({"key": "eplus_agent/bill_mode", "type": "string",
+                     "info": {"object": Eplus_Meter, "property": "bill_mode"}})
+        subs.append(
+            {"key": "eplus_agent/price", "type": "double", "info": {"object": Eplus_Meter, "property": "price"}})
+        subs.append({"key": "eplus_agent/monthly_fee", "type": "double",
+                     "info": {"object": Eplus_Meter, "property": "monthly_fee"}})
 
     # for VPP meters
     VPPs = glm_dict['VPPs']
     for key, val in VPPs.items():
         vpp_meter_name = val['VPP_meter']
         for prop in ['measured_power']:
-            pubs.append ({"global":False, "key":vpp_meter_name + "#" + prop, "type":"complex", "info":{"object":vpp_meter_name,"property":prop}})
+            pubs.append({"global": False, "key": vpp_meter_name + "#" + prop, "type": "complex",
+                         "info": {"object": vpp_meter_name, "property": prop}})
 
     # for triplex meters and houses
     pubSubMeters = set()
     for key, val in controllers.items():
-      houseName = val['houseName']
-      houseClass = val['houseClass']
-      meterName = glm_dict['houses'][houseName]['billingmeter_id']
-      # meterName = val['meterName']
-      for prop in ['power_state']:
-        pubs.append ({"global":False, "key":houseName + "#" + prop, "type":"string", "info":{"object":houseName,"property":prop}})
-      for prop in ['air_temperature', 'hvac_load', 'total_load']:
-        pubs.append ({"global":False, "key":houseName + "#" + prop, "type":"double", "info":{"object":houseName,"property":prop}})
-      for prop in ['cooling_setpoint', 'heating_setpoint', 'thermostat_deadband']:
-        subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":houseName, "property":prop}})
-      for prop in ['thermostat_mode']: # new added by Yuanliang
-        subs.append ({"key": "sub1/" + key + "/" + prop, "type":"string", "info":{"object":houseName, "property":prop}})
-      if meterName not in pubSubMeters:
-        pubSubMeters.add(meterName)
-        prop = 'measured_voltage_1'
-        if ('BIGBOX' in houseClass) or ('OFFICE' in houseClass) or ('STRIPMALL' in houseClass):
-          prop = 'measured_voltage_A' # TODO: the HELICS substation always expects measured_voltage_1
-        pubs.append ({"global":False, "key":meterName + "#measured_voltage_1", "type":"complex", "info":{"object":meterName,"property":prop}})
-        prop = 'measured_power'
-        pubs.append ({"global":False, "key":meterName + '#' + prop, "type":"complex", "info":{"object":meterName,"property":prop}})
-        prop = 'measured_demand'
-        pubs.append ({"global":False, "key":meterName + '#' + prop, "type":"double", "info":{"object":meterName,"property":prop}})
-        for prop in ['bill_mode']:
-          subs.append ({"key": "sub1/" + meterName + "/" + prop, "type":"string", "info":{"object":meterName, "property":prop}})
-        for prop in ['price', 'monthly_fee']:
-          subs.append ({"key": "sub1/" + meterName + "/" + prop, "type":"double", "info":{"object":meterName, "property":prop}})
+        houseName = val['houseName']
+        houseClass = val['houseClass']
+        meterName = glm_dict['houses'][houseName]['billingmeter_id']
+        # meterName = val['meterName']
+        for prop in ['power_state']:
+            pubs.append({"global": False, "key": houseName + "#" + prop, "type": "string",
+                         "info": {"object": houseName, "property": prop}})
+        for prop in ['air_temperature', 'hvac_load', 'total_load']:
+            pubs.append({"global": False, "key": houseName + "#" + prop, "type": "double",
+                         "info": {"object": houseName, "property": prop}})
+        for prop in ['cooling_setpoint', 'heating_setpoint', 'thermostat_deadband']:
+            subs.append(
+                {"key": "sub1/" + key + "/" + prop, "type": "double", "info": {"object": houseName, "property": prop}})
+        for prop in ['thermostat_mode']:  # new added by Yuanliang
+            subs.append(
+                {"key": "sub1/" + key + "/" + prop, "type": "string", "info": {"object": houseName, "property": prop}})
+        if meterName not in pubSubMeters:
+            pubSubMeters.add(meterName)
+            prop = 'measured_voltage_1'
+            if ('BIGBOX' in houseClass) or ('OFFICE' in houseClass) or ('STRIPMALL' in houseClass):
+                prop = 'measured_voltage_A'  # TODO: the HELICS substation always expects measured_voltage_1
+            pubs.append({"global": False, "key": meterName + "#measured_voltage_1", "type": "complex",
+                         "info": {"object": meterName, "property": prop}})
+            prop = 'measured_power'
+            pubs.append({"global": False, "key": meterName + '#' + prop, "type": "complex",
+                         "info": {"object": meterName, "property": prop}})
+            prop = 'measured_demand'
+            pubs.append({"global": False, "key": meterName + '#' + prop, "type": "double",
+                         "info": {"object": meterName, "property": prop}})
+            for prop in ['bill_mode']:
+                subs.append({"key": "sub1/" + meterName + "/" + prop, "type": "string",
+                             "info": {"object": meterName, "property": prop}})
+            for prop in ['price', 'monthly_fee']:
+                subs.append({"key": "sub1/" + meterName + "/" + prop, "type": "double",
+                             "info": {"object": meterName, "property": prop}})
 
     # for house parent meter
     for key, val in glm_dict['houses'].items():
         meterName = val['parent']
         prop = 'measured_power'
-        pubs.append ({"global":False, "key":meterName + '#' + prop, "type":"complex", "info":{"object":meterName,"property":prop}})
+        pubs.append({"global": False, "key": meterName + '#' + prop, "type": "complex",
+                     "info": {"object": meterName, "property": prop}})
     # for inverter parent meter
     for key, val in glm_dict['inverters'].items():
         meterName = val['parent']
         prop = 'measured_power'
-        pubs.append ({"global":False, "key":meterName + '#' + prop, "type":"complex", "info":{"object":meterName,"property":prop}})
+        pubs.append({"global": False, "key": meterName + '#' + prop, "type": "complex",
+                     "info": {"object": meterName, "property": prop}})
     # for PV DC resource
     for key, val in glm_dict['inverters'].items():
         resource_name = val['resource_name']
         if val['resource'] == 'solar':
             props = ['V_Out', 'I_Out']
             for prop in props:
-                pubs.append ({"global":False, "key":resource_name + '#' + prop, "type":"complex", "info":{"object":resource_name,"property":prop}})
+                pubs.append({"global": False, "key": resource_name + '#' + prop, "type": "double",
+                             "info": {"object": resource_name, "property": prop}})
         if val['resource'] == 'battery':
             prop = 'state_of_charge'
-            pubs.append ({"global":False, "key":resource_name + '#' + prop, "type":"double", "info":{"object":resource_name,"property":prop}})
+            pubs.append({"global": False, "key": resource_name + '#' + prop, "type": "double",
+                         "info": {"object": resource_name, "property": prop}})
 
     # for PV inverter control
     for key, val in glm_dict['inverters'].items():
         if val['resource'] == 'solar':
             props = ['P_Out', 'Q_Out']
             for prop in props:
-                subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":key, "property":prop}})
-
+                subs.append(
+                    {"key": "sub1/" + key + "/" + prop, "type": "double", "info": {"object": key, "property": prop}})
 
     # for battery control
     for key, val in glm_dict['inverters'].items():
         if val['resource'] == 'battery':
             props = ['charge_on_threshold', 'charge_off_threshold', 'discharge_on_threshold', 'discharge_off_threshold']
             for prop in props:
-                subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":key, "property":prop}})
+                subs.append(
+                    {"key": "sub1/" + key + "/" + prop, "type": "double", "info": {"object": key, "property": prop}})
 
     # for EV control
     for house_name, val in glm_dict['houses'].items():
         # meterName = val['name']
         subs.append({
             "key": f"ev1/{house_name}_EV/load",
-            "type": "double",
+            "type": "complex",
             "info": {
                 "object": f"{house_name}_EV",
-                "property": "constant_power_A_real"
+                "property": "constant_power_A"
             }
         })
 
@@ -589,11 +607,11 @@ def ProcessGLM (fileroot, global_config):
 
     msg = {}
     msg["name"] = "gld1"
-    msg["period"] = dt # 1.0 # TODO verify what should be done here to enforce minimum time step
+    msg["period"] = dt  # 1.0 # TODO verify what should be done here to enforce minimum time step
     msg["publications"] = pubs
     msg["subscriptions"] = subs
-    op = open ('./fed_gridlabd/' + fileroot + '_HELICS_gld_msg.json', 'w', encoding='utf-8')
-    json.dump (msg, op, ensure_ascii=False, indent=2)
+    op = open('./fed_gridlabd/' + fileroot + '_HELICS_gld_msg.json', 'w', encoding='utf-8')
+    json.dump(msg, op, ensure_ascii=False, indent=2)
     op.close()
 
     # write the GridLAB-D publications and subscriptions for FNCS
@@ -632,7 +650,8 @@ def ProcessGLM (fileroot, global_config):
     #         print ('subscribe "precommit:' + meterName + '.monthly_fee <- sub1/' + key + '/monthly_fee";', file=op)
     # op.close()
 
-def prep_substation (gldfileroot, global_config, jsonfile = '', ):
+
+def prep_substation(gldfileroot, global_config, jsonfile='', ):
     """ Process a base GridLAB-D file with supplemental JSON configuration data
 
     Always reads gldfileroot.glm and writes:
@@ -666,70 +685,68 @@ def prep_substation (gldfileroot, global_config, jsonfile = '', ):
     global latitude, longitude, name_prefix
 
     if len(jsonfile) > 1:
-        lp = open (jsonfile).read()
+        lp = open(jsonfile).read()
         config = json.loads(lp)
 
         if 'NamePrefix' in config['BackboneFiles']:
-          name_prefix = config['BackboneFiles']['NamePrefix']
+            name_prefix = config['BackboneFiles']['NamePrefix']
 
         # overwrite the default auction and controller parameters
-        dt = int (config['AgentPrep']['TimeStepGldAgents'])
-        period = int (config['AgentPrep']['MarketClearingPeriod'])
+        dt = int(config['AgentPrep']['TimeStepGldAgents'])
+        period = int(config['AgentPrep']['MarketClearingPeriod'])
 
-        wakeup_start_lo = float (config['ThermostatSchedule']['WeekdayWakeStartLo'])
-        wakeup_start_hi = float (config['ThermostatSchedule']['WeekdayWakeStartHi'])
-        daylight_start_lo = float (config['ThermostatSchedule']['WeekdayDaylightStartLo'])
-        daylight_start_hi = float (config['ThermostatSchedule']['WeekdayDaylightStartHi'])
-        evening_start_lo = float (config['ThermostatSchedule']['WeekdayEveningStartLo'])
-        evening_start_hi = float (config['ThermostatSchedule']['WeekdayEveningStartHi'])
-        night_start_lo = float (config['ThermostatSchedule']['WeekdayNightStartLo'])
-        night_start_hi = float (config['ThermostatSchedule']['WeekdayNightStartHi'])
+        wakeup_start_lo = float(config['ThermostatSchedule']['WeekdayWakeStartLo'])
+        wakeup_start_hi = float(config['ThermostatSchedule']['WeekdayWakeStartHi'])
+        daylight_start_lo = float(config['ThermostatSchedule']['WeekdayDaylightStartLo'])
+        daylight_start_hi = float(config['ThermostatSchedule']['WeekdayDaylightStartHi'])
+        evening_start_lo = float(config['ThermostatSchedule']['WeekdayEveningStartLo'])
+        evening_start_hi = float(config['ThermostatSchedule']['WeekdayEveningStartHi'])
+        night_start_lo = float(config['ThermostatSchedule']['WeekdayNightStartLo'])
+        night_start_hi = float(config['ThermostatSchedule']['WeekdayNightStartHi'])
 
-        wakeup_set_lo = float (config['ThermostatSchedule']['WeekdayWakeSetLo'])
-        wakeup_set_hi = float (config['ThermostatSchedule']['WeekdayWakeSetHi'])
-        daylight_set_lo = float (config['ThermostatSchedule']['WeekdayDaylightSetLo'])
-        daylight_set_hi = float (config['ThermostatSchedule']['WeekdayDaylightSetHi'])
-        evening_set_lo = float (config['ThermostatSchedule']['WeekdayEveningSetLo'])
-        evening_set_hi = float (config['ThermostatSchedule']['WeekdayEveningSetHi'])
-        night_set_lo = float (config['ThermostatSchedule']['WeekdayNightSetLo'])
-        night_set_hi = float (config['ThermostatSchedule']['WeekdayNightSetHi'])
+        wakeup_set_lo = float(config['ThermostatSchedule']['WeekdayWakeSetLo'])
+        wakeup_set_hi = float(config['ThermostatSchedule']['WeekdayWakeSetHi'])
+        daylight_set_lo = float(config['ThermostatSchedule']['WeekdayDaylightSetLo'])
+        daylight_set_hi = float(config['ThermostatSchedule']['WeekdayDaylightSetHi'])
+        evening_set_lo = float(config['ThermostatSchedule']['WeekdayEveningSetLo'])
+        evening_set_hi = float(config['ThermostatSchedule']['WeekdayEveningSetHi'])
+        night_set_lo = float(config['ThermostatSchedule']['WeekdayNightSetLo'])
+        night_set_hi = float(config['ThermostatSchedule']['WeekdayNightSetHi'])
 
-        weekend_day_set_lo = float (config['ThermostatSchedule']['WeekendDaylightSetLo'])
-        weekend_day_set_hi = float (config['ThermostatSchedule']['WeekendDaylightSetHi'])
-        weekend_day_start_lo = float (config['ThermostatSchedule']['WeekendDaylightStartLo'])
-        weekend_day_start_hi = float (config['ThermostatSchedule']['WeekendDaylightStartHi'])
-        weekend_night_set_lo = float (config['ThermostatSchedule']['WeekendNightSetLo'])
-        weekend_night_set_hi = float (config['ThermostatSchedule']['WeekendNightSetHi'])
-        weekend_night_start_lo = float (config['ThermostatSchedule']['WeekendNightStartLo'])
-        weekend_night_start_hi = float (config['ThermostatSchedule']['WeekendNightStartHi'])
+        weekend_day_set_lo = float(config['ThermostatSchedule']['WeekendDaylightSetLo'])
+        weekend_day_set_hi = float(config['ThermostatSchedule']['WeekendDaylightSetHi'])
+        weekend_day_start_lo = float(config['ThermostatSchedule']['WeekendDaylightStartLo'])
+        weekend_day_start_hi = float(config['ThermostatSchedule']['WeekendDaylightStartHi'])
+        weekend_night_set_lo = float(config['ThermostatSchedule']['WeekendNightSetLo'])
+        weekend_night_set_hi = float(config['ThermostatSchedule']['WeekendNightSetHi'])
+        weekend_night_start_lo = float(config['ThermostatSchedule']['WeekendNightStartLo'])
+        weekend_night_start_hi = float(config['ThermostatSchedule']['WeekendNightStartHi'])
 
-        ramp_lo = float (config['AgentPrep']['ThermostatRampLo'])
-        ramp_hi = float (config['AgentPrep']['ThermostatRampHi'])
-        deadband_lo = float (config['AgentPrep']['ThermostatBandLo'])
-        deadband_hi = float (config['AgentPrep']['ThermostatBandHi'])
-        offset_limit_lo = float (config['AgentPrep']['ThermostatOffsetLimitLo'])
-        offset_limit_hi = float (config['AgentPrep']['ThermostatOffsetLimitHi'])
-        ctrl_cap_lo = float (config['AgentPrep']['PriceCapLo'])
-        ctrl_cap_hi = float (config['AgentPrep']['PriceCapHi'])
-        initial_price = float (config['AgentPrep']['InitialPriceMean'])
-        std_dev = float (config['AgentPrep']['InitialPriceStdDev'])
+        ramp_lo = float(config['AgentPrep']['ThermostatRampLo'])
+        ramp_hi = float(config['AgentPrep']['ThermostatRampHi'])
+        deadband_lo = float(config['AgentPrep']['ThermostatBandLo'])
+        deadband_hi = float(config['AgentPrep']['ThermostatBandHi'])
+        offset_limit_lo = float(config['AgentPrep']['ThermostatOffsetLimitLo'])
+        offset_limit_hi = float(config['AgentPrep']['ThermostatOffsetLimitHi'])
+        ctrl_cap_lo = float(config['AgentPrep']['PriceCapLo'])
+        ctrl_cap_hi = float(config['AgentPrep']['PriceCapHi'])
+        initial_price = float(config['AgentPrep']['InitialPriceMean'])
+        std_dev = float(config['AgentPrep']['InitialPriceStdDev'])
 
         Eplus_Bus = config['EplusConfiguration']['EnergyPlusBus']
-        if len (Eplus_Bus) > 0:
-          Eplus_Bus = name_prefix + Eplus_Bus
-          Eplus_Load = name_prefix + 'Eplus_load'
-          Eplus_Meter = name_prefix + 'Eplus_meter'
+        if len(Eplus_Bus) > 0:
+            Eplus_Bus = name_prefix + Eplus_Bus
+            Eplus_Load = name_prefix + 'Eplus_load'
+            Eplus_Meter = name_prefix + 'Eplus_meter'
         else:
-          Eplus_Load = ''
-          Eplus_Meter = ''
+            Eplus_Load = ''
+            Eplus_Meter = ''
         agent_participation = 0.01 * float(config['FeederGenerator']['ElectricCoolingParticipation'])
 
-        latitude = float (config['WeatherPrep']['Latitude'])
-        longitude = float (config['WeatherPrep']['Longitude'])
+        latitude = float(config['WeatherPrep']['Latitude'])
+        longitude = float(config['WeatherPrep']['Longitude'])
 
         # use the forced oil, forced air as 1.67 * transformer rating in kVA
         max_capacity_reference_bid_quantity = 1.6667 * 1000.0 * float(config['PYPOWERConfiguration']['TransformerBase'])
 
-    ProcessGLM (gldfileroot, global_config)
-
-
+    ProcessGLM(gldfileroot, global_config)
