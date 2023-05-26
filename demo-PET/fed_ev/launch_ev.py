@@ -64,5 +64,5 @@ class EVFederate:
 
 federate = EVFederate("2013-07-01 00:00:00", "ev1", 30)
 federate.create_federate()
-federate.enabled = False
+federate.enabled = True
 federate.run_federate()

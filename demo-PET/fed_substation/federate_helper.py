@@ -597,9 +597,9 @@ class CURVES_TO_PLOT:
             hvac_load_list.append(house.hvac.hvac_kw)
             house_load_list.append(house.house_kw)
             house_unres_list.append(house.unresponsive_kw)
-            pv_power_list.append(house.pv.solar_kw)
-            battery_power_list.append(house.battery.battery_kw)
-            battery_soc_list.append(house.battery.battery_soc)
+            pv_power_list.append(house.pv.solar_kw if house.pv else 0.0)
+            battery_power_list.append(house.battery.battery_kw if house.battery else 0.0)
+            battery_soc_list.append(house.battery.battery_soc if house.battery else 0.0)
 
             # hvac on ratio ===============
             if house.hvac.hvac_on:

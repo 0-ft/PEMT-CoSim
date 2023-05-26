@@ -483,19 +483,19 @@ def ProcessGLM(fileroot, global_config):
         for wTopic in ['temperature', 'humidity', 'solar_direct', 'solar_diffuse', 'pressure', 'wind_speed']:
             subs.append({"key": climateName + '/' + wTopic, "type": "double",
                          "info": {"object": climateName, "property": wTopic}})
-    if len(Eplus_Bus) > 0:  # hard-wired names for a single building
-        subs.append({"key": "eplus_agent/power_A", "type": "complex",
-                     "info": {"object": Eplus_Load, "property": "constant_power_A"}})
-        subs.append({"key": "eplus_agent/power_B", "type": "complex",
-                     "info": {"object": Eplus_Load, "property": "constant_power_B"}})
-        subs.append({"key": "eplus_agent/power_C", "type": "complex",
-                     "info": {"object": Eplus_Load, "property": "constant_power_C"}})
-        subs.append({"key": "eplus_agent/bill_mode", "type": "string",
-                     "info": {"object": Eplus_Meter, "property": "bill_mode"}})
-        subs.append(
-            {"key": "eplus_agent/price", "type": "double", "info": {"object": Eplus_Meter, "property": "price"}})
-        subs.append({"key": "eplus_agent/monthly_fee", "type": "double",
-                     "info": {"object": Eplus_Meter, "property": "monthly_fee"}})
+    # if len(Eplus_Bus) > 0:  # hard-wired names for a single building
+    #     subs.append({"key": "eplus_agent/power_A", "type": "complex",
+    #                  "info": {"object": Eplus_Load, "property": "constant_power_A"}})
+    #     subs.append({"key": "eplus_agent/power_B", "type": "complex",
+    #                  "info": {"object": Eplus_Load, "property": "constant_power_B"}})
+    #     subs.append({"key": "eplus_agent/power_C", "type": "complex",
+    #                  "info": {"object": Eplus_Load, "property": "constant_power_C"}})
+    #     subs.append({"key": "eplus_agent/bill_mode", "type": "string",
+    #                  "info": {"object": Eplus_Meter, "property": "bill_mode"}})
+    #     subs.append(
+    #         {"key": "eplus_agent/price", "type": "double", "info": {"object": Eplus_Meter, "property": "price"}})
+    #     subs.append({"key": "eplus_agent/monthly_fee", "type": "double",
+    #                  "info": {"object": Eplus_Meter, "property": "monthly_fee"}})
 
     # for VPP meters
     VPPs = glm_dict['VPPs']

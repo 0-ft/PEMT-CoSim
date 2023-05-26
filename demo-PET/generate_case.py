@@ -31,7 +31,7 @@ class GLOBAL_Configuration:
     ratio_PV_only_list = [0 / 10]  # ratio of houses that have only PV installed for each VPP
     # in this case, each house must have battery installed, so ratio_PV_only_list = [0,..]
     ratio_Bat_only_list = [0 / 30]  # ratio of houses that have only battery installed for each VPP
-    ratio_PV_Bat_list = [30 / 30]  # ratio oh houses that have both PV and battery installed for each VP
+    ratio_PV_Bat_list = [0 / 30]  # ratio oh houses that have both PV and battery installed for each VP
     # Note: ratio_PV_only + ratio_Bat_only + ratio_PV_Bat <= 1,
     # the remaining is the houses without PV and battery installed.
     # It is suggested that ratio_PV_only = 0, which means all houses should at least have battery installed
