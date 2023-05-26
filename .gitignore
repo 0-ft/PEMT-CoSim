@@ -2,3 +2,4 @@
 **/*.log
 .idea/*
 **/*metrics.json
+fed_ev/log/*

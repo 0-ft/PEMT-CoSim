@@ -1,7 +1,7 @@
 import json
 import os
 import random
-
+import glm
 from texthelper import replaceInPattern
 
 helics_msg_code = "\n\
@@ -82,11 +82,10 @@ class GLM_HELPER:
         global batt_code
         with open('./fed_gridlabd/glm-template/battery_template', 'r') as f:
             batt_code = f.read()
-        with open('./fed_gridlabd/glm-template/objects.json', encoding='utf-8') as f:
-            object_dict = json.loads(f.read())  # federate_config is the dict data structure
-            f.close()
+
+        template_glm = glm.load("./fed_gridlabd/glm-template/TE_Challenge_TE30.glm")
         global template_houses_list
-        template_houses_list = object_dict['houses_list']
+        template_houses_list = [obj for obj in template_glm['objects'] if obj['name'] == 'house']
 
         pass
 

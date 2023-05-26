@@ -39,8 +39,8 @@ class GLOBAL_Configuration:
     battery_mode = 'LOAD_FOLLOWING'  # CONSTANT_PQ
 
 
-glbal_config = GLOBAL_Configuration()
-glm = GLM_HELPER(glbal_config)
+global_config = GLOBAL_Configuration()
+glm = GLM_HELPER(global_config)
 glm.generate_glm()
 
 """1. configure simulation time period"""
@@ -56,12 +56,4 @@ weathercsv(f"fed_weather/tesp_weather/{tmy_file_name}", 'weather.dat', start_tim
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict('TE_Challenge', te30=True)
-tesp.prep_substation('TE_Challenge', glbal_config)
-
-# to run the original E+ model with heating/cooling, copy the following file to Merged.idf
-# base_idf = os.getenv('TESP_INSTALL') + '/share/support/energyplus/SchoolDualController.idf'
-
-"""4. genereate configuration files for energyplus"""
-# base_idf = './fed_energyplus/SchoolBase.idf'
-# ems_idf = './fed_energyplus/emsSchoolBaseH.idf'
-# tesp.merge_idf (base_idf, ems_idf, start_time, stop_time, './fed_energyplus/MergedH.idf', 12)
+tesp.prep_substation('TE_Challenge', global_config)

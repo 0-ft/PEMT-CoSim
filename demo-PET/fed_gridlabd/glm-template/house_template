@@ -1,4 +1,3 @@
-
 object triplex_line {
 	groupid F{vpp_idx}_Triplex_Line;
 	phases {phase}S;
@@ -7,7 +6,6 @@ object triplex_line {
 	length 10 ft;
 	configuration TLCFG;
 }
-
 
 object triplex_meter {
 	name F{vpp_idx}_tpm_{phase}{house_idx};
@@ -23,8 +21,6 @@ object triplex_meter {
   };
 }
 
-
-//added
 //1st line;a new node;2nd line
 object triplex_line {
      from F{vpp_idx}_tpm_{phase}{house_idx};
@@ -33,12 +29,14 @@ object triplex_line {
      length 1 ft;
      configuration TLCFG;
 }
+
 //a new node;
 object triplex_meter {     
      name F{vpp_idx}_tpm_{phase}{house_idx}_node;
      phases {phase}S;
      nominal_voltage 120.00;     
 } 
+
 //2nd line
 object triplex_line {
      from F{vpp_idx}_tpm_{phase}{house_idx}_node;
@@ -47,6 +45,7 @@ object triplex_line {
      length 1 ft;
      configuration TLCFG;
 }
+
 // the new meter for the house
 object triplex_meter {
 	name house_F{vpp_idx}_tpm_{phase}{house_idx};
@@ -54,6 +53,7 @@ object triplex_meter {
 	nominal_voltage 120;
 	groupid house_meter;
 }
+
 object house {
 	name F{vpp_idx}_house_{phase}{house_idx};
     groupid VPP_{vpp_idx};
@@ -83,13 +83,16 @@ object house {
     thermostat_mode OFF;
     cooling_setpoint 20;
 	heating_setpoint 20;
-{ZIP_code}
- object metrics_collector {
-  interval 300;
- };
- object load {
-     name F{vpp_idx}_house_{phase}{house_idx}_EV;
-     parent house_F{vpp_idx}_tpm_{phase}{house_idx};
- };
+
+    {ZIP_code}
+
+    object metrics_collector {
+        interval 300;
+    };
+
+    object load {
+        name F{vpp_idx}_house_{phase}{house_idx}_EV;
+        parent house_F{vpp_idx}_tpm_{phase}{house_idx};
+    };
 }
 
