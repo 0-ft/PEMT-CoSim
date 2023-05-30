@@ -7,7 +7,7 @@ import pickle
 import psutil
 import subprocess
 
-from my_auction import AUCTION
+from my_auction import Auction
 from my_tesp_support_api.utils import DotDict
 
 if sys.platform != 'win32':
@@ -34,14 +34,14 @@ OTHER_FEDERATE_COMMANDS = [
 
 
 class FEDERATE_HELPER:
-    def __init__(self, configfile, helicsConfig, metrics_root, hour_stop):
+    def __init__(self, configfile, helics_config, metrics_root, hour_stop):
 
         self.configfile = configfile
-        self.helicsConfig = helicsConfig
+        self.helics_config = helics_config
         with open(configfile, encoding='utf-8') as f:
             self.agents = DotDict(json.loads(f.read()))  # federate_config is the dict data structure
             f.close()
-        with open(helicsConfig, encoding='utf-8') as f:
+        with open(helics_config, encoding='utf-8') as f:
             self.helics_config = json.loads(f.read())  # federate_config is the dict data structure
             f.close()
 
@@ -69,16 +69,16 @@ class FEDERATE_HELPER:
         # 'HVAC' : name of the HVAC
         # 'PV'   : name of the PV inverter; if no PV, None
         # 'battery': name of battery inverter; if no battery, None
-        for i, houseName in enumerate(self.house_name_list):
-            self.housesInfo_dict[houseName] = {}
-            hvacName = self.hvac_name_list[i]
+        for i, house_name in enumerate(self.house_name_list):
+            self.housesInfo_dict[house_name] = {}
+            hvac_name = self.hvac_name_list[i]
             meter = self.billingmeter_name_list[i]
-            vpp = self.agents.houses[houseName]['house_class']
-            self.housesInfo_dict[houseName]['VPP'] = vpp
-            self.housesInfo_dict[houseName]['meter'] = meter
-            self.housesInfo_dict[houseName]['HVAC'] = hvacName
-            self.housesInfo_dict[houseName]['PV'] = None
-            self.housesInfo_dict[houseName]['battery'] = None
+            vpp = self.agents.houses[house_name]['house_class']
+            self.housesInfo_dict[house_name]['VPP'] = vpp
+            self.housesInfo_dict[house_name]['meter'] = meter
+            self.housesInfo_dict[house_name]['HVAC'] = hvac_name
+            self.housesInfo_dict[house_name]['PV'] = None
+            self.housesInfo_dict[house_name]['battery'] = None
 
         for key, dict in self.agents.inverters.items():
             billingmeter_id = dict['billingmeter_id']
@@ -155,7 +155,7 @@ class FEDERATE_HELPER:
         print("HELICS broker created!")
 
     def create_federate(self):
-        self.hFed = helics.helicsCreateValueFederateFromConfig(self.helicsConfig)  # the helics period is 15 seconds
+        self.hFed = helics.helicsCreateValueFederateFromConfig(self.helics_config)  # the helics period is 15 seconds
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
@@ -558,7 +558,7 @@ class CURVES_TO_PLOT:
         with open(path + 'data.pkl', 'wb') as f:
             pickle.dump(data_dict, f)
 
-    def record_auction_statistics(self, seconds, houseObjs, aucObj: AUCTION):
+    def record_auction_statistics(self, seconds, houseObjs, aucObj: Auction):
         self.time_hour_auction.append(seconds / 3600)
 
         self.buyer_ratio.append(aucObj.num_buyers / len(houseObjs))

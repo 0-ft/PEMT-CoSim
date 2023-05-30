@@ -1,5 +1,5 @@
 FROM ubuntu:jammy
-#SHELL ["/bin/bash", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 ARG DEBIAN_FRONTEND=noninteractive
 

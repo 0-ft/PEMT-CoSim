@@ -14,10 +14,10 @@ sys.path.append('..')
 import os
 import json
 import helics
-from PET_Prosumer import HOUSE, VPP  # import user-defined my_hvac class for hvac controllers
+from PET_Prosumer import House, VPP  # import user-defined my_hvac class for hvac controllers
 from datetime import datetime
 from datetime import timedelta
-from my_auction import AUCTION  # import user-defined my_auction class for market
+from my_auction import Auction  # import user-defined my_auction class for market
 import matplotlib.pyplot as plt
 from federate_helper import FEDERATE_HELPER, CURVES_TO_PLOT
 
@@ -30,7 +30,7 @@ helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
 hour_stop = 48  # simulation duration (default 48 hours)
 hasMarket = True  # have market or not
-vppEnable = False  # have Vpp coordinator or not
+vppEnable = True  # have Vpp coordinator or not
 drawFigure = True  # draw figures during the simulation
 has_demand_response = False
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop)  # initialize the federate helper
@@ -49,7 +49,7 @@ vpp = VPP(vpp_name, vppEnable)
 vpp.set_helics_subspubs(fh.get_agent_pubssubs(vpp.name, 'VPP'))
 
 # initialize a user-defined auction object
-auction = AUCTION(fh.market_row, fh.market_key)
+auction = Auction(fh.market_row, fh.market_key)
 auction.set_helics_subspubs(fh.get_agent_pubssubs(auction.name, 'auction'))
 auction.init_auction()
 
@@ -57,7 +57,7 @@ auction.init_auction()
 houses = {}
 seed = 1
 for key, info in fh.housesInfo_dict.items():  # key: house name, info: information of the house, including names of PV, battery ...
-    houses[key] = HOUSE(key, info, fh.agents, auction, seed)  # initialize a house object
+    houses[key] = House(key, info, fh.agents, auction, seed)  # initialize a house object
     houses[key].set_helics_subspubs(
         fh.get_agent_pubssubs(key, 'house', info))  # get subscriptions and publications for house meters
     houses[key].set_meter_mode()  # set meter mode

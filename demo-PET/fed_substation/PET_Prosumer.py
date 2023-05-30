@@ -12,7 +12,7 @@ from collections import deque
 
 import helics
 
-from my_auction import AUCTION
+from my_auction import Auction
 
 
 class HVAC:
@@ -60,7 +60,7 @@ class HVAC:
         cleared_price (float): the cleared market price in $/kwh
     """
 
-    def __init__(self, name, json_object, auction: AUCTION):
+    def __init__(self, name, json_object, auction: Auction):
         self.name = name
         self.auction = auction
         self.loadType = 'hvac'
@@ -280,8 +280,8 @@ class BATTERY:
         helics.helicsPublicationPublishDouble(self.pubs['pubDischarge_off_threshold'], self.discharge_off_threshold)
 
 
-class HOUSE:
-    def __init__(self, name, info, agents_dict, auction: AUCTION, seed):
+class House:
+    def __init__(self, name, info, agents_dict, auction: Auction, seed):
         self.name = name
         self.auction = auction
         hvac_name = info['HVAC']
@@ -472,6 +472,7 @@ class HOUSE:
             # hvac control
             self.hvac.set_on(hvac_power_needed)
 
+
 class VPP:
     def __init__(self, name, enable=True):
         self.name = name
@@ -522,7 +523,6 @@ class VPP:
         cval = helics.helicsInputGetComplex(self.subs['vppPower'])
         self.vpp_load_p = cval.real * 0.001
         self.vpp_load_q = cval.imag * 0.001
-
 
     def update_balance_signal(self):
         pass

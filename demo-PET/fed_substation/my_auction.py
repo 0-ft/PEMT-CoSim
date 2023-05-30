@@ -18,7 +18,7 @@ from my_tesp_support_api.helpers import ClearingType
 
 
 # Class definition
-class AUCTION:
+class Auction:
     """This class implements a simplified version of the double-auction market embedded in GridLAB-D.
 
     References:
