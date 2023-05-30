@@ -1,8 +1,12 @@
+from collections import namedtuple
 from datetime import datetime, timedelta
 
 import helics
 
 from EVProfiles import EVProfiles, EVProfile
+from fed_ev.PETEV import V2GEV
+
+EVPublications = namedtuple("EVPublications", "location load")
 
 
 class EVFederate:
@@ -18,7 +22,8 @@ class EVFederate:
 
         self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, num_evs,
                                       "emobpy_data/profiles").load_from_saved()
-        self.ev_pubs = []
+
+        self.evs: list[V2GEV] = []
 
         self.stop_seconds = int(self.hour_stop * 3600)  # co-simulation stop time in seconds
         self.enabled = True
@@ -32,20 +37,33 @@ class EVFederate:
         helics.helicsFederateInfoSetFlagOption(fed_info, helics.helics_flag_uninterruptible, True)
         self.helics_fed = helics.helicsCreateValueFederate(self.fed_name, fed_info)
         print(f"EV federate {self.fed_name} created")
-        self.ev_pubs = [
-            helics.helicsFederateRegisterPublication(self.helics_fed, f"F0_house_A{i}_EV/load",
-                                                     helics.helics_data_type_complex, "")
-            for i in range(self.num_evs)
-        ]
+        self.evs = [V2GEV(self.helics_fed, f"F0_house_A{i}_EV", self.current_time, profile.consumption, profile.car_model)
+                    for i, profile in enumerate(self.ev_profiles.profiles)]
+        # self.ev_pubs = [
+        #     EVPublications(
+        #         helics.helicsFederateRegisterPublication(self.helics_fed, f"F0_house_A{i}_EV/location",
+        #                                                  helics.helics_data_type_string),
+        #         helics.helicsFederateRegisterPublication(self.helics_fed, f"F0_house_A{i}_EV/load",
+        #                                                  helics.helics_data_type_complex, "")
+        #     )
+        #     for i in range(self.num_evs)
+        # ]
 
         print("EV federate publications registered")
 
-    def publish_loads(self):
-        print(f"EV federate publishing loads for t={self.current_time}")
-        current_loads = self.ev_profiles.get_loads_at_time(time=self.current_time)
-        for i, pub in enumerate(self.ev_pubs):
-            helics.helicsPublicationPublishComplex(pub, current_loads[i] if self.enabled else 0.0, 0.0)
-        print(f"EV federate published loads {current_loads} at time {self.current_time}")
+    # def publish_loads(self):
+    #     print(f"EV federate publishing loads for t={self.current_time}")
+    #     current_loads = self.ev_profiles.get_loads_at_time(time=self.current_time)
+    #     for i, pub in enumerate(self.ev_pubs):
+    #         helics.helicsPublicationPublishComplex(pub.load, current_loads[i] if self.enabled else 0.0, 0.0)
+    #     print(f"EV federate published loads {current_loads} at time {self.current_time}")
+    #
+    # def publish_locations(self):
+    #     print(f"EV federate publishing loads for t={self.current_time}")
+    #     current_locations = self.ev_profiles.get_locations_at_time(time=self.current_time)
+    #     for i, pub in enumerate(self.ev_pubs):
+    #         helics.helicsPublicationPublishString(pub, current_locations[i])
+    #     print(f"EV federate published locations {current_locations} at time {self.current_time}")
 
     def run_federate(self):
         helics.helicsFederateEnterExecutingMode(self.helics_fed)
@@ -57,9 +75,12 @@ class EVFederate:
 
         for t in range(0, self.stop_seconds, int(self.time_period_hours * 3600)):
             time_granted_seconds = int(helics.helicsFederateRequestTime(self.helics_fed, self.time_period_hours * 3600))
-            self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)
-            print(f"EV federate granted time {time_granted_seconds} ({self.current_time})")
-            self.publish_loads()
+            new_time = self.start_time + timedelta(seconds=time_granted_seconds)
+            print(f"EV federate granted time {time_granted_seconds} ({new_time})")
+            for ev in self.evs:
+                ev.update_state(new_time)
+            self.current_time = new_time
+            # self.publish_locations()
 
 
 federate = EVFederate("2013-07-01 00:00:00", "ev1", 30)

@@ -6,7 +6,7 @@ object triplex_meter {
 	nominal_voltage 120;
 	groupid inverter_meter;
 }
-	
+
 object inverter {
 	name solar_inv_F{vpp_idx}_house_{phase}{house_idx};
     parent solar_F{vpp_idx}_tpm_{phase}{house_idx};

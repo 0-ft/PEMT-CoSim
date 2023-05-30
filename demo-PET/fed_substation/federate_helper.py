@@ -7,6 +7,7 @@ import pickle
 import psutil
 import subprocess
 
+from PET_Prosumer import House
 from my_auction import Auction
 from my_tesp_support_api.utils import DotDict
 
@@ -34,14 +35,14 @@ OTHER_FEDERATE_COMMANDS = [
 
 
 class FEDERATE_HELPER:
-    def __init__(self, configfile, helics_config, metrics_root, hour_stop):
+    def __init__(self, configfile, helics_config_path, metrics_root, hour_stop):
 
         self.configfile = configfile
-        self.helics_config = helics_config
+        self.helics_config_path = helics_config_path
         with open(configfile, encoding='utf-8') as f:
             self.agents = DotDict(json.loads(f.read()))  # federate_config is the dict data structure
             f.close()
-        with open(helics_config, encoding='utf-8') as f:
+        with open(helics_config_path, encoding='utf-8') as f:
             self.helics_config = json.loads(f.read())  # federate_config is the dict data structure
             f.close()
 
@@ -155,7 +156,8 @@ class FEDERATE_HELPER:
         print("HELICS broker created!")
 
     def create_federate(self):
-        self.hFed = helics.helicsCreateValueFederateFromConfig(self.helics_config)  # the helics period is 15 seconds
+        self.hFed = helics.helicsCreateValueFederateFromConfig(
+            self.helics_config_path)  # the helics period is 15 seconds
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
@@ -558,17 +560,17 @@ class CURVES_TO_PLOT:
         with open(path + 'data.pkl', 'wb') as f:
             pickle.dump(data_dict, f)
 
-    def record_auction_statistics(self, seconds, houseObjs, aucObj: Auction):
+    def record_auction_statistics(self, seconds, houses: dict[House], auction: Auction):
         self.time_hour_auction.append(seconds / 3600)
 
-        self.buyer_ratio.append(aucObj.num_buyers / len(houseObjs))
-        self.seller_ratio.append(aucObj.num_sellers / len(houseObjs))
-        self.nontcp_ratio.append(aucObj.num_nontcp / len(houseObjs))
+        self.buyer_ratio.append(auction.num_buyers / len(houses))
+        self.seller_ratio.append(auction.num_sellers / len(houses))
+        self.nontcp_ratio.append(auction.num_nontcp / len(houses))
 
-        self.cleared_price.append(aucObj.clearing_price)
-        self.LMP.append(aucObj.lmp)
+        self.cleared_price.append(auction.clearing_price)
+        self.LMP.append(auction.lmp)
 
-    def record_state_statistics(self, seconds, houseObjs, aucObj, vpp):
+    def record_state_statistics(self, seconds, houses: dict[str, House], auction: Auction, vpp):
         self.time_hour_system.append(seconds / 3600)
 
         # temperature related
@@ -583,7 +585,7 @@ class CURVES_TO_PLOT:
         battery_power_list = []
         battery_soc_list = []
 
-        for key, house in houseObjs.items():
+        for key, house in houses.items():
 
             # temperature related data ============
             # house temperature
@@ -631,10 +633,10 @@ class CURVES_TO_PLOT:
         self.house_unres_max.append(max(house_unres_list))
         self.house_unres_min.append(min(house_unres_list))
 
-        self.hvac_on_ratio.append(num_hvac_on / len(houseObjs))
+        self.hvac_on_ratio.append(num_hvac_on / len(houses))
 
-        self.distri_load_p.append(aucObj.refload_p)
-        self.distri_load_q.append(aucObj.refload_q)
+        self.distri_load_p.append(auction.refload_p)
+        self.distri_load_q.append(auction.refload_q)
 
         self.vpp_load_p.append(vpp.vpp_load_p)
         self.vpp_load_q.append(vpp.vpp_load_q)

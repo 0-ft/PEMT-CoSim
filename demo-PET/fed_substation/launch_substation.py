@@ -121,7 +121,7 @@ while time_granted < StopTime:
             house.hvac.determine_power_needed()  # hvac determines if power is needed based on current state
             house.predict_solar_power()  # predict the solar power generation
             house.predict_house_load()  # predict the house load
-        vpp.get_vpp_load()  # get the VPP load
+        vpp.update_load()  # get the VPP load
         curves.record_state_statistics(time_granted, houses, auction, vpp)  # record something
         tnext_update += update_period
 

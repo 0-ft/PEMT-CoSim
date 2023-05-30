@@ -14,6 +14,7 @@ import helics
 
 from my_auction import Auction
 
+
 # PEMBid = namedtuple("PEMBid", "bid_price num_packets hvac_power_needed role unresponsive_kw name base_covered")
 # self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unresponsive_kw, self.name,
 #             base_covered]
@@ -284,6 +285,15 @@ class BATTERY:
         helics.helicsPublicationPublishDouble(self.pubs['pubDischarge_off_threshold'], self.discharge_off_threshold)
 
 
+class EV:
+    def __init__(self, name):
+        self.location = "home"
+        self.stored_energy = 0
+        self.charge_rate = 0
+
+    def update_state(self):
+        self.location = helics.helicsInputGetString()
+
 class House:
     def __init__(self, name, info, agents_dict, auction: Auction, seed):
         self.name = name
@@ -293,6 +303,7 @@ class House:
         battery_name = info['battery']
         self.hvac = HVAC(hvac_name, agents_dict['hvacs'][hvac_name], auction)  # create hvac object
         self.pv = PV(PV_name) if PV_name else None
+        self.ev = EV()
         self.battery = BATTERY(battery_name) if battery_name else None
         self.role = 'buyer'  # current role: buyer/seller/none-participant
 
@@ -332,6 +343,10 @@ class House:
         if self.pv:
             self.pv.subs = input[0]
             self.pv.pubs = input[1]
+
+        if self.ev:
+            self.ev.subs = input[0]
+            self.ev.pubs = input[1]
 
     def set_meter_mode(self):
         helics.helicsPublicationPublishString(self.pubs['pubMtrMode'], 'HOURLY')
@@ -497,7 +512,7 @@ class VPP:
             self.request_list.append(request)
 
     def aggregate_requests(self):
-        self.get_vpp_load()
+        self.update_load()
         self.update_balance_signal()
         self.response_list.clear()
         self.response_list = self.request_list.copy()  # copy messages
@@ -523,7 +538,7 @@ class VPP:
                         self.response_list[idx]['response'] = 'NO'
         self.request_list.clear()
 
-    def get_vpp_load(self):
+    def update_load(self):
         cval = helics.helicsInputGetComplex(self.subs['vppPower'])
         self.vpp_load_p = cval.real * 0.001
         self.vpp_load_q = cval.imag * 0.001

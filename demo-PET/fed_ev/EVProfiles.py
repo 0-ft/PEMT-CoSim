@@ -55,6 +55,7 @@ EVProfile = namedtuple("EVProfile", ["mobility", "consumption", "availability", 
 class EVProfiles:
     def __init__(self, start_date: datetime, hours, time_step, num_evs, output_folder,
                  station_distribution=STATION_DISTRIBUTION, car_models_distribution=CAR_MODELS_DISTRIBUTION):
+        self.consumption_df = None
         self.demand_df = None
         self.start_date = start_date
         self.hours = hours
@@ -73,6 +74,9 @@ class EVProfiles:
         for f in files:
             with gzip.open(f, 'rb') as handle:
                 self.profiles.append(pickle.load(handle))
+        self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
+                                        keys=range(self.num_evs))
+
         self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
                                    keys=range(self.num_evs))
 
@@ -99,6 +103,8 @@ class EVProfiles:
         with Pool(pool_size) as p:
             self.profiles = p.starmap(self.create_ev_profile, zip(range(self.num_evs), models))
             print("Finished generating EV profiles")
+            self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
+                                            keys=range(self.num_evs))
             self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
                                        keys=range(self.num_evs))
         return self.profiles
@@ -198,6 +204,12 @@ class EVProfiles:
         if not time:
             time = self.start_date + timedelta(hours=time_hours)
         return self.get_stored_power().asof(time)
+
+    def get_locations_at_time(self, time=None, time_hours=None):
+        if not time:
+            time = self.start_date + timedelta(hours=time_hours)
+        row = self.demand_df.xs('charging_point', level=1, axis=1).asof(time)
+        return row.values  # convert to W
 
     # def save_profiles(self):
     #     for i, p in enumerate(self.profiles):
@@ -316,9 +328,12 @@ if __name__ == '__main__':
     # ev_profiles.run()
     ev_profiles.load_from_saved()
     t = start_t + timedelta(hours=14)
-    sp = ev_profiles.get_stored_power()
-    ev_profiles.get_loads_at_time(t)
-    ev_profiles.draw_figures()
+    # sp = ev_profiles.get_stored_power()
+    # ev_profiles.get_loads_at_time(t)
+    ev_profiles.get_locations_at_time(t)
+    print(ev_profiles.profiles[4].consumption.timeseries.to_string())
+    # print(ev_profiles.profiles[0].consumption.timeseries.index.freq)
+    # ev_profiles.draw_figures()
     # ev_profile.save_profiles()
     # ev_profile.run()
 
