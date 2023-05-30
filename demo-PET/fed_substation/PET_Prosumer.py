@@ -8,11 +8,15 @@ mechanism.
 """
 import math
 import random
-from collections import deque
+from collections import deque, namedtuple
 
 import helics
 
 from my_auction import Auction
+
+# PEMBid = namedtuple("PEMBid", "bid_price num_packets hvac_power_needed role unresponsive_kw name base_covered")
+# self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unresponsive_kw, self.name,
+#             base_covered]
 
 
 class HVAC:
@@ -238,7 +242,7 @@ class PV:
         self.solar_DC_V_out = helics.helicsInputGetComplex(self.subs['subSolarVout']).real  # unit. V
         self.solar_DC_I_out = helics.helicsInputGetComplex(self.subs['subSolarIout']).real  # unit. A
 
-    def pq_control(self, P, Q):
+    def set_power_out(self, P, Q):
         helics.helicsPublicationPublishDouble(self.pubs['pubPVPout'], P * 1000)
         helics.helicsPublicationPublishDouble(self.pubs['pubPVQout'], Q * 1000)
 
@@ -427,14 +431,14 @@ class House:
         if role == 'seller' and self.pv:
             # PV control
             if market_condition == 'flexible-generation':
-                self.pv.pq_control(unres_kw + 3 * int(hvac_power_needed) + quantity, 0)
+                self.pv.set_power_out(unres_kw + 3 * int(hvac_power_needed) + quantity, 0)
             elif market_condition == 'double-auction':
                 if bid_price < self.auction.clearing_price:
-                    self.pv.pq_control(unres_kw + 3 * int(hvac_power_needed) + quantity, 0)
+                    self.pv.set_power_out(unres_kw + 3 * int(hvac_power_needed) + quantity, 0)
                 if bid_price > self.auction.clearing_price:
-                    self.pv.pq_control(unres_kw + 3 * int(hvac_power_needed), 0)
+                    self.pv.set_power_out(unres_kw + 3 * int(hvac_power_needed), 0)
                 elif bid_price == self.auction.clearing_price:
-                    self.pv.pq_control(unres_kw + 3 * int(hvac_power_needed) + marginal_quantity, 0)
+                    self.pv.set_power_out(unres_kw + 3 * int(hvac_power_needed) + marginal_quantity, 0)
             else:  # flexible-load (impossible)
                 print("Invalid seller in flexible-load condition!!")
             # hvac control
@@ -447,28 +451,28 @@ class House:
                     if bid_price >= self.auction.clearing_price:
                         self.hvac.set_on(True)
                         if self.pv:
-                            self.pv.pq_control(unres_kw + max(3.0 - quantity, 0), 0)
+                            self.pv.set_power_out(unres_kw + max(3.0 - quantity, 0), 0)
                     else:
                         self.hvac.set_on(False)
                         if self.pv:
-                            self.pv.pq_control(unres_kw, 0)
+                            self.pv.set_power_out(unres_kw, 0)
                 else:
                     if bid_price >= self.auction.clearing_price:
                         self.hvac.set_on(True)
                         if self.pv:
-                            self.pv.pq_control(0, 0)
+                            self.pv.set_power_out(0, 0)
                     else:
                         self.hvac.set_on(False)
                         if self.pv:
-                            self.pv.pq_control(0, 0)
+                            self.pv.set_power_out(0, 0)
             else:
                 self.hvac.set_on(False)
                 if self.pv:
-                    self.pv.pq_control(0, 0)
+                    self.pv.set_power_out(0, 0)
         if role == 'none-participant':
             # PV control
             if self.pv:
-                self.pv.pq_control(unres_kw + 3 * int(hvac_power_needed), 0)
+                self.pv.set_power_out(unres_kw + 3 * int(hvac_power_needed), 0)
             # hvac control
             self.hvac.set_on(hvac_power_needed)
 

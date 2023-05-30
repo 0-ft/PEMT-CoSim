@@ -3,16 +3,17 @@ SHELL ["/bin/bash", "-c"]
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN sed -i 's/htt[p|ps]:\/\/archive.ubuntu.com\/ubuntu\//mirror:\/\/mirrors.ubuntu.com\/mirrors.txt/g' /etc/apt/sources.list
+# RUN sed -i 's/htt[p|ps]:\/\/archive.ubuntu.com\/ubuntu\//mirror:\/\/mirrors.ubuntu.com\/mirrors.txt/g' /etc/apt/sources.list
 RUN apt update
 RUN apt install -y \
   python3-pip \
-  libboost-dev \
-  libboost-filesystem-dev \
-  libboost-program-options-dev \
-  libboost-test-dev \
-  libzmq5-dev python3-dev \
-  build-essential swig cmake git
+  git
+#  libboost-dev \
+#  libboost-filesystem-dev \
+#  libboost-program-options-dev \
+#  libboost-test-dev \
+#  libzmq5-dev python3-dev \
+#  build-essential swig cmake git
 
 RUN apt install -y nano libxtst6 libxi6 libxrender1 wget firefox
 

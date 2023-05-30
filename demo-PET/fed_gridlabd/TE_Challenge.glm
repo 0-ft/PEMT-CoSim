@@ -413,6 +413,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A0;
+	parent F0_tpm_A0;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A0;
+    parent solar_F0_tpm_A0;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6048.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6048.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A0;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 6720;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A0_node;
+     to batt_F0_tpm_A0;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A0;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A0;
+    parent batt_F0_tpm_A0;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A0_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A0;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -574,6 +662,94 @@ object ZIPload {
     object load {
         name F0_house_A1_EV;
         parent house_F0_tpm_A1;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A1;
+	parent F0_tpm_A1;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A1;
+    parent solar_F0_tpm_A1;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4320.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4320.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A1;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 4800;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A1_node;
+     to batt_F0_tpm_A1;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A1;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A1;
+    parent batt_F0_tpm_A1;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A1_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A1;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -741,6 +917,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A2;
+	parent F0_tpm_A2;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A2;
+    parent solar_F0_tpm_A2;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 3456.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 3456.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A2;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 3840;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A2_node;
+     to batt_F0_tpm_A2;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A2;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A2;
+    parent batt_F0_tpm_A2;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A2_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A2;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -902,6 +1166,94 @@ object ZIPload {
     object load {
         name F0_house_A3_EV;
         parent house_F0_tpm_A3;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A3;
+	parent F0_tpm_A3;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A3;
+    parent solar_F0_tpm_A3;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4752.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4752.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A3;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 5280;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A3_node;
+     to batt_F0_tpm_A3;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A3;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A3;
+    parent batt_F0_tpm_A3;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A3_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A3;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -1080,6 +1432,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A4;
+	parent F0_tpm_A4;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A4;
+    parent solar_F0_tpm_A4;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4752.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4752.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A4;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 5280;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A4_node;
+     to batt_F0_tpm_A4;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A4;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A4;
+    parent batt_F0_tpm_A4;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A4_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A4;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -1241,6 +1681,94 @@ object ZIPload {
     object load {
         name F0_house_A5_EV;
         parent house_F0_tpm_A5;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A5;
+	parent F0_tpm_A5;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A5;
+    parent solar_F0_tpm_A5;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 7344.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 7344.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A5;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 8160;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A5_node;
+     to batt_F0_tpm_A5;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A5;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A5;
+    parent batt_F0_tpm_A5;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A5_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A5;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -1419,6 +1947,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A6;
+	parent F0_tpm_A6;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A6;
+    parent solar_F0_tpm_A6;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 8640.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 8640.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A6;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 9600;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A6_node;
+     to batt_F0_tpm_A6;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A6;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A6;
+    parent batt_F0_tpm_A6;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A6_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A6;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -1591,6 +2207,94 @@ object ZIPload {
     object load {
         name F0_house_A7_EV;
         parent house_F0_tpm_A7;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A7;
+	parent F0_tpm_A7;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A7;
+    parent solar_F0_tpm_A7;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 5616.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 5616.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A7;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 6240;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A7_node;
+     to batt_F0_tpm_A7;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A7;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A7;
+    parent batt_F0_tpm_A7;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A7_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A7;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -1769,6 +2473,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A8;
+	parent F0_tpm_A8;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A8;
+    parent solar_F0_tpm_A8;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4752.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4752.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A8;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 5280;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A8_node;
+     to batt_F0_tpm_A8;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A8;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A8;
+    parent batt_F0_tpm_A8;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A8_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A8;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -1933,6 +2725,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A9;
+	parent F0_tpm_A9;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A9;
+    parent solar_F0_tpm_A9;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6480.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6480.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A9;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 7200;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A9_node;
+     to batt_F0_tpm_A9;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A9;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A9;
+    parent batt_F0_tpm_A9;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A9_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A9;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -2094,6 +2974,94 @@ object ZIPload {
     object load {
         name F0_house_A10_EV;
         parent house_F0_tpm_A10;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A10;
+	parent F0_tpm_A10;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A10;
+    parent solar_F0_tpm_A10;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 7344.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 7344.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A10;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 8160;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A10_node;
+     to batt_F0_tpm_A10;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A10;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A10;
+    parent batt_F0_tpm_A10;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A10_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A10;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -2269,6 +3237,94 @@ object ZIPload {
     object load {
         name F0_house_A11_EV;
         parent house_F0_tpm_A11;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A11;
+	parent F0_tpm_A11;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A11;
+    parent solar_F0_tpm_A11;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6480.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6480.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A11;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 7200;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A11_node;
+     to batt_F0_tpm_A11;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A11;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A11;
+    parent batt_F0_tpm_A11;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A11_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A11;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -2458,6 +3514,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A12;
+	parent F0_tpm_A12;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A12;
+    parent solar_F0_tpm_A12;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6480.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6480.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A12;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 7200;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A12_node;
+     to batt_F0_tpm_A12;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A12;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A12;
+    parent batt_F0_tpm_A12;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A12_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A12;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -2644,6 +3788,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A13;
+	parent F0_tpm_A13;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A13;
+    parent solar_F0_tpm_A13;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 5184.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 5184.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A13;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 5760;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A13_node;
+     to batt_F0_tpm_A13;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A13;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A13;
+    parent batt_F0_tpm_A13;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A13_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A13;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -2816,6 +4048,94 @@ object ZIPload {
     object load {
         name F0_house_A14_EV;
         parent house_F0_tpm_A14;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A14;
+	parent F0_tpm_A14;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A14;
+    parent solar_F0_tpm_A14;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 3888.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 3888.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A14;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 4320;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A14_node;
+     to batt_F0_tpm_A14;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A14;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A14;
+    parent batt_F0_tpm_A14;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A14_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A14;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -2994,6 +4314,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A15;
+	parent F0_tpm_A15;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A15;
+    parent solar_F0_tpm_A15;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4752.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4752.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A15;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 5280;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A15_node;
+     to batt_F0_tpm_A15;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A15;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A15;
+    parent batt_F0_tpm_A15;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A15_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A15;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -3169,6 +4577,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A16;
+	parent F0_tpm_A16;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A16;
+    parent solar_F0_tpm_A16;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 5616.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 5616.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A16;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 6240;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A16_node;
+     to batt_F0_tpm_A16;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A16;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A16;
+    parent batt_F0_tpm_A16;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A16_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A16;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -3330,6 +4826,94 @@ object ZIPload {
     object load {
         name F0_house_A17_EV;
         parent house_F0_tpm_A17;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A17;
+	parent F0_tpm_A17;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A17;
+    parent solar_F0_tpm_A17;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6912.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6912.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A17;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 7680;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A17_node;
+     to batt_F0_tpm_A17;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A17;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A17;
+    parent batt_F0_tpm_A17;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A17_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A17;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -3497,6 +5081,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A18;
+	parent F0_tpm_A18;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A18;
+    parent solar_F0_tpm_A18;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4320.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4320.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A18;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 4800;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A18_node;
+     to batt_F0_tpm_A18;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A18;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A18;
+    parent batt_F0_tpm_A18;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A18_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A18;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -3661,6 +5333,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A19;
+	parent F0_tpm_A19;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A19;
+    parent solar_F0_tpm_A19;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 7776.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 7776.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A19;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 8640;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A19_node;
+     to batt_F0_tpm_A19;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A19;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A19;
+    parent batt_F0_tpm_A19;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A19_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A19;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -3822,6 +5582,94 @@ object ZIPload {
     object load {
         name F0_house_A20_EV;
         parent house_F0_tpm_A20;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A20;
+	parent F0_tpm_A20;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A20;
+    parent solar_F0_tpm_A20;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 8208.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 8208.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A20;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 9120;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A20_node;
+     to batt_F0_tpm_A20;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A20;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A20;
+    parent batt_F0_tpm_A20;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A20_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A20;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -3997,6 +5845,94 @@ object ZIPload {
     object load {
         name F0_house_A21_EV;
         parent house_F0_tpm_A21;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A21;
+	parent F0_tpm_A21;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A21;
+    parent solar_F0_tpm_A21;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4320.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4320.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A21;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 4800;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A21_node;
+     to batt_F0_tpm_A21;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A21;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A21;
+    parent batt_F0_tpm_A21;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A21_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A21;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -4186,6 +6122,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A22;
+	parent F0_tpm_A22;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A22;
+    parent solar_F0_tpm_A22;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 4320.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 4320.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A22;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 4800;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A22_node;
+     to batt_F0_tpm_A22;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A22;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A22;
+    parent batt_F0_tpm_A22;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A22_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A22;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -4372,6 +6396,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A23;
+	parent F0_tpm_A23;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A23;
+    parent solar_F0_tpm_A23;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 8640.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 8640.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A23;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 9600;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A23_node;
+     to batt_F0_tpm_A23;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A23;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A23;
+    parent batt_F0_tpm_A23;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A23_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A23;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -4544,6 +6656,94 @@ object ZIPload {
     object load {
         name F0_house_A24_EV;
         parent house_F0_tpm_A24;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A24;
+	parent F0_tpm_A24;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A24;
+    parent solar_F0_tpm_A24;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 8208.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 8208.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A24;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 9120;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A24_node;
+     to batt_F0_tpm_A24;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A24;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A24;
+    parent batt_F0_tpm_A24;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A24_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A24;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -4722,6 +6922,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A25;
+	parent F0_tpm_A25;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A25;
+    parent solar_F0_tpm_A25;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6048.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6048.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A25;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 6720;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A25_node;
+     to batt_F0_tpm_A25;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A25;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A25;
+    parent batt_F0_tpm_A25;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A25_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A25;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -4883,6 +7171,94 @@ object ZIPload {
     object load {
         name F0_house_A26_EV;
         parent house_F0_tpm_A26;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A26;
+	parent F0_tpm_A26;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A26;
+    parent solar_F0_tpm_A26;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 8208.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 8208.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A26;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 9120;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A26_node;
+     to batt_F0_tpm_A26;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A26;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A26;
+    parent batt_F0_tpm_A26;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A26_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A26;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
@@ -5061,6 +7437,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A27;
+	parent F0_tpm_A27;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A27;
+    parent solar_F0_tpm_A27;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 7776.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 7776.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A27;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 8640;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A27_node;
+     to batt_F0_tpm_A27;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A27;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A27;
+    parent batt_F0_tpm_A27;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A27_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A27;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -5236,6 +7700,94 @@ object ZIPload {
     };
 }
 
+
+object triplex_meter {
+	name solar_F0_tpm_A28;
+	parent F0_tpm_A28;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A28;
+    parent solar_F0_tpm_A28;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 3888.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 3888.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A28;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 4320;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A28_node;
+     to batt_F0_tpm_A28;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A28;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A28;
+    parent batt_F0_tpm_A28;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A28_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A28;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
+    };
+}
+
 object triplex_line {
 	groupid F0_Triplex_Line;
 	phases AS;
@@ -5397,6 +7949,94 @@ object ZIPload {
     object load {
         name F0_house_A29_EV;
         parent house_F0_tpm_A29;
+    };
+}
+
+
+object triplex_meter {
+	name solar_F0_tpm_A29;
+	parent F0_tpm_A29;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+	
+object inverter {
+	name solar_inv_F0_house_A29;
+    parent solar_F0_tpm_A29;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	power_factor 1;
+	// use_multipoint_efficiency TRUE;
+	inverter_manufacturer XANTREX;
+	maximum_dc_power 6912.0; 
+	four_quadrant_control_mode CONSTANT_PQ;
+	generator_status ONLINE;
+	rated_power 6912.0;	
+	inverter_efficiency 0.90;
+	Q_Out 0;
+    P_Out 0;
+	object solar {
+		name solar_F0_house_A29;
+		// generator_mode SUPPLY_DRIVEN;
+		// generator_status ONLINE;
+		panel_type SINGLE_CRYSTAL_SILICON;
+		orientation FIXED_AXIS; 
+		rated_power 7680;
+	};
+    object metrics_collector {
+    	interval 300;
+    };
+}
+
+
+object triplex_line {
+     from F0_tpm_A29_node;
+     to batt_F0_tpm_A29;
+     phases AS;
+     length 1 ft;
+     configuration TLCFG;
+}
+
+object triplex_meter {
+	name batt_F0_tpm_A29;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+}
+
+object inverter {
+	name batt_inv_F0_house_A29;
+    parent batt_F0_tpm_A29;
+	phases AS;
+	inverter_type FOUR_QUADRANT;
+	four_quadrant_control_mode LOAD_FOLLOWING;
+    sense_object F0_tpm_A29_node;
+	generator_status ONLINE;
+    inverter_efficiency 0.90;
+	rated_power 3000.0;	
+    charge_on_threshold 1.5 kW;
+    charge_off_threshold 1.7 kW;
+    discharge_off_threshold 2 kW;
+    discharge_on_threshold 4 kW;
+    max_discharge_rate 30 kW;
+    max_charge_rate 30 kW;
+    charge_lockout_time 1;
+    discharge_lockout_time 1;
+	
+    object battery {
+        name batt_F0_house_A29;
+        use_internal_battery_model TRUE;
+        battery_type LI_ION;
+        rated_power 3 kW;
+        nominal_voltage 120;
+        battery_capacity 100 kWh;
+        round_trip_efficiency 0.81;
+        state_of_charge 0.5;
+        generator_mode SUPPLY_DRIVEN;
+    };
+    object metrics_collector {
+	interval 300;
     };
 }
 
