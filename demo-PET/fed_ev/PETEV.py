@@ -6,6 +6,7 @@ import helics
 import numpy as np
 import pandas
 from emobpy import Availability, ModelSpecs, Consumption
+from helics import HelicsFederate
 
 
 class EVChargingState(IntEnum):
@@ -21,7 +22,7 @@ class EVChargingState(IntEnum):
 # uses mobility/grid-availability data from emobpy to simulate an EV responding to PET
 # market conditions according to a strategy.
 class V2GEV:
-    def __init__(self, helics_fed, name: str, start_time: datetime, consumption: Consumption, car_model: ModelSpecs):
+    def __init__(self, helics_fed: HelicsFederate, name: str, start_time: datetime, consumption: Consumption, car_model: ModelSpecs):
         # self.mobility = mobility
         # self.consumption = consumption
         self.helics_fed = helics_fed
@@ -41,7 +42,7 @@ class V2GEV:
         self.pub_load = helics.helicsFederateRegisterPublication(self.helics_fed, f"{name}/load",
                                                                  helics.helics_data_type_complex, "")
 
-        self.sub_charge_rate = helics.helicsFederateRegisterSubscription(self.helics_fed, f"{name}/charge_rate")
+        self.sub_charge_rate = helics.helicsFederateRegisterSubscription(self.helics_fed, f"sub1/{name}#charge_rate")
 
         self.current_time = start_time
 

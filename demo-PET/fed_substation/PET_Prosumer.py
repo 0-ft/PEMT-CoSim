@@ -11,6 +11,7 @@ import random
 from collections import deque, namedtuple
 
 import helics
+from helics import HelicsFederate
 
 from my_auction import Auction
 
@@ -65,7 +66,7 @@ class HVAC:
         cleared_price (float): the cleared market price in $/kwh
     """
 
-    def __init__(self, name, json_object, auction: Auction):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, name, json_object, auction: Auction):
         self.name = name
         self.auction = auction
         self.loadType = 'hvac'
@@ -127,13 +128,23 @@ class HVAC:
         # "mttr" means price response by adjusting the mean time to request (MTTR)
 
         # publications and subscriptions
-        self.subs = None
-        self.pubs = None
+        self.subTemp = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                 f"gld1/F0_house_A{house_id}#air_temperature")
+        self.subHVACLoad = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                     f"gld1/F0_house_A{house_id}#hvac_load")
+
+        self.pubThermostatMode = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                          f"F0_house_A{house_id}_hvac/thermostat_mode",
+                                                                          helics.helics_data_type_string)
+        # self.pubThermostatDeadband = helics.helicsFederateRegisterPublication(helics_federate,
+        #                                                                   f"F0_house_A{house_id}_hvac/thermostat_mode",
+        #                                                                   helics.helics_data_type_string)
+        # self.
 
     def update_state(self):
-        self.air_temp = helics.helicsInputGetDouble(self.subs['subTemp'])
+        self.air_temp = helics.helicsInputGetDouble(self.subTemp)
         # hvac load
-        self.hvac_kw = max(helics.helicsInputGetDouble(self.subs['subHVACLoad']), 0)  # unit kW
+        self.hvac_kw = max(helics.helicsInputGetDouble(self.subHVACLoad), 0)  # unit kW
         # update request probability
         self.update_request_probability()
 
@@ -177,7 +188,7 @@ class HVAC:
         self.probability = 1 - math.exp(-mu * self.request_period)
 
     def set_on(self, on: bool):
-        helics.helicsPublicationPublishString(self.pubs['pubThermostatState'], "COOL" if on else "OFF")
+        helics.helicsPublicationPublishString(self.pubThermostatMode, "COOL" if on else "OFF")
         self.hvac_on = on
 
     def update_energy_market(self):
@@ -226,7 +237,7 @@ class HVAC:
 
 
 class PV:
-    def __init__(self, name):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, name: str):
         self.name = name
 
         # measurements
@@ -235,21 +246,32 @@ class PV:
         self.solar_DC_I_out = 0
 
         # control parameters
-        self.pubs = None
-        self.subs = None
+        self.subSolarPower = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                       f"gld1/solar_F0_tpm_A{house_id}#measured_power")
+        self.subSolarDCVOut = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                        f"gld1/solar_F0_house_A{house_id}#V_out")
+        self.subSolarDCIOut = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                        f"gld1/solar_F0_house_A{house_id}#I_out")
+
+        self.pubSolarPOut = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                     f"solar_inv_F0_house_A{house_id}/P_out",
+                                                                     helics.helics_data_type_double)
+        self.pubSolarQOut = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                     f"solar_inv_F0_house_A{house_id}/Q_out",
+                                                                     helics.helics_data_type_double)
 
     def update_state(self):
-        self.solar_kw = abs(helics.helicsInputGetComplex(self.subs['subSolarPower']).real * 0.001)  # unit. kW
-        self.solar_DC_V_out = helics.helicsInputGetComplex(self.subs['subSolarVout']).real  # unit. V
-        self.solar_DC_I_out = helics.helicsInputGetComplex(self.subs['subSolarIout']).real  # unit. A
+        self.solar_kw = abs(helics.helicsInputGetComplex(self.subSolarPower).real * 0.001)  # unit. kW
+        self.solar_DC_V_out = helics.helicsInputGetComplex(self.subSolarDCVOut).real  # unit. V
+        self.solar_DC_I_out = helics.helicsInputGetComplex(self.subSolarDCIOut).real  # unit. A
 
     def set_power_out(self, P, Q):
-        helics.helicsPublicationPublishDouble(self.pubs['pubPVPout'], P * 1000)
-        helics.helicsPublicationPublishDouble(self.pubs['pubPVQout'], Q * 1000)
+        helics.helicsPublicationPublishDouble(self.pubSolarPOut, P * 1000)
+        helics.helicsPublicationPublishDouble(self.pubSolarQOut, Q * 1000)
 
 
 class BATTERY:
-    def __init__(self, name):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, name):
         self.name = name
 
         # measurements
@@ -266,12 +288,27 @@ class BATTERY:
         self.discharge_on_threshold_offset = 3000
         self.discharge_off_threshold_offset = 2500
 
-        self.pubs = None
-        self.subs = None
+        self.subBattPower = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                      f"gld1/batt_F0_tpm_A{house_id}#measured_power")
+        self.subBattSoC = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                    f"gld1/batt_F0_house_A{house_id}#state_of_charge")
+
+        self.pubChargeOnThreshold = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                             f"batt_inv_F0_house_A{house_id}/charge_on_threshold",
+                                                                             helics.helics_data_type_double)
+        self.pubChargeOffThreshold = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                              f"batt_inv_F0_house_A{house_id}/charge_off_threshold",
+                                                                              helics.helics_data_type_double)
+        self.pubDischargeOnThreshold = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                                f"batt_inv_F0_house_A{house_id}/disharge_off_threshold",
+                                                                                helics.helics_data_type_double)
+        self.pubDischargeOffThreshold = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                                 f"batt_inv_F0_house_A{house_id}/disharge_on_threshold",
+                                                                                 helics.helics_data_type_double)
 
     def update_state(self):
-        self.battery_kw = helics.helicsInputGetComplex(self.subs['subBattPower']).real * 0.001  # unit. kW
-        self.battery_soc = helics.helicsInputGetDouble(self.subs['subBattSoC'])
+        self.battery_kw = helics.helicsInputGetComplex(self.subBattPower).real * 0.001  # unit. kW
+        self.battery_soc = helics.helicsInputGetDouble(self.subBattSoC)
 
     def auto_control(self, unresponsive_kw):
         self.charge_on_threshold = unresponsive_kw * 1000 + self.charge_on_threshold_offset
@@ -279,32 +316,44 @@ class BATTERY:
         self.discharge_on_threshold = unresponsive_kw * 1000 + self.discharge_on_threshold_offset
         self.discharge_off_threshold = unresponsive_kw * 1000 + self.discharge_off_threshold_offset
 
-        helics.helicsPublicationPublishDouble(self.pubs['pubCharge_on_threshold'], self.charge_on_threshold)
-        helics.helicsPublicationPublishDouble(self.pubs['pubCharge_off_threshold'], self.charge_off_threshold)
-        helics.helicsPublicationPublishDouble(self.pubs['pubDischarge_on_threshold'], self.discharge_on_threshold)
-        helics.helicsPublicationPublishDouble(self.pubs['pubDischarge_off_threshold'], self.discharge_off_threshold)
+        helics.helicsPublicationPublishDouble(self.pubChargeOnThreshold, self.charge_on_threshold)
+        helics.helicsPublicationPublishDouble(self.pubChargeOffThreshold, self.charge_off_threshold)
+        helics.helicsPublicationPublishDouble(self.pubDischargeOnThreshold, self.discharge_on_threshold)
+        helics.helicsPublicationPublishDouble(self.pubDischargeOffThreshold, self.discharge_off_threshold)
 
 
 class EV:
-    def __init__(self, name):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int):
         self.location = "home"
         self.stored_energy = 0
         self.charge_rate = 0
+        self.sub_location = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                      f"ev1/F0_house_A{house_id}_EV#location")
+        self.sub_stored_energy = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                           f"ev1/F0_house_A{house_id}_EV#stored_energy")
+        self.sub_load = helics.helicsFederateRegisterSubscription(helics_federate, f"ev1/F0_house_A{house_id}_EV#load")
+        self.pub_charge_rate = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                        f"F0_house_A{house_id}_EV/charge_rate",
+                                                                        helics.helics_data_type_double)
 
     def update_state(self):
-        self.location = helics.helicsInputGetString()
+        helics.helicsPublicationPublishDouble(self.pub_charge_rate, 0.0)
+        self.location = helics.helicsInputGetString(self.sub_location)
+        self.stored_energy = helics.helicsInputGetString(self.sub_stored_energy)
+
 
 class House:
-    def __init__(self, name, info, agents_dict, auction: Auction, seed):
-        self.name = name
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, info, agents_dict, auction: Auction, seed):
+        self.number = house_id
+        self.name = f"F0_house_A{house_id}"
         self.auction = auction
         hvac_name = info['HVAC']
         PV_name = info['PV']
         battery_name = info['battery']
-        self.hvac = HVAC(hvac_name, agents_dict['hvacs'][hvac_name], auction)  # create hvac object
-        self.pv = PV(PV_name) if PV_name else None
-        self.ev = EV()
-        self.battery = BATTERY(battery_name) if battery_name else None
+        self.hvac = HVAC(helics_federate, house_id, hvac_name, agents_dict['hvacs'][hvac_name], auction)
+        self.pv = PV(helics_federate, house_id, PV_name) if PV_name else None
+        self.ev = EV(helics_federate, house_id, )
+        self.battery = BATTERY(helics_federate, house_id, battery_name) if battery_name else None
         self.role = 'buyer'  # current role: buyer/seller/none-participant
 
         # market price related
@@ -326,42 +375,36 @@ class House:
         # about packet
         self.packet_unit = 1.0  # unit. kw
 
-        self.pubs = None
-        self.subs = None
+        self.pubMtrMode = helics.helicsFederateRegisterPublication(helics_federate, f"F0_tpm_A{house_id}/bill_mode",
+                                                                   helics.helics_data_type_string)
 
-    def set_helics_subspubs(self, input):
-        self.subs = input[0]
-        self.pubs = input[1]
+        self.pubMtrMonthly = helics.helicsFederateRegisterPublication(helics_federate,
+                                                                      f"F0_tpm_A{house_id}/monthly_fee",
+                                                                      helics.helics_data_type_double)
+        self.pubMtrPrice = helics.helicsFederateRegisterPublication(helics_federate, f"F0_tpm_A{house_id}/price",
+                                                                    helics.helics_data_type_double)
 
-        # share the pubs and subs to all devices
-        self.hvac.subs = input[0]
-        self.hvac.pubs = input[1]
-        if self.battery:
-            self.battery.subs = input[0]
-            self.battery.pubs = input[1]
-
-        if self.pv:
-            self.pv.subs = input[0]
-            self.pv.pubs = input[1]
-
-        if self.ev:
-            self.ev.subs = input[0]
-            self.ev.pubs = input[1]
+        self.subMtrVoltage = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                       f"gld1/F0_tpm_A{house_id}#measured_voltage_1")
+        self.subMtrPower = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                     f"gld1/F0_tpm_A{house_id}#measured_power")
+        self.subHousePower = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                       f"gld1/house_F0_tpm_A{house_id}#measured_power")
 
     def set_meter_mode(self):
-        helics.helicsPublicationPublishString(self.pubs['pubMtrMode'], 'HOURLY')
-        helics.helicsPublicationPublishDouble(self.pubs['pubMtrMonthly'], 0.0)
+        helics.helicsPublicationPublishString(self.pubMtrMode, 'HOURLY')
+        helics.helicsPublicationPublishDouble(self.pubMtrMonthly, 0.0)
 
     def update_measurements(self):
         # for billing meter measurements ==================
         # billing meter voltage
-        self.mtr_voltage = abs(helics.helicsInputGetComplex(self.subs['subVolt']))
+        self.mtr_voltage = abs(helics.helicsInputGetComplex(self.subMtrVoltage))
         # billing meter power
-        self.mtr_power = helics.helicsInputGetComplex(self.subs['subMtrPower']).real * 0.001  # unit. kW
+        self.mtr_power = helics.helicsInputGetComplex(self.subMtrPower).real * 0.001  # unit. kW
 
         # for house meter measurements ==================
         # house meter power
-        self.house_kw = helics.helicsInputGetComplex(self.subs['subHousePower']).real * 0.001  # unit. kW
+        self.house_kw = helics.helicsInputGetComplex(self.subHousePower).real * 0.001  # unit. kW
 
         # for HVAC measurements  ==================
         self.hvac.update_state()  # state update for control
@@ -383,7 +426,7 @@ class House:
         self.solar_power_predict = self.pv.solar_DC_V_out * self.pv.solar_DC_I_out / 1000 if self.pv else 0
 
     def publish_meter_price(self):
-        helics.helicsPublicationPublishDouble(self.pubs['pubMtrPrice'], self.auction.clearing_price)
+        helics.helicsPublicationPublishDouble(self.pubMtrPrice, self.auction.clearing_price)
 
     def formulate_bid(self):
         """ formulate the bid for prosumer
@@ -493,18 +536,19 @@ class House:
 
 
 class VPP:
-    def __init__(self, name, enable=True):
+    def __init__(self, helics_federate: HelicsFederate, name, enable=True):
         self.name = name
         self.enable = enable
 
         self.vpp_load_p = 0  # kVA
+        self.vpp_load_q = 0
         self.balance_signal = 220  # kVA
 
         self.request_list = []
         self.response_list = []
 
-        self.subs = {}
-        self.pubs = {}
+        self.subVppPower = helics.helicsFederateRegisterSubscription(helics_federate,
+                                                                     f'gld1/F0_triplex_node_A#measured_power')
 
     def receive_request(self, request):
         # request is a list [name, load type, power, length]
@@ -539,13 +583,9 @@ class VPP:
         self.request_list.clear()
 
     def update_load(self):
-        cval = helics.helicsInputGetComplex(self.subs['vppPower'])
+        cval = helics.helicsInputGetComplex(self.subVppPower)
         self.vpp_load_p = cval.real * 0.001
         self.vpp_load_q = cval.imag * 0.001
 
     def update_balance_signal(self):
         pass
-
-    def set_helics_subspubs(self, input):
-        self.subs = input[0]
-        self.pubs = input[1]

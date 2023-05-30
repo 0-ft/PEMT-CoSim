@@ -42,7 +42,7 @@
     {
       "name": "RESPONSIVE_DEG",
       "key": "sub1/responsive_deg",
-      "type": "integer"
+      "type": "int64"
     }
   ]
 }

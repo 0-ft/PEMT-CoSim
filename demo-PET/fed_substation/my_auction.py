@@ -12,6 +12,7 @@ Todo:
 
 """
 import helics
+from helics import HelicsFederate
 
 import my_tesp_support_api.helpers as helpers
 from my_tesp_support_api.helpers import ClearingType
@@ -59,7 +60,7 @@ class Auction:
     """
 
     # ====================Define instance variables ===================================
-    def __init__(self, dict, key):
+    def __init__(self, helics_federate: HelicsFederate, dict, key):
         self.name = key
         self.std_dev = float(dict['init_stdev'])
         self.mean = float(dict['init_price'])
@@ -118,12 +119,22 @@ class Auction:
         self.bid_offset = 1e-4  # for numerical checks
 
         # publications and subscriptions
-        self.subs = None
-        self.pubs = None
+        self.pubUnresp = helics.helicsFederateRegisterPublication(helics_federate, "unresponsive_mw",
+                                                                  helics.helics_data_type_double)
+        self.pubMax = helics.helicsFederateRegisterPublication(helics_federate, "responsive_max_mw",
+                                                               helics.helics_data_type_double)
+        self.pubC1 = helics.helicsFederateRegisterPublication(helics_federate, "responsive_c1",
+                                                              helics.helics_data_type_double)
+        self.pubC2 = helics.helicsFederateRegisterPublication(helics_federate, "responsive_c2",
+                                                              helics.helics_data_type_double)
+        self.pubDeg = helics.helicsFederateRegisterPublication(helics_federate, "responsive_deg",
+                                                               helics.helics_data_type_int)
+        self.pubAucPrice = helics.helicsFederateRegisterPublication(helics_federate, "clear_price",
+                                                                    helics.helics_data_type_double)
 
-    def set_helics_subspubs(self, input):
-        self.subs = input[0]
-        self.pubs = input[1]
+        self.subFeeder = helics.helicsFederateRegisterSubscription(helics_federate, "gld1/distribution_load")
+        self.subLMP = helics.helicsFederateRegisterSubscription(helics_federate, "pypower/LMP_B7")
+
 
     def update_refload(self):
         """Sets the refload attribute
@@ -131,7 +142,7 @@ class Auction:
         Args:
             kw (float): GridLAB-D substation load in kw
         """
-        c = helics.helicsInputGetComplex(self.subs['subFeeder'])
+        c = helics.helicsInputGetComplex(self.subFeeder)
         self.refload_p = c.real * 0.001
         self.refload_q = c.imag * 0.001
         self.refload = self.refload_p  # math.sqrt(self.refload_p**2 + self.refload_q**2)
@@ -142,7 +153,7 @@ class Auction:
         Args:
             lmp (float): locational marginal price from the bulk system market
         """
-        self.lmp = helics.helicsInputGetDouble(self.subs['subLMP'])
+        self.lmp = helics.helicsInputGetDouble(self.subLMP)
 
     def init_auction(self):
         """Sets the clearing_price and lmp to the mean price
@@ -266,14 +277,14 @@ class Auction:
             self.market_condition = "double-auction"
 
     def publish_agg_bids_for_buyer(self):
-        helics.helicsPublicationPublishDouble(self.pubs['pubUnresp'], self.agg_unresp)
-        helics.helicsPublicationPublishDouble(self.pubs['pubMax'], self.agg_resp_max)
-        helics.helicsPublicationPublishDouble(self.pubs['pubC2'], self.agg_c2)
-        helics.helicsPublicationPublishDouble(self.pubs['pubC1'], self.agg_c1)
-        helics.helicsPublicationPublishInteger(self.pubs['pubDeg'], self.agg_deg)
+        helics.helicsPublicationPublishDouble(self.pubUnresp, self.agg_unresp)
+        helics.helicsPublicationPublishDouble(self.pubMax, self.agg_resp_max)
+        helics.helicsPublicationPublishDouble(self.pubC2, self.agg_c2)
+        helics.helicsPublicationPublishDouble(self.pubC1, self.agg_c1)
+        helics.helicsPublicationPublishInteger(self.pubDeg, self.agg_deg)
 
     def publish_clearing_price(self):
-        helics.helicsPublicationPublishDouble(self.pubs['pubAucPrice'], self.clearing_price)
+        helics.helicsPublicationPublishDouble(self.pubAucPrice, self.clearing_price)
 
     def clear_market(self, tnext_clear=0, time_granted=0):
         """Solves for the market clearing price and quantity

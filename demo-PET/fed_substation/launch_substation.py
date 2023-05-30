@@ -36,7 +36,7 @@ has_demand_response = False
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop)  # initialize the federate helper
 
 """=============================Start The Co-simulation==================================="""
-fh.cosimulation_start()  # launch the broker; launch other federates; the substation federate enters executing mode
+fh.create_federate()  # launch the broker; launch other federates; the substation federate enters executing mode
 
 """============================Substation Initialization=================================="""
 print(
@@ -45,25 +45,20 @@ print(
 
 # initialize a user-defined Vpp coordinator object
 vpp_name = fh.vpp_name_list[0]  # select the first VPP
-vpp = VPP(vpp_name, vppEnable)
-vpp.set_helics_subspubs(fh.get_agent_pubssubs(vpp.name, 'VPP'))
+vpp = VPP(fh.hFed, vpp_name, vppEnable)
+# vpp.set_helics_subspubs(fh.get_agent_pubssubs(vpp.name, 'VPP'))
 
 # initialize a user-defined auction object
-auction = Auction(fh.market_row, fh.market_key)
-auction.set_helics_subspubs(fh.get_agent_pubssubs(auction.name, 'auction'))
+auction = Auction(fh.hFed, fh.market_row, fh.market_key)
 auction.init_auction()
 
 # initialize House objects
 houses = {}
-seed = 1
-for key, info in fh.housesInfo_dict.items():  # key: house name, info: information of the house, including names of PV, battery ...
-    houses[key] = House(key, info, fh.agents, auction, seed)  # initialize a house object
-    houses[key].set_helics_subspubs(
-        fh.get_agent_pubssubs(key, 'house', info))  # get subscriptions and publications for house meters
-    houses[key].set_meter_mode()  # set meter mode
-    houses[key].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
-    seed += 1
-last_house_name = key
+for house_id, (key, info) in enumerate(fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
+    houses[key] = House(fh.hFed, house_id, info, fh.agents, auction, house_id + 1)  # initialize a house object
+    # houses[key].set_helics_subspubs(
+    #     fh.get_agent_pubssubs(key, 'house', info))  # get subscriptions and publications for house meters
+    last_house_name = key
 
 # initialize DATA_TO_PLOT class to visualize data in the simulation
 num_houses = len(houses)
@@ -96,6 +91,12 @@ tnext_fig_update = market_period + dt  # the next time to update figures
 time_granted = 0
 time_last = 0
 
+fh.FederateEnterExecutingMode()
+
+for house_id, (key, info) in enumerate(fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
+    houses[key].set_meter_mode()  # set meter mode
+    houses[key].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
+
 """============================Substation Loop=================================="""
 
 while time_granted < StopTime:
@@ -116,6 +117,7 @@ while time_granted < StopTime:
            make power predictions for house load"""
     if time_granted >= tnext_update:
         for key, house in houses.items():
+            house.ev.update_state()
             house.update_measurements()  # update measurements for all devices
             house.hvac.change_basepoint(hour_of_day, day_of_week)  # update schedule
             house.hvac.determine_power_needed()  # hvac determines if power is needed based on current state

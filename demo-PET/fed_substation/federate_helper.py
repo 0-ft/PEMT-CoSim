@@ -156,8 +156,17 @@ class FEDERATE_HELPER:
         print("HELICS broker created!")
 
     def create_federate(self):
-        self.hFed = helics.helicsCreateValueFederateFromConfig(
-            self.helics_config_path)  # the helics period is 15 seconds
+        fed_name = "sub1"
+        fed_info = helics.helicsCreateFederateInfo()
+        helics.helicsFederateInfoSetCoreName(fed_info, fed_name)
+        helics.helicsFederateInfoSetTimeProperty(fed_info, helics.helics_property_time_period,
+                                                 1)
+        helics.helicsFederateInfoSetFlagOption(fed_info, helics.helics_flag_uninterruptible, True)
+
+        self.hFed = helics.helicsCreateValueFederate(fed_name, fed_info)
+
+        # self.hFed = helics.helicsCreateValueFederateFromConfig(
+        #     self.helics_config_path)  # the helics period is 15 seconds
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
@@ -336,12 +345,13 @@ class FEDERATE_HELPER:
         # while not self.is_destroyed:
         #     self.destroy_federate()
         self.create_federate()
-        self.register_pubssubs()
+
+        # self.register_pubssubs()
         self.is_destroyed = False
         # 4. execute other federates
         # self.run_other_federates()
         # 5. execute the main federate (it should be in the final)
-        self.FederateEnterExecutingMode()
+        # self.FederateEnterExecutingMode()
         print("Cosimulation started...")
 
     def run_other_federates(self):

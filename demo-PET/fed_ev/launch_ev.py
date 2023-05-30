@@ -66,6 +66,7 @@ class EVFederate:
     #     print(f"EV federate published locations {current_locations} at time {self.current_time}")
 
     def run_federate(self):
+        print("EV federate to enter execution mode")
         helics.helicsFederateEnterExecutingMode(self.helics_fed)
         print("EV federate entered execution mode")
         # pub_count = helics.helicsFederateGetPublicationCount(self.helics_fed)
