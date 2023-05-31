@@ -119,21 +119,15 @@ class Auction:
         self.bid_offset = 1e-4  # for numerical checks
 
         # publications and subscriptions
-        self.pubUnresp = helics.helicsFederateRegisterPublication(helics_federate, "unresponsive_mw",
-                                                                  helics.helics_data_type_double)
-        self.pubMax = helics.helicsFederateRegisterPublication(helics_federate, "responsive_max_mw",
-                                                               helics.helics_data_type_double)
-        self.pubC1 = helics.helicsFederateRegisterPublication(helics_federate, "responsive_c1",
-                                                              helics.helics_data_type_double)
-        self.pubC2 = helics.helicsFederateRegisterPublication(helics_federate, "responsive_c2",
-                                                              helics.helics_data_type_double)
-        self.pubDeg = helics.helicsFederateRegisterPublication(helics_federate, "responsive_deg",
-                                                               helics.helics_data_type_int)
-        self.pubAucPrice = helics.helicsFederateRegisterPublication(helics_federate, "clear_price",
-                                                                    helics.helics_data_type_double)
+        self.pubUnresp = helics.helicsFederateGetPublication(helics_federate, "unresponsive_mw")
+        self.pubMax = helics.helicsFederateGetPublication(helics_federate, "responsive_max_mw")
+        self.pubC1 = helics.helicsFederateGetPublication(helics_federate, "responsive_c1")
+        self.pubC2 = helics.helicsFederateGetPublication(helics_federate, "responsive_c2")
+        self.pubDeg = helics.helicsFederateGetPublication(helics_federate, "responsive_deg")
+        self.pubAucPrice = helics.helicsFederateGetPublication(helics_federate, "clear_price")
 
-        self.subFeeder = helics.helicsFederateRegisterSubscription(helics_federate, "gld1/distribution_load")
-        self.subLMP = helics.helicsFederateRegisterSubscription(helics_federate, "pypower/LMP_B7")
+        self.subFeeder = helics.helicsFederateGetSubscription(helics_federate, "gld1/distribution_load")
+        self.subLMP = helics.helicsFederateGetSubscription(helics_federate, "pypower/LMP_B7")
 
 
     def update_refload(self):

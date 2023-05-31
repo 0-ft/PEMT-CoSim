@@ -8,18 +8,17 @@ from my_tesp_support_api.utils import DotDict
 
 path_base = './fed_substation/data/'
 exp1 = 'exp(test)'
-path = path_base + exp1 +'/'
-with open(path+'data.pkl', 'rb') as f:
+path = path_base + exp1 + '/'
+with open(path + 'data.pkl', 'rb') as f:
     data = DotDict(pickle.load(f))
 
-with open(path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
-    prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
+with open(path + 'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+    prosumer_dict = json.loads(f.read())  # federate_config is the dict data structure
     f.close()
 
-with open(path+'auction_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
-    auction_dict = json.loads(f.read()) # federate_config is the dict data structure
+with open(path + 'auction_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+    auction_dict = json.loads(f.read())  # federate_config is the dict data structure
     f.close()
-
 
 # time_hour_auction = data_dict['time_hour_auction']
 # buyer_ratio = data_dict['buyer_ratio']
@@ -68,44 +67,42 @@ prices = []
 roles = []
 quantitys = []
 for i in range(len(data.time_hour_auction)):
-    t = int((i+1)*300)
-    bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
+    t = int((i + 1) * 300)
+    bid = prosumer_dict[str(t)][house]  # bid_price, quantity, hvac.power_needed, role
     price = bid[0]
     quantity = bid[1]
     role = bid[3]
     if role == 'seller':
-        quantitys.append(int(-quantity/3))
+        quantitys.append(int(-quantity / 3))
         roles.append(-1)
     elif role == 'buyer':
-        quantitys.append(int(quantity/3))
+        quantitys.append(int(quantity / 3))
         roles.append(1)
     else:
         quantitys.append(0)
         roles.append(0)
     prices.append(price)
 
-
-fig2, (ax11, ax12, ax13) = plt.subplots(3)
-ax11.set_ylabel('Role', size = 13)
-ax11.tick_params(axis='x', labelsize=13)
-ax11.tick_params(axis='y', labelsize=13)
-ax11.set_yticks((-1, 0, 1))
-ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
-ax11.plot(data.time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
-
-ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
-ax12.tick_params(axis='x', labelsize=13)
-ax12.tick_params(axis='y', labelsize=13)
-ax12.plot(data.time_hour_auction, quantitys, 's--', color = 'k', linewidth = 1)
-
-ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
-ax13.set_xlabel("Time (h)", size = 13)
-ax13.tick_params(axis='x', labelsize=13)
-ax13.tick_params(axis='y', labelsize=13)
-ax13.plot(data.time_hour_auction, prices,  color = 'k', linewidth = 1.5)
-ax13.plot(data.time_hour_auction, data.cleared_price, color = 'g', linewidth = 1.5)
-ax13.legend(['bid price', 'cleared price'])
-
+# fig2, (ax11, ax12, ax13) = plt.subplots(3)
+# ax11.set_ylabel('Role', size=13)
+# ax11.tick_params(axis='x', labelsize=13)
+# ax11.tick_params(axis='y', labelsize=13)
+# ax11.set_yticks((-1, 0, 1))
+# ax11.set_yticklabels(("seller", "none-\nptcpt", "buyer"))
+# ax11.plot(data.time_hour_auction, roles, 's--', color='k', linewidth=1)
+#
+# ax12.set_ylabel('Bid-Quantity \n(packet)', size=13)
+# ax12.tick_params(axis='x', labelsize=13)
+# ax12.tick_params(axis='y', labelsize=13)
+# ax12.plot(data.time_hour_auction, quantitys, 's--', color='k', linewidth=1)
+#
+# ax13.set_ylabel('Bid-Price \n($/kWh)', size=13)
+# ax13.set_xlabel("Time (h)", size=13)
+# ax13.tick_params(axis='x', labelsize=13)
+# ax13.tick_params(axis='y', labelsize=13)
+# ax13.plot(data.time_hour_auction, prices, color='k', linewidth=1.5)
+# ax13.plot(data.time_hour_auction, data.cleared_price, color='g', linewidth=1.5)
+# ax13.legend(['bid price', 'cleared price'])
 
 # plt.figure(1)
 # time = time_hour_auction
@@ -119,8 +116,6 @@ ax13.legend(['bid price', 'cleared price'])
 # plt.xlabel('Time (h)')
 # plt.ylabel('Bid-Price ($/kWh)')
 # # plt.legend()
-
-
 
 
 fig = make_subplots(rows=4, cols=1,
@@ -178,7 +173,6 @@ fig.add_traces([
 
 fig.update_yaxes(title_text="Temperature (deg F)", row=2, col=1)
 
-
 fig.add_traces([
     {
         "type": "scatter",
@@ -201,13 +195,22 @@ fig.add_traces([
         "y": ys,
         "name": name,
         "showlegend": False,
+        "stackgroup": "role",
+        "line": {"width": 0}
     } for xs, ys, name in [
-        (data.time_hour_system, data.hvac_on_ratio, "HVAC On"),
         (data.time_hour_auction, data.buyer_ratio, "Buyer"),
         (data.time_hour_auction, data.seller_ratio, "Seller"),
         (data.time_hour_auction, data.nontcp_ratio, "Non-participant"),
     ]
 ], rows=4, cols=1)
+
+fig.add_trace({
+    "type": "scatter",
+    "x": data.time_hour_system,
+    "y": data.hvac_on_ratio,
+    "name": "HVAC On",
+    "showlegend": False
+}, row=4, col=1)
 
 fig.update_yaxes(title_text="Ratio", row=4, col=1)
 
@@ -216,11 +219,6 @@ for i in range(1, 5):
                      tick0=data.time_hour_system, dtick=1, row=i, col=1)
 
 fig.show()
-
-
-
-
-
 
 # # system load, PV, house load
 # plt.figure(1)
@@ -264,8 +262,6 @@ fig.show()
 # plt.legend()
 
 #############################################################################333
-
-
 
 
 # plt.show()

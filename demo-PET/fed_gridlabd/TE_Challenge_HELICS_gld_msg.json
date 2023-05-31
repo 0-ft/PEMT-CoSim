@@ -2191,28 +2191,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A0#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A0",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A1#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A1",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A1#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A1",
         "property": "measured_power"
       }
     },
@@ -2227,28 +2209,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A2#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A2",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A3#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A3",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A3#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A3",
         "property": "measured_power"
       }
     },
@@ -2263,28 +2227,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A4#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A4",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A5#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A5",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A5#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A5",
         "property": "measured_power"
       }
     },
@@ -2299,28 +2245,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A6#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A6",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A7#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A7",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A7#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A7",
         "property": "measured_power"
       }
     },
@@ -2335,28 +2263,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A8#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A8",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A9#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A9",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A9#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A9",
         "property": "measured_power"
       }
     },
@@ -2371,28 +2281,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A10#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A10",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A11#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A11",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A11#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A11",
         "property": "measured_power"
       }
     },
@@ -2407,28 +2299,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A12#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A12",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A13#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A13",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A13#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A13",
         "property": "measured_power"
       }
     },
@@ -2443,28 +2317,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A14#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A14",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A15#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A15",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A15#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A15",
         "property": "measured_power"
       }
     },
@@ -2479,28 +2335,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A16#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A16",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A17#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A17",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A17#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A17",
         "property": "measured_power"
       }
     },
@@ -2515,28 +2353,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A18#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A18",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A19#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A19",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A19#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A19",
         "property": "measured_power"
       }
     },
@@ -2551,28 +2371,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A20#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A20",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A21#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A21",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A21#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A21",
         "property": "measured_power"
       }
     },
@@ -2587,28 +2389,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A22#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A22",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A23#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A23",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A23#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A23",
         "property": "measured_power"
       }
     },
@@ -2623,28 +2407,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A24#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A24",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A25#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A25",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A25#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A25",
         "property": "measured_power"
       }
     },
@@ -2659,28 +2425,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A26#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A26",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A27#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A27",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A27#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A27",
         "property": "measured_power"
       }
     },
@@ -2695,28 +2443,10 @@
     },
     {
       "global": false,
-      "key": "batt_F0_tpm_A28#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A28",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_tpm_A29#measured_power",
       "type": "complex",
       "info": {
         "object": "solar_F0_tpm_A29",
-        "property": "measured_power"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_tpm_A29#measured_power",
-      "type": "complex",
-      "info": {
-        "object": "batt_F0_tpm_A29",
         "property": "measured_power"
       }
     },
@@ -2740,15 +2470,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A0#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A0",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A1#V_Out",
       "type": "double",
       "info": {
@@ -2763,15 +2484,6 @@
       "info": {
         "object": "solar_F0_house_A1",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A1#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A1",
-        "property": "state_of_charge"
       }
     },
     {
@@ -2794,15 +2506,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A2#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A2",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A3#V_Out",
       "type": "double",
       "info": {
@@ -2817,15 +2520,6 @@
       "info": {
         "object": "solar_F0_house_A3",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A3#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A3",
-        "property": "state_of_charge"
       }
     },
     {
@@ -2848,15 +2542,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A4#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A4",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A5#V_Out",
       "type": "double",
       "info": {
@@ -2871,15 +2556,6 @@
       "info": {
         "object": "solar_F0_house_A5",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A5#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A5",
-        "property": "state_of_charge"
       }
     },
     {
@@ -2902,15 +2578,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A6#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A6",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A7#V_Out",
       "type": "double",
       "info": {
@@ -2925,15 +2592,6 @@
       "info": {
         "object": "solar_F0_house_A7",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A7#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A7",
-        "property": "state_of_charge"
       }
     },
     {
@@ -2956,15 +2614,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A8#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A8",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A9#V_Out",
       "type": "double",
       "info": {
@@ -2979,15 +2628,6 @@
       "info": {
         "object": "solar_F0_house_A9",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A9#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A9",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3010,15 +2650,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A10#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A10",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A11#V_Out",
       "type": "double",
       "info": {
@@ -3033,15 +2664,6 @@
       "info": {
         "object": "solar_F0_house_A11",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A11#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A11",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3064,15 +2686,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A12#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A12",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A13#V_Out",
       "type": "double",
       "info": {
@@ -3087,15 +2700,6 @@
       "info": {
         "object": "solar_F0_house_A13",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A13#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A13",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3118,15 +2722,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A14#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A14",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A15#V_Out",
       "type": "double",
       "info": {
@@ -3141,15 +2736,6 @@
       "info": {
         "object": "solar_F0_house_A15",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A15#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A15",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3172,15 +2758,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A16#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A16",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A17#V_Out",
       "type": "double",
       "info": {
@@ -3195,15 +2772,6 @@
       "info": {
         "object": "solar_F0_house_A17",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A17#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A17",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3226,15 +2794,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A18#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A18",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A19#V_Out",
       "type": "double",
       "info": {
@@ -3249,15 +2808,6 @@
       "info": {
         "object": "solar_F0_house_A19",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A19#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A19",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3280,15 +2830,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A20#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A20",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A21#V_Out",
       "type": "double",
       "info": {
@@ -3303,15 +2844,6 @@
       "info": {
         "object": "solar_F0_house_A21",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A21#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A21",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3334,15 +2866,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A22#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A22",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A23#V_Out",
       "type": "double",
       "info": {
@@ -3357,15 +2880,6 @@
       "info": {
         "object": "solar_F0_house_A23",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A23#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A23",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3388,15 +2902,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A24#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A24",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A25#V_Out",
       "type": "double",
       "info": {
@@ -3411,15 +2916,6 @@
       "info": {
         "object": "solar_F0_house_A25",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A25#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A25",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3442,15 +2938,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A26#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A26",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A27#V_Out",
       "type": "double",
       "info": {
@@ -3465,15 +2952,6 @@
       "info": {
         "object": "solar_F0_house_A27",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A27#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A27",
-        "property": "state_of_charge"
       }
     },
     {
@@ -3496,15 +2974,6 @@
     },
     {
       "global": false,
-      "key": "batt_F0_house_A28#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A28",
-        "property": "state_of_charge"
-      }
-    },
-    {
-      "global": false,
       "key": "solar_F0_house_A29#V_Out",
       "type": "double",
       "info": {
@@ -3519,15 +2988,6 @@
       "info": {
         "object": "solar_F0_house_A29",
         "property": "I_Out"
-      }
-    },
-    {
-      "global": false,
-      "key": "batt_F0_house_A29#state_of_charge",
-      "type": "double",
-      "info": {
-        "object": "batt_F0_house_A29",
-        "property": "state_of_charge"
       }
     }
   ],
@@ -5746,966 +5206,6 @@
       "info": {
         "object": "solar_inv_F0_house_A29",
         "property": "Q_Out"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A0/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A0",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A0/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A0",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A0/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A0",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A0/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A0",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A1/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A1",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A1/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A1",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A1/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A1",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A1/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A1",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A2/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A2",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A2/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A2",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A2/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A2",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A2/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A2",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A3/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A3",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A3/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A3",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A3/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A3",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A3/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A3",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A4/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A4",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A4/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A4",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A4/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A4",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A4/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A4",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A5/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A5",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A5/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A5",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A5/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A5",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A5/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A5",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A6/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A6",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A6/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A6",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A6/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A6",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A6/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A6",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A7/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A7",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A7/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A7",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A7/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A7",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A7/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A7",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A8/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A8",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A8/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A8",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A8/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A8",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A8/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A8",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A9/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A9",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A9/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A9",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A9/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A9",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A9/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A9",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A10/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A10",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A10/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A10",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A10/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A10",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A10/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A10",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A11/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A11",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A11/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A11",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A11/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A11",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A11/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A11",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A12/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A12",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A12/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A12",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A12/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A12",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A12/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A12",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A13/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A13",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A13/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A13",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A13/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A13",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A13/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A13",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A14/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A14",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A14/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A14",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A14/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A14",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A14/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A14",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A15/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A15",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A15/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A15",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A15/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A15",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A15/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A15",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A16/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A16",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A16/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A16",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A16/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A16",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A16/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A16",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A17/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A17",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A17/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A17",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A17/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A17",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A17/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A17",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A18/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A18",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A18/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A18",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A18/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A18",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A18/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A18",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A19/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A19",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A19/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A19",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A19/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A19",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A19/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A19",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A20/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A20",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A20/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A20",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A20/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A20",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A20/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A20",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A21/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A21",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A21/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A21",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A21/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A21",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A21/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A21",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A22/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A22",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A22/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A22",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A22/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A22",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A22/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A22",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A23/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A23",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A23/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A23",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A23/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A23",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A23/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A23",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A24/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A24",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A24/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A24",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A24/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A24",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A24/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A24",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A25/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A25",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A25/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A25",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A25/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A25",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A25/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A25",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A26/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A26",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A26/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A26",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A26/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A26",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A26/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A26",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A27/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A27",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A27/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A27",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A27/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A27",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A27/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A27",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A28/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A28",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A28/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A28",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A28/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A28",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A28/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A28",
-        "property": "discharge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A29/charge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A29",
-        "property": "charge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A29/charge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A29",
-        "property": "charge_off_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A29/discharge_on_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A29",
-        "property": "discharge_on_threshold"
-      }
-    },
-    {
-      "key": "sub1/batt_inv_F0_house_A29/discharge_off_threshold",
-      "type": "double",
-      "info": {
-        "object": "batt_inv_F0_house_A29",
-        "property": "discharge_off_threshold"
       }
     },
     {

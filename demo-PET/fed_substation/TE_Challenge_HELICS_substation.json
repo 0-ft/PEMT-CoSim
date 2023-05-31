@@ -1083,6 +1083,216 @@
       "global": false
     },
     {
+      "key": "F0_house_A0_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A1_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A2_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A3_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A4_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A5_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A6_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A7_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A8_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A9_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A10_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A11_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A12_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A13_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A14_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A15_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A16_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A17_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A18_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A19_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A20_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A21_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A22_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A23_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A24_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A25_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A26_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A27_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A28_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
+      "key": "F0_house_A29_EV/charge_rate",
+      "type": "double",
+      "global": false,
+      "only_transmit_on_change": true,
+      "tolerance": 0.1
+    },
+    {
       "key": "solar_inv_F0_house_A0/P_Out",
       "type": "double",
       "global": false
@@ -1379,606 +1589,6 @@
     },
     {
       "key": "solar_inv_F0_house_A29/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A0/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A0/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A0/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A0/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A1/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A1/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A1/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A1/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A2/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A2/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A2/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A2/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A3/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A3/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A3/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A3/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A4/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A4/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A4/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A4/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A5/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A5/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A5/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A5/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A6/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A6/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A6/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A6/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A7/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A7/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A7/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A7/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A8/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A8/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A8/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A8/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A9/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A9/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A9/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A9/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A10/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A10/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A10/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A10/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A11/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A11/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A11/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A11/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A12/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A12/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A12/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A12/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A13/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A13/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A13/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A13/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A14/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A14/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A14/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A14/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A15/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A15/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A15/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A15/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A16/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A16/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A16/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A16/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A17/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A17/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A17/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A17/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A18/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A18/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A18/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A18/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A19/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A19/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A19/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A19/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A20/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A20/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A20/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A20/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A21/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A21/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A21/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A21/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A22/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A22/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A22/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A22/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A23/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A23/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A23/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A23/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A24/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A24/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A24/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A24/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A25/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A25/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A25/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A25/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A26/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A26/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A26/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A26/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A27/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A27/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A27/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A27/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A28/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A28/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A28/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A28/discharge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A29/charge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A29/charge_off_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A29/discharge_on_threshold",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "batt_inv_F0_house_A29/discharge_off_threshold",
       "type": "double",
       "global": false
     }
@@ -2841,7 +2451,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A0_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A0_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A0_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A0_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A1#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A1_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A1_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A1_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A1_EV/load",
       "type": "complex"
     },
     {
@@ -2849,7 +2491,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A2_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A2_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A2_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A2_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A3#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A3_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A3_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A3_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A3_EV/load",
       "type": "complex"
     },
     {
@@ -2857,7 +2531,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A4_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A4_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A4_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A4_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A5#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A5_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A5_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A5_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A5_EV/load",
       "type": "complex"
     },
     {
@@ -2865,7 +2571,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A6_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A6_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A6_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A6_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A7#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A7_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A7_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A7_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A7_EV/load",
       "type": "complex"
     },
     {
@@ -2873,7 +2611,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A8_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A8_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A8_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A8_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A9#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A9_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A9_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A9_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A9_EV/load",
       "type": "complex"
     },
     {
@@ -2881,7 +2651,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A10_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A10_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A10_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A10_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A11#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A11_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A11_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A11_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A11_EV/load",
       "type": "complex"
     },
     {
@@ -2889,7 +2691,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A12_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A12_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A12_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A12_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A13#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A13_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A13_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A13_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A13_EV/load",
       "type": "complex"
     },
     {
@@ -2897,7 +2731,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A14_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A14_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A14_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A14_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A15#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A15_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A15_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A15_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A15_EV/load",
       "type": "complex"
     },
     {
@@ -2905,7 +2771,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A16_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A16_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A16_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A16_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A17#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A17_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A17_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A17_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A17_EV/load",
       "type": "complex"
     },
     {
@@ -2913,7 +2811,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A18_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A18_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A18_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A18_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A19#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A19_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A19_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A19_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A19_EV/load",
       "type": "complex"
     },
     {
@@ -2921,7 +2851,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A20_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A20_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A20_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A20_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A21#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A21_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A21_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A21_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A21_EV/load",
       "type": "complex"
     },
     {
@@ -2929,7 +2891,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A22_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A22_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A22_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A22_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A23#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A23_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A23_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A23_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A23_EV/load",
       "type": "complex"
     },
     {
@@ -2937,7 +2931,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A24_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A24_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A24_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A24_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A25#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A25_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A25_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A25_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A25_EV/load",
       "type": "complex"
     },
     {
@@ -2945,7 +2971,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A26_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A26_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A26_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A26_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A27#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A27_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A27_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A27_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A27_EV/load",
       "type": "complex"
     },
     {
@@ -2953,7 +3011,39 @@
       "type": "complex"
     },
     {
+      "key": "ev1/F0_house_A28_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A28_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A28_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A28_EV/load",
+      "type": "complex"
+    },
+    {
       "key": "gld1/house_F0_tpm_A29#measured_power",
+      "type": "complex"
+    },
+    {
+      "key": "ev1/F0_house_A29_EV/location",
+      "type": "string"
+    },
+    {
+      "key": "ev1/F0_house_A29_EV/stored_energy",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A29_EV/soc",
+      "type": "double"
+    },
+    {
+      "key": "ev1/F0_house_A29_EV/load",
       "type": "complex"
     },
     {
@@ -2961,15 +3051,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A0#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A1#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A1#measured_power",
       "type": "complex"
     },
     {
@@ -2977,15 +3059,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A2#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A3#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A3#measured_power",
       "type": "complex"
     },
     {
@@ -2993,15 +3067,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A4#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A5#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A5#measured_power",
       "type": "complex"
     },
     {
@@ -3009,15 +3075,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A6#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A7#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A7#measured_power",
       "type": "complex"
     },
     {
@@ -3025,15 +3083,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A8#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A9#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A9#measured_power",
       "type": "complex"
     },
     {
@@ -3041,15 +3091,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A10#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A11#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A11#measured_power",
       "type": "complex"
     },
     {
@@ -3057,15 +3099,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A12#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A13#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A13#measured_power",
       "type": "complex"
     },
     {
@@ -3073,15 +3107,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A14#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A15#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A15#measured_power",
       "type": "complex"
     },
     {
@@ -3089,15 +3115,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A16#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A17#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A17#measured_power",
       "type": "complex"
     },
     {
@@ -3105,15 +3123,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A18#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A19#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A19#measured_power",
       "type": "complex"
     },
     {
@@ -3121,15 +3131,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A20#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A21#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A21#measured_power",
       "type": "complex"
     },
     {
@@ -3137,15 +3139,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A22#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A23#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A23#measured_power",
       "type": "complex"
     },
     {
@@ -3153,15 +3147,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A24#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A25#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A25#measured_power",
       "type": "complex"
     },
     {
@@ -3169,15 +3155,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A26#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A27#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A27#measured_power",
       "type": "complex"
     },
     {
@@ -3185,15 +3163,7 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_tpm_A28#measured_power",
-      "type": "complex"
-    },
-    {
       "key": "gld1/solar_F0_tpm_A29#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_tpm_A29#measured_power",
       "type": "complex"
     },
     {
@@ -3205,20 +3175,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A0#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A1#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A1#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A1#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A2#V_Out",
@@ -3229,20 +3191,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A2#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A3#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A3#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A3#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A4#V_Out",
@@ -3253,20 +3207,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A4#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A5#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A5#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A5#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A6#V_Out",
@@ -3277,20 +3223,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A6#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A7#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A7#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A7#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A8#V_Out",
@@ -3301,20 +3239,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A8#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A9#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A9#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A9#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A10#V_Out",
@@ -3325,20 +3255,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A10#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A11#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A11#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A11#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A12#V_Out",
@@ -3349,20 +3271,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A12#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A13#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A13#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A13#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A14#V_Out",
@@ -3373,20 +3287,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A14#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A15#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A15#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A15#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A16#V_Out",
@@ -3397,20 +3303,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A16#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A17#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A17#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A17#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A18#V_Out",
@@ -3421,20 +3319,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A18#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A19#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A19#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A19#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A20#V_Out",
@@ -3445,20 +3335,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A20#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A21#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A21#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A21#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A22#V_Out",
@@ -3469,20 +3351,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A22#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A23#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A23#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A23#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A24#V_Out",
@@ -3493,20 +3367,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A24#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A25#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A25#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A25#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A26#V_Out",
@@ -3517,20 +3383,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A26#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A27#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A27#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A27#state_of_charge",
-      "type": "double"
     },
     {
       "key": "gld1/solar_F0_house_A28#V_Out",
@@ -3541,20 +3399,12 @@
       "type": "complex"
     },
     {
-      "key": "gld1/batt_F0_house_A28#state_of_charge",
-      "type": "double"
-    },
-    {
       "key": "gld1/solar_F0_house_A29#V_Out",
       "type": "complex"
     },
     {
       "key": "gld1/solar_F0_house_A29#I_Out",
       "type": "complex"
-    },
-    {
-      "key": "gld1/batt_F0_house_A29#state_of_charge",
-      "type": "double"
     }
   ]
 }

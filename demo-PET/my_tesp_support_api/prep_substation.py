@@ -357,9 +357,15 @@ def ProcessGLM(fileroot, global_config):
             pubs.append({"key": meterName + "/monthly_fee", "type": "double", "global": False})
 
     # for house parent meter
-    for key, val in glm_dict['houses'].items():
+    for house_id, (key, val) in enumerate(glm_dict['houses'].items()):
         meterName = val['parent']
         subs.append({"key": "gld1/" + meterName + "#measured_power", "type": "complex"})
+
+        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/location", "type": "string"})
+        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/stored_energy", "type": "double"})
+        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/soc", "type": "double"})
+        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/load", "type": "complex"})
+        pubs.append({"key": f"F0_house_A{house_id}_EV/charge_rate", "type": "double", "global": False, "only_transmit_on_change": True, "tolerance": 0.1})
 
     # for inverter parent meter
     for key, val in glm_dict['inverters'].items():

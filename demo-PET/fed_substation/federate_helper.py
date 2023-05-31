@@ -156,17 +156,17 @@ class FEDERATE_HELPER:
         print("HELICS broker created!")
 
     def create_federate(self):
-        fed_name = "sub1"
-        fed_info = helics.helicsCreateFederateInfo()
-        helics.helicsFederateInfoSetCoreName(fed_info, fed_name)
-        helics.helicsFederateInfoSetTimeProperty(fed_info, helics.helics_property_time_period,
-                                                 1)
-        helics.helicsFederateInfoSetFlagOption(fed_info, helics.helics_flag_uninterruptible, True)
+        # fed_name = "sub1"
+        # fed_info = helics.helicsCreateFederateInfo()
+        # helics.helicsFederateInfoSetCoreName(fed_info, fed_name)
+        # helics.helicsFederateInfoSetTimeProperty(fed_info, helics.helics_property_time_period,
+        #                                          1)
+        # helics.helicsFederateInfoSetFlagOption(fed_info, helics.helics_flag_uninterruptible, True)
+        #
+        # self.hFed = helics.helicsCreateValueFederate(fed_name, fed_info)
 
-        self.hFed = helics.helicsCreateValueFederate(fed_name, fed_info)
-
-        # self.hFed = helics.helicsCreateValueFederateFromConfig(
-        #     self.helics_config_path)  # the helics period is 15 seconds
+        self.hFed = helics.helicsCreateValueFederateFromConfig(
+            self.helics_config_path)  # the helics period is 15 seconds
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
@@ -231,6 +231,7 @@ class FEDERATE_HELPER:
                                                                                        pvMeterSubTopic + '#measured_power')
                 self.subsSolarVout[house_name] = helics.helicsFederateGetSubscription(self.hFed,
                                                                                       pvArraySubTopic + '#V_Out')
+                print(self.subsSolarVout[house_name])
                 self.subsSolarIout[house_name] = helics.helicsFederateGetSubscription(self.hFed,
                                                                                       pvArraySubTopic + '#I_Out')
 
@@ -351,7 +352,7 @@ class FEDERATE_HELPER:
         # 4. execute other federates
         # self.run_other_federates()
         # 5. execute the main federate (it should be in the final)
-        # self.FederateEnterExecutingMode()
+        self.FederateEnterExecutingMode()
         print("Cosimulation started...")
 
     def run_other_federates(self):
@@ -521,6 +522,9 @@ class CURVES_TO_PLOT:
 
         self.LMP = []
 
+        self.battery_soc = []
+        self.battery_power = []
+
         self.time_hour_curve = []
         self.time_hour_system = []
         self.time_hour_auction = []
@@ -601,17 +605,17 @@ class CURVES_TO_PLOT:
             # house temperature
             temp_list.append(house.hvac.air_temp)
             # base-point
-            base_temp_list.append(house.hvac.basepoint)
+            base_temp_list.append(house.hvac.base_point)
             # set-point
-            set_temp_list.append(house.hvac.basepoint + house.hvac.offset)
+            set_temp_list.append(house.hvac.base_point + house.hvac.offset)
 
             # power related data ============
             hvac_load_list.append(house.hvac.hvac_kw)
             house_load_list.append(house.house_kw)
             house_unres_list.append(house.unresponsive_kw)
             pv_power_list.append(house.pv.solar_kw if house.pv else 0.0)
-            battery_power_list.append(house.battery.battery_kw if house.battery else 0.0)
-            battery_soc_list.append(house.battery.battery_soc if house.battery else 0.0)
+            battery_power_list.append(house.battery.power if house.battery else 0.0)
+            battery_soc_list.append(house.battery.soc if house.battery else 0.0)
 
             # hvac on ratio ===============
             if house.hvac.hvac_on:
@@ -650,6 +654,9 @@ class CURVES_TO_PLOT:
 
         self.vpp_load_p.append(vpp.vpp_load_p)
         self.vpp_load_q.append(vpp.vpp_load_q)
+
+        self.battery_soc.append(sum(battery_soc_list) / len(battery_soc_list))
+        self.battery_power.append(sum(battery_power_list) / len(battery_power_list))
 
     def update_curves(self, seconds):
         self.time_hour_curve.append(seconds / 3600)

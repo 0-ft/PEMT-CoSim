@@ -2,7 +2,7 @@
   "federates": [
     {
       "directory": ".",
-      "exec": "helics_broker -f 5",
+      "exec": "helics_broker -f 5 --profiler=helics_profile.log",
       "host": "localhost",
       "name": "broker"
     },

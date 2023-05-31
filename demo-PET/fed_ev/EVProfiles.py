@@ -331,7 +331,7 @@ if __name__ == '__main__':
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)
     ev_profiles.get_locations_at_time(t)
-    print(ev_profiles.profiles[4].consumption.timeseries.to_string())
+    print(ev_profiles.profiles[3].consumption.timeseries.to_string())
     # print(ev_profiles.profiles[0].consumption.timeseries.index.freq)
     # ev_profiles.draw_figures()
     # ev_profile.save_profiles()
