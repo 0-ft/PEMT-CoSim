@@ -118,6 +118,7 @@ class SubstationRecorder:
         self.house_recorder.record(time)
 
     def record_bids(self, time):
+        return
         self.bid_recorder.record(time)
 
     def record_auction(self, time):

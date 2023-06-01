@@ -8,6 +8,7 @@ modified by Yuanliang Li
 
 import sys
 
+from new_auction import NewAuction
 from recording import SubstationRecorder
 
 sys.path.append('..')
@@ -42,8 +43,9 @@ helics_federate = helics.helicsCreateValueFederateFromConfig(helicsConfig)
 vpp = VPP(helics_federate, True)
 
 # initialize a user-defined auction object
-auction = Auction(helics_federate, fh.market_row, fh.market_key)
-auction.init_auction()
+auction = NewAuction(helics_federate)
+# auction = Auction(helics_federate, fh.market_row, fh.market_key)
+# auction.init_auction()
 
 # initialize House objects
 houses = {}
@@ -145,19 +147,21 @@ while time_granted < StopTime:
 
     """ 5. houses formulate and send their bids"""
     if time_granted >= tnext_bid:
-        auction.clear_bids()  # auction remove all previous records, re-initialize
+        # auction.clear_bids()  # auction remove all previous records, re-initialize
         print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range()) for house in houses.values()]}")
-        for key, house in houses.items():
-            bid = house.formulate_bid()  # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
-            auction.collect_bid(bid)
+        bids = [house.formulate_bid() for house in houses.values()]
+        auction.collect_bids(bids)
+        # for key, house in houses.items():
+        #     bid = house.formulate_bid()  # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
+        #     auction.collect_bid(bid)
         recorder.record_bids(current_time)
         tnext_bid += market_period
 
     """ 6. market aggregates bids from prosumers"""
-    if time_granted >= tnext_agg:
-        auction.aggregate_bids()
-        auction.publish_agg_bids_for_buyer()
-        tnext_agg += market_period
+    # if time_granted >= tnext_agg:
+    #     auction.aggregate_bids()
+    #     auction.publish_agg_bids_for_buyer()
+    #     tnext_agg += market_period
 
     """ 7. market clears the market """
     if time_granted >= tnext_clear:
