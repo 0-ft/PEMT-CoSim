@@ -90,7 +90,8 @@ class SubstationRecorder:
             "sum.ev.stored_energy",
             "sum.ev.soc",
             "sum.ev.desired_charge_rate",
-            "sum.ev.load",
+            "sum.ev.driving_load",
+            "sum.ev.charging_load",
             "sum.pv.solar_power",
             # "values.pv.solar_DC_V_out",
             # "values.pv.solar_DC_I_out",
@@ -196,8 +197,8 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.ev.load"],
-                "name": "Total EV Load",
+                "y": houses["sum.ev.charging_load"],
+                "name": "Total EV Charging Load",
                 "stackgroup": "house_load"
             },
             {
@@ -242,33 +243,59 @@ class SubstationRecorder:
                 "type": "scatter",
                 "x": houses.index,
                 "y": houses["sum.ev.desired_charge_rate"],
-                "name": "Total Specified Charge Rate",
+                "name": "Total EV Target Charge Load",
             }, row=3, col=1, secondary_y=True)
 
-        fig.update_yaxes(title_text="Energy", row=3, col=1, range=[0, max(houses["sum.ev.stored_energy"])])
-        fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True,
-                         range=[min(houses["sum.ev.desired_charge_rate"]), max(houses["sum.ev.desired_charge_rate"])])
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["sum.ev.charging_load"],
+                "name": "EV Charge In",
+                "stackgroup": "ev_battery_delta",
+            }, row=3, col=1, secondary_y=True)
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": -houses["sum.ev.driving_load"],
+                "name": "EV Driving Out",
+                "stackgroup": "ev_battery_delta",
+            }, row=3, col=1, secondary_y=True)
+
+        fig.update_yaxes(title_text="Energy", row=3, col=1)#, range=[0, max(houses["sum.ev.stored_energy"])])
+        fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)#,
+#                         range=[min(houses["sum.ev.desired_charge_rate"]), max(houses["sum.ev.desired_charge_rate"])])
 
         fig.add_trace(
             {
                 "type": "scatter",
                 "x": auction.index,
                 "y": auction["clearing_price"],
-                "name": "Cleared Price",
+                "name": "Clearing Price",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": auction.index,
+                "y": auction["lmp"],
+                "name": "Local Marginal Price",
             }, row=4, col=1, secondary_y=True)
         fig.add_traces([
             {
                 "type": "scatter",
                 "x": auction.index,
-                "y": auction[f"num_{key}"],
+                "y": auction[f"num_{key}"] / len(houses.iloc[0]),
                 "name": name,
+                "stackgroup": "role"
             } for key, name in [("buyers", "Buyers"), ("sellers", "Sellers"), ("nontcp", "Non-participants")]
         ], rows=4, cols=1)
         fig.add_trace(
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.hvac.hvac_on"],
+                "y": houses["sum.hvac.hvac_on"] / len(houses.iloc[0]),
                 "name": "HVAC On",
             }, row=4, col=1)
 
@@ -335,8 +362,8 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["F0_house_A0.ev.load"],
-                "name": "EV Load",
+                "y": houses["F0_house_A0.ev.charging_load"],
+                "name": "EV Charging Load",
                 "line": {"width": 0},
                 "stackgroup": "house_load",
                 # "fillcolor": f"rgb({randint(0,255)}, {randint(0,255)}, {randint(0,255)})"
@@ -483,7 +510,7 @@ if __name__ == "__main__":
         history = pickle.load(f)
 
     SubstationRecorder.make_figure_bids(history, "bids_metrics")
-    # SubstationRecorder.make_figure(history, "final_metrics")
+    SubstationRecorder.make_figure(history, "final_metrics")
     # SubstationRecorder.make_figure_solo(history, "solo_metrics")
 
 # class Tester:

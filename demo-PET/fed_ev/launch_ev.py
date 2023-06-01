@@ -23,7 +23,7 @@ class EVFederate:
         self.time_period_seconds = self.time_period_hours * 3600
         self.num_evs = num_evs
         self.helics_fed: HelicsFederate = None
-        self.hour_stop = 48
+        self.hour_stop = 96
         self.start_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
         self.current_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
         self.stop_time = self.start_time + timedelta(hours=self.hour_stop)
@@ -60,8 +60,13 @@ class EVFederate:
                         "global": False
                     },
                     {
-                        "key": f"F0_house_A{i}_EV/load",
+                        "key": f"F0_house_A{i}_EV/charging_load",
                         "type": "complex",
+                        "global": False
+                    },
+                    {
+                        "key": f"F0_house_A{i}_EV/driving_load",
+                        "type": "double",
                         "global": False
                     }
                 ]
@@ -89,9 +94,9 @@ class EVFederate:
     def state_summary(self):
         data = pandas.DataFrame(
             [
-                [ev.location, ev.stored_energy, ev.charge_rate, ev.stored_energy / ev.battery_capacity,
+                [ev.location, ev.stored_energy, ev.charging_load, ev.stored_energy / ev.battery_capacity,
                  ev.time_to_full_charge]
-                for ev in self.evs if ev.charge_rate > 0.0
+                for ev in self.evs if ev.charging_load > 0.0
             ],
             columns=["location", "stored_energy", "charge_rate", "soc", "time_to_full_charge"])
 
@@ -130,7 +135,6 @@ class EVFederate:
             current_time_s = (self.current_time - self.start_time).total_seconds()
             next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
             next_location_change = min([ev.time_to_location_change for ev in self.evs]) + current_time_s
-            print(f"np, {next_full_charge}, {next_location_change}, {[ev.time_to_full_charge for ev in self.evs]}")
             # delta_to_request = max(1.0, min([ev.time_to_full_charge for ev in self.evs] + [self.time_period_seconds]))
             # time_to_request = (self.current_time - self.start_time).total_seconds() + delta_to_request
             time_to_request = min(next_location_change, next_full_charge)
@@ -141,7 +145,8 @@ class EVFederate:
             for ev in self.evs:
                 ev.update_state(new_time)
                 ev.publish_state()
-            print("published locations", list(enumerate([ev.location for ev in self.evs])))
+            print(f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}' for i, ev in enumerate(self.evs)]}")
+            # print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
             self.current_time = new_time
             print(self.state_summary(), flush=True)

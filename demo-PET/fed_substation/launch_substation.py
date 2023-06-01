@@ -29,7 +29,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 48  # simulation duration (default 48 hours)
+hour_stop = 96  # simulation duration (default 48 hours)
 drawFigure = True  # draw figures during the simulation
 has_demand_response = False
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop)  # initialize the federate helper
@@ -49,13 +49,13 @@ auction = NewAuction(helics_federate)
 
 # initialize House objects
 houses = {}
-for house_id, (key, info) in enumerate(
+for house_id, (house_name, info) in enumerate(
         fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
-    houses[key] = House(helics_federate, house_id, fh.agents['hvacs'][info['HVAC']], info['PV'], True, False,
-                        # info['battery'],
-                        auction,
-                        house_id + 1)  # initialize a house object
-    last_house_name = key
+    houses[house_name] = House(helics_federate, house_id, fh.agents['hvacs'][info['HVAC']], info['PV'], True, False,
+                               # info['battery'],
+                               auction,
+                               house_id + 1)  # initialize a house object
+    last_house_name = house_name
 
 # initialize DATA_TO_PLOT class to visualize data in the simulation
 num_houses = len(houses)
@@ -89,11 +89,11 @@ print("Substation federate to enter initializing mode")
 helics_federate.enter_initializing_mode()
 print("Substation federate entered initializing mode")
 
-for house_id, (key, info) in enumerate(
+for house_id, (house_name, info) in enumerate(
         fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
-    houses[key].set_meter_mode()  # set meter mode
-    houses[key].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
-    houses[key].ev.set_desired_charge_rate(0)
+    houses[house_name].set_meter_mode()  # set meter mode
+    houses[house_name].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
+    houses[house_name].ev.set_desired_charge_rate(0)
 
 print("Substation federate to enter executing mode")
 helics_federate.enter_executing_mode()
@@ -120,7 +120,7 @@ while time_granted < StopTime:
            make power predictions for solar,
            make power predictions for house load"""
     if time_granted >= tnext_update or True:
-        for key, house in houses.items():
+        for house_name, house in houses.items():
             house.update_measurements()  # update measurements for all devices
             house.hvac.change_basepoint(current_time.hour, current_time.weekday())  # update schedule
             house.hvac.determine_power_needed()  # hvac determines if power is needed based on current state
@@ -130,14 +130,19 @@ while time_granted < StopTime:
         recorder.record_vpp(current_time)
         tnext_update += update_period
 
+
+
     # """ 3. houses launch basic real-time control actions (not post-market control)
     #     including the control for battery"""
-    # if time_granted >= tnext_control:
+    if time_granted >= tnext_control:
+        for key, house in houses.items():
+            house.real_time_control()
+        tnext_control += control_period
+
     #     for key, house in houses.items():
     #         if house.battery:
     #             house.battery.auto_control(
     #                 house.unresponsive_kw)  # real-time basic control of battery to track the HVAC load
-    #     tnext_control += control_period
 
     """ 4. market gets the local marginal price (LMP) from the bulk power grid,"""
     if time_granted >= tnext_lmp:
@@ -158,21 +163,20 @@ while time_granted < StopTime:
         tnext_bid += market_period
 
     """ 6. market aggregates bids from prosumers"""
-    # if time_granted >= tnext_agg:
+    if time_granted >= tnext_agg:
+        tnext_agg += market_period
     #     auction.aggregate_bids()
     #     auction.publish_agg_bids_for_buyer()
-    #     tnext_agg += market_period
 
     """ 7. market clears the market """
     if time_granted >= tnext_clear:
-        auction.clear_market(tnext_clear, time_granted)
-        auction.calculate_surplus(tnext_clear, time_granted)
+        auction.clear_market()
+        # auction.calculate_surplus(tnext_clear, time_granted)
         auction.publish_clearing_price()
         print("Published auction clearing price: ", auction.clearing_price)
-        for key, house in houses.items():
+        for house_name, house in houses.items():
             house.publish_meter_price()
-            house.post_market_control(auction.market_condition,
-                                      auction.marginal_quantity)  # post-market control is needed
+            house.post_market_control(auction.response.loc[house_name])  # post-market control is needed
         time_key = str(int(tnext_clear))
         recorder.record_auction(current_time)
         tnext_clear += market_period
@@ -180,7 +184,7 @@ while time_granted < StopTime:
     """ 8. prosumer demand response (adjust control parameters/setpoints) """
     if time_granted >= tnext_adjust:
         if has_demand_response:
-            for key, house in houses.items():
+            for house_name, house in houses.items():
                 house.demand_response()
         tnext_adjust += market_period
 

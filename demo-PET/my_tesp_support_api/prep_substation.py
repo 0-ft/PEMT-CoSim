@@ -364,9 +364,10 @@ def ProcessGLM(fileroot, global_config):
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/location", "type": "string"})
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/stored_energy", "type": "double"})
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/soc", "type": "double"})
-        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/load", "type": "complex"})
-        pubs.append({"key": f"F0_house_A{house_id}_EV/charge_rate", "type": "double", "global": False,})
-                     # "only_transmit_on_change": True, "tolerance": 0.1})
+        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/charging_load", "type": "complex"})
+        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/driving_load", "type": "double"})
+        pubs.append({"key": f"F0_house_A{house_id}_EV/charge_rate", "type": "double", "global": False, })
+        # "only_transmit_on_change": True, "tolerance": 0.1})
 
     # for inverter parent meter
     for key, val in glm_dict['inverters'].items():
@@ -395,6 +396,11 @@ def ProcessGLM(fileroot, global_config):
             props = ['charge_on_threshold', 'charge_off_threshold', 'discharge_on_threshold', 'discharge_off_threshold']
             for prop in props:
                 pubs.append({"key": key + "/" + prop, "type": "double", "global": False})
+
+    subs.append({
+        "key": "localWeather/temperature",
+        "type": "double"
+    })
 
     msg = {}
     msg["name"] = "sub1"

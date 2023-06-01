@@ -321,6 +321,33 @@ class EVProfiles:
         #                labels={str(int(i)): f"EV {i}" for i in stored_power.columns})
         # fig2.show()
 
+def energy_used_between(ts, start_time: datetime, end_time: datetime):
+    # print("ss", start_time)
+    avg_power = ts["average power in W"]
+    # mask = (avg_power.index >= avg_power.index.asof(start_time)) & (avg_power.index <= end_time)
+    # rows = ts["average power in W"].iloc[mask]
+    # first_row_time = (rows.index[0] + rows.index.freq - start_time).total_seconds()
+    # last_row_time = (end_time - rows.index[-1]).total_seconds()
+    # power_times = np.array([first_row_time] + [
+    #     (rows.index[i + 1] - rows.index[i]).total_seconds()
+    #     for i in range(1, len(rows) - 1)
+    # ] + [last_row_time])
+    # print(rows)
+    # print(power_times)
+    # return sum(power_times * rows.to_numpy())
+    t = start_time
+    print("start", start_time)
+    energy = 0.0
+    while t < end_time:
+        next_index = avg_power.loc[avg_power.index > t].index[0]
+        next_t = min(next_index, end_time)
+        delta = (next_t - t).total_seconds()
+        energy += delta * avg_power.asof(t)
+        t = next_t
+    print(energy, start_time, end_time)
+        # new_t = min()
+
+
 
 if __name__ == '__main__':
     start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
@@ -331,12 +358,14 @@ if __name__ == '__main__':
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)
     ev_profiles.get_locations_at_time(t)
-    print(ev_profiles.profiles[10].consumption.timeseries.to_string())
-    c = ev_profiles.profiles[10].consumption.timeseries
+    # print(ev_profiles.profiles[2].consumption.timeseries.to_string())
+    c = ev_profiles.profiles[2].consumption.timeseries
     loc_changes = (c["state"].shift() != c["state"]).loc[lambda x: x].index
-    print("FF", loc_changes[loc_changes > datetime.strptime("2013-07-01 09:00:00", '%Y-%m-%d %H:%M:%S')][0])
+    # print("FF", loc_changes[loc_changes > datetime.strptime("2013-07-01 09:00:00", '%Y-%m-%d %H:%M:%S')][0])
+    print(c.to_string())
+    print(energy_used_between(c, start_t + timedelta(seconds=47940), start_t + timedelta(seconds=47955)))
     # print(ev_profiles.profiles[0].consumption.timeseries.index.freq)
-    ev_profiles.draw_figures()
+    # ev_profiles.draw_figures()
     # ev_profile.save_profiles()
     # ev_profile.run()
 
