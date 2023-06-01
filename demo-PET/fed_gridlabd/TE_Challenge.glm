@@ -407,12 +407,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A0_EV;
-        parent house_F0_tpm_A0;
-    };
 }
 
+object load {
+    name F0_house_A0_EV;
+    parent F0_tpm_A0;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A0;
@@ -609,12 +609,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A1_EV;
-        parent house_F0_tpm_A1;
-    };
 }
 
+object load {
+    name F0_house_A1_EV;
+    parent F0_tpm_A1;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A1;
@@ -811,12 +811,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A2_EV;
-        parent house_F0_tpm_A2;
-    };
 }
 
+object load {
+    name F0_house_A2_EV;
+    parent F0_tpm_A2;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A2;
@@ -1013,12 +1013,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A3_EV;
-        parent house_F0_tpm_A3;
-    };
 }
 
+object load {
+    name F0_house_A3_EV;
+    parent F0_tpm_A3;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A3;
@@ -1226,12 +1226,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A4_EV;
-        parent house_F0_tpm_A4;
-    };
 }
 
+object load {
+    name F0_house_A4_EV;
+    parent F0_tpm_A4;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A4;
@@ -1428,12 +1428,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A5_EV;
-        parent house_F0_tpm_A5;
-    };
 }
 
+object load {
+    name F0_house_A5_EV;
+    parent F0_tpm_A5;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A5;
@@ -1641,12 +1641,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A6_EV;
-        parent house_F0_tpm_A6;
-    };
 }
 
+object load {
+    name F0_house_A6_EV;
+    parent F0_tpm_A6;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A6;
@@ -1854,12 +1854,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A7_EV;
-        parent house_F0_tpm_A7;
-    };
 }
 
+object load {
+    name F0_house_A7_EV;
+    parent F0_tpm_A7;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A7;
@@ -2067,12 +2067,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A8_EV;
-        parent house_F0_tpm_A8;
-    };
 }
 
+object load {
+    name F0_house_A8_EV;
+    parent F0_tpm_A8;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A8;
@@ -2269,12 +2269,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A9_EV;
-        parent house_F0_tpm_A9;
-    };
 }
 
+object load {
+    name F0_house_A9_EV;
+    parent F0_tpm_A9;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A9;
@@ -2471,12 +2471,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A10_EV;
-        parent house_F0_tpm_A10;
-    };
 }
 
+object load {
+    name F0_house_A10_EV;
+    parent F0_tpm_A10;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A10;
@@ -2684,12 +2684,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A11_EV;
-        parent house_F0_tpm_A11;
-    };
 }
 
+object load {
+    name F0_house_A11_EV;
+    parent F0_tpm_A11;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A11;
@@ -2908,12 +2908,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A12_EV;
-        parent house_F0_tpm_A12;
-    };
 }
 
+object load {
+    name F0_house_A12_EV;
+    parent F0_tpm_A12;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A12;
@@ -3132,12 +3132,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A13_EV;
-        parent house_F0_tpm_A13;
-    };
 }
 
+object load {
+    name F0_house_A13_EV;
+    parent F0_tpm_A13;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A13;
@@ -3345,12 +3345,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A14_EV;
-        parent house_F0_tpm_A14;
-    };
 }
 
+object load {
+    name F0_house_A14_EV;
+    parent F0_tpm_A14;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A14;
@@ -3558,12 +3558,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A15_EV;
-        parent house_F0_tpm_A15;
-    };
 }
 
+object load {
+    name F0_house_A15_EV;
+    parent F0_tpm_A15;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A15;
@@ -3771,12 +3771,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A16_EV;
-        parent house_F0_tpm_A16;
-    };
 }
 
+object load {
+    name F0_house_A16_EV;
+    parent F0_tpm_A16;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A16;
@@ -3973,12 +3973,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A17_EV;
-        parent house_F0_tpm_A17;
-    };
 }
 
+object load {
+    name F0_house_A17_EV;
+    parent F0_tpm_A17;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A17;
@@ -4175,12 +4175,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A18_EV;
-        parent house_F0_tpm_A18;
-    };
 }
 
+object load {
+    name F0_house_A18_EV;
+    parent F0_tpm_A18;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A18;
@@ -4377,12 +4377,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A19_EV;
-        parent house_F0_tpm_A19;
-    };
 }
 
+object load {
+    name F0_house_A19_EV;
+    parent F0_tpm_A19;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A19;
@@ -4579,12 +4579,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A20_EV;
-        parent house_F0_tpm_A20;
-    };
 }
 
+object load {
+    name F0_house_A20_EV;
+    parent F0_tpm_A20;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A20;
@@ -4792,12 +4792,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A21_EV;
-        parent house_F0_tpm_A21;
-    };
 }
 
+object load {
+    name F0_house_A21_EV;
+    parent F0_tpm_A21;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A21;
@@ -5016,12 +5016,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A22_EV;
-        parent house_F0_tpm_A22;
-    };
 }
 
+object load {
+    name F0_house_A22_EV;
+    parent F0_tpm_A22;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A22;
@@ -5240,12 +5240,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A23_EV;
-        parent house_F0_tpm_A23;
-    };
 }
 
+object load {
+    name F0_house_A23_EV;
+    parent F0_tpm_A23;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A23;
@@ -5453,12 +5453,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A24_EV;
-        parent house_F0_tpm_A24;
-    };
 }
 
+object load {
+    name F0_house_A24_EV;
+    parent F0_tpm_A24;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A24;
@@ -5666,12 +5666,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A25_EV;
-        parent house_F0_tpm_A25;
-    };
 }
 
+object load {
+    name F0_house_A25_EV;
+    parent F0_tpm_A25;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A25;
@@ -5868,12 +5868,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A26_EV;
-        parent house_F0_tpm_A26;
-    };
 }
 
+object load {
+    name F0_house_A26_EV;
+    parent F0_tpm_A26;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A26;
@@ -6081,12 +6081,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A27_EV;
-        parent house_F0_tpm_A27;
-    };
 }
 
+object load {
+    name F0_house_A27_EV;
+    parent F0_tpm_A27;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A27;
@@ -6294,12 +6294,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A28_EV;
-        parent house_F0_tpm_A28;
-    };
 }
 
+object load {
+    name F0_house_A28_EV;
+    parent F0_tpm_A28;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A28;
@@ -6496,12 +6496,12 @@ object ZIPload {
         interval 300;
     };
 
-    object load {
-        name F0_house_A29_EV;
-        parent house_F0_tpm_A29;
-    };
 }
 
+object load {
+    name F0_house_A29_EV;
+    parent F0_tpm_A29;
+};
 
 object triplex_meter {
 	name solar_F0_tpm_A29;

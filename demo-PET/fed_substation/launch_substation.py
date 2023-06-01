@@ -51,8 +51,8 @@ auction.init_auction()
 houses = {}
 for house_id, (key, info) in enumerate(
         fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
-    print(info)
-    houses[key] = House(helics_federate, house_id, fh.agents['hvacs'][info['HVAC']], info['PV'], True, info['battery'],
+    houses[key] = House(helics_federate, house_id, fh.agents['hvacs'][info['HVAC']], info['PV'], True, False,
+                        # info['battery'],
                         auction,
                         house_id + 1)  # initialize a house object
     last_house_name = key
@@ -85,14 +85,23 @@ tnext_fig_update = market_period + dt  # the next time to update figures
 time_granted = 0
 time_last = 0
 
-fh.FederateEnterExecutingMode()
+print("Substation federate to enter initializing mode")
+helics_federate.enter_initializing_mode()
+print("Substation federate entered initializing mode")
 
 for house_id, (key, info) in enumerate(
         fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
     houses[key].set_meter_mode()  # set meter mode
     houses[key].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
+    houses[key].ev.set_desired_charge_rate(0)
+
+print("Substation federate to enter executing mode")
+helics_federate.enter_executing_mode()
+print("Substation federate entered executing mode")
 
 """============================Substation Loop=================================="""
+
+
 
 recorder = SubstationRecorder(vpp, houses, auction)
 
@@ -112,27 +121,25 @@ while time_granted < StopTime:
            update schedule and determine the power needed for hvac,
            make power predictions for solar,
            make power predictions for house load"""
-    if time_granted >= tnext_update:
+    if time_granted >= tnext_update or True:
         for key, house in houses.items():
-            house.ev.update_state()
             house.update_measurements()  # update measurements for all devices
             house.hvac.change_basepoint(current_time.hour, current_time.weekday())  # update schedule
             house.hvac.determine_power_needed()  # hvac determines if power is needed based on current state
             # house.predict_solar_power()  # predict the solar power generation
-            house.predict_total_load()  # predict the house load
         vpp.update_load()  # get the VPP load
         recorder.record_houses(current_time)
         recorder.record_vpp(current_time)
         tnext_update += update_period
 
-    """ 3. houses launch basic real-time control actions (not post-market control)
-        including the control for battery"""
-    if time_granted >= tnext_control:
-        for key, house in houses.items():
-            if house.battery:
-                house.battery.auto_control(
-                    house.unresponsive_kw)  # real-time basic control of battery to track the HVAC load
-        tnext_control += control_period
+    # """ 3. houses launch basic real-time control actions (not post-market control)
+    #     including the control for battery"""
+    # if time_granted >= tnext_control:
+    #     for key, house in houses.items():
+    #         if house.battery:
+    #             house.battery.auto_control(
+    #                 house.unresponsive_kw)  # real-time basic control of battery to track the HVAC load
+    #     tnext_control += control_period
 
     """ 4. market gets the local marginal price (LMP) from the bulk power grid,"""
     if time_granted >= tnext_lmp:
@@ -143,8 +150,6 @@ while time_granted < StopTime:
     """ 5. houses formulate and send their bids"""
     if time_granted >= tnext_bid:
         auction.clear_bids()  # auction remove all previous records, re-initialize
-        time_key = str(int(tnext_clear))
-        fh.prosumer_metrics[time_key] = {}
         for key, house in houses.items():
             bid = house.formulate_bid()  # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
             auction.collect_bid(bid)
@@ -194,7 +199,9 @@ print('writing metrics', flush=True)
 # print(json.dumps(fh.prosumer_metrics), file=house_op)
 # auction_op.close()
 # house_op.close()
-fh.destroy_federate()  # destroy the federate
-fh.show_resource_consumption()  # after simulation, print the resource consumption
+helics.helicsFederateDestroy(helics_federate)
+print(f"federate {helics_federate.name} has been destroyed")
+# fh.destroy_federate()  # destroy the federate
+# fh.show_resource_consumption()  # after simulation, print the resource consumption
 # plt.show()
 # fh.kill_processes(True) # it is not suggested here because some other federates may not end their simulations, it will affect their output metrics

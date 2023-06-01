@@ -7,6 +7,7 @@ from random import randint
 import helics
 import numpy as np
 import pandas
+from helics import HelicsFederate
 
 from EVProfiles import EVProfiles, EVProfile
 from fed_ev.PETEV import V2GEV
@@ -19,8 +20,9 @@ class EVFederate:
         self.quant = None
         self.fed_name = None
         self.time_period_hours = 0.125
+        self.time_period_seconds = self.time_period_hours * 3600
         self.num_evs = num_evs
-        self.helics_fed = None
+        self.helics_fed: HelicsFederate = None
         self.hour_stop = 48
         self.start_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
         self.current_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
@@ -33,8 +35,8 @@ class EVFederate:
 
         self.stop_seconds = int(self.hour_stop * 3600)  # co-simulation stop time in seconds
         self.enabled = True
-
     def create_federate(self):
+
         print(f"Creating EV federate")
         fed_json = {
             "name": "ev1",
@@ -88,7 +90,7 @@ class EVFederate:
             [
                 [ev.location, ev.stored_energy, ev.charge_rate, ev.stored_energy / ev.battery_capacity,
                  ev.time_to_full_charge]
-                for ev in self.evs if ev.charge_rate != 0.0
+                for ev in self.evs if ev.charge_rate > 0.0
             ],
             columns=["location", "stored_energy", "charge_rate", "soc", "time_to_full_charge"])
 
@@ -104,17 +106,19 @@ class EVFederate:
              self.evs], axis=1,
             keys=range(self.num_evs))
         print(data)
-        data.to_csv(f"out{randint(0,1000)}.csv")
+        data.to_csv(f"out{randint(0, 1000)}.csv")
 
     def run_federate(self):
         print("EV federate to enter initializing mode")
-        helics.helicsFederateEnterInitializingMode(self.helics_fed)
+        self.helics_fed.enter_initializing_mode()
         print("EV federate entered initializing mode")
         for ev in self.evs:
+            # ev.update_state(self.start_time)
             ev.publish_state()
+        print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
         print("EV federate to enter execution mode")
-        helics.helicsFederateEnterExecutingMode(self.helics_fed)
+        self.helics_fed.enter_executing_mode()
         print("EV federate entered execution mode")
         # pub_count = helics.helicsFederateGetPublicationCount(self.helics_fed)
         # pub_ID = helics.helicsFederateGetPublicationByIndex(self.helics_fed, 1)
@@ -122,15 +126,21 @@ class EVFederate:
         # print(f"EV federate has {pub_count} publications, pub_ID = {pub_name}")
 
         while self.current_time < self.stop_time:
-            delta_to_request = max(1.0,
-                                   min([ev.time_to_full_charge for ev in self.evs] + [self.time_period_hours * 3600]))
-            time_to_request = (self.current_time - self.start_time).total_seconds() + delta_to_request
+            current_time_s = (self.current_time - self.start_time).total_seconds()
+            next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
+            next_location_change = min([ev.time_to_location_change for ev in self.evs]) + current_time_s
+            print(f"np, {next_full_charge}, {next_location_change}, {[ev.time_to_full_charge for ev in self.evs]}")
+            # delta_to_request = max(1.0, min([ev.time_to_full_charge for ev in self.evs] + [self.time_period_seconds]))
+            # time_to_request = (self.current_time - self.start_time).total_seconds() + delta_to_request
+            time_to_request = min(next_location_change, next_full_charge)
+            delta_to_request = time_to_request - current_time_s
             time_granted_seconds = helics.helicsFederateRequestTime(self.helics_fed, time_to_request)
             new_time = self.start_time + timedelta(seconds=time_granted_seconds)
             print(f"requested time {time_to_request} (delta +{delta_to_request}), got {time_granted_seconds}")
             for ev in self.evs:
                 ev.update_state(new_time)
                 ev.publish_state()
+            print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
             self.current_time = new_time
             print(self.state_summary(), flush=True)

@@ -331,10 +331,10 @@ class FEDERATE_HELPER:
         helics.helicsFederateEnterExecutingMode(self.hFed)
         print("Substation federate launched!")
 
-    def destroy_federate(self):
-        helics.helicsFederateDestroy(self.hFed)
-        self.is_destroyed = True
-        print("Federate {} has been destroyed".format(self.fedName))
+    # def destroy_federate(self):
+    #     helics.helicsFederateDestroy(self.hFed)
+    #     self.is_destroyed = True
+    #     print("Federate {} has been destroyed".format(self.fedName))
 
     def cosimulation_start(self):
 
@@ -611,9 +611,9 @@ class CURVES_TO_PLOT:
 
             # power related data ============
             hvac_load_list.append(house.hvac.hvac_kw)
-            house_load_list.append(house.house_kw)
-            house_unres_list.append(house.unresponsive_kw)
-            pv_power_list.append(house.pv.solar_kw if house.pv else 0.0)
+            house_load_list.append(house.total_house_load)
+            house_unres_list.append(house.unresponsive_load)
+            pv_power_list.append(house.pv.solar_power if house.pv else 0.0)
             battery_power_list.append(house.battery.power if house.battery else 0.0)
             battery_soc_list.append(house.battery.soc if house.battery else 0.0)
 

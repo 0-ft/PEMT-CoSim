@@ -314,8 +314,8 @@ class EVProfiles:
                              tick0=self.profiles[0].demand.timeseries.index[0], dtick=7200e3, row=i, col=1)
 
         # fig.write_image("ev_grid_demand.svg")
-        # fig.write_html("ev_grid_demand.html")
-        fig.show()
+        fig.write_html("ev_grid_demand.html")
+        # fig.show()
 
         # fig2 = px.area(stored_power, x=stored_power.index, y=stored_power.columns,
         #                labels={str(int(i)): f"EV {i}" for i in stored_power.columns})
@@ -331,9 +331,12 @@ if __name__ == '__main__':
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)
     ev_profiles.get_locations_at_time(t)
-    print(ev_profiles.profiles[3].consumption.timeseries.to_string())
+    print(ev_profiles.profiles[10].consumption.timeseries.to_string())
+    c = ev_profiles.profiles[10].consumption.timeseries
+    loc_changes = (c["state"].shift() != c["state"]).loc[lambda x: x].index
+    print("FF", loc_changes[loc_changes > datetime.strptime("2013-07-01 09:00:00", '%Y-%m-%d %H:%M:%S')][0])
     # print(ev_profiles.profiles[0].consumption.timeseries.index.freq)
-    # ev_profiles.draw_figures()
+    ev_profiles.draw_figures()
     # ev_profile.save_profiles()
     # ev_profile.run()
 

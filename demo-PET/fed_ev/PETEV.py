@@ -29,21 +29,27 @@ class V2GEV:
         self.helics_fed = helics_fed
         self.name = name
         self.profile = consumption.timeseries
+        self.location_change_times = (self.profile["state"].shift() != self.profile["state"]).loc[
+            lambda x: x].index
+        self.time_to_location_change = 0  # (self.location_change_times[0] - start_time).total_seconds()
+
         self.car_model = car_model
 
         self.battery_capacity = car_model.parameters["battery_cap"] * 1000 * 3600
         self.stored_energy = (1.0 - random() * 0.1) * self.battery_capacity
-        self.location = "home"
-        self.desired_charge_rate = 0
-        self.charge_rate = 0
+
+        self.location = self.profile["state"].asof(start_time)
+        self.desired_charge_rate = 0.0
+        self.charge_rate = 0.0
         self.time_to_full_charge = float('inf')
+
         self.pub_location = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/location")
         self.pub_stored_energy = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/stored_energy")
         self.pub_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/load")
         self.pub_soc = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/soc")
 
         self.sub_charge_rate = helics.helicsFederateGetSubscription(self.helics_fed, f"sub1/{name}/charge_rate")
-
+        self.prev_time = start_time
         self.current_time = start_time
         self.history = []
 
@@ -74,25 +80,35 @@ class V2GEV:
         self.pub_load.publish(complex(self.charge_rate, 0))
         self.pub_soc.publish(self.stored_energy / self.battery_capacity)
 
+    def time_to_next_location_change(self):
+        future_changes = self.location_change_times[self.location_change_times > self.current_time]
+        return (future_changes[0] - self.current_time).total_seconds() if len(future_changes) else float('inf')
+
+
     def update_state(self, new_time):
-        time_delta = (new_time - self.current_time).total_seconds()
+        self.prev_time = self.current_time
+        self.current_time = new_time
+        time_delta = (self.current_time - self.prev_time).total_seconds()
 
         new_desired_charge_rate = self.sub_charge_rate.double
-        if new_desired_charge_rate != self.desired_charge_rate:
-            print(f"{self.name} desired charge rate updated from {self.desired_charge_rate} to {new_desired_charge_rate}")
+        # if new_desired_charge_rate != self.desired_charge_rate:
+        #     print(
+        #         f"{self.name} desired charge rate updated from {self.desired_charge_rate} @ {self.prev_time} to {new_desired_charge_rate} @ {self.current_time}")
         self.desired_charge_rate = new_desired_charge_rate
 
-        if (self.location != "home") and self.desired_charge_rate != 0.0:
-            raise Exception(
-                f"{self.name} desired charge rate is {self.desired_charge_rate} while at ({self.location})")
+        # if (self.location != "home") and self.desired_charge_rate != 0.0:
+        #     raise Exception(
+        #         f"{self.name} desired charge rate is {self.desired_charge_rate} while at ({self.location})")
 
         # calculate energy used up to now
-        energy_used = self.energy_used_between(self.current_time, new_time)
+        energy_used = self.energy_used_between(self.prev_time, self.current_time)
 
-        if self.desired_charge_rate > 0:
-            self.charge_rate = self.desired_charge_rate if self.stored_energy / self.battery_capacity < 0.9999 else 0
-        elif self.desired_charge_rate < 0:
-            self.charge_rate = self.desired_charge_rate if self.stored_energy / self.battery_capacity > 0.0001 else 0
+        if self.desired_charge_rate > 0 and self.location == "home":
+            self.charge_rate = self.desired_charge_rate if (
+                    self.stored_energy / self.battery_capacity < 0.9999) else 0.0
+        elif self.desired_charge_rate < 0 and self.location == "home":
+            self.charge_rate = self.desired_charge_rate if (
+                    self.stored_energy / self.battery_capacity > 0.0001) else 0.0
         else:
             self.charge_rate = 0
 
@@ -110,4 +126,4 @@ class V2GEV:
             if self.charge_rate > 0 and self.stored_energy < self.battery_capacity else float('inf')
 
         self.location = self.profile["state"].asof(new_time)
-        self.current_time = new_time
+        self.time_to_location_change = self.time_to_next_location_change()

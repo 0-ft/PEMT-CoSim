@@ -1085,212 +1085,152 @@
     {
       "key": "F0_house_A0_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A1_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A2_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A3_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A4_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A5_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A6_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A7_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A8_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A9_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A10_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A11_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A12_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A13_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A14_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A15_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A16_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A17_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A18_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A19_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A20_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A21_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A22_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A23_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A24_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A25_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A26_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A27_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A28_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "F0_house_A29_EV/charge_rate",
       "type": "double",
-      "global": false,
-      "only_transmit_on_change": true,
-      "tolerance": 0.1
+      "global": false
     },
     {
       "key": "solar_inv_F0_house_A0/P_Out",
