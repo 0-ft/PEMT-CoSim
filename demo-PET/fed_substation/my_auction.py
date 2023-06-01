@@ -129,7 +129,6 @@ class Auction:
         self.subFeeder = helics.helicsFederateGetSubscription(helics_federate, "gld1/distribution_load")
         self.subLMP = helics.helicsFederateGetSubscription(helics_federate, "pypower/LMP_B7")
 
-
     def update_refload(self):
         """Sets the refload attribute
 
@@ -217,7 +216,6 @@ class Auction:
         self.unresp += quantity
 
     def aggregate_bids(self):
-
         # for buyers
         # Aggregates the unresponsive load and responsive load bids for submission to the bulk system market
         if self.unresp > 0:
@@ -240,7 +238,7 @@ class Auction:
         # 这个就相当于把unresponsive加进去，然后输出一个平滑的buyer_curve,然后还想把这个平滑的buyer_curve输出，但是没用到
         if self.unresp_seller > 0:  # 把unresponsive弄入buyer_curve了
             self.curve_seller.add_to_curve(self.lmp, self.unresp_seller, True)  # the substation price is lmp
-        else:  # 当unresp=<0,就是打印出一堆东西，对unresp的部分啥都不做
+        else:
             print('$$ Unresp_seller,SellCount,SellTotal,SellOn,SellOff', flush=True)
             print('{:.3f}'.format(self.unresp_seller),
                   self.curve_buyer.count,
@@ -256,13 +254,10 @@ class Auction:
 
         # analyze the market condition
         self.num_sellers = self.num_buyers = self.num_nontcp = 0
-        for bid in self.bids:
-            if bid[3] == 'buyer':
-                self.num_buyers += 1
-            elif bid[3] == 'seller':
-                self.num_sellers += 1
-            else:
-                self.num_nontcp += 1
+        self.num_buyers = sum(bid[3] == "buyer" for bid in self.bids)
+        self.num_sellers = sum(bid[3] == "seller" for bid in self.bids)
+        self.num_nontcp = sum(bid[3] == "none-participant" for bid in self.bids)
+
         if self.num_buyers == 0 and self.num_sellers != 0:
             self.market_condition = "flexible-generation"
         elif self.num_sellers == 0 and self.num_buyers != 0:

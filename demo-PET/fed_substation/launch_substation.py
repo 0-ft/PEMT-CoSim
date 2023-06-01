@@ -146,6 +146,7 @@ while time_granted < StopTime:
     """ 5. houses formulate and send their bids"""
     if time_granted >= tnext_bid:
         auction.clear_bids()  # auction remove all previous records, re-initialize
+        print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range()) for house in houses.values()]}")
         for key, house in houses.items():
             bid = house.formulate_bid()  # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
             auction.collect_bid(bid)

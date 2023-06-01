@@ -99,7 +99,7 @@ class SubstationRecorder:
         ] for x in [t, ".".join(["F0_house_A0"] + t.split(".")[1:])]])))
 
         self.bid_recorder = HistoryRecorder(houses, [
-            "bid"
+            "values.bid.values"
         ])
 
         self.auction_recorder = HistoryRecorder(auction, [
@@ -385,7 +385,8 @@ class SubstationRecorder:
 
         fig.update_yaxes(title_text="Energy", row=3, col=1, range=[0, max(houses["F0_house_A0.ev.stored_energy"])])
         fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True,
-                         range=[min(houses["F0_house_A0.ev.desired_charge_rate"]), max(houses["F0_house_A0.ev.desired_charge_rate"])])
+                         range=[min(houses["F0_house_A0.ev.desired_charge_rate"]),
+                                max(houses["F0_house_A0.ev.desired_charge_rate"])])
 
         fig.add_trace(
             {
@@ -409,6 +410,69 @@ class SubstationRecorder:
         fig.write_html(f"{path}.html")
         print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
 
+    @staticmethod
+    def make_figure_bids(h: dict, path):
+        houses = h["houses"]
+        bids = h["bids"]
+        auction = h["auction"]
+        vpp = h["vpp"]
+        fig = make_subplots(rows=3, cols=1,
+                            specs=[[{}], [{}], [{"secondary_y": True}]])
+        prices = []
+        for t, bids_round in bids["values.bid.values"].items():
+            bids_round = pandas.DataFrame(bids_round,
+                                          columns=["price", "quantity", "hvac_needed", "role", "unresp_load", "name",
+                                                   "base_covered"])
+            sellers = bids_round[bids_round["role"] == "seller"]
+            buyers = bids_round[bids_round["role"] == "buyer"]
+            prices.append([sellers["price"].min(), sellers["price"].mean(), sellers[
+                "price"].max(), buyers["price"].min(), buyers["price"].mean(), buyers[
+                               "price"].max()])
+
+        prices = pandas.DataFrame(prices, columns=["min_seller_price", "avg_seller_price", "max_seller_price",
+                                                   "min_buyer_price", "avg_buyer_price", "max_buyer_price"],
+                                  index=bids.index)
+
+        fig = make_subplots(rows=4, cols=1,
+                            specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
+
+        for name in ["min_seller_price", "avg_seller_price", "max_seller_price",
+                     "min_buyer_price", "avg_buyer_price", "max_buyer_price"]:
+            fig.add_trace(
+                {
+                    "type": "scatter",
+                    "x": prices.index,
+                    "y": prices[name],
+                    "name": name,
+                }, row=1, col=1)
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": auction.index,
+                "y": auction["clearing_price"],
+                "name": "Clearing Price",
+            }, row=2, col=1)
+
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": auction.index,
+                "y": auction["num_sellers"],
+                "name": "Sellers",
+            }, row=3, col=1)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": auction.index,
+                "y": auction["num_buyers"],
+                "name": "Buyers",
+            }, row=3, col=1)
+
+        fig.write_image(f"{path}.svg")
+        fig.write_html(f"{path}.html")
+
     def figure(self):
         self.make_figure(self.history(), "progress")
 
@@ -417,8 +481,9 @@ if __name__ == "__main__":
     with open("metrics.pkl", "rb") as f:
         history = pickle.load(f)
 
-    SubstationRecorder.make_figure(history, "final_metrics")
-    SubstationRecorder.make_figure_solo(history, "solo_metrics")
+    SubstationRecorder.make_figure_bids(history, "bids_metrics")
+    # SubstationRecorder.make_figure(history, "final_metrics")
+    # SubstationRecorder.make_figure_solo(history, "solo_metrics")
 
 # class Tester:
 #     def __init__(self):

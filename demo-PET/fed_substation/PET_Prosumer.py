@@ -337,7 +337,6 @@ class EV:
 
         self.pub_desired_charge_rate = helics.helicsFederateGetPublication(helics_federate, f"F0_house_A{house_id}_EV/charge_rate")
 
-
     def update_state(self):
         self.location = self.sub_location.string
         self.stored_energy = self.sub_stored_energy.double
@@ -350,9 +349,9 @@ class EV:
             return 0.0, 0.0
         if .9 <= self.soc:
             return -self.fixed_discharge_rate, 0
-        elif .5 <= self.soc < .9:
+        elif .3 <= self.soc < .9:
             return -self.fixed_discharge_rate, self.fixed_charge_rate
-        elif .3 <= self.soc < .5:
+        elif .2 <= self.soc < .3:
             return 0, self.fixed_charge_rate
         else:
             return self.fixed_charge_rate, self.fixed_charge_rate
@@ -490,6 +489,7 @@ class House:
                 self.bid_price = 0
                 quantity = 0
                 base_covered = True
+                # print(f"{self.name} branch 1, {max_pv_power} + {-min_ev_load} covering {self.unresponsive_load} + {hvac_load}")
             else:
                 self.role = 'buyer'
                 p = self.auction.clearing_price + (
@@ -499,6 +499,7 @@ class House:
                     (self.unresponsive_load + hvac_load - (max_pv_power - min_ev_load)) / self.packet_unit)
                 quantity = packets_needed * self.packet_unit
                 base_covered = max_pv_power - min_ev_load > self.unresponsive_load
+                # print(f"{self.name} branch 2, {max_pv_power} + {-min_ev_load} + {packets_needed} packets ({quantity}) covering {self.unresponsive_load} + {hvac_load}")
 
         # surplus_packets = int(surplus_power // self.packet_unit)  # estimated the number of surplus PV power packet
         #

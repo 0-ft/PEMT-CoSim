@@ -53,8 +53,8 @@ class V2GEV:
         self.current_time = start_time
         self.history = []
         self.enable_movement = True
-        self.enable_charging = False
-        self.enable_discharging = False
+        self.enable_charging = True
+        self.enable_discharging = True
 
 
     def energy_used_between(self, start_time: datetime, end_time: datetime):
