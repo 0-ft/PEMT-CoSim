@@ -73,7 +73,8 @@ class SubstationRecorder:
         self.vpp_recorder = HistoryRecorder(vpp, [
             "vpp_load_p",
             "vpp_load",
-            "balance_signal"
+            "balance_signal",
+            "weather_temp"
         ])
         self.house_recorder = HistoryRecorder(houses, list(set([x for t in [
             "mean.hvac.air_temp",
@@ -96,7 +97,7 @@ class SubstationRecorder:
             "sum.unresponsive_load",
             "sum.total_house_load"
         ] for x in [t, ".".join(["F0_house_A0"] + t.split(".")[1:])]])))
-        print(self.house_recorder.keys)
+
         self.bid_recorder = HistoryRecorder(houses, [
             "bid"
         ])
@@ -172,6 +173,12 @@ class SubstationRecorder:
                 "x": houses.index,
                 "y": houses["mean.hvac.set_point"],
                 "name": "Mean HVAC Set Point",
+            },
+            {
+                "type": "scatter",
+                "x": vpp.index,
+                "y": vpp["weather_temp"],
+                "name": "Weather Temperature",
             },
         ], rows=1, cols=1)
 

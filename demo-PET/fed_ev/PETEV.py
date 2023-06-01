@@ -52,6 +52,10 @@ class V2GEV:
         self.prev_time = start_time
         self.current_time = start_time
         self.history = []
+        self.enable_movement = True
+        self.enable_charging = False
+        self.enable_discharging = False
+
 
     def energy_used_between(self, start_time: datetime, end_time: datetime):
         avg_power = self.profile["average power in W"]
@@ -105,10 +109,10 @@ class V2GEV:
 
         if self.desired_charge_rate > 0 and self.location == "home":
             self.charge_rate = self.desired_charge_rate if (
-                    self.stored_energy / self.battery_capacity < 0.9999) else 0.0
+                    self.stored_energy / self.battery_capacity < 0.9999) and self.enable_charging else 0.0
         elif self.desired_charge_rate < 0 and self.location == "home":
             self.charge_rate = self.desired_charge_rate if (
-                    self.stored_energy / self.battery_capacity > 0.0001) else 0.0
+                    self.stored_energy / self.battery_capacity > 0.0001) and self.enable_discharging else 0.0
         else:
             self.charge_rate = 0
 
@@ -125,5 +129,5 @@ class V2GEV:
         self.time_to_full_charge = ((self.battery_capacity - self.stored_energy) / self.charge_rate) \
             if self.charge_rate > 0 and self.stored_energy < self.battery_capacity else float('inf')
 
-        self.location = self.profile["state"].asof(new_time)
+        self.location = self.profile["state"].asof(new_time) if self.enable_movement else "home"
         self.time_to_location_change = self.time_to_next_location_change()

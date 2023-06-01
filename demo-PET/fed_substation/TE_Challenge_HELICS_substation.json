@@ -3345,6 +3345,10 @@
     {
       "key": "gld1/solar_F0_house_A29#I_Out",
       "type": "complex"
+    },
+    {
+      "key": "localWeather/temperature",
+      "type": "double"
     }
   ]
 }

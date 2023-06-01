@@ -35,6 +35,7 @@ class EVFederate:
 
         self.stop_seconds = int(self.hour_stop * 3600)  # co-simulation stop time in seconds
         self.enabled = True
+
     def create_federate(self):
 
         print(f"Creating EV federate")
@@ -106,7 +107,7 @@ class EVFederate:
              self.evs], axis=1,
             keys=range(self.num_evs))
         print(data)
-        data.to_csv(f"out{randint(0, 1000)}.csv")
+        data.to_csv(f"out.csv")
 
     def run_federate(self):
         print("EV federate to enter initializing mode")

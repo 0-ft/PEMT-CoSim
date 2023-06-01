@@ -35,8 +35,6 @@ fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop)  # initi
 
 helics_federate = helics.helicsCreateValueFederateFromConfig(helicsConfig)
 
-# fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop)  # initialize the federate helper
-
 """=============================Start The Co-simulation==================================="""
 # fh.create_federate()  # launch the broker; launch other federates; the substation federate enters executing mode
 
@@ -100,8 +98,6 @@ helics_federate.enter_executing_mode()
 print("Substation federate entered executing mode")
 
 """============================Substation Loop=================================="""
-
-
 
 recorder = SubstationRecorder(vpp, houses, auction)
 
