@@ -1,0 +1,12 @@
+object ZIPload {
+    name F{vpp_idx}_house_{phase}{house_idx}_EV;
+  parent F{vpp_idx}_tpm_{phase}{house_idx};
+//  schedule_skew 2927;
+//  heat_fraction 0.873;
+//  power_pf 0.97;
+//  power_fraction 1;
+//  current_pf 0.97;
+//  current_fraction 0;
+//  impedance_pf 0.97;
+//  impedance_fraction 0;
+};

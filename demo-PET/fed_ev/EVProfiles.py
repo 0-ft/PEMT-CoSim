@@ -351,9 +351,9 @@ def energy_used_between(ts, start_time: datetime, end_time: datetime):
 
 if __name__ == '__main__':
     start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
-    ev_profiles = EVProfiles(start_t, 48, 0.125, 30, "emobpy_data/profiles")
-    # ev_profiles.run()
-    ev_profiles.load_from_saved()
+    ev_profiles = EVProfiles(start_t, 96, 0.125, 30, "emobpy_data/profiles")
+    ev_profiles.run()
+    # ev_profiles.load_from_saved()
     t = start_t + timedelta(hours=14)
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)

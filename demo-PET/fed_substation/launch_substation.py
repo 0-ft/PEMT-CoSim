@@ -39,13 +39,11 @@ helics_federate = helics.helicsCreateValueFederateFromConfig(helicsConfig)
 """=============================Start The Co-simulation==================================="""
 # fh.create_federate()  # launch the broker; launch other federates; the substation federate enters executing mode
 
-# initialize a user-defined VPP coordinator object
-vpp = VPP(helics_federate, True)
 
 # initialize a user-defined auction object
 auction = NewAuction(helics_federate)
-# auction = Auction(helics_federate, fh.market_row, fh.market_key)
-# auction.init_auction()
+# initialize a user-defined VPP coordinator object
+vpp = VPP(helics_federate, auction, True)
 
 # initialize House objects
 houses = {}
@@ -61,9 +59,9 @@ for house_id, (house_name, info) in enumerate(
 num_houses = len(houses)
 
 # initialize time parameters
-StopTime = int(hour_stop * 3600)  # co-simulation stop time in seconds
-StartTime = '2013-07-01 00:00:00 -0800'  # co-simulation start time
-current_time = datetime.strptime(StartTime, '%Y-%m-%d %H:%M:%S %z')
+stop_seconds = int(hour_stop * 3600)  # co-simulation stop time in seconds
+start_time = '2013-07-01 00:00:00 -0800'  # co-simulation start time
+current_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S %z')
 
 dt = fh.dt  # HELCIS period (1 seconds)
 update_period = houses[last_house_name].hvac.update_period  # state update period (15 seconds)
@@ -93,6 +91,7 @@ for house_id, (house_name, info) in enumerate(
         fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
     houses[house_name].set_meter_mode()  # set meter mode
     houses[house_name].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
+    houses[house_name].ev.current_time = current_time
     houses[house_name].ev.set_desired_charge_rate(0)
 
 print("Substation federate to enter executing mode")
@@ -103,12 +102,12 @@ print("Substation federate entered executing mode")
 
 recorder = SubstationRecorder(vpp, houses, auction)
 
-while time_granted < StopTime:
+while time_granted < stop_seconds:
 
     """ 1. step the co-simulation time """
-    print("times", [tnext_update, tnext_lmp, tnext_bid, tnext_agg, tnext_clear, tnext_adjust, StopTime])
+    print("times", [tnext_update, tnext_lmp, tnext_bid, tnext_agg, tnext_clear, tnext_adjust, stop_seconds])
     nextHELICSTime = int(
-        min([tnext_update, tnext_lmp, tnext_bid, tnext_agg, tnext_clear, tnext_adjust, StopTime]))
+        min([tnext_update, tnext_lmp, tnext_bid, tnext_agg, tnext_clear, tnext_adjust, stop_seconds]))
     time_granted = int(helics.helicsFederateRequestTime(helics_federate, nextHELICSTime))
     time_delta = time_granted - time_last
     time_last = time_granted
@@ -121,16 +120,14 @@ while time_granted < StopTime:
            make power predictions for house load"""
     if time_granted >= tnext_update or True:
         for house_name, house in houses.items():
-            house.update_measurements()  # update measurements for all devices
+            print(current_time)
+            house.update_measurements(current_time)  # update measurements for all devices
             house.hvac.change_basepoint(current_time.hour, current_time.weekday())  # update schedule
             house.hvac.determine_power_needed()  # hvac determines if power is needed based on current state
-            # house.predict_solar_power()  # predict the solar power generation
         vpp.update_load()  # get the VPP load
         recorder.record_houses(current_time)
         recorder.record_vpp(current_time)
         tnext_update += update_period
-
-
 
     # """ 3. houses launch basic real-time control actions (not post-market control)
     #     including the control for battery"""
@@ -154,12 +151,12 @@ while time_granted < StopTime:
     if time_granted >= tnext_bid:
         # auction.clear_bids()  # auction remove all previous records, re-initialize
         print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range()) for house in houses.values()]}")
-        bids = [house.formulate_bid() for house in houses.values()]
+        bids = [house.formulate_bid() for house in houses.values()] + [vpp.formulate_bid()]
         auction.collect_bids(bids)
         # for key, house in houses.items():
         #     bid = house.formulate_bid()  # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
         #     auction.collect_bid(bid)
-        recorder.record_bids(current_time)
+        # recorder.record_bids(current_time)
         tnext_bid += market_period
 
     """ 6. market aggregates bids from prosumers"""

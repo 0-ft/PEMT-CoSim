@@ -602,11 +602,13 @@ def ProcessGLM(fileroot, global_config):
     for house_name, val in glm_dict['houses'].items():
         # meterName = val['name']
         subs.append({
-            "key": f"ev1/{house_name}_EV/load",
+            "key": f"ev1/{house_name}_EV/charging_load",
             "type": "complex",
+            # "type": "double",
             "info": {
                 "object": f"{house_name}_EV",
                 "property": "constant_power_A"
+                # "property": "base_power"
             }
         })
 

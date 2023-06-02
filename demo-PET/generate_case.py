@@ -43,6 +43,8 @@ global_config = GLOBAL_Configuration()
 glm = GLM_HELPER(global_config)
 glm.generate_glm()
 
+
+
 """1. configure simulation time period"""
 year = 2013
 start_time = '2013-07-01 00:00:00'
@@ -56,4 +58,5 @@ weathercsv(f"fed_weather/tesp_weather/{tmy_file_name}", 'weather.dat', start_tim
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict('TE_Challenge', te30=True)
+
 tesp.prep_substation('TE_Challenge', global_config)

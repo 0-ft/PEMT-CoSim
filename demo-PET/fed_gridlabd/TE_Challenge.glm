@@ -8,7 +8,7 @@
 clock {
 	timezone PST+8PDT;
 	starttime '2013-07-01 00:00:00';
-	stoptime '2013-07-03 00:00:00';
+	stoptime '2013-07-05 00:00:00';
 }
 
 module climate;
@@ -298,26 +298,26 @@ object house {
 	name F0_house_A0;
     groupid VPP_0;
 	parent house_F0_tpm_A0;
-	schedule_skew 2927;
-	Rroof 31.0;
-	Rwall 17.705;
-	Rfloor 14.340000000000002;
-	Rdoors 5;
-	Rwindows 2.1910000000000003;
-	airchange_per_hour 1.207;
+	schedule_skew -717;
+	Rroof 22.044;
+	Rwall 13.760000000000002;
+	Rfloor 10.321;
+	Rdoors 3;
+	Rwindows 0.952;
+	airchange_per_hour 1.117;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.2260000000000004;
+	total_thermal_mass_per_floor_area 5.1209999999999996;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.071000000000001;
-	floor_area 1429.844;
-	number_of_doors 2;
-	air_temperature 68.986;
-	mass_temperature 68.986;
+	cooling_COP 3.5770000000000004;
+	floor_area 920.346;
+	number_of_doors 1;
+	air_temperature 69.61;
+	mass_temperature 69.61;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -325,9 +325,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.73;
-  base_power LIGHTS*1.8146;
+  schedule_skew -717;
+  heat_fraction 0.738;
+  base_power LIGHTS*2.0005;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -336,9 +336,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.66;
-  base_power CLOTHESWASHER*0.5212;
+  schedule_skew -717;
+  heat_fraction 0.912;
+  base_power CLOTHESWASHER*0.7509;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -347,9 +347,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.723;
-  base_power REFRIGERATOR*1.1318;
+  schedule_skew -717;
+  heat_fraction 0.68;
+  base_power REFRIGERATOR*0.5147;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -358,9 +358,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.851;
-  base_power DRYER*1.2189;
+  schedule_skew -717;
+  heat_fraction 0.923;
+  base_power DRYER*0.8724;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -369,20 +369,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.776;
-  base_power DISHWASHER*0.7379;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.929;
-  base_power RANGE*0.5542;
+  schedule_skew -717;
+  heat_fraction 0.902;
+  base_power RANGE*0.8541;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -391,9 +380,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 2927;
-  heat_fraction 0.873;
-  base_power MICROWAVE*0.5019;
+  schedule_skew -717;
+  heat_fraction 0.923;
+  base_power MICROWAVE*0.9953;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -409,6 +398,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A0_EV;
+//    parent F0_tpm_A0;
+//}
 object load {
     name F0_house_A0_EV;
     parent F0_tpm_A0;
@@ -511,26 +504,26 @@ object house {
 	name F0_house_A1;
     groupid VPP_0;
 	parent house_F0_tpm_A1;
-	schedule_skew -876;
-	Rroof 27.770999999999997;
-	Rwall 19.947999999999997;
-	Rfloor 11.898;
+	schedule_skew 2926;
+	Rroof 28.32;
+	Rwall 19.825;
+	Rfloor 16.279999999999998;
 	Rdoors 5;
-	Rwindows 1.3259999999999998;
-	airchange_per_hour 1.126;
+	Rwindows 2.311;
+	airchange_per_hour 1.117;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.8100000000000005;
+	total_thermal_mass_per_floor_area 3.2960000000000003;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.58;
-	floor_area 1475.931;
+	cooling_COP 4.071;
+	floor_area 1446.424;
 	number_of_doors 2;
-	air_temperature 70.68900000000001;
-	mass_temperature 70.68900000000001;
+	air_temperature 70.246;
+	mass_temperature 70.246;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -538,9 +531,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -876;
-  heat_fraction 0.918;
-  base_power LIGHTS*1.4554;
+  schedule_skew 2926;
+  heat_fraction 0.73;
+  base_power LIGHTS*1.8146;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -549,9 +542,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -876;
-  heat_fraction 0.83;
-  base_power CLOTHESWASHER*1.2004;
+  schedule_skew 2926;
+  heat_fraction 0.66;
+  base_power CLOTHESWASHER*0.5212;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -560,9 +553,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -876;
-  heat_fraction 0.765;
-  base_power REFRIGERATOR*0.8814;
+  schedule_skew 2926;
+  heat_fraction 0.723;
+  base_power REFRIGERATOR*1.1318;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -571,9 +564,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -876;
-  heat_fraction 0.692;
-  base_power DRYER*1.1884;
+  schedule_skew 2926;
+  heat_fraction 0.851;
+  base_power DRYER*1.2189;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -582,9 +575,20 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -876;
-  heat_fraction 0.906;
-  base_power RANGE*0.9186;
+  schedule_skew 2926;
+  heat_fraction 0.776;
+  base_power DISHWASHER*0.7379;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 2926;
+  heat_fraction 0.929;
+  base_power RANGE*0.5542;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -593,9 +597,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -876;
-  heat_fraction 0.8;
-  base_power MICROWAVE*0.4692;
+  schedule_skew 2926;
+  heat_fraction 0.873;
+  base_power MICROWAVE*0.5019;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -611,6 +615,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A1_EV;
+//    parent F0_tpm_A1;
+//}
 object load {
     name F0_house_A1_EV;
     parent F0_tpm_A1;
@@ -713,26 +721,26 @@ object house {
 	name F0_house_A2;
     groupid VPP_0;
 	parent house_F0_tpm_A2;
-	schedule_skew -1424;
-	Rroof 13.829;
-	Rwall 6.792;
-	Rfloor 4.502;
-	Rdoors 3;
-	Rwindows 1.5250000000000001;
-	airchange_per_hour 1.484;
+	schedule_skew -888;
+	Rroof 27.331;
+	Rwall 20.417999999999996;
+	Rfloor 12.588000000000001;
+	Rdoors 5;
+	Rwindows 1.386;
+	airchange_per_hour 1.186;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.832999999999999;
+	total_thermal_mass_per_floor_area 4.78;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.1159999999999997;
-	floor_area 802.8679999999999;
-	number_of_doors 1;
-	air_temperature 67.94100000000002;
-	mass_temperature 67.94100000000002;
+	cooling_COP 3.45;
+	floor_area 1473.131;
+	number_of_doors 2;
+	air_temperature 70.769;
+	mass_temperature 70.769;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -740,9 +748,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -1424;
-  heat_fraction 0.868;
-  base_power LIGHTS*1.2861;
+  schedule_skew -888;
+  heat_fraction 0.918;
+  base_power LIGHTS*1.4554;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -751,9 +759,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -1424;
-  heat_fraction 0.685;
-  base_power CLOTHESWASHER*0.4944;
+  schedule_skew -888;
+  heat_fraction 0.83;
+  base_power CLOTHESWASHER*1.2004;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -762,9 +770,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1424;
-  heat_fraction 0.699;
-  base_power REFRIGERATOR*0.4950;
+  schedule_skew -888;
+  heat_fraction 0.765;
+  base_power REFRIGERATOR*0.8814;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -773,20 +781,20 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1424;
+  schedule_skew -888;
+  heat_fraction 0.692;
+  base_power DRYER*1.1884;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew -888;
   heat_fraction 0.906;
-  base_power DISHWASHER*0.8753;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -1424;
-  heat_fraction 0.865;
-  base_power RANGE*0.3988;
+  base_power RANGE*0.9186;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -795,9 +803,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -1424;
-  heat_fraction 0.822;
-  base_power MICROWAVE*0.4758;
+  schedule_skew -888;
+  heat_fraction 0.8;
+  base_power MICROWAVE*0.4692;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -813,6 +821,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A2_EV;
+//    parent F0_tpm_A2;
+//}
 object load {
     name F0_house_A2_EV;
     parent F0_tpm_A2;
@@ -915,26 +927,26 @@ object house {
 	name F0_house_A3;
     groupid VPP_0;
 	parent house_F0_tpm_A3;
-	schedule_skew -727;
-	Rroof 20.874;
-	Rwall 13.020000000000001;
-	Rfloor 10.701;
-	Rdoors 3;
-	Rwindows 0.852;
-	airchange_per_hour 1.157;
+	schedule_skew -895;
+	Rroof 27.361;
+	Rwall 22.574;
+	Rfloor 13.534999999999998;
+	Rdoors 5;
+	Rwindows 1.34;
+	airchange_per_hour 1.1520000000000001;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 5.210999999999999;
+	total_thermal_mass_per_floor_area 4.325;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.547;
-	floor_area 933.956;
-	number_of_doors 1;
-	air_temperature 70.89;
-	mass_temperature 70.89;
+	cooling_COP 3.8369999999999997;
+	floor_area 1349.234;
+	number_of_doors 2;
+	air_temperature 70.024;
+	mass_temperature 70.024;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -942,53 +954,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -727;
-  heat_fraction 0.738;
-  base_power LIGHTS*2.0005;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew -727;
-  heat_fraction 0.912;
-  base_power CLOTHESWASHER*0.7509;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -727;
-  heat_fraction 0.68;
-  base_power REFRIGERATOR*0.5147;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -727;
-  heat_fraction 0.923;
-  base_power DRYER*0.8724;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew -727;
-  heat_fraction 0.902;
-  base_power RANGE*0.8541;
+  schedule_skew -895;
+  heat_fraction 0.851;
+  base_power LIGHTS*0.9811;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -997,9 +965,53 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -727;
+  schedule_skew -895;
+  heat_fraction 0.83;
+  base_power CLOTHESWASHER*0.5962;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -895;
+  heat_fraction 0.671;
+  base_power REFRIGERATOR*1.1742;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -895;
+  heat_fraction 0.924;
+  base_power DRYER*0.6654;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew -895;
   heat_fraction 0.923;
-  base_power MICROWAVE*0.9953;
+  base_power RANGE*0.4997;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew -895;
+  heat_fraction 0.693;
+  base_power MICROWAVE*0.5191;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1015,6 +1027,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A3_EV;
+//    parent F0_tpm_A3;
+//}
 object load {
     name F0_house_A3_EV;
     parent F0_tpm_A3;
@@ -1117,26 +1133,26 @@ object house {
 	name F0_house_A4;
     groupid VPP_0;
 	parent house_F0_tpm_A4;
-	schedule_skew -568;
-	Rroof 34.164;
-	Rwall 16.214999999999996;
-	Rfloor 17.148;
+	schedule_skew -879;
+	Rroof 28.650999999999996;
+	Rwall 20.377999999999997;
+	Rfloor 12.848;
 	Rdoors 5;
-	Rwindows 1.303;
-	airchange_per_hour 1.184;
+	Rwindows 1.376;
+	airchange_per_hour 1.206;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.562;
+	total_thermal_mass_per_floor_area 4.930000000000001;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.0;
-	floor_area 741.182;
-	number_of_doors 1;
-	air_temperature 72.78799999999998;
-	mass_temperature 72.78799999999998;
+	cooling_COP 3.55;
+	floor_area 1447.371;
+	number_of_doors 2;
+	air_temperature 69.769;
+	mass_temperature 69.769;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -1144,20 +1160,20 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -568;
-  heat_fraction 0.797;
-  base_power LIGHTS*0.7614;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
+  schedule_skew -879;
+  heat_fraction 0.918;
+  base_power LIGHTS*1.4554;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
   current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -568;
-  heat_fraction 0.956;
-  base_power CLOTHESWASHER*0.7214;
+  schedule_skew -879;
+  heat_fraction 0.83;
+  base_power CLOTHESWASHER*1.2004;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1166,9 +1182,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -568;
-  heat_fraction 0.838;
-  base_power REFRIGERATOR*0.6400;
+  schedule_skew -879;
+  heat_fraction 0.765;
+  base_power REFRIGERATOR*0.8814;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1177,9 +1193,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -568;
-  heat_fraction 0.888;
-  base_power DRYER*0.5331;
+  schedule_skew -879;
+  heat_fraction 0.692;
+  base_power DRYER*1.1884;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -1188,20 +1204,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -568;
-  heat_fraction 0.886;
-  base_power DISHWASHER*1.0002;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -568;
-  heat_fraction 0.857;
-  base_power RANGE*0.5759;
+  schedule_skew -879;
+  heat_fraction 0.906;
+  base_power RANGE*0.9186;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -1210,9 +1215,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -568;
+  schedule_skew -879;
   heat_fraction 0.8;
-  base_power MICROWAVE*0.9763;
+  base_power MICROWAVE*0.4692;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1228,6 +1233,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A4_EV;
+//    parent F0_tpm_A4;
+//}
 object load {
     name F0_house_A4_EV;
     parent F0_tpm_A4;
@@ -1330,26 +1339,26 @@ object house {
 	name F0_house_A5;
     groupid VPP_0;
 	parent house_F0_tpm_A5;
-	schedule_skew 541;
-	Rroof 23.272000000000002;
-	Rwall 13.094000000000001;
-	Rfloor 12.17;
-	Rdoors 3;
-	Rwindows 1.191;
-	airchange_per_hour 1.015;
+	schedule_skew 94;
+	Rroof 27.666;
+	Rwall 20.734;
+	Rfloor 13.960999999999999;
+	Rdoors 5;
+	Rwindows 1.388;
+	airchange_per_hour 0.984;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 5.029000000000001;
+	total_thermal_mass_per_floor_area 3.228;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.5829999999999997;
-	floor_area 1127.248;
+	cooling_COP 3.434;
+	floor_area 1421.3229999999999;
 	number_of_doors 2;
-	air_temperature 68.181;
-	mass_temperature 68.181;
+	air_temperature 68.569;
+	mass_temperature 68.569;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -1357,9 +1366,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 541;
-  heat_fraction 0.847;
-  base_power LIGHTS*1.0261;
+  schedule_skew 94;
+  heat_fraction 0.874;
+  base_power LIGHTS*1.8722;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -1368,9 +1377,9 @@ object house {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 541;
-  heat_fraction 0.677;
-  base_power CLOTHESWASHER*1.0560;
+  schedule_skew 94;
+  heat_fraction 0.737;
+  base_power CLOTHESWASHER*1.0593;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1379,9 +1388,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 541;
-  heat_fraction 0.925;
-  base_power REFRIGERATOR*0.4246;
+  schedule_skew 94;
+  heat_fraction 0.937;
+  base_power REFRIGERATOR*1.2533;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1390,9 +1399,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 541;
-  heat_fraction 0.704;
-  base_power DRYER*0.6207;
+  schedule_skew 94;
+  heat_fraction 0.733;
+  base_power DRYER*0.9076;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -1401,9 +1410,20 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew 541;
-  heat_fraction 0.794;
-  base_power RANGE*0.7452;
+  schedule_skew 94;
+  heat_fraction 0.906;
+  base_power DISHWASHER*0.9959;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 94;
+  heat_fraction 0.885;
+  base_power RANGE*0.9538;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -1412,9 +1432,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 541;
-  heat_fraction 0.768;
-  base_power MICROWAVE*0.7532;
+  schedule_skew 94;
+  heat_fraction 0.707;
+  base_power MICROWAVE*0.4764;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1430,6 +1450,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A5_EV;
+//    parent F0_tpm_A5;
+//}
 object load {
     name F0_house_A5_EV;
     parent F0_tpm_A5;
@@ -1532,26 +1556,26 @@ object house {
 	name F0_house_A6;
     groupid VPP_0;
 	parent house_F0_tpm_A6;
-	schedule_skew 97;
-	Rroof 28.566;
-	Rwall 21.444000000000003;
-	Rfloor 14.870999999999999;
-	Rdoors 5;
-	Rwindows 1.2879999999999998;
-	airchange_per_hour 0.934;
+	schedule_skew -480;
+	Rroof 17.625999999999998;
+	Rwall 4.773;
+	Rfloor 5.364;
+	Rdoors 3;
+	Rwindows 1.5570000000000002;
+	airchange_per_hour 1.317;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.128;
+	total_thermal_mass_per_floor_area 3.499;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.564;
-	floor_area 1436.903;
-	number_of_doors 2;
-	air_temperature 68.71900000000001;
-	mass_temperature 68.71900000000001;
+	cooling_COP 2.392;
+	floor_area 857.403;
+	number_of_doors 1;
+	air_temperature 70.422;
+	mass_temperature 70.422;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -1559,20 +1583,20 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.874;
-  base_power LIGHTS*1.8722;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
+  schedule_skew -480;
+  heat_fraction 0.86;
+  base_power LIGHTS*0.8293;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
   current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.737;
-  base_power CLOTHESWASHER*1.0593;
+  schedule_skew -480;
+  heat_fraction 0.687;
+  base_power CLOTHESWASHER*0.9734;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1581,9 +1605,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.937;
-  base_power REFRIGERATOR*1.2533;
+  schedule_skew -480;
+  heat_fraction 0.888;
+  base_power REFRIGERATOR*0.7271;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1592,9 +1616,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.733;
-  base_power DRYER*0.9076;
+  schedule_skew -480;
+  heat_fraction 0.656;
+  base_power DRYER*0.4851;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -1603,9 +1627,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.906;
-  base_power DISHWASHER*0.9959;
+  schedule_skew -480;
+  heat_fraction 0.753;
+  base_power DISHWASHER*0.6316;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1614,9 +1638,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.885;
-  base_power RANGE*0.9538;
+  schedule_skew -480;
+  heat_fraction 0.71;
+  base_power RANGE*0.8467;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -1625,9 +1649,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 97;
-  heat_fraction 0.707;
-  base_power MICROWAVE*0.4764;
+  schedule_skew -480;
+  heat_fraction 0.868;
+  base_power MICROWAVE*0.5315;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1643,6 +1667,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A6_EV;
+//    parent F0_tpm_A6;
+//}
 object load {
     name F0_house_A6_EV;
     parent F0_tpm_A6;
@@ -1745,26 +1773,26 @@ object house {
 	name F0_house_A7;
     groupid VPP_0;
 	parent house_F0_tpm_A7;
-	schedule_skew -346;
-	Rroof 32.826;
-	Rwall 20.989;
-	Rfloor 13.615;
+	schedule_skew -875;
+	Rroof 28.340999999999998;
+	Rwall 19.497999999999998;
+	Rfloor 11.978000000000002;
 	Rdoors 5;
-	Rwindows 1.841;
-	airchange_per_hour 1.02;
+	Rwindows 1.376;
+	airchange_per_hour 1.216;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.069;
+	total_thermal_mass_per_floor_area 5.03;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.055999999999999;
-	floor_area 2694.522;
-	number_of_doors 3;
-	air_temperature 72.07500000000002;
-	mass_temperature 72.07500000000002;
+	cooling_COP 3.5;
+	floor_area 1440.5810000000001;
+	number_of_doors 2;
+	air_temperature 70.769;
+	mass_temperature 70.769;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -1772,20 +1800,20 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.702;
-  base_power LIGHTS*2.9877;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
+  schedule_skew -875;
+  heat_fraction 0.918;
+  base_power LIGHTS*1.4554;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
   current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.837;
-  base_power CLOTHESWASHER*0.9038;
+  schedule_skew -875;
+  heat_fraction 0.83;
+  base_power CLOTHESWASHER*1.2004;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1794,9 +1822,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.901;
-  base_power REFRIGERATOR*1.3202;
+  schedule_skew -875;
+  heat_fraction 0.765;
+  base_power REFRIGERATOR*0.8814;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1805,9 +1833,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.957;
-  base_power DRYER*1.2306;
+  schedule_skew -875;
+  heat_fraction 0.692;
+  base_power DRYER*1.1884;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -1816,20 +1844,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.928;
-  base_power DISHWASHER*1.7438;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.922;
-  base_power RANGE*1.2505;
+  schedule_skew -875;
+  heat_fraction 0.906;
+  base_power RANGE*0.9186;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -1838,9 +1855,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -346;
-  heat_fraction 0.786;
-  base_power MICROWAVE*1.2792;
+  schedule_skew -875;
+  heat_fraction 0.8;
+  base_power MICROWAVE*0.4692;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -1856,6 +1873,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A7_EV;
+//    parent F0_tpm_A7;
+//}
 object load {
     name F0_house_A7_EV;
     parent F0_tpm_A7;
@@ -1958,26 +1979,26 @@ object house {
 	name F0_house_A8;
     groupid VPP_0;
 	parent house_F0_tpm_A8;
-	schedule_skew -484;
-	Rroof 16.075999999999997;
-	Rwall 5.703;
-	Rfloor 5.894;
+	schedule_skew -233;
+	Rroof 18.712000000000003;
+	Rwall 8.649000000000001;
+	Rfloor 10.502;
 	Rdoors 3;
-	Rwindows 1.5270000000000001;
-	airchange_per_hour 1.2169999999999999;
+	Rwindows 1.403;
+	airchange_per_hour 0.982;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.299;
+	total_thermal_mass_per_floor_area 3.411;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 2.392;
-	floor_area 846.793;
-	number_of_doors 1;
-	air_temperature 70.262;
-	mass_temperature 70.262;
+	cooling_COP 2.6900000000000004;
+	floor_area 1180.108;
+	number_of_doors 2;
+	air_temperature 70.669;
+	mass_temperature 70.669;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -1985,9 +2006,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.86;
-  base_power LIGHTS*0.8293;
+  schedule_skew -233;
+  heat_fraction 0.896;
+  base_power LIGHTS*0.9759;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -1996,9 +2017,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.687;
-  base_power CLOTHESWASHER*0.9734;
+  schedule_skew -233;
+  heat_fraction 0.87;
+  base_power CLOTHESWASHER*1.1073;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2007,9 +2028,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.888;
-  base_power REFRIGERATOR*0.7271;
+  schedule_skew -233;
+  heat_fraction 0.716;
+  base_power REFRIGERATOR*0.5169;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2018,9 +2039,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.656;
-  base_power DRYER*0.4851;
+  schedule_skew -233;
+  heat_fraction 0.648;
+  base_power DRYER*1.0014;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -2029,20 +2050,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.753;
-  base_power DISHWASHER*0.6316;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.71;
-  base_power RANGE*0.8467;
+  schedule_skew -233;
+  heat_fraction 0.813;
+  base_power RANGE*1.0866;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -2051,9 +2061,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -484;
-  heat_fraction 0.868;
-  base_power MICROWAVE*0.5315;
+  schedule_skew -233;
+  heat_fraction 0.931;
+  base_power MICROWAVE*0.8762;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2069,6 +2079,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A8_EV;
+//    parent F0_tpm_A8;
+//}
 object load {
     name F0_house_A8_EV;
     parent F0_tpm_A8;
@@ -2171,26 +2185,26 @@ object house {
 	name F0_house_A9;
     groupid VPP_0;
 	parent house_F0_tpm_A9;
-	schedule_skew -1412;
-	Rroof 13.269;
-	Rwall 6.202;
-	Rfloor 5.052;
+	schedule_skew -2752;
+	Rroof 15.857000000000003;
+	Rwall 7.852;
+	Rfloor 10.21;
 	Rdoors 3;
-	Rwindows 1.355;
-	airchange_per_hour 1.2939999999999998;
+	Rwindows 1.108;
+	airchange_per_hour 0.886;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.853;
+	total_thermal_mass_per_floor_area 3.188;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.056;
-	floor_area 801.818;
-	number_of_doors 1;
-	air_temperature 66.70100000000001;
-	mass_temperature 66.70100000000001;
+	cooling_COP 3.553;
+	floor_area 1283.061;
+	number_of_doors 2;
+	air_temperature 69.631;
+	mass_temperature 69.631;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -2198,9 +2212,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -1412;
-  heat_fraction 0.868;
-  base_power LIGHTS*1.2861;
+  schedule_skew -2752;
+  heat_fraction 0.709;
+  base_power LIGHTS*2.4618;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -2209,9 +2223,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -1412;
-  heat_fraction 0.685;
-  base_power CLOTHESWASHER*0.4944;
+  schedule_skew -2752;
+  heat_fraction 0.692;
+  base_power CLOTHESWASHER*0.6618;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2220,9 +2234,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1412;
-  heat_fraction 0.699;
-  base_power REFRIGERATOR*0.4950;
+  schedule_skew -2752;
+  heat_fraction 0.818;
+  base_power REFRIGERATOR*0.5206;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2231,20 +2245,20 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1412;
-  heat_fraction 0.906;
-  base_power DISHWASHER*0.8753;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
+  schedule_skew -2752;
+  heat_fraction 0.744;
+  base_power DRYER*1.2617;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -1412;
-  heat_fraction 0.865;
-  base_power RANGE*0.3988;
+  schedule_skew -2752;
+  heat_fraction 0.677;
+  base_power RANGE*0.9234;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -2253,9 +2267,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -1412;
-  heat_fraction 0.822;
-  base_power MICROWAVE*0.4758;
+  schedule_skew -2752;
+  heat_fraction 0.863;
+  base_power MICROWAVE*0.9539;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2271,6 +2285,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A9_EV;
+//    parent F0_tpm_A9;
+//}
 object load {
     name F0_house_A9_EV;
     parent F0_tpm_A9;
@@ -2373,26 +2391,26 @@ object house {
 	name F0_house_A10;
     groupid VPP_0;
 	parent house_F0_tpm_A10;
-	schedule_skew -216;
-	Rroof 18.872000000000003;
-	Rwall 9.539000000000001;
-	Rfloor 11.692;
+	schedule_skew -1065;
+	Rroof 21.444000000000003;
+	Rwall 14.418;
+	Rfloor 10.898;
 	Rdoors 3;
-	Rwindows 1.5330000000000001;
-	airchange_per_hour 0.9319999999999999;
+	Rwindows 1.178;
+	airchange_per_hour 1.047;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.451;
+	total_thermal_mass_per_floor_area 2.99;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 2.66;
-	floor_area 1214.6879999999999;
-	number_of_doors 2;
-	air_temperature 70.62899999999999;
-	mass_temperature 70.62899999999999;
+	cooling_COP 3.3770000000000002;
+	floor_area 607.835;
+	number_of_doors 1;
+	air_temperature 69.041;
+	mass_temperature 69.041;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -2400,53 +2418,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.896;
-  base_power LIGHTS*0.9759;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.87;
-  base_power CLOTHESWASHER*1.1073;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.716;
-  base_power REFRIGERATOR*0.5169;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.648;
-  base_power DRYER*1.0014;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.813;
-  base_power RANGE*1.0866;
+  schedule_skew -1065;
+  heat_fraction 0.943;
+  base_power LIGHTS*1.2858;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -2455,9 +2429,53 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -216;
+  schedule_skew -1065;
+  heat_fraction 0.796;
+  base_power CLOTHESWASHER*0.5579;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -1065;
+  heat_fraction 0.873;
+  base_power REFRIGERATOR*0.6902;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -1065;
+  heat_fraction 0.869;
+  base_power DRYER*0.8551;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew -1065;
   heat_fraction 0.931;
-  base_power MICROWAVE*0.8762;
+  base_power RANGE*0.5889;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew -1065;
+  heat_fraction 0.695;
+  base_power MICROWAVE*0.5648;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2473,6 +2491,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A10_EV;
+//    parent F0_tpm_A10;
+//}
 object load {
     name F0_house_A10_EV;
     parent F0_tpm_A10;
@@ -2575,26 +2597,26 @@ object house {
 	name F0_house_A11;
     groupid VPP_0;
 	parent house_F0_tpm_A11;
-	schedule_skew -350;
-	Rroof 33.636;
-	Rwall 20.489;
-	Rfloor 12.375;
-	Rdoors 5;
-	Rwindows 1.931;
-	airchange_per_hour 0.9099999999999999;
+	schedule_skew 5;
+	Rroof 16.449;
+	Rwall 6.164999999999999;
+	Rfloor 5.130000000000001;
+	Rdoors 3;
+	Rwindows 1.144;
+	airchange_per_hour 1.5;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.019;
+	total_thermal_mass_per_floor_area 4.143;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.215999999999999;
-	floor_area 2704.2619999999997;
-	number_of_doors 3;
-	air_temperature 72.805;
-	mass_temperature 72.805;
+	cooling_COP 3.0;
+	floor_area 694.334;
+	number_of_doors 1;
+	air_temperature 71.84700000000001;
+	mass_temperature 71.84700000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -2602,9 +2624,53 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.702;
-  base_power LIGHTS*2.9877;
+  schedule_skew 5;
+  heat_fraction 0.952;
+  base_power LIGHTS*1.4008;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
+  current_fraction 0;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
+};
+object ZIPload {
+  schedule_skew 5;
+  heat_fraction 0.843;
+  base_power CLOTHESWASHER*0.4350;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 5;
+  heat_fraction 0.932;
+  base_power REFRIGERATOR*0.3573;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 5;
+  heat_fraction 0.715;
+  base_power DISHWASHER*0.6936;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 5;
+  heat_fraction 0.887;
+  base_power RANGE*0.3702;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -2613,64 +2679,9 @@ object house {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.837;
-  base_power CLOTHESWASHER*0.9038;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.901;
-  base_power REFRIGERATOR*1.3202;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.957;
-  base_power DRYER*1.2306;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.928;
-  base_power DISHWASHER*1.7438;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.922;
-  base_power RANGE*1.2505;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
-  current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
-};
-object ZIPload {
-  schedule_skew -350;
-  heat_fraction 0.786;
-  base_power MICROWAVE*1.2792;
+  schedule_skew 5;
+  heat_fraction 0.661;
+  base_power MICROWAVE*0.4329;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2686,6 +2697,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A11_EV;
+//    parent F0_tpm_A11;
+//}
 object load {
     name F0_house_A11_EV;
     parent F0_tpm_A11;
@@ -2788,26 +2803,26 @@ object house {
 	name F0_house_A12;
     groupid VPP_0;
 	parent house_F0_tpm_A12;
-	schedule_skew -657;
-	Rroof 24.195999999999998;
-	Rwall 17.302;
-	Rfloor 17.844000000000005;
+	schedule_skew 2937;
+	Rroof 29.99;
+	Rwall 18.935;
+	Rfloor 14.250000000000002;
 	Rdoors 5;
-	Rwindows 1.378;
-	airchange_per_hour 0.74;
+	Rwindows 2.1910000000000003;
+	airchange_per_hour 1.247;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.7830000000000004;
+	total_thermal_mass_per_floor_area 3.386;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.4930000000000003;
-	floor_area 2984.002;
-	number_of_doors 3;
-	air_temperature 68.585;
-	mass_temperature 68.585;
+	cooling_COP 4.021000000000001;
+	floor_area 1424.844;
+	number_of_doors 2;
+	air_temperature 69.036;
+	mass_temperature 69.036;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -2815,20 +2830,20 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.916;
-  base_power LIGHTS*1.8651;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
+  schedule_skew 2937;
+  heat_fraction 0.73;
+  base_power LIGHTS*1.8146;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
   current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.809;
-  base_power CLOTHESWASHER*1.0153;
+  schedule_skew 2937;
+  heat_fraction 0.66;
+  base_power CLOTHESWASHER*0.5212;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2837,9 +2852,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.916;
-  base_power REFRIGERATOR*1.7091;
+  schedule_skew 2937;
+  heat_fraction 0.723;
+  base_power REFRIGERATOR*1.1318;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2848,9 +2863,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.746;
-  base_power DRYER*0.7780;
+  schedule_skew 2937;
+  heat_fraction 0.851;
+  base_power DRYER*1.2189;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -2859,9 +2874,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -657;
+  schedule_skew 2937;
   heat_fraction 0.776;
-  base_power FREEZER*0.9835;
+  base_power DISHWASHER*0.7379;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2870,20 +2885,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.646;
-  base_power DISHWASHER*0.9828;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.647;
-  base_power RANGE*0.6574;
+  schedule_skew 2937;
+  heat_fraction 0.929;
+  base_power RANGE*0.5542;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -2892,9 +2896,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -657;
-  heat_fraction 0.878;
-  base_power MICROWAVE*1.0249;
+  schedule_skew 2937;
+  heat_fraction 0.873;
+  base_power MICROWAVE*0.5019;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -2910,6 +2914,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A12_EV;
+//    parent F0_tpm_A12;
+//}
 object load {
     name F0_house_A12_EV;
     parent F0_tpm_A12;
@@ -3012,26 +3020,26 @@ object house {
 	name F0_house_A13;
     groupid VPP_0;
 	parent house_F0_tpm_A13;
-	schedule_skew -649;
-	Rroof 23.996;
-	Rwall 18.191999999999997;
-	Rfloor 16.894000000000002;
-	Rdoors 5;
-	Rwindows 1.388;
-	airchange_per_hour 0.74;
+	schedule_skew -489;
+	Rroof 16.075999999999997;
+	Rwall 4.7330000000000005;
+	Rfloor 5.184;
+	Rdoors 3;
+	Rwindows 1.417;
+	airchange_per_hour 1.347;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.483;
+	total_thermal_mass_per_floor_area 3.419;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.373;
-	floor_area 2994.072;
-	number_of_doors 3;
-	air_temperature 68.935;
-	mass_temperature 68.935;
+	cooling_COP 2.492;
+	floor_area 860.9730000000001;
+	number_of_doors 1;
+	air_temperature 70.422;
+	mass_temperature 70.422;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -3039,20 +3047,20 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.916;
-  base_power LIGHTS*1.8651;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
+  schedule_skew -489;
+  heat_fraction 0.86;
+  base_power LIGHTS*0.8293;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
   current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.809;
-  base_power CLOTHESWASHER*1.0153;
+  schedule_skew -489;
+  heat_fraction 0.687;
+  base_power CLOTHESWASHER*0.9734;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3061,9 +3069,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.916;
-  base_power REFRIGERATOR*1.7091;
+  schedule_skew -489;
+  heat_fraction 0.888;
+  base_power REFRIGERATOR*0.7271;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3072,9 +3080,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.746;
-  base_power DRYER*0.7780;
+  schedule_skew -489;
+  heat_fraction 0.656;
+  base_power DRYER*0.4851;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -3083,9 +3091,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.776;
-  base_power FREEZER*0.9835;
+  schedule_skew -489;
+  heat_fraction 0.753;
+  base_power DISHWASHER*0.6316;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3094,20 +3102,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.646;
-  base_power DISHWASHER*0.9828;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.647;
-  base_power RANGE*0.6574;
+  schedule_skew -489;
+  heat_fraction 0.71;
+  base_power RANGE*0.8467;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -3116,9 +3113,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -649;
-  heat_fraction 0.878;
-  base_power MICROWAVE*1.0249;
+  schedule_skew -489;
+  heat_fraction 0.868;
+  base_power MICROWAVE*0.5315;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3134,6 +3131,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A13_EV;
+//    parent F0_tpm_A13;
+//}
 object load {
     name F0_house_A13_EV;
     parent F0_tpm_A13;
@@ -3236,26 +3237,26 @@ object house {
 	name F0_house_A14;
     groupid VPP_0;
 	parent house_F0_tpm_A14;
-	schedule_skew 2941;
-	Rroof 28.970000000000002;
-	Rwall 20.615;
-	Rfloor 16.369999999999997;
+	schedule_skew 87;
+	Rroof 28.006;
+	Rwall 21.884;
+	Rfloor 15.661;
 	Rdoors 5;
-	Rwindows 2.181;
-	airchange_per_hour 1.177;
+	Rwindows 1.408;
+	airchange_per_hour 0.964;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.266;
+	total_thermal_mass_per_floor_area 2.858;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.9610000000000003;
-	floor_area 1443.054;
+	cooling_COP 3.594;
+	floor_area 1430.3029999999999;
 	number_of_doors 2;
-	air_temperature 70.20599999999999;
-	mass_temperature 70.20599999999999;
+	air_temperature 69.569;
+	mass_temperature 69.569;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -3263,64 +3264,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.73;
-  base_power LIGHTS*1.8146;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.66;
-  base_power CLOTHESWASHER*0.5212;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.723;
-  base_power REFRIGERATOR*1.1318;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.851;
-  base_power DRYER*1.2189;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.776;
-  base_power DISHWASHER*0.7379;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.929;
-  base_power RANGE*0.5542;
+  schedule_skew 87;
+  heat_fraction 0.874;
+  base_power LIGHTS*1.8722;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -3329,9 +3275,64 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 2941;
-  heat_fraction 0.873;
-  base_power MICROWAVE*0.5019;
+  schedule_skew 87;
+  heat_fraction 0.737;
+  base_power CLOTHESWASHER*1.0593;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 87;
+  heat_fraction 0.937;
+  base_power REFRIGERATOR*1.2533;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 87;
+  heat_fraction 0.733;
+  base_power DRYER*0.9076;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew 87;
+  heat_fraction 0.906;
+  base_power DISHWASHER*0.9959;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 87;
+  heat_fraction 0.885;
+  base_power RANGE*0.9538;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew 87;
+  heat_fraction 0.707;
+  base_power MICROWAVE*0.4764;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3347,6 +3348,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A14_EV;
+//    parent F0_tpm_A14;
+//}
 object load {
     name F0_house_A14_EV;
     parent F0_tpm_A14;
@@ -3449,26 +3454,26 @@ object house {
 	name F0_house_A15;
     groupid VPP_0;
 	parent house_F0_tpm_A15;
-	schedule_skew 106;
-	Rroof 28.456;
-	Rwall 22.204;
-	Rfloor 14.481;
-	Rdoors 5;
-	Rwindows 1.498;
-	airchange_per_hour 1.044;
+	schedule_skew -1049;
+	Rroof 22.124000000000002;
+	Rwall 13.558;
+	Rfloor 11.688;
+	Rdoors 3;
+	Rwindows 1.148;
+	airchange_per_hour 0.9369999999999999;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.258;
+	total_thermal_mass_per_floor_area 3.04;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.434;
-	floor_area 1433.4630000000002;
-	number_of_doors 2;
-	air_temperature 70.339;
-	mass_temperature 70.339;
+	cooling_COP 3.2770000000000006;
+	floor_area 614.745;
+	number_of_doors 1;
+	air_temperature 69.041;
+	mass_temperature 69.041;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -3476,9 +3481,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.874;
-  base_power LIGHTS*1.8722;
+  schedule_skew -1049;
+  heat_fraction 0.943;
+  base_power LIGHTS*1.2858;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -3487,9 +3492,9 @@ object house {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.737;
-  base_power CLOTHESWASHER*1.0593;
+  schedule_skew -1049;
+  heat_fraction 0.796;
+  base_power CLOTHESWASHER*0.5579;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3498,9 +3503,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.937;
-  base_power REFRIGERATOR*1.2533;
+  schedule_skew -1049;
+  heat_fraction 0.873;
+  base_power REFRIGERATOR*0.6902;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3509,9 +3514,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.733;
-  base_power DRYER*0.9076;
+  schedule_skew -1049;
+  heat_fraction 0.869;
+  base_power DRYER*0.8551;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -3520,20 +3525,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.906;
-  base_power DISHWASHER*0.9959;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.885;
-  base_power RANGE*0.9538;
+  schedule_skew -1049;
+  heat_fraction 0.931;
+  base_power RANGE*0.5889;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -3542,9 +3536,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 106;
-  heat_fraction 0.707;
-  base_power MICROWAVE*0.4764;
+  schedule_skew -1049;
+  heat_fraction 0.695;
+  base_power MICROWAVE*0.5648;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3560,6 +3554,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A15_EV;
+//    parent F0_tpm_A15;
+//}
 object load {
     name F0_house_A15_EV;
     parent F0_tpm_A15;
@@ -3662,26 +3660,26 @@ object house {
 	name F0_house_A16;
     groupid VPP_0;
 	parent house_F0_tpm_A16;
-	schedule_skew -355;
-	Rroof 31.396;
-	Rwall 21.689;
-	Rfloor 12.795;
+	schedule_skew 2913;
+	Rroof 29.36;
+	Rwall 19.294999999999998;
+	Rfloor 14.08;
 	Rdoors 5;
-	Rwindows 1.871;
-	airchange_per_hour 0.94;
+	Rwindows 2.301;
+	airchange_per_hour 1.167;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.2190000000000003;
+	total_thermal_mass_per_floor_area 3.2060000000000004;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.046;
-	floor_area 2709.592;
-	number_of_doors 3;
-	air_temperature 71.845;
-	mass_temperature 71.845;
+	cooling_COP 4.191;
+	floor_area 1427.0539999999999;
+	number_of_doors 2;
+	air_temperature 68.646;
+	mass_temperature 68.646;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -3689,20 +3687,20 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.702;
-  base_power LIGHTS*2.9877;
-  power_pf 0;
-  power_fraction 0;
-  current_pf 0;
+  schedule_skew 2913;
+  heat_fraction 0.73;
+  base_power LIGHTS*1.8146;
+  power_pf -0.78;
+  power_fraction 0.6;
+  current_pf 0.42;
   current_fraction 0;
-  impedance_pf 1;
-  impedance_fraction 1;
+  impedance_pf -0.88;
+  impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.837;
-  base_power CLOTHESWASHER*0.9038;
+  schedule_skew 2913;
+  heat_fraction 0.66;
+  base_power CLOTHESWASHER*0.5212;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3711,9 +3709,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.901;
-  base_power REFRIGERATOR*1.3202;
+  schedule_skew 2913;
+  heat_fraction 0.723;
+  base_power REFRIGERATOR*1.1318;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3722,9 +3720,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.957;
-  base_power DRYER*1.2306;
+  schedule_skew 2913;
+  heat_fraction 0.851;
+  base_power DRYER*1.2189;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -3733,9 +3731,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.928;
-  base_power DISHWASHER*1.7438;
+  schedule_skew 2913;
+  heat_fraction 0.776;
+  base_power DISHWASHER*0.7379;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3744,9 +3742,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.922;
-  base_power RANGE*1.2505;
+  schedule_skew 2913;
+  heat_fraction 0.929;
+  base_power RANGE*0.5542;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -3755,9 +3753,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -355;
-  heat_fraction 0.786;
-  base_power MICROWAVE*1.2792;
+  schedule_skew 2913;
+  heat_fraction 0.873;
+  base_power MICROWAVE*0.5019;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3773,6 +3771,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A16_EV;
+//    parent F0_tpm_A16;
+//}
 object load {
     name F0_house_A16_EV;
     parent F0_tpm_A16;
@@ -3875,26 +3877,26 @@ object house {
 	name F0_house_A17;
     groupid VPP_0;
 	parent house_F0_tpm_A17;
-	schedule_skew 363;
-	Rroof 30.5;
-	Rwall 19.459999999999997;
-	Rfloor 13.008999999999999;
-	Rdoors 5;
-	Rwindows 1.5799999999999998;
-	airchange_per_hour 0.862;
+	schedule_skew 547;
+	Rroof 21.762;
+	Rwall 11.874;
+	Rfloor 12.05;
+	Rdoors 3;
+	Rwindows 1.141;
+	airchange_per_hour 1.055;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.4090000000000003;
+	total_thermal_mass_per_floor_area 4.889;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.8240000000000003;
-	floor_area 822.6289999999999;
-	number_of_doors 1;
-	air_temperature 70.395;
-	mass_temperature 70.395;
+	cooling_COP 3.6029999999999998;
+	floor_area 1147.538;
+	number_of_doors 2;
+	air_temperature 67.321;
+	mass_temperature 67.321;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -3902,53 +3904,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 363;
-  heat_fraction 0.71;
-  base_power LIGHTS*1.3151;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew 363;
-  heat_fraction 0.67;
-  base_power CLOTHESWASHER*0.8809;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 363;
-  heat_fraction 0.656;
-  base_power REFRIGERATOR*0.7265;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 363;
-  heat_fraction 0.912;
-  base_power DRYER*0.4669;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew 363;
-  heat_fraction 0.829;
-  base_power RANGE*0.4825;
+  schedule_skew 547;
+  heat_fraction 0.847;
+  base_power LIGHTS*1.0261;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -3957,9 +3915,53 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 363;
-  heat_fraction 0.865;
-  base_power MICROWAVE*0.3953;
+  schedule_skew 547;
+  heat_fraction 0.677;
+  base_power CLOTHESWASHER*1.0560;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 547;
+  heat_fraction 0.925;
+  base_power REFRIGERATOR*0.4246;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 547;
+  heat_fraction 0.704;
+  base_power DRYER*0.6207;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew 547;
+  heat_fraction 0.794;
+  base_power RANGE*0.7452;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew 547;
+  heat_fraction 0.768;
+  base_power MICROWAVE*0.7532;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -3975,6 +3977,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A17_EV;
+//    parent F0_tpm_A17;
+//}
 object load {
     name F0_house_A17_EV;
     parent F0_tpm_A17;
@@ -4077,26 +4083,26 @@ object house {
 	name F0_house_A18;
     groupid VPP_0;
 	parent house_F0_tpm_A18;
-	schedule_skew -216;
-	Rroof 19.472;
-	Rwall 7.799;
-	Rfloor 10.322000000000001;
-	Rdoors 3;
-	Rwindows 1.463;
-	airchange_per_hour 0.952;
+	schedule_skew -1181;
+	Rroof 31.003999999999998;
+	Rwall 19.006;
+	Rfloor 12.509;
+	Rdoors 5;
+	Rwindows 1.641;
+	airchange_per_hour 0.885;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.721;
+	total_thermal_mass_per_floor_area 4.068999999999999;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 2.7;
-	floor_area 1180.298;
+	cooling_COP 3.835;
+	floor_area 1227.0479999999998;
 	number_of_doors 2;
-	air_temperature 70.419;
-	mass_temperature 70.419;
+	air_temperature 69.34100000000001;
+	mass_temperature 69.34100000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -4104,9 +4110,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.896;
-  base_power LIGHTS*0.9759;
+  schedule_skew -1181;
+  heat_fraction 0.928;
+  base_power LIGHTS*1.3966;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -4115,9 +4121,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.87;
-  base_power CLOTHESWASHER*1.1073;
+  schedule_skew -1181;
+  heat_fraction 0.88;
+  base_power CLOTHESWASHER*0.6925;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4126,9 +4132,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.716;
-  base_power REFRIGERATOR*0.5169;
+  schedule_skew -1181;
+  heat_fraction 0.945;
+  base_power REFRIGERATOR*1.0741;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4137,9 +4143,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.648;
-  base_power DRYER*1.0014;
+  schedule_skew -1181;
+  heat_fraction 0.809;
+  base_power DRYER*1.0776;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -4148,9 +4154,20 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.813;
-  base_power RANGE*1.0866;
+  schedule_skew -1181;
+  heat_fraction 0.943;
+  base_power DISHWASHER*0.4371;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -1181;
+  heat_fraction 0.645;
+  base_power RANGE*1.0368;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -4159,9 +4176,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -216;
-  heat_fraction 0.931;
-  base_power MICROWAVE*0.8762;
+  schedule_skew -1181;
+  heat_fraction 0.85;
+  base_power MICROWAVE*0.7235;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4177,6 +4194,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A18_EV;
+//    parent F0_tpm_A18;
+//}
 object load {
     name F0_house_A18_EV;
     parent F0_tpm_A18;
@@ -4279,26 +4300,26 @@ object house {
 	name F0_house_A19;
     groupid VPP_0;
 	parent house_F0_tpm_A19;
-	schedule_skew -884;
-	Rroof 26.641000000000002;
-	Rwall 22.354000000000003;
-	Rfloor 14.545;
+	schedule_skew -361;
+	Rroof 31.766000000000002;
+	Rwall 22.509;
+	Rfloor 13.865;
 	Rdoors 5;
-	Rwindows 1.35;
-	airchange_per_hour 1.1420000000000001;
+	Rwindows 1.871;
+	airchange_per_hour 0.95;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.115;
+	total_thermal_mass_per_floor_area 3.269;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.877;
-	floor_area 1333.8239999999998;
-	number_of_doors 2;
-	air_temperature 71.554;
-	mass_temperature 71.554;
+	cooling_COP 4.0360000000000005;
+	floor_area 2714.062;
+	number_of_doors 3;
+	air_temperature 72.135;
+	mass_temperature 72.135;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -4306,9 +4327,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -884;
-  heat_fraction 0.851;
-  base_power LIGHTS*0.9811;
+  schedule_skew -361;
+  heat_fraction 0.702;
+  base_power LIGHTS*2.9877;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -4317,9 +4338,9 @@ object house {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -884;
-  heat_fraction 0.83;
-  base_power CLOTHESWASHER*0.5962;
+  schedule_skew -361;
+  heat_fraction 0.837;
+  base_power CLOTHESWASHER*0.9038;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4328,9 +4349,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -884;
-  heat_fraction 0.671;
-  base_power REFRIGERATOR*1.1742;
+  schedule_skew -361;
+  heat_fraction 0.901;
+  base_power REFRIGERATOR*1.3202;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4339,9 +4360,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -884;
-  heat_fraction 0.924;
-  base_power DRYER*0.6654;
+  schedule_skew -361;
+  heat_fraction 0.957;
+  base_power DRYER*1.2306;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -4350,9 +4371,20 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -884;
-  heat_fraction 0.923;
-  base_power RANGE*0.4997;
+  schedule_skew -361;
+  heat_fraction 0.928;
+  base_power DISHWASHER*1.7438;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -361;
+  heat_fraction 0.922;
+  base_power RANGE*1.2505;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -4361,9 +4393,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -884;
-  heat_fraction 0.693;
-  base_power MICROWAVE*0.5191;
+  schedule_skew -361;
+  heat_fraction 0.786;
+  base_power MICROWAVE*1.2792;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4379,6 +4411,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A19_EV;
+//    parent F0_tpm_A19;
+//}
 object load {
     name F0_house_A19_EV;
     parent F0_tpm_A19;
@@ -4481,26 +4517,26 @@ object house {
 	name F0_house_A20;
     groupid VPP_0;
 	parent house_F0_tpm_A20;
-	schedule_skew -11;
-	Rroof 17.949;
-	Rwall 5.414999999999999;
-	Rfloor 4.94;
+	schedule_skew 3;
+	Rroof 16.659;
+	Rwall 5.635;
+	Rfloor 4.840000000000001;
 	Rdoors 3;
-	Rwindows 1.0839999999999999;
-	airchange_per_hour 1.44;
+	Rwindows 1.194;
+	airchange_per_hour 1.46;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.243;
+	total_thermal_mass_per_floor_area 4.373;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.01;
-	floor_area 706.684;
+	cooling_COP 2.92;
+	floor_area 707.764;
 	number_of_doors 1;
-	air_temperature 71.63700000000001;
-	mass_temperature 71.63700000000001;
+	air_temperature 72.84700000000001;
+	mass_temperature 72.84700000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -4508,7 +4544,7 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -11;
+  schedule_skew 3;
   heat_fraction 0.952;
   base_power LIGHTS*1.4008;
   power_pf -0.78;
@@ -4519,7 +4555,7 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -11;
+  schedule_skew 3;
   heat_fraction 0.843;
   base_power CLOTHESWASHER*0.4350;
   power_pf 0.97;
@@ -4530,7 +4566,7 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -11;
+  schedule_skew 3;
   heat_fraction 0.932;
   base_power REFRIGERATOR*0.3573;
   power_pf 0.97;
@@ -4541,7 +4577,7 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -11;
+  schedule_skew 3;
   heat_fraction 0.715;
   base_power DISHWASHER*0.6936;
   power_pf 0.97;
@@ -4552,7 +4588,7 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -11;
+  schedule_skew 3;
   heat_fraction 0.887;
   base_power RANGE*0.3702;
   power_pf 0;
@@ -4563,7 +4599,7 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -11;
+  schedule_skew 3;
   heat_fraction 0.661;
   base_power MICROWAVE*0.4329;
   power_pf 0.97;
@@ -4581,6 +4617,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A20_EV;
+//    parent F0_tpm_A20;
+//}
 object load {
     name F0_house_A20_EV;
     parent F0_tpm_A20;
@@ -4683,26 +4723,26 @@ object house {
 	name F0_house_A21;
     groupid VPP_0;
 	parent house_F0_tpm_A21;
-	schedule_skew -1182;
-	Rroof 31.413999999999998;
-	Rwall 16.886000000000003;
-	Rfloor 13.078999999999999;
+	schedule_skew 354;
+	Rroof 29.549999999999997;
+	Rwall 19.3;
+	Rfloor 13.488999999999999;
 	Rdoors 5;
-	Rwindows 1.671;
-	airchange_per_hour 1.055;
+	Rwindows 1.81;
+	airchange_per_hour 0.912;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.478999999999999;
+	total_thermal_mass_per_floor_area 2.959;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.015;
-	floor_area 1217.018;
-	number_of_doors 2;
-	air_temperature 68.551;
-	mass_temperature 68.551;
+	cooling_COP 3.854;
+	floor_area 878.079;
+	number_of_doors 1;
+	air_temperature 72.425;
+	mass_temperature 72.425;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -4710,9 +4750,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.928;
-  base_power LIGHTS*1.3966;
+  schedule_skew 354;
+  heat_fraction 0.71;
+  base_power LIGHTS*1.3151;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -4721,9 +4761,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.88;
-  base_power CLOTHESWASHER*0.6925;
+  schedule_skew 354;
+  heat_fraction 0.67;
+  base_power CLOTHESWASHER*0.8809;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4732,9 +4772,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.945;
-  base_power REFRIGERATOR*1.0741;
+  schedule_skew 354;
+  heat_fraction 0.656;
+  base_power REFRIGERATOR*0.7265;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4743,9 +4783,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.809;
-  base_power DRYER*1.0776;
+  schedule_skew 354;
+  heat_fraction 0.912;
+  base_power DRYER*0.4669;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -4754,20 +4794,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.943;
-  base_power DISHWASHER*0.4371;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.645;
-  base_power RANGE*1.0368;
+  schedule_skew 354;
+  heat_fraction 0.829;
+  base_power RANGE*0.4825;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -4776,9 +4805,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -1182;
-  heat_fraction 0.85;
-  base_power MICROWAVE*0.7235;
+  schedule_skew 354;
+  heat_fraction 0.865;
+  base_power MICROWAVE*0.3953;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4794,6 +4823,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A21_EV;
+//    parent F0_tpm_A21;
+//}
 object load {
     name F0_house_A21_EV;
     parent F0_tpm_A21;
@@ -4896,26 +4929,26 @@ object house {
 	name F0_house_A22;
     groupid VPP_0;
 	parent house_F0_tpm_A22;
-	schedule_skew 815;
-	Rroof 19.746;
-	Rwall 8.061;
-	Rfloor 9.122;
-	Rdoors 3;
-	Rwindows 0.984;
-	airchange_per_hour 0.979;
+	schedule_skew -1172;
+	Rroof 30.983999999999998;
+	Rwall 19.166;
+	Rfloor 13.079;
+	Rdoors 5;
+	Rwindows 1.601;
+	airchange_per_hour 1.055;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.009;
+	total_thermal_mass_per_floor_area 4.129;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.719;
-	floor_area 3867.7879999999996;
-	number_of_doors 4;
-	air_temperature 68.63600000000001;
-	mass_temperature 68.63600000000001;
+	cooling_COP 3.8649999999999998;
+	floor_area 1228.7279999999998;
+	number_of_doors 2;
+	air_temperature 68.34100000000001;
+	mass_temperature 68.34100000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -4923,9 +4956,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.644;
-  base_power LIGHTS*1.4117;
+  schedule_skew -1172;
+  heat_fraction 0.928;
+  base_power LIGHTS*1.3966;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -4934,9 +4967,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.882;
-  base_power CLOTHESWASHER*1.8224;
+  schedule_skew -1172;
+  heat_fraction 0.88;
+  base_power CLOTHESWASHER*0.6925;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4945,9 +4978,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.708;
-  base_power REFRIGERATOR*1.2328;
+  schedule_skew -1172;
+  heat_fraction 0.945;
+  base_power REFRIGERATOR*1.0741;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4956,9 +4989,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.817;
-  base_power DRYER*1.0649;
+  schedule_skew -1172;
+  heat_fraction 0.809;
+  base_power DRYER*1.0776;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -4967,9 +5000,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.661;
-  base_power FREEZER*1.4684;
+  schedule_skew -1172;
+  heat_fraction 0.943;
+  base_power DISHWASHER*0.4371;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -4978,20 +5011,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.932;
-  base_power DISHWASHER*1.7185;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.755;
-  base_power RANGE*1.5519;
+  schedule_skew -1172;
+  heat_fraction 0.645;
+  base_power RANGE*1.0368;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -5000,9 +5022,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 815;
-  heat_fraction 0.725;
-  base_power MICROWAVE*1.0240;
+  schedule_skew -1172;
+  heat_fraction 0.85;
+  base_power MICROWAVE*0.7235;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5018,6 +5040,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A22_EV;
+//    parent F0_tpm_A22;
+//}
 object load {
     name F0_house_A22_EV;
     parent F0_tpm_A22;
@@ -5120,26 +5146,26 @@ object house {
 	name F0_house_A23;
     groupid VPP_0;
 	parent house_F0_tpm_A23;
-	schedule_skew -644;
-	Rroof 20.724999999999998;
-	Rwall 8.868;
-	Rfloor 10.451;
+	schedule_skew -2738;
+	Rroof 15.027000000000001;
+	Rwall 8.502;
+	Rfloor 12.480000000000002;
 	Rdoors 3;
-	Rwindows 1.401;
-	airchange_per_hour 0.946;
+	Rwindows 0.9279999999999999;
+	airchange_per_hour 1.076;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.899;
+	total_thermal_mass_per_floor_area 3.168;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 2.755;
-	floor_area 3416.354;
-	number_of_doors 4;
-	air_temperature 70.911;
-	mass_temperature 70.911;
+	cooling_COP 3.573;
+	floor_area 1266.6009999999999;
+	number_of_doors 2;
+	air_temperature 66.90100000000001;
+	mass_temperature 66.90100000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -5147,9 +5173,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.788;
-  base_power LIGHTS*3.6456;
+  schedule_skew -2738;
+  heat_fraction 0.709;
+  base_power LIGHTS*2.4618;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -5158,9 +5184,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.698;
-  base_power CLOTHESWASHER*0.7473;
+  schedule_skew -2738;
+  heat_fraction 0.692;
+  base_power CLOTHESWASHER*0.6618;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5169,9 +5195,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.762;
-  base_power REFRIGERATOR*1.9843;
+  schedule_skew -2738;
+  heat_fraction 0.818;
+  base_power REFRIGERATOR*0.5206;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5180,9 +5206,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.747;
-  base_power DRYER*1.9471;
+  schedule_skew -2738;
+  heat_fraction 0.744;
+  base_power DRYER*1.2617;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -5191,31 +5217,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.873;
-  base_power FREEZER*1.2327;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.738;
-  base_power DISHWASHER*0.8715;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.816;
-  base_power RANGE*1.4208;
+  schedule_skew -2738;
+  heat_fraction 0.677;
+  base_power RANGE*0.9234;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -5224,9 +5228,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -644;
-  heat_fraction 0.72;
-  base_power MICROWAVE*1.8149;
+  schedule_skew -2738;
+  heat_fraction 0.863;
+  base_power MICROWAVE*0.9539;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5242,6 +5246,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A23_EV;
+//    parent F0_tpm_A23;
+//}
 object load {
     name F0_house_A23_EV;
     parent F0_tpm_A23;
@@ -5344,26 +5352,26 @@ object house {
 	name F0_house_A24;
     groupid VPP_0;
 	parent house_F0_tpm_A24;
-	schedule_skew 2940;
-	Rroof 29.76;
-	Rwall 19.185;
-	Rfloor 15.760000000000002;
+	schedule_skew 84;
+	Rroof 26.736;
+	Rwall 21.164;
+	Rfloor 14.681;
 	Rdoors 5;
-	Rwindows 2.221;
-	airchange_per_hour 1.237;
+	Rwindows 1.3479999999999999;
+	airchange_per_hour 1.074;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.466;
+	total_thermal_mass_per_floor_area 2.938;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.031000000000001;
-	floor_area 1422.4840000000002;
+	cooling_COP 3.424;
+	floor_area 1425.3229999999999;
 	number_of_doors 2;
-	air_temperature 69.586;
-	mass_temperature 69.586;
+	air_temperature 70.569;
+	mass_temperature 70.569;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -5371,64 +5379,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.73;
-  base_power LIGHTS*1.8146;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.66;
-  base_power CLOTHESWASHER*0.5212;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.723;
-  base_power REFRIGERATOR*1.1318;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.851;
-  base_power DRYER*1.2189;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.776;
-  base_power DISHWASHER*0.7379;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.929;
-  base_power RANGE*0.5542;
+  schedule_skew 84;
+  heat_fraction 0.874;
+  base_power LIGHTS*1.8722;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -5437,9 +5390,64 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 2940;
-  heat_fraction 0.873;
-  base_power MICROWAVE*0.5019;
+  schedule_skew 84;
+  heat_fraction 0.737;
+  base_power CLOTHESWASHER*1.0593;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 84;
+  heat_fraction 0.937;
+  base_power REFRIGERATOR*1.2533;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 84;
+  heat_fraction 0.733;
+  base_power DRYER*0.9076;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew 84;
+  heat_fraction 0.906;
+  base_power DISHWASHER*0.9959;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 84;
+  heat_fraction 0.885;
+  base_power RANGE*0.9538;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew 84;
+  heat_fraction 0.707;
+  base_power MICROWAVE*0.4764;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5455,6 +5463,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A24_EV;
+//    parent F0_tpm_A24;
+//}
 object load {
     name F0_house_A24_EV;
     parent F0_tpm_A24;
@@ -5557,26 +5569,26 @@ object house {
 	name F0_house_A25;
     groupid VPP_0;
 	parent house_F0_tpm_A25;
-	schedule_skew -1186;
-	Rroof 32.174;
-	Rwall 17.666;
-	Rfloor 12.799;
+	schedule_skew -1195;
+	Rroof 31.064;
+	Rwall 16.916;
+	Rfloor 12.389;
 	Rdoors 5;
-	Rwindows 1.601;
-	airchange_per_hour 0.9249999999999999;
+	Rwindows 1.641;
+	airchange_per_hour 1.005;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 4.618999999999999;
+	total_thermal_mass_per_floor_area 4.7589999999999995;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.8850000000000002;
-	floor_area 1195.548;
+	cooling_COP 4.035;
+	floor_area 1198.4479999999999;
 	number_of_doors 2;
-	air_temperature 67.621;
-	mass_temperature 67.621;
+	air_temperature 68.991;
+	mass_temperature 68.991;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -5584,7 +5596,7 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.928;
   base_power LIGHTS*1.3966;
   power_pf -0.78;
@@ -5595,7 +5607,7 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.88;
   base_power CLOTHESWASHER*0.6925;
   power_pf 0.97;
@@ -5606,7 +5618,7 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.945;
   base_power REFRIGERATOR*1.0741;
   power_pf 0.97;
@@ -5617,7 +5629,7 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.809;
   base_power DRYER*1.0776;
   power_pf 0.9;
@@ -5628,7 +5640,7 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.943;
   base_power DISHWASHER*0.4371;
   power_pf 0.97;
@@ -5639,7 +5651,7 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.645;
   base_power RANGE*1.0368;
   power_pf 0;
@@ -5650,7 +5662,7 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -1186;
+  schedule_skew -1195;
   heat_fraction 0.85;
   base_power MICROWAVE*0.7235;
   power_pf 0.97;
@@ -5668,6 +5680,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A25_EV;
+//    parent F0_tpm_A25;
+//}
 object load {
     name F0_house_A25_EV;
     parent F0_tpm_A25;
@@ -5770,26 +5786,26 @@ object house {
 	name F0_house_A26;
     groupid VPP_0;
 	parent house_F0_tpm_A26;
-	schedule_skew -1401;
-	Rroof 13.059000000000001;
-	Rwall 5.862;
-	Rfloor 5.202;
-	Rdoors 3;
-	Rwindows 1.475;
-	airchange_per_hour 1.2939999999999998;
+	schedule_skew 2925;
+	Rroof 28.23;
+	Rwall 20.544999999999998;
+	Rfloor 16.74;
+	Rdoors 5;
+	Rwindows 2.161;
+	airchange_per_hour 1.247;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 5.012999999999999;
+	total_thermal_mass_per_floor_area 3.206;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 2.986;
-	floor_area 829.8679999999999;
-	number_of_doors 1;
-	air_temperature 68.361;
-	mass_temperature 68.361;
+	cooling_COP 4.011;
+	floor_area 1427.064;
+	number_of_doors 2;
+	air_temperature 70.246;
+	mass_temperature 70.246;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -5797,9 +5813,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -1401;
-  heat_fraction 0.868;
-  base_power LIGHTS*1.2861;
+  schedule_skew 2925;
+  heat_fraction 0.73;
+  base_power LIGHTS*1.8146;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -5808,9 +5824,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -1401;
-  heat_fraction 0.685;
-  base_power CLOTHESWASHER*0.4944;
+  schedule_skew 2925;
+  heat_fraction 0.66;
+  base_power CLOTHESWASHER*0.5212;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5819,9 +5835,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1401;
-  heat_fraction 0.699;
-  base_power REFRIGERATOR*0.4950;
+  schedule_skew 2925;
+  heat_fraction 0.723;
+  base_power REFRIGERATOR*1.1318;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5830,9 +5846,20 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1401;
-  heat_fraction 0.906;
-  base_power DISHWASHER*0.8753;
+  schedule_skew 2925;
+  heat_fraction 0.851;
+  base_power DRYER*1.2189;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew 2925;
+  heat_fraction 0.776;
+  base_power DISHWASHER*0.7379;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5841,9 +5868,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -1401;
-  heat_fraction 0.865;
-  base_power RANGE*0.3988;
+  schedule_skew 2925;
+  heat_fraction 0.929;
+  base_power RANGE*0.5542;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -5852,9 +5879,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -1401;
-  heat_fraction 0.822;
-  base_power MICROWAVE*0.4758;
+  schedule_skew 2925;
+  heat_fraction 0.873;
+  base_power MICROWAVE*0.5019;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -5870,6 +5897,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A26_EV;
+//    parent F0_tpm_A26;
+//}
 object load {
     name F0_house_A26_EV;
     parent F0_tpm_A26;
@@ -5972,26 +6003,26 @@ object house {
 	name F0_house_A27;
     groupid VPP_0;
 	parent house_F0_tpm_A27;
-	schedule_skew 2938;
-	Rroof 31.05;
-	Rwall 17.604999999999997;
-	Rfloor 14.16;
+	schedule_skew -350;
+	Rroof 33.536;
+	Rwall 21.519000000000002;
+	Rfloor 12.155;
 	Rdoors 5;
-	Rwindows 2.1010000000000004;
-	airchange_per_hour 1.3270000000000002;
+	Rwindows 1.961;
+	airchange_per_hour 0.96;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.4960000000000004;
+	total_thermal_mass_per_floor_area 3.029;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 4.061000000000001;
-	floor_area 1419.3640000000003;
-	number_of_doors 2;
-	air_temperature 69.376;
-	mass_temperature 69.376;
+	cooling_COP 4.145999999999999;
+	floor_area 2690.522;
+	number_of_doors 3;
+	air_temperature 71.78500000000001;
+	mass_temperature 71.78500000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -5999,64 +6030,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.73;
-  base_power LIGHTS*1.8146;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.66;
-  base_power CLOTHESWASHER*0.5212;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.723;
-  base_power REFRIGERATOR*1.1318;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.851;
-  base_power DRYER*1.2189;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.776;
-  base_power DISHWASHER*0.7379;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.929;
-  base_power RANGE*0.5542;
+  schedule_skew -350;
+  heat_fraction 0.702;
+  base_power LIGHTS*2.9877;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -6065,9 +6041,64 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 2938;
-  heat_fraction 0.873;
-  base_power MICROWAVE*0.5019;
+  schedule_skew -350;
+  heat_fraction 0.837;
+  base_power CLOTHESWASHER*0.9038;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -350;
+  heat_fraction 0.901;
+  base_power REFRIGERATOR*1.3202;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -350;
+  heat_fraction 0.957;
+  base_power DRYER*1.2306;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew -350;
+  heat_fraction 0.928;
+  base_power DISHWASHER*1.7438;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew -350;
+  heat_fraction 0.922;
+  base_power RANGE*1.2505;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew -350;
+  heat_fraction 0.786;
+  base_power MICROWAVE*1.2792;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6083,6 +6114,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A27_EV;
+//    parent F0_tpm_A27;
+//}
 object load {
     name F0_house_A27_EV;
     parent F0_tpm_A27;
@@ -6185,26 +6220,26 @@ object house {
 	name F0_house_A28;
     groupid VPP_0;
 	parent house_F0_tpm_A28;
-	schedule_skew 82;
-	Rroof 28.046;
-	Rwall 22.004;
-	Rfloor 13.991;
-	Rdoors 5;
-	Rwindows 1.378;
-	airchange_per_hour 1.034;
+	schedule_skew 543;
+	Rroof 21.702;
+	Rwall 11.994000000000002;
+	Rfloor 11.99;
+	Rdoors 3;
+	Rwindows 1.071;
+	airchange_per_hour 1.075;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 3.198;
+	total_thermal_mass_per_floor_area 5.1290000000000004;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.594;
-	floor_area 1422.223;
+	cooling_COP 3.5829999999999997;
+	floor_area 1151.3280000000002;
 	number_of_doors 2;
-	air_temperature 70.10900000000001;
-	mass_temperature 70.10900000000001;
+	air_temperature 67.321;
+	mass_temperature 67.321;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -6212,9 +6247,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.874;
-  base_power LIGHTS*1.8722;
+  schedule_skew 543;
+  heat_fraction 0.847;
+  base_power LIGHTS*1.0261;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -6223,9 +6258,9 @@ object house {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.737;
-  base_power CLOTHESWASHER*1.0593;
+  schedule_skew 543;
+  heat_fraction 0.677;
+  base_power CLOTHESWASHER*1.0560;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6234,9 +6269,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.937;
-  base_power REFRIGERATOR*1.2533;
+  schedule_skew 543;
+  heat_fraction 0.925;
+  base_power REFRIGERATOR*0.4246;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6245,9 +6280,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.733;
-  base_power DRYER*0.9076;
+  schedule_skew 543;
+  heat_fraction 0.704;
+  base_power DRYER*0.6207;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -6256,20 +6291,9 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.906;
-  base_power DISHWASHER*0.9959;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.885;
-  base_power RANGE*0.9538;
+  schedule_skew 543;
+  heat_fraction 0.794;
+  base_power RANGE*0.7452;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -6278,9 +6302,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew 82;
-  heat_fraction 0.707;
-  base_power MICROWAVE*0.4764;
+  schedule_skew 543;
+  heat_fraction 0.768;
+  base_power MICROWAVE*0.7532;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6296,6 +6320,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A28_EV;
+//    parent F0_tpm_A28;
+//}
 object load {
     name F0_house_A28_EV;
     parent F0_tpm_A28;
@@ -6398,26 +6426,26 @@ object house {
 	name F0_house_A29;
     groupid VPP_0;
 	parent house_F0_tpm_A29;
-	schedule_skew -712;
-	Rroof 22.264;
-	Rwall 12.840000000000002;
-	Rfloor 9.991;
+	schedule_skew 827;
+	Rroof 19.606;
+	Rwall 7.851;
+	Rfloor 10.271999999999998;
 	Rdoors 3;
-	Rwindows 0.792;
-	airchange_per_hour 1.127;
+	Rwindows 1.034;
+	airchange_per_hour 0.9390000000000001;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 5.031;
+	total_thermal_mass_per_floor_area 3.699;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.5770000000000004;
-	floor_area 939.526;
-	number_of_doors 1;
-	air_temperature 71.54;
-	mass_temperature 71.54;
+	cooling_COP 3.6390000000000002;
+	floor_area 3877.798;
+	number_of_doors 4;
+	air_temperature 68.07600000000001;
+	mass_temperature 68.07600000000001;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -6425,9 +6453,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -712;
-  heat_fraction 0.738;
-  base_power LIGHTS*2.0005;
+  schedule_skew 827;
+  heat_fraction 0.644;
+  base_power LIGHTS*1.4117;
   power_pf -0.78;
   power_fraction 0.6;
   current_pf 0.42;
@@ -6436,9 +6464,9 @@ object house {
   impedance_fraction 0.4;
 };
 object ZIPload {
-  schedule_skew -712;
-  heat_fraction 0.912;
-  base_power CLOTHESWASHER*0.7509;
+  schedule_skew 827;
+  heat_fraction 0.882;
+  base_power CLOTHESWASHER*1.8224;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6447,9 +6475,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -712;
-  heat_fraction 0.68;
-  base_power REFRIGERATOR*0.5147;
+  schedule_skew 827;
+  heat_fraction 0.708;
+  base_power REFRIGERATOR*1.2328;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6458,9 +6486,9 @@ object ZIPload {
   impedance_fraction 0;
 };
 object ZIPload {
-  schedule_skew -712;
-  heat_fraction 0.923;
-  base_power DRYER*0.8724;
+  schedule_skew 827;
+  heat_fraction 0.817;
+  base_power DRYER*1.0649;
   power_pf 0.9;
   power_fraction 0.1;
   current_pf 0.9;
@@ -6469,9 +6497,31 @@ object ZIPload {
   impedance_fraction 0.8;
 };
 object ZIPload {
-  schedule_skew -712;
-  heat_fraction 0.902;
-  base_power RANGE*0.8541;
+  schedule_skew 827;
+  heat_fraction 0.661;
+  base_power FREEZER*1.4684;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 827;
+  heat_fraction 0.932;
+  base_power DISHWASHER*1.7185;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 827;
+  heat_fraction 0.755;
+  base_power RANGE*1.5519;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -6480,9 +6530,9 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -712;
-  heat_fraction 0.923;
-  base_power MICROWAVE*0.9953;
+  schedule_skew 827;
+  heat_fraction 0.725;
+  base_power MICROWAVE*1.0240;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -6498,6 +6548,10 @@ object ZIPload {
 
 }
 
+//object ZIPload {
+//    name F0_house_A29_EV;
+//    parent F0_tpm_A29;
+//}
 object load {
     name F0_house_A29_EV;
     parent F0_tpm_A29;

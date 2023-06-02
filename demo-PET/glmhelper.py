@@ -2,6 +2,8 @@ import json
 import os
 import random
 import glm
+
+from house_parameters import generate_house_parameters
 from texthelper import replaceInPattern
 
 helics_msg_code = "\n\
@@ -137,7 +139,7 @@ class GLM_HELPER:
                 h_code = h_code.replace("{vpp_idx}", str(vpp_idx))
                 h_code = h_code.replace("{phase}", phase)
                 h_code = h_code.replace("{house_idx}", str(house_idx))
-                h_par_dict = self.get_house_parameters(vpp_idx, phase, house_idx)
+                h_par_dict = generate_house_parameters()
                 h_code = h_code.replace("{skew}", str(h_par_dict['skew']))
                 h_code = h_code.replace("{Rroof}", str(h_par_dict['Rroof']))
                 h_code = h_code.replace("{Rwall}", str(h_par_dict['Rwall']))
@@ -216,105 +218,104 @@ class GLM_HELPER:
     parent house_F0_tpm_A29;
 };"""
 
-    def get_house_parameters(self, vpp_idx, phase, house_idx):
-
-        dict = {}
-        if phase == 'A':
-            phase_num = 0
-        elif phase == 'B':
-            phase_num = 1
-        else:
-            phase_num = 2
-
-        seed = int(vpp_idx * 1000 + phase_num * 300 + house_idx * 10)  # initial seed
-
-        # select a template house from template_houses_list of TESP's TE30 example
-        random.seed(seed)
-        template_idx = random.randint(0, len(template_houses_list) - 1)
-        seed += 1
-        template_house = template_houses_list[template_idx]
-
-        # change parameters based this template
-        random.seed(seed)
-        dict['skew'] = int(template_house['attributes']['schedule_skew']) + random.randint(-10, 10)
-        seed += 1
-        random.seed(seed)
-        dict['Rroof'] = float(template_house['attributes']['Rroof']) + round(random.uniform(-1, 1), 2)
-        seed += 1
-        random.seed(seed)
-        dict['Rwall'] = float(template_house['attributes']['Rwall']) + round(random.uniform(-1, 1), 2)
-        seed += 1
-        random.seed(seed)
-        dict['Rfloor'] = float(template_house['attributes']['Rfloor']) + round(random.uniform(-1, 1), 2)
-        seed += 1
-        random.seed(seed)
-        dict['Rdoors'] = int(template_house['attributes']['Rdoors'])
-        seed += 1
-        random.seed(seed)
-        dict['Rwindows'] = float(template_house['attributes']['Rwindows']) + round(random.uniform(-0.1, 0.1), 2)
-        seed += 1
-        random.seed(seed)
-        dict['airchange_per_hour'] = float(template_house['attributes']['airchange_per_hour']) + round(
-            random.uniform(-0.1, 0.1), 2)
-        seed += 1
-        random.seed(seed)
-        dict['total_thermal_mass_per_floor_area'] = float(
-            template_house['attributes']['total_thermal_mass_per_floor_area']) + round(random.uniform(-0.2, 0.2), 2)
-        seed += 1
-        random.seed(seed)
-        dict['cooling_COP'] = float(template_house['attributes']['cooling_COP']) + round(random.uniform(-0.1, 0.1), 2)
-        seed += 1
-        random.seed(seed)
-        dict['floor_area'] = float(template_house['attributes']['floor_area']) + round(random.uniform(-20, 20), 2)
-        seed += 1
-        random.seed(seed)
-        dict['number_of_doors'] = int(template_house['attributes']['number_of_doors'])
-        seed += 1
-        random.seed(seed)
-        dict['air_temperature'] = float(template_house['attributes']['air_temperature']) + round(random.uniform(-1, 1),
-                                                                                                 2)
-        seed += 1
-        random.seed(seed)
-        dict['mass_temperature'] = dict['air_temperature']
-        seed += 1
-
-        ZIP_code = ""
-        for child in template_house['children']:
-            if child['name'] == 'ZIPload':
-                ZIP_code += "object ZIPload {\n"
-                for attr in child['attributes']:
-                    if attr == 'schedule_skew':
-                        ZIP_code += '  ' + attr + ' ' + str(dict['skew']) + ';\n'
-                    else:
-                        ZIP_code += '  ' + attr + ' ' + child['attributes'][attr] + ';\n'
-                ZIP_code += '};\n'
-        # print(ZIP_code)
-        dict['ZIP_code'] = ZIP_code
-
-        # random.seed(seed)
-        # dict['ratio_LIGHTS'] = float(template_house['children'][0]['attributes']['base_power'].replace('LIGHTS*','')) + round(random.uniform(-0.1,0.1),2)
-        # seed+=1
-        #
-        # random.seed(seed)
-        # dict['ratio_CLOTHESWASHER'] = float(template_house['children'][1]['attributes']['base_power'].replace('CLOTHESWASHER*','')) + round(random.uniform(-0.1,0.1),2)
-        # seed+=1
-        #
-        # random.seed(seed)
-        # dict['ratio_REFRIGERATOR'] = float(template_house['children'][2]['attributes']['base_power'].replace('REFRIGERATOR*','')) + round(random.uniform(-0.1,0.1),2)
-        # seed+=1
-        #
-        # random.seed(seed)
-        # dict['ratio_DRYER'] = float(template_house['children'][3]['attributes']['base_power'].replace('DRYER*','')) + round(random.uniform(-0.1,0.1),2)
-        # seed+=1
-        #
-        # random.seed(seed)
-        # dict['ratio_RANGE'] = float(template_house['children'][4]['attributes']['base_power'].replace('RANGE*','')) + round(random.uniform(-0.1,0.1),2)
-        # seed+=1
-        #
-        # random.seed(seed)
-        # dict['ratio_MICROWAVE'] = float(template_house['children'][5]['attributes']['base_power'].replace('MICROWAVE*','')) + round(random.uniform(-0.1,0.1),2)
-        # seed+=1
-        return dict
+    # def get_house_parameters(self, vpp_idx, phase, house_idx):
+    #     dict = {}
+    #     if phase == 'A':
+    #         phase_num = 0
+    #     elif phase == 'B':
+    #         phase_num = 1
+    #     else:
+    #         phase_num = 2
+    #
+    #     seed = int(vpp_idx * 1000 + phase_num * 300 + house_idx * 10)  # initial seed
+    #
+    #     # select a template house from template_houses_list of TESP's TE30 example
+    #     random.seed(seed)
+    #     template_idx = random.randint(0, len(template_houses_list) - 1)
+    #     seed += 1
+    #     template_house = template_houses_list[template_idx]
+    #
+    #     # change parameters based this template
+    #     random.seed(seed)
+    #     dict['skew'] = int(template_house['attributes']['schedule_skew']) + random.randint(-10, 10)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['Rroof'] = float(template_house['attributes']['Rroof']) + round(random.uniform(-1, 1), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['Rwall'] = float(template_house['attributes']['Rwall']) + round(random.uniform(-1, 1), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['Rfloor'] = float(template_house['attributes']['Rfloor']) + round(random.uniform(-1, 1), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['Rdoors'] = int(template_house['attributes']['Rdoors'])
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['Rwindows'] = float(template_house['attributes']['Rwindows']) + round(random.uniform(-0.1, 0.1), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['airchange_per_hour'] = float(template_house['attributes']['airchange_per_hour']) + round(
+    #         random.uniform(-0.1, 0.1), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['total_thermal_mass_per_floor_area'] = float(
+    #         template_house['attributes']['total_thermal_mass_per_floor_area']) + round(random.uniform(-0.2, 0.2), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['cooling_COP'] = float(template_house['attributes']['cooling_COP']) + round(random.uniform(-0.1, 0.1), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['floor_area'] = float(template_house['attributes']['floor_area']) + round(random.uniform(-20, 20), 2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['number_of_doors'] = int(template_house['attributes']['number_of_doors'])
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['air_temperature'] = float(template_house['attributes']['air_temperature']) + round(random.uniform(-1, 1),
+    #                                                                                              2)
+    #     seed += 1
+    #     random.seed(seed)
+    #     dict['mass_temperature'] = dict['air_temperature']
+    #     seed += 1
+    #
+    #     ZIP_code = ""
+    #     for child in template_house['children']:
+    #         if child['name'] == 'ZIPload':
+    #             ZIP_code += "object ZIPload {\n"
+    #             for attr in child['attributes']:
+    #                 if attr == 'schedule_skew':
+    #                     ZIP_code += '  ' + attr + ' ' + str(dict['skew']) + ';\n'
+    #                 else:
+    #                     ZIP_code += '  ' + attr + ' ' + child['attributes'][attr] + ';\n'
+    #             ZIP_code += '};\n'
+    #     # print(ZIP_code)
+    #     dict['ZIP_code'] = ZIP_code
+    #
+    #     # random.seed(seed)
+    #     # dict['ratio_LIGHTS'] = float(template_house['children'][0]['attributes']['base_power'].replace('LIGHTS*','')) + round(random.uniform(-0.1,0.1),2)
+    #     # seed+=1
+    #     #
+    #     # random.seed(seed)
+    #     # dict['ratio_CLOTHESWASHER'] = float(template_house['children'][1]['attributes']['base_power'].replace('CLOTHESWASHER*','')) + round(random.uniform(-0.1,0.1),2)
+    #     # seed+=1
+    #     #
+    #     # random.seed(seed)
+    #     # dict['ratio_REFRIGERATOR'] = float(template_house['children'][2]['attributes']['base_power'].replace('REFRIGERATOR*','')) + round(random.uniform(-0.1,0.1),2)
+    #     # seed+=1
+    #     #
+    #     # random.seed(seed)
+    #     # dict['ratio_DRYER'] = float(template_house['children'][3]['attributes']['base_power'].replace('DRYER*','')) + round(random.uniform(-0.1,0.1),2)
+    #     # seed+=1
+    #     #
+    #     # random.seed(seed)
+    #     # dict['ratio_RANGE'] = float(template_house['children'][4]['attributes']['base_power'].replace('RANGE*','')) + round(random.uniform(-0.1,0.1),2)
+    #     # seed+=1
+    #     #
+    #     # random.seed(seed)
+    #     # dict['ratio_MICROWAVE'] = float(template_house['children'][5]['attributes']['base_power'].replace('MICROWAVE*','')) + round(random.uniform(-0.1,0.1),2)
+    #     # seed+=1
+    #     return dict
 
     def generate_glm(self):
         """generate .glm file for GridLAB-D federate

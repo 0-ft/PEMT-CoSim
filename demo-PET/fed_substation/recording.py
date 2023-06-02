@@ -119,7 +119,6 @@ class SubstationRecorder:
         self.house_recorder.record(time)
 
     def record_bids(self, time):
-        return
         self.bid_recorder.record(time)
 
     def record_auction(self, time):
@@ -141,11 +140,16 @@ class SubstationRecorder:
             pickle.dump(self.history(), f)
 
     @staticmethod
-    def make_figure(h: dict, path):
+    def make_figure(h: dict, path, freq=None):
         houses = h["houses"]
         bids = h["bids"]
         auction = h["auction"]
         vpp = h["vpp"]
+        if freq:
+            houses = houses.resample(freq)
+            bids = bids.resample(freq)
+            auction = auction.resample(freq)
+            vpp = vpp.resample(freq)
         s = millis()
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
@@ -215,18 +219,30 @@ class SubstationRecorder:
                 "name": "Total HVAC Load",
                 "stackgroup": "house_load"
             },
+            # {
+            #     "type": "scatter",
+            #     "x": vpp.index,
+            #     "y": np.real(vpp["vpp_load"]),
+            #     "name": "Total VPP  P",
+            # },
+            # {
+            #     "type": "scatter",
+            #     "x": vpp.index,
+            #     "y": np.imag(vpp["vpp_load"]),
+            #     "name": "Total VPP Q",
+            # },
             {
                 "type": "scatter",
                 "x": vpp.index,
-                "y": abs(vpp["vpp_load"]),
+                "y": abs(vpp["vpp_load"]) * np.sign(np.real(vpp["vpp_load"])),
                 "name": "Total VPP Load",
             },
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": houses["sum.total_house_load"],
-                "name": "Total House Load",
-            },
+            # {
+            #     "type": "scatter",
+            #     "x": houses.index,
+            #     "y": houses["sum.total_house_load"],
+            #     "name": "Total House Load",
+            # },
         ], rows=2, cols=1)
 
         fig.update_yaxes(title_text="Load", row=2, col=1)
@@ -509,8 +525,8 @@ if __name__ == "__main__":
     with open("metrics.pkl", "rb") as f:
         history = pickle.load(f)
 
-    SubstationRecorder.make_figure_bids(history, "bids_metrics")
-    SubstationRecorder.make_figure(history, "final_metrics")
+    # SubstationRecorder.make_figure_bids(history, "bids_metrics")
+    SubstationRecorder.make_figure(history, "final_metrics", freq="10T")
     # SubstationRecorder.make_figure_solo(history, "solo_metrics")
 
 # class Tester:

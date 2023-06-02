@@ -9,6 +9,7 @@ mechanism.
 import math
 import random
 from collections import deque, namedtuple
+from datetime import datetime
 
 import helics
 from helics import HelicsFederate
@@ -326,11 +327,13 @@ class BATTERY:
 
 class EV:
     def __init__(self, helics_federate: HelicsFederate, house_id: int):
+        self.current_time = datetime.min
         self.house_id = house_id
 
-        self.max_discharge_rate = 8000
-        self.max_charge_rate = 8000
-        self.min_charge_rate = 3000
+        self.max_discharge_rate = 4000
+        self.max_charge_rate = 4000
+        self.min_charge_rate = 2500
+        self.discharge_hod_ranges = [(0.0, 3.0), (18.0, 24.0)]
 
         self.location = "home"
         self.stored_energy = 0.0
@@ -347,7 +350,8 @@ class EV:
         self.pub_desired_charge_rate = helics.helicsFederateGetPublication(helics_federate,
                                                                            f"F0_house_A{house_id}_EV/charge_rate")
 
-    def update_state(self):
+    def update_state(self, time):
+        self.current_time = time
         self.location = self.sub_location.string
         self.stored_energy = self.sub_stored_energy.double
         self.soc = self.sub_soc.double
@@ -356,12 +360,14 @@ class EV:
         # print(f"EV {self.house_id} got subs {self.load:3f}, {self.soc:3f}, {self.location}, {self.stored_energy:3f}")
 
     def load_range(self):
+        max_discharge = -self.max_discharge_rate * any(
+            a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
         if self.location != "home":
             return 0.0, 0.0
         if .9 <= self.soc:
-            return -self.max_discharge_rate, 0
+            return max_discharge, 0
         elif .3 <= self.soc < .9:
-            return -self.max_discharge_rate, self.max_charge_rate
+            return max_discharge, self.max_charge_rate
         elif .2 <= self.soc < .3:
             return 0, self.max_charge_rate
         else:
@@ -372,6 +378,7 @@ class EV:
         if not min_load <= desired_charge_rate <= max_load:
             print(
                 f"WARNING: EV {self.house_id} setting desired_charge_rate {desired_charge_rate:3f}, outside range {min_load}-{max_load}")
+
         self.desired_charge_rate = desired_charge_rate
         self.pub_desired_charge_rate.publish(self.desired_charge_rate)
         # print(f"EV {self.house_id} published desired_charge_rate {desired_charge_rate:3f}, {self.desired_charge_rate}")
@@ -422,7 +429,7 @@ class House:
         self.pub_meter_mode.publish('HOURLY')
         self.pub_meter_monthly_fee.publish(0.0)
 
-    def update_measurements(self):
+    def update_measurements(self, time):
         # for billing meter measurements ==================
         # billing meter voltage
         self.mtr_voltage = abs(self.sub_meter_voltage.complex)
@@ -431,7 +438,7 @@ class House:
 
         # for house meter measurements ==================
         # house meter power, measured at house_F0_tpm_A(N) (excludes solar + ev)
-        self.total_house_load = self.sub_house_load.complex.real
+        self.total_house_load = abs(self.sub_house_load.complex)
         # print(f"{self.name} got house load {self.total_house_load}")
 
         # for HVAC measurements  ==================
@@ -448,10 +455,11 @@ class House:
             self.battery.update_state()
 
         if self.ev:
-            self.ev.update_state()
+            self.ev.update_state(time)
 
     def real_time_control(self):
         self.pv.set_power_out(self.pv.power_range()[1])
+        self.hvac.auto_control()
         if self.total_house_load < self.pv.solar_power:
             # print(
             #     f"EV @ {self.name} setting to diff {self.pv.solar_power} - {self.total_house_load} = {self.pv.solar_power - self.total_house_load}")
@@ -521,9 +529,9 @@ class House:
                 # print(f"{self.name} branch 2, {max_pv_power} + {-min_ev_load} + {packets_needed} packets ({quantity}) covering {self.unresponsive_load} + {hvac_load}")
 
         self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unresponsive_load, self.name,
-                    base_covered]
+                base_covered]
 
-        # print(f"{self.name} bidding {self.bid}, ev={min_ev_load}-{max_ev_load}, pv={min_pv_power}-{max_pv_power}")
+        # print(f"{self.name} bidding {self     .bid}, ev={min_ev_load}-{max_ev_load}, pv={min_pv_power}-{max_pv_power}")
 
         return self.bid
 
@@ -631,7 +639,7 @@ class House:
 
 
 class VPP:
-    def __init__(self, helics_federate: HelicsFederate, enable=True):
+    def __init__(self, helics_federate: HelicsFederate, auction: NewAuction, enable=True):
         self.enable = enable
 
         self.vpp_load_p = 0
@@ -644,8 +652,17 @@ class VPP:
 
         self.sub_vpp_power = helics_federate.subscriptions[f'gld1/F0_triplex_node_A#measured_power']
         self.sub_weather = helics_federate.subscriptions[f"localWeather/temperature"]
-        self.weather_temp = 0
+        self.sub_lmp = helics_federate.subscriptions("pypower/LMP_B7")
 
+        self.weather_temp = 0
+        self.lmp = 0.0
+
+        self.bid = None
+
+    def formulate_bid(self):
+        self.bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]
+        return self.bid
+        
     def receive_request(self, request):
         # request is a list [name, load type, power, length]
         if len(request) > 0:
@@ -683,6 +700,7 @@ class VPP:
         self.vpp_load_p = self.vpp_load.real
         self.vpp_load_q = self.vpp_load.imag
         self.weather_temp = self.sub_weather.double
+        self.lmp = self.sub_lmp.double
 
     def update_balance_signal(self):
         pass

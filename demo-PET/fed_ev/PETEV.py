@@ -118,7 +118,6 @@ class V2GEV:
         # calculate energy used up to now
         energy_used = self.energy_used_between(self.prev_time, self.current_time)
         self.driving_load = energy_used / time_delta if time_delta > 0 else 0
-        print(f"used {energy_used} in {time_delta} seconds = {self.driving_load} W")
 
         if self.location == "home":
             if (self.desired_charge_rate > 0 and (
