@@ -137,7 +137,7 @@ class EVFederate:
             next_location_change = min([ev.time_to_location_change for ev in self.evs]) + current_time_s
             # delta_to_request = max(1.0, min([ev.time_to_full_charge for ev in self.evs] + [self.time_period_seconds]))
             # time_to_request = (self.current_time - self.start_time).total_seconds() + delta_to_request
-            time_to_request = min(next_location_change, next_full_charge)
+            time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600)
             delta_to_request = time_to_request - current_time_s
             time_granted_seconds = helics.helicsFederateRequestTime(self.helics_fed, time_to_request)
             new_time = self.start_time + timedelta(seconds=time_granted_seconds)

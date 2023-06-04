@@ -81,6 +81,7 @@ class SubstationRecorder:
             "min.hvac.air_temp",
             "max.hvac.air_temp",
             "sum.hvac.hvac_load",
+            "max.hvac.hvac_load",
             "sum.hvac.hvac_on",
             "mean.hvac.set_point",
             "mean.hvac.base_point",
@@ -96,7 +97,9 @@ class SubstationRecorder:
             # "values.pv.solar_DC_V_out",
             # "values.pv.solar_DC_I_out",
             "sum.unresponsive_load",
-            "sum.total_house_load"
+            "values.unresponsive_load",
+            "sum.total_house_load",
+            "sum.intended_load"
         ] for x in [t, ".".join(["F0_house_A0"] + t.split(".")[1:])]])))
 
         self.bid_recorder = HistoryRecorder(houses, [
@@ -109,10 +112,12 @@ class SubstationRecorder:
             "consumerSurplus",
             "averageConsumerSurplus",
             "supplierSurplus",
+            "num_bids",
             "num_buyers",
             "num_sellers",
             "num_nontcp",
-            "lmp"
+            "lmp",
+            "bids"
         ])
 
     def record_houses(self, time):
@@ -145,11 +150,11 @@ class SubstationRecorder:
         bids = h["bids"]
         auction = h["auction"]
         vpp = h["vpp"]
-        if freq:
-            houses = houses.resample(freq)
-            bids = bids.resample(freq)
-            auction = auction.resample(freq)
-            vpp = vpp.resample(freq)
+        # if freq:
+        #     houses = houses.resample(freq)
+        #     bids = bids.resample(freq)
+        #     auction = auction.resample(freq)
+        #     vpp = vpp.resample(freq)
         s = millis()
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
@@ -237,6 +242,24 @@ class SubstationRecorder:
                 "y": abs(vpp["vpp_load"]) * np.sign(np.real(vpp["vpp_load"])),
                 "name": "Total VPP Load",
             },
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["sum.intended_load"],
+                "name": "Total Intended Load",
+            },
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["max.hvac.hvac_load"],
+                "name": "Max HVAC Load",
+            },
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["sum.hvac.hvac_load"] / houses["sum.hvac.hvac_on"],
+                "name": "Avg HVAC Load",
+            },
             # {
             #     "type": "scatter",
             #     "x": houses.index,
@@ -284,6 +307,7 @@ class SubstationRecorder:
         fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)#,
 #                         range=[min(houses["sum.ev.desired_charge_rate"]), max(houses["sum.ev.desired_charge_rate"])])
 
+        print(auction["clearing_price"])
         fig.add_trace(
             {
                 "type": "scatter",
@@ -302,7 +326,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": auction.index,
-                "y": auction[f"num_{key}"] / len(houses.iloc[0]),
+                "y": auction[f"num_{key}"] / auction[f"num_bids"],
                 "name": name,
                 "stackgroup": "role"
             } for key, name in [("buyers", "Buyers"), ("sellers", "Sellers"), ("nontcp", "Non-participants")]
@@ -311,7 +335,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.hvac.hvac_on"] / len(houses.iloc[0]),
+                "y": houses["sum.hvac.hvac_on"],
                 "name": "HVAC On",
             }, row=4, col=1)
 
