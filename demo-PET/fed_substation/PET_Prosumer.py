@@ -161,9 +161,9 @@ class HVAC:
         #     print(
         #         f"WARN: HVAC {self.name}: Air temperature {self.air_temp} is lower than {lower_bound} - 3, while HVAC is on")
 
-    def formulate_bid_price(self):
-        will_request = random.random() < self.probability
-        return self.auction.lmp * will_request
+    # def formulate_bid_price(self):
+    #     will_request = random.random() < self.probability
+    #     return self.auction.lmp + 0.01 * (self.probability - 0.5)
 
     def predicted_load(self):
         return self.power_needed * 4000
@@ -332,13 +332,14 @@ class BATTERY:
 
 class EV:
     def __init__(self, helics_federate: HelicsFederate, house_id: int, auction: NewAuction):
-        self.current_time = datetime.min
         self.house_id = house_id
 
         self.max_discharge_rate = 4000
         self.max_charge_rate = 4000
         self.min_charge_rate = 2500
-        self.discharge_hod_ranges = [(0.0, 3.0), (18.0, 24.0)]
+        # self.discharge_hod_ranges = [(0.0, 3.0), (18.0, 24.0)]
+
+        self.load_range = 0.0, 0.0
 
         self.location = "home"
         self.stored_energy = 0.0
@@ -355,33 +356,32 @@ class EV:
         self.pub_desired_charge_rate = helics.helicsFederateGetPublication(helics_federate,
                                                                            f"F0_house_A{house_id}_EV/charge_rate")
 
-        self.trading_policy = LimitedCrossoverTrader(auction, timedelta(hours=2), timedelta(hours=48))
-
-    def update_state(self, time):
-        self.current_time = time
+    def update_state(self):
         self.location = self.sub_location.string
         self.stored_energy = self.sub_stored_energy.double
         self.soc = self.sub_soc.double
         self.charging_load = self.sub_charging_load.complex.real
         self.driving_load = self.sub_driving_load.double
         # print(f"EV {self.house_id} got subs {self.load:3f}, {self.soc:3f}, {self.location}, {self.stored_energy:3f}")
+        self.set_load_range()
 
-    def load_range(self):
-        max_discharge = -self.max_discharge_rate * any(
-            a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
+    def set_load_range(self):
+        # max_discharge = -self.max_discharge_rate * any(
+        #     a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
+        max_discharge = -self.max_discharge_rate
         if self.location != "home":
-            return 0.0, 0.0
+            self.load_range = 0.0, 0.0
         if .9 <= self.soc:
-            return max_discharge, 0
+            self.load_range = max_discharge, 0
         elif .3 <= self.soc < .9:
-            return max_discharge, self.max_charge_rate
+            self.load_range = max_discharge, self.max_charge_rate
         elif .2 <= self.soc < .3:
-            return 0, self.max_charge_rate
+            self.load_range = 0, self.max_charge_rate
         else:
-            return self.min_charge_rate, self.max_charge_rate
+            self.load_range = self.min_charge_rate, self.max_charge_rate
 
     def set_desired_charge_rate(self, desired_charge_rate):
-        min_load, max_load = self.load_range()
+        min_load, max_load = self.load_range
         if not min_load <= desired_charge_rate <= max_load:
             print(
                 f"WARNING: EV {self.house_id} setting desired_charge_rate {desired_charge_rate:3f}, outside range {min_load}-{max_load}")
@@ -395,13 +395,11 @@ class EV:
 
         # print(f"EV {self.house_id} at location {self.location} and stored energy {self.stored_energy}")
 
-    def formulate_bid(self):
-        return self.trading_policy.trade(self.current_time, self.load_range())
-
 
 class House:
-    def __init__(self, helics_federate: HelicsFederate, house_id: int, hvac_config, pv_config, ev_config,
-                 battery_config, auction: NewAuction, seed):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, start_time: datetime, hvac_config, pv_config,
+                 ev_config, battery_config, auction: NewAuction, seed):
+        self.current_time = start_time
         self.number = house_id
         self.name = f"F0_house_A{house_id}"
         self.auction = auction
@@ -428,6 +426,8 @@ class House:
         # about packet
         self.packet_unit = 1000
 
+        self.trading_policy = LimitedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24))
+
         self.pub_meter_mode = helics.helicsFederateGetPublication(helics_federate, f"F0_tpm_A{house_id}/bill_mode")
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"sub1/F0_tpm_A{house_id}/monthly_fee"]
@@ -442,6 +442,7 @@ class House:
         self.pub_meter_monthly_fee.publish(0.0)
 
     def update_measurements(self, time):
+        self.current_time = time
         # for billing meter measurements ==================
         # billing meter voltage
         self.mtr_voltage = abs(self.sub_meter_voltage.complex)
@@ -467,7 +468,7 @@ class House:
             self.battery.update_state()
 
         if self.ev:
-            self.ev.update_state(time)
+            self.ev.update_state()
 
     def real_time_control(self):
         pass
@@ -496,15 +497,24 @@ class House:
             name of the house
         """
         # self.bid.clear()
-        min_ev_load, max_ev_load = self.ev.load_range()
+        min_ev_load, max_ev_load = self.ev.load_range
         min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
         hvac_load = self.hvac.predicted_load()
 
         unresponsive_bid = [self.name, "buyer", float('inf'), self.unresponsive_load]
-        hvac_bid = [self.name, "buyer", self.hvac.formulate_bid_price(), hvac_load]
-        ev_price, ev_quantity = self.ev.formulate_bid()
-        ev_bid = [self.name, "buyer" if ev_quantity > 0 else "seller", ev_price, abs(ev_quantity)]
-        return [unresponsive_bid, hvac_bid, ev_bid]
+        bids = [unresponsive_bid]
+        if hvac_load > 0:
+            bids.append([self.name, "buyer", float('inf'), hvac_load])
+            # bids.append([self.name, "buyer",
+            #             self.trading_policy.price_for_probability(self.current_time, self.hvac.probability), hvac_load])
+
+        ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)
+        bids += [[self.name] + bid for bid in ev_bids]
+        # if abs(ev_quantity) > 0:
+        #     bids.append([self.name, "buyer" if ev_quantity > 0 else "seller", ev_price, abs(ev_quantity)])
+
+        print(f"house {self.name} bids: {bids}")
+        return bids
 
         # if max_pv_power >= self.unresponsive_load + hvac_load:
         #     surplus_power = max_pv_power - (self.unresponsive_load + hvac_load + max_ev_load)
@@ -560,13 +570,17 @@ class House:
     def post_market_control(self, auction_response):
         print(self.name, auction_response)
         self.pv.set_power_out(0)
-        power_available = sum(bid["quantity"] * (-1 if bid["role"] == "seller" else 1) for bid in auction_response)
-        self.intended_load = power_available
-        self.hvac.set_on(
-            self.hvac.power_needed and power_available >= self.unresponsive_load + self.hvac.predicted_load())
-        self.ev.set_desired_charge_rate(power_available - self.unresponsive_load - self.hvac.predicted_load())
-        print(power_available, self.unresponsive_load, self.hvac.predicted_load(),
-              self.unresponsive_load + self.hvac.predicted_load(), self.hvac.probability, self.hvac.hvac_on)
+        power_bought = sum(bid["quantity"] for bid in auction_response if bid["role"] == "buyer")
+        power_sold = sum(bid["quantity"] for bid in auction_response if bid["role"] == "seller")
+
+        self.intended_load = power_bought - power_sold
+        hvac_allowed = power_bought >= self.unresponsive_load + self.hvac.predicted_load()
+        self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
+        hvac_load = self.hvac.hvac_on * self.hvac.predicted_load()
+        self.ev.set_desired_charge_rate(power_bought - self.unresponsive_load - hvac_load - power_sold)
+        print(f"{self.name} bought {power_bought}, sold {power_sold}, HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}")
+        # print(power_available, self.unresponsive_load, hvac_load,
+        #       self.unresponsive_load + self.hvac.predicted_load(), self.hvac.probability, self.hvac.hvac_on)
 
         # role, quantity = auction_response[["role", "quantity"]].values
         #

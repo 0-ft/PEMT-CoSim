@@ -4,6 +4,7 @@ from math import floor
 import numpy as np
 import pandas as pd
 import plotly.express as px
+from scipy.stats import iqr
 
 
 def moving_average(x, w, pad=0):
@@ -17,36 +18,75 @@ class LimitedCrossoverTrader:
         self.auction = auction
         self.short_window = short_window
         self.long_window = long_window
+        self.movement_window = timedelta(minutes=20)
         self.short_ma = 0.0
         self.long_ma = 0.0
+        # self.amplitude = 0.0
+        self.iqr = 0.0
         self.buy_threshold = 0.3
         self.sell_threshold = 0.3
+        self.should_buy = False
+        self.should_sell = False
+        self.should_trade = 0.0
+        self.predicted_clearing_price = 0.0
+
+    def predict_clearing_price(self, current_time):
+        movement_dir = self.auction.history["clearing_price"].diff()[
+            self.auction.history.index >= current_time - self.movement_window] \
+            .mean()
+        print(f"moving {movement_dir}")
+        self.predicted_clearing_price = self.auction.history["clearing_price"].asof(current_time) + movement_dir
+        return self.predicted_clearing_price
+
+    def price_for_probability(self, current_time, probability, buying=True):
+        predicted_clearing_price = self.predict_clearing_price(current_time)
+        extra = 0.1 * ((probability - 0.5) + np.random.uniform(-1, 1) / 1000) * [-1, 1][buying]
+        return predicted_clearing_price * (1 + extra)
+
+    def __repr__(self):
+        return f"TradingPolicy({str(self.__dict__)})"
 
     def trade(self, current_time: datetime, buy_range):
-        current_time = pd.to_datetime(current_time)
+        # current_time = pd.to_datetime(current_time)
 
         # print(self.auction.history.index, current_time - self.short_window, self.auction.history.index <= current_time)
 
         # update moving averages
-        long_ma_mask = self.auction.history.index <= (current_time - self.long_window)
-        long_ma_window = self.auction.history["clearing_price"][long_ma_mask]
-        self.long_ma = long_ma_window.mean()
-        if len(long_ma_window) < 1 or current_time - long_ma_window.iloc[0]["date"] < self.long_window:
-            return 0, 0
-
-        short_ma_mask = (current_time - self.short_window) <= self.auction.history["date"]
-        short_ma_window = self.auction.history["clearing_price"][short_ma_mask]
-        self.short_ma = short_ma_window.mean()
-        amplitude = long_ma_window.max() - long_ma_window.min()
+        self.long_ma = self.auction.history["average_since"].asof(current_time - self.long_window)
+        self.short_ma = self.auction.history["average_since"].asof(current_time - self.short_window)
+        # long_ma_mask = self.auction.history.index >= (current_time - self.long_window)
+        # long_ma_window = self.auction.history["clearing_price"][long_ma_mask]
+        # if len(long_ma_window) < 2:
+        #     return 0, 0
+        # self.long_ma = long_ma_window.mean()
+        #
+        # short_ma_mask = self.auction.history.index >= (current_time - self.short_window)
+        # short_ma_window = self.auction.history["clearing_price"][short_ma_mask]
+        # self.short_ma = short_ma_window.mean()
+        # self.amplitude = long_ma_window.max() - long_ma_window.min()
+        self.iqr = self.auction.history["iqr_since"].asof(current_time - self.long_window)
+        if np.any(np.isnan([self.long_ma, self.short_ma, self.iqr])):
+            return []
 
         # predict price
-        predicted_price = short_ma_window.iloc[-1] + short_ma_window.diff().iloc[-1] * 1
-        diff = self.long_ma - self.short_ma
-        if diff > (amplitude * self.buy_threshold):
-            return predicted_price, buy_range[1]
-        elif diff < -(amplitude * self.sell_threshold):
-            return predicted_price, buy_range[0]
-        return 0
+        # self.predicted_price = short_ma_window.iloc[-1] + short_ma_window.diff().iloc[-1] * 1
+        # self.predicted_clearing_price = self.predict_clearing_price(current_time)
+        # diff = self.short_ma - self.long_ma
+        buy_threshold_price = self.long_ma - self.iqr * self.buy_threshold
+        # self.should_buy = diff < buy_threshold_price
+        sell_threshold_price = self.long_ma + self.iqr * self.sell_threshold
+        # self.should_sell = diff > sell_threshold_price
+        # self.should_trade = self.should_buy * buy_range[1] + self.should_sell * buy_range[0]
+        # price = sell_threshold_price if self.should_sell else buy_threshold_price
+        if buy_range[0] > 0:
+            return ["buyer", float('inf'), buy_range[0]]
+        if buy_range[1] < 0:
+            print("MUST SELL")
+            return ["seller", 0, buy_range[1]]
+        return [
+            ["buyer", buy_threshold_price, buy_range[1]],
+            ["seller", sell_threshold_price, -buy_range[0]]
+        ]
 
 # def moving_average(a, n=3) :
 #     ret = np.cumsum(a, dtype=float)

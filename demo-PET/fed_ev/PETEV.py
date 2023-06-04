@@ -54,11 +54,13 @@ class V2GEV:
         self.prev_time = start_time
         self.current_time = start_time
         self.history = []
-        self.enable_movement = True
+        self.enable_movement = False
         self.enable_charging = True
         self.enable_discharging = True
 
     def energy_used_between(self, start_time: datetime, end_time: datetime):
+        if not self.enable_movement:
+            return 0.0
         avg_power = self.profile["average power in W"]
         t = start_time
         energy = 0.0

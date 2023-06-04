@@ -1,4 +1,5 @@
 import pickle
+from collections.abc import Sequence
 from random import randint
 from time import time as millis
 from functools import reduce
@@ -34,7 +35,7 @@ def deep_get(target, keys, default=None):
     if len(keys) == 0:
         return target
 
-    if isinstance(target, dict) or isinstance(target, list):
+    if isinstance(target, dict) or isinstance(target, Sequence):
         return key_collection(target, keys, default)
 
     return deep_get(getattr(target, keys[0], default), keys[1:])
@@ -100,7 +101,19 @@ class SubstationRecorder:
             "values.unresponsive_load",
             "sum.total_house_load",
             "sum.intended_load"
-        ] for x in [t, ".".join(["F0_house_A0"] + t.split(".")[1:])]])))
+        ] for x in [t, ".".join(["F0_house_A0"] + t.split(".")[1:])]])) + [
+            "F0_house_A0.trading_policy.long_ma",
+            "F0_house_A0.trading_policy.short_ma",
+            "F0_house_A0.trading_policy.should_trade",
+            "F0_house_A0.trading_policy.should_buy",
+            "F0_house_A0.trading_policy.should_sell",
+            "F0_house_A0.trading_policy.buy_threshold",
+            "F0_house_A0.trading_policy.sell_threshold",
+            "F0_house_A0.trading_policy.predicted_clearing_price",
+            "F0_house_A0.trading_policy.iqr",
+            "F0_house_A0.ev.load_range.0",
+            "F0_house_A0.ev.load_range.1",
+        ])
 
         self.bid_recorder = HistoryRecorder(houses, [
             "values.bid.values"
@@ -117,6 +130,8 @@ class SubstationRecorder:
             "num_sellers",
             "num_nontcp",
             "lmp",
+            "fraction_buyers_cleared",
+            "fraction_sellers_cleared",
             "bids"
         ])
 
@@ -334,9 +349,16 @@ class SubstationRecorder:
         fig.add_trace(
             {
                 "type": "scatter",
-                "x": houses.index,
-                "y": houses["sum.hvac.hvac_on"],
-                "name": "HVAC On",
+                "x": auction.index,
+                "y": auction["fraction_buyers_cleared"],
+                "name": "Fraction Buyers Cleared",
+            }, row=4, col=1)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": auction.index,
+                "y": auction["fraction_sellers_cleared"],
+                "name": "Fraction Sellers Cleared",
             }, row=4, col=1)
 
         fig.update_yaxes(title_text="Count", row=4, col=1)
@@ -451,10 +473,34 @@ class SubstationRecorder:
                 "name": "Specified Charge Rate",
             }, row=3, col=1, secondary_y=True)
 
-        fig.update_yaxes(title_text="Energy", row=3, col=1, range=[0, max(houses["F0_house_A0.ev.stored_energy"])])
-        fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True,
-                         range=[min(houses["F0_house_A0.ev.desired_charge_rate"]),
-                                max(houses["F0_house_A0.ev.desired_charge_rate"])])
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.trading_policy.should_trade"],
+                "name": "Should Trade",
+            }, row=3, col=1, secondary_y=True)
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.ev.load_range.0"],
+                "name": "Min Load",
+            }, row=3, col=1, secondary_y=True)
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.ev.load_range.1"],
+                "name": "Max Load",
+            }, row=3, col=1, secondary_y=True)
+
+        fig.update_yaxes(title_text="Energy", row=3, col=1, range=[0, max(houses["F0_house_A0.ev.stored_energy"])], secondary_y=False)
+        fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)
+                         # range=[min(houses["F0_house_A0.ev.desired_charge_rate"]),
+                         #        max(houses["F0_house_A0.ev.desired_charge_rate"])])
 
         fig.add_trace(
             {
@@ -467,9 +513,85 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["F0_house_A0.hvac.hvac_on"].apply(lambda x: int(x)),
-                "name": "HVAC On",
-            }, row=4, col=1)
+                "y": houses["F0_house_A0.trading_policy.long_ma"],
+                "name": "Long MA",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.trading_policy.short_ma"],
+                "name": "Short MA",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.trading_policy.predicted_clearing_price"],
+                "name": "Predicted Clearing Price",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.trading_policy.iqr"],
+                "name": "IQR",
+            }, row=4, col=1, secondary_y=True)
+        diff = houses["F0_house_A0.trading_policy.short_ma"] - houses["F0_house_A0.trading_policy.long_ma"]
+        b_t = - houses["F0_house_A0.trading_policy.iqr"] * houses["F0_house_A0.trading_policy.buy_threshold"]
+        s_t = + houses["F0_house_A0.trading_policy.iqr"] * houses["F0_house_A0.trading_policy.sell_threshold"]
+        print(diff)
+        print(houses["F0_house_A0.trading_policy.long_ma"])
+        print(houses["F0_house_A0.trading_policy.short_ma"])
+        print(auction["clearing_price"].to_string())
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": diff,
+                "name": "Diff",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": b_t,
+                "name": "Buy Threshold",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": s_t,
+                "name": "Sell Threshold",
+            }, row=4, col=1, secondary_y=True)
+
+        # print(houses["F0_house_A0.trading_policy.should_buy"])
+        # print(houses["F0_house_A0.trading_policy.should_sell"])
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.trading_policy.should_buy"],
+                "name": "Should Buy",
+            }, row=4, col=1, secondary_y=False)
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["F0_house_A0.trading_policy.should_sell"],
+                "name": "Should Sell",
+            }, row=4, col=1, secondary_y=False)
+
+        # fig.add_trace(
+        #     {
+        #         "type": "scatter",
+        #         "x": houses.index,
+        #         "y": houses["F0_house_A0.hvac.hvac_on"].apply(lambda x: int(x)),
+        #         "name": "HVAC On",
+        #     }, row=4, col=1)
 
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
@@ -550,7 +672,7 @@ if __name__ == "__main__":
         history = pickle.load(f)
 
     # SubstationRecorder.make_figure_bids(history, "bids_metrics")
-    SubstationRecorder.make_figure(history, "final_metrics", freq="10T")
+    SubstationRecorder.make_figure(history, "final_metrics")
     # SubstationRecorder.make_figure_solo(history, "solo_metrics")
 
 # class Tester:

@@ -53,7 +53,7 @@ vpp = VPP(helics_federate, auction, True)
 houses = {}
 for house_id, (house_name, info) in enumerate(
         fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
-    houses[house_name] = House(helics_federate, house_id, fh.agents['hvacs'][info['HVAC']], info['PV'], True, False,
+    houses[house_name] = House(helics_federate, house_id, current_time, fh.agents['hvacs'][info['HVAC']], info['PV'], True, False,
                                # info['battery'],
                                auction,
                                house_id + 1)  # initialize a house object
@@ -150,7 +150,9 @@ while time_granted < stop_seconds:
     """ 5. houses formulate and send their bids"""
     if time_granted >= tnext_bid:
         # auction.clear_bids()  # auction remove all previous records, re-initialize
-        print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range()) for house in houses.values()]}")
+        print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range) for house in houses.values()]}")
+        print("AUCTION HISTORY BEFORE BIDS")
+        print(auction.history)
         bids = [bid for house in houses.values() for bid in house.formulate_bids()] + [vpp.formulate_bid()]
         auction.collect_bids(bids)
         auction.update_lmp()  # get local marginal price (LMP) from the bulk power grid
