@@ -8,24 +8,18 @@ mechanism.
 """
 import math
 import random
-from collections import deque, namedtuple
+from collections import deque
 from datetime import datetime, timedelta
 
 import helics
 from helics import HelicsFederate
 
-from my_auction import Auction
-from new_auction import NewAuction
+from market import ContinuousDoubleAuction
 from trading_policies import LimitedCrossoverTrader
 
 
-# PEMBid = namedtuple("PEMBid", "bid_price num_packets hvac_power_needed role unresponsive_kw name base_covered")
-# self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unresponsive_kw, self.name,
-#             base_covered]
-
-
 class HVAC:
-    """This agent manages thermostat setpoint and bidding for a house
+    """This agent manages thermostat setpoint and bidding for a houses
 
     Args:
         json_object (dict): dictionary row for this agent from the JSON configuration file
@@ -69,7 +63,7 @@ class HVAC:
         cleared_price (float): the cleared market price in $/kwh
     """
 
-    def __init__(self, helics_federate: HelicsFederate, house_id: int, json_object, auction: NewAuction):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, json_object, auction: ContinuousDoubleAuction):
         self.auction = auction
         self.loadType = 'hvac'
         self.control_mode = json_object['control_mode']
@@ -204,42 +198,15 @@ class HVAC:
     def clean_energy_market(self):
         self.energy_market = 0
 
-    def price_response(self, price):
-        """ Update the thermostat setting if the last bid was accepted
-        The last bid is always "accepted". If it wasn't high enough,
-        then the thermostat could be turned up.
-        """
-        if self.response_strategy == 'setpoint':
-            self.offset = 0
-            # if self.control_mode == 'CN_RAMP' and self.auction.std_dev > 0.0:
-            #     self.offset = (price - self.auction.clearing_price) * self.Trange / self.ramp / self.auction.std_dev
-            #     self.offset = max(-self.offset_limit, min(self.offset, self.offset_limit))
-        if self.response_strategy == 'mttr':
-            price_upper = 0.5
-            self.MTTR_now = (price - price_upper) / (self.auction.clearing_price - price_upper) * (
-                    self.MTTR_base - self.MTTR_upper) + self.MTTR_upper
-
-            self.MTTR_now = max(self.MTTR_lower, min(self.MTTR_now, self.MTTR_upper))
-
     def change_basepoint(self, hod, dow):
-        """ Updates the time-scheduled thermostat setting
-
-        Args:
-            hod (float): the hour of the day, from 0 to 24
-            dow (int): the day of the week, zero being Monday
-
-        Returns:
-            Boolean: True if the setting changed, Falso if not
-        """
-        if not self.fix_basepoint:
-            if dow > 4:  # a weekend
-                val = self.weekend_night_set if self.weekend_day_start <= hod < self.weekend_night_start else self.weekend_day_set
-            else:  # a weekday
-                val = [self.night_set, self.wakeup_set, self.daylight_set, self.evening_set, self.night_set][
-                    sum([h < hod for h in
-                         [self.wakeup_start, self.daylight_start, self.evening_start, self.night_start]])]
-            if abs(self.base_point - val) > 0.1:
-                self.base_point = val
+        if dow > 4:  # a weekend
+            val = self.weekend_night_set if self.weekend_day_start <= hod < self.weekend_night_start else self.weekend_day_set
+        else:  # a weekday
+            val = [self.night_set, self.wakeup_set, self.daylight_set, self.evening_set, self.night_set][
+                sum([h < hod for h in
+                     [self.wakeup_start, self.daylight_start, self.evening_start, self.night_start]])]
+        if abs(self.base_point - val) > 0.1:
+            self.base_point = val
 
 
 class PV:
@@ -331,7 +298,7 @@ class BATTERY:
 
 
 class EV:
-    def __init__(self, helics_federate: HelicsFederate, house_id: int, auction: NewAuction):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, auction: ContinuousDoubleAuction):
         self.house_id = house_id
 
         self.max_discharge_rate = 4000
@@ -397,14 +364,14 @@ class EV:
 
 
 class House:
-    def __init__(self, helics_federate: HelicsFederate, house_id: int, start_time: datetime, hvac_config, pv_config,
-                 ev_config, battery_config, auction: NewAuction, seed):
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, start_time: datetime, hvac_config, has_pv,
+                 ev_config, battery_config, auction: ContinuousDoubleAuction, seed):
         self.current_time = start_time
         self.number = house_id
         self.name = f"F0_house_A{house_id}"
         self.auction = auction
         self.hvac = HVAC(helics_federate, house_id, hvac_config, auction) if hvac_config else None
-        self.pv = PV(helics_federate, house_id) if pv_config else None
+        self.pv = PV(helics_federate, house_id) if has_pv else None
         self.ev = EV(helics_federate, house_id, auction) if ev_config else None
         self.battery = BATTERY(helics_federate, house_id) if battery_config else None
         self.role = 'buyer'  # current role: buyer/sellehouse_F0_tpm_r/none-participant
@@ -508,64 +475,11 @@ class House:
             # bids.append([self.name, "buyer",
             #             self.trading_policy.price_for_probability(self.current_time, self.hvac.probability), hvac_load])
 
-        ev_bids = [] # self.trading_policy.trade(self.current_time, self.ev.load_range)
+        ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)
         bids += [[self.name] + bid for bid in ev_bids]
-        # if abs(ev_quantity) > 0:
-        #     bids.append([self.name, "buyer" if ev_quantity > 0 else "seller", ev_price, abs(ev_quantity)])
 
-        print(f"house {self.name} bids: {bids}")
+        # print(f"house {self.name} bids: {bids}")
         return bids
-
-        # if max_pv_power >= self.unresponsive_load + hvac_load:
-        #     surplus_power = max_pv_power - (self.unresponsive_load + hvac_load + max_ev_load)
-        #     if surplus_power > self.packet_unit:
-        #         self.role = 'seller'
-        #         quantity = (surplus_power // self.packet_unit) * self.packet_unit
-        #         self.bid_price = self.fixed_seller_price
-        #         base_covered = True
-        #     elif surplus_power >= 0:
-        #         self.role = 'none-participant'
-        #         self.bid_price = 0
-        #         quantity = 0
-        #         base_covered = True
-        #     else:
-        #         self.role = 'none-participant'
-        #         self.bid_price = 0
-        #         quantity = 0
-        #         base_covered = True
-        # elif max_pv_power == self.unresponsive_load + hvac_load:
-        #     self.role = 'none-participant'
-        #     self.bid_price = 0
-        #     quantity = 0
-        #     base_covered = True
-        # else:  # if PV can't cover base + hvac
-        #     if max_pv_power - min_ev_load >= self.unresponsive_load + hvac_load:
-        #         self.role = 'none-participant'
-        #         self.bid_price = 0
-        #         quantity = 0
-        #         base_covered = True
-        #         # print(f"{self.name} branch 1, {max_pv_power} + {-min_ev_load} covering {self.unresponsive_load} + {hvac_load}")
-        #     else:
-        #         self.role = 'buyer'
-        #         p = self.auction.clearing_price + ((self.hvac.air_temp - self.hvac.base_point) / self.hvac.deadband) * (
-        #                 self.auction.lmp - self.auction.clearing_price)
-        #
-        #         self.bid_price = min(self.hvac.price_cap, max(p, 0.0))
-        #         packets_needed = math.ceil(
-        #             (self.unresponsive_load + hvac_load - (max_pv_power - min_ev_load)) / self.packet_unit)
-        #         quantity = packets_needed * self.packet_unit
-        #         base_covered = max_pv_power - min_ev_load > self.unresponsive_load
-        #         # print(f"{self.name} branch 2, {max_pv_power} + {-min_ev_load} + {packets_needed} packets ({quantity}) covering {self.unresponsive_load} + {hvac_load}")
-        #
-        # self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unresponsive_load, self.name,
-        #         base_covered]
-        #
-        # # print(f"{self.name} bidding {self     .bid}, ev={min_ev_load}-{max_ev_load}, pv={min_pv_power}-{max_pv_power}")
-        #
-        # return self.bid
-
-    def demand_response(self):
-        self.hvac.price_response(self.auction.clearing_price)
 
     def post_market_control(self, auction_response):
         print(self.name, auction_response)
@@ -577,8 +491,9 @@ class House:
         hvac_allowed = power_bought >= self.unresponsive_load + self.hvac.predicted_load()
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
         hvac_load = self.hvac.hvac_on * self.hvac.predicted_load()
-        self.ev.set_desired_charge_rate(0)#power_bought - self.unresponsive_load - hvac_load - power_sold)
-        print(f"{self.name} bought {power_bought}, sold {power_sold}, unresponsive @ {self.unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}")
+        self.ev.set_desired_charge_rate(power_bought - self.unresponsive_load - hvac_load - power_sold)
+        print(
+            f"{self.name} bought {power_bought}, sold {power_sold}, unresponsive @ {self.unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}")
         # print(power_available, self.unresponsive_load, hvac_load,
         #       self.unresponsive_load + self.hvac.predicted_load(), self.hvac.probability, self.hvac.hvac_on)
 
@@ -595,94 +510,11 @@ class House:
         # min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
         # hvac_load = self.hvac.predicted_load()
         #
-        # if role == 'seller':
-        #     # PV control
-        #     self.pv.set_power_out(unresponsive_power + hvac_load + max_ev_load + quantity)
-        #     # if market_condition == 'double-auction':
-        #     #     if bid_price > self.auction.clearing_price:  # rejected
-        #     #         self.pv.set_power_out(unresponsive_power + hvac_load + max_ev_load)
-        #     #     if bid_price < self.auction.clearing_price:  # accepted
-        #     #         self.pv.set_power_out(unresponsive_power + hvac_load + max_ev_load + quantity)
-        #     #     elif bid_price == self.auction.clearing_price:  # some accepted
-        #     #         self.pv.set_power_out(unresponsive_power + hvac_load + max_ev_load + marginal_quantity)
-        #     # else:  # flexible-load (impossible)
-        #     #     print("Invalid seller in flexible-load condition!!")
-        #
-        #     # hvac control
-        #     self.hvac.set_on(hvac_power_needed)
-        #     self.ev.set_desired_charge_rate(max_ev_load)
-        # elif role == "none-participant":
-        #     if max_pv_power >= unresponsive_power + hvac_load + max_ev_load:
-        #         self.hvac.set_on(hvac_power_needed)
-        #         self.ev.set_desired_charge_rate(max_ev_load)
-        #         self.pv.set_power_out(min(max_pv_power, unresponsive_power + hvac_load + max_ev_load))
-        #     elif max_pv_power > unresponsive_power + hvac_load:
-        #         self.hvac.set_on(hvac_power_needed)
-        #         self.pv.set_power_out(max_pv_power)
-        #         self.ev.set_desired_charge_rate(max_pv_power - unresponsive_power - hvac_load)
-        #     elif max_pv_power == unresponsive_power + hvac_load:
-        #         self.pv.set_power_out(unresponsive_power + hvac_load)
-        #         self.ev.set_desired_charge_rate(max(min_ev_load, 0.0))
-        #         # self.ev.set_desired_charge_rate(min_ev_load)
-        #         self.hvac.set_on(hvac_power_needed)
-        #     else:  # max_pv_power < base + hvac
-        #         self.pv.set_power_out(max_pv_power)
-        #         self.ev.set_desired_charge_rate(max_pv_power - unresponsive_power - hvac_load)
-        #         self.hvac.set_on(hvac_power_needed)
-        # elif role == 'buyer':
-        #     # hvac control and PV control
-        #     power_available = max_pv_power - min_ev_load + quantity
-        #     self.pv.set_power_out(max_pv_power)
-        #     self.ev.set_desired_charge_rate(min_ev_load)
-        #     # self.ev.set_desired_charge_rate(-(unresponsive_power + hvac_load - max_pv_power - quantity))
-        #     self.hvac.set_on(power_available >= unresponsive_power + hvac_load)
-        #
-        #     # self.pv.set_power_out(max_pv_power)
-        #     # self.ev.set_desired_charge_rate(min_ev_load)
-        #     # if bid_price >= self.auction.clearing_price:  # accepted
-        #     #     self.pv.set_power_out(max_pv_power)
-        #     #     self.ev.set_desired_charge_rate(min_ev_load)
-        #     #     self.hvac.set_on(hvac_power_needed)
-        #     # else:  # rejected
-        #     #     self.pv.set_power_out(max_pv_power)
-        #     #     self.ev.set_desired_charge_rate(max(max_pv_power - unresponsive_power - hvac_load, min_ev_load))
-        #     #     self.hvac.set_on(hvac_power_needed)
-        # else:
-        #     print(f"unknown role {role}")
-        # # print(f"PMC {self.name} set EV={self.ev.desired_charge_rate}, HVAC={self.hvac.hvac_on}, PV={self.pv.p_out}")
-        # # if hvac_power_needed:
-        # #     if base_covered:
-        # #         if bid_price >= self.auction.clearing_price:  # accepted
-        # #             self.hvac.set_on(True)
-        # #             if self.pv:
-        # #                 self.pv.set_power_out(unres_kw + max(3.0 - quantity, 0), 0)
-        # #         else:
-        # #             self.hvac.set_on(False)
-        # #             if self.pv:
-        # #                 self.pv.set_power_out(unres_kw, 0)
-        # #     else:
-        # #         if bid_price >= self.auction.clearing_price:
-        # #             self.hvac.set_on(True)
-        # #             if self.pv:
-        # #                 self.pv.set_power_out(0, 0)
-        # #         else:
-        # #             self.hvac.set_on(False)
-        # #             if self.pv:
-        # #                 self.pv.set_power_out(0, 0)
-        # # else:
-        # #     self.hvac.set_on(False)
-        # #     if self.pv:
-        # #         self.pv.set_power_out(0, 0)
-        # # if role == 'none-participant':
-        # #     # PV control
-        # #     if self.pv:
-        # #         self.pv.set_power_out(unresponsive_power + 3 * int(hvac_power_needed), 0)
-        # #     # hvac control
-        # #     self.hvac.set_on(hvac_power_needed)
 
 
-class VPP:
-    def __init__(self, helics_federate: HelicsFederate, auction: NewAuction, enable=True):
+class GridSupply:
+    def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, enable=True):
+        self.name = "grid"
         self.enable = enable
 
         self.vpp_load_p = 0
@@ -703,7 +535,7 @@ class VPP:
         self.bid = None
 
     def formulate_bid(self):
-        self.bid = ["vpp", "seller", self.lmp, 100000]  # float('inf')]
+        self.bid = [self.name, "seller", self.lmp, 80000]  # float('inf')]
         return self.bid
 
     def receive_request(self, request):

@@ -114,7 +114,7 @@ class EVFederate:
         print(data)
         data.to_csv(f"out.csv")
 
-    def run_federate(self):
+    def run(self):
         print("EV federate to enter initializing mode")
         self.helics_fed.enter_initializing_mode()
         print("EV federate entered initializing mode")
@@ -139,7 +139,7 @@ class EVFederate:
             # time_to_request = (self.current_time - self.start_time).total_seconds() + delta_to_request
             time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600)
             delta_to_request = time_to_request - current_time_s
-            time_granted_seconds = helics.helicsFederateRequestTime(self.helics_fed, time_to_request)
+            time_granted_seconds = self.helics_fed.request_time(time_to_request)
             new_time = self.start_time + timedelta(seconds=time_granted_seconds)
             print(f"requested time {time_to_request} (delta +{delta_to_request}), got {time_granted_seconds}")
             for ev in self.evs:
@@ -158,4 +158,4 @@ class EVFederate:
 federate = EVFederate("2013-07-01 00:00:00", 30)
 federate.create_federate()
 federate.enabled = True
-federate.run_federate()
+federate.run()

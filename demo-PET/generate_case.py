@@ -16,7 +16,7 @@ from glmhelper import GLM_HELPER
 """0. generate a glm file (TE_Challenge.glm) according to user's preference"""
 
 
-class GLOBAL_Configuration:
+class PETScenario:
     """ a class which defines the configurations of the glm for GridLAB-D
     """
 
@@ -38,12 +38,9 @@ class GLOBAL_Configuration:
     ratio_PV_generation_list = [100 / 100]  # PV generation ratio for each VPP
     battery_mode = 'LOAD_FOLLOWING'  # CONSTANT_PQ
 
-
-global_config = GLOBAL_Configuration()
-glm = GLM_HELPER(global_config)
+scenario = PETScenario()
+glm = GLM_HELPER(scenario)
 glm.generate_glm()
-
-
 
 """1. configure simulation time period"""
 year = 2013
@@ -59,4 +56,4 @@ weathercsv(f"fed_weather/tesp_weather/{tmy_file_name}", 'weather.dat', start_tim
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict('TE_Challenge', te30=True)
 
-tesp.prep_substation('TE_Challenge', global_config)
+tesp.prep_substation('TE_Challenge', scenario)

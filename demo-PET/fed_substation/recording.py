@@ -1,5 +1,6 @@
 import pickle
 from collections.abc import Sequence
+from datetime import datetime
 from random import randint
 from time import time as millis
 from functools import reduce
@@ -70,8 +71,8 @@ class HistoryRecorder:
 
 
 class SubstationRecorder:
-    def __init__(self, vpp, houses, auction):
-        self.vpp_recorder = HistoryRecorder(vpp, [
+    def __init__(self, grid, houses, auction):
+        self.grid_recorder = HistoryRecorder(grid, [
             "vpp_load_p",
             "vpp_load",
             "balance_signal",
@@ -144,15 +145,15 @@ class SubstationRecorder:
     def record_auction(self, time):
         self.auction_recorder.record(time)
 
-    def record_vpp(self, time):
-        self.vpp_recorder.record(time)
+    def record_grid(self, time):
+        self.grid_recorder.record(time)
 
     def history(self):
         return {
             "houses": self.house_recorder.df(),
             "bids": self.bid_recorder.df(),
             "auction": self.auction_recorder.df(),
-            "vpp": self.vpp_recorder.df()
+            "grid": self.grid_recorder.df()
         }
 
     def save(self, path):
@@ -161,15 +162,17 @@ class SubstationRecorder:
 
     @staticmethod
     def make_figure(h: dict, path, freq=None):
-        houses = h["houses"]
-        bids = h["bids"]
-        auction = h["auction"]
-        vpp = h["vpp"]
+        start_time = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+        end_time = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+        houses = h["houses"][(start_time <= h["houses"].index) & (h["houses"].index < end_time)]
+        bids = h["bids"][(start_time <= h["bids"].index) & (h["bids"].index < end_time)]
+        auction = h["auction"][(start_time <= h["auction"].index) & (h["auction"].index < end_time)]
+        grid = h["grid"][(start_time <= h["grid"].index) & (h["grid"].index < end_time)]
         # if freq:
         #     houses = houses.resample(freq)
         #     bids = bids.resample(freq)
         #     auction = auction.resample(freq)
-        #     vpp = vpp.resample(freq)
+        #     grid = grid.resample(freq)
         s = millis()
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
@@ -202,13 +205,15 @@ class SubstationRecorder:
             },
             {
                 "type": "scatter",
-                "x": vpp.index,
-                "y": vpp["weather_temp"],
+                "x": grid.index,
+                "y": grid["weather_temp"],
                 "name": "Weather Temperature",
             },
         ], rows=1, cols=1)
 
         fig.update_yaxes(title_text="Temperature", row=1, col=1)
+
+        clipped_hvac = np.clip(houses["sum.hvac.hvac_load"], None, 80000 - houses["sum.ev.charging_load"] - houses["sum.unresponsive_load"])
 
         fig.add_traces([
             {
@@ -235,26 +240,26 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.hvac.hvac_load"],
+                "y": clipped_hvac,
                 "name": "Total HVAC Load",
                 "stackgroup": "house_load"
             },
             # {
             #     "type": "scatter",
-            #     "x": vpp.index,
-            #     "y": np.real(vpp["vpp_load"]),
+            #     "x": grid.index,
+            #     "y": np.real(grid["vpp_load"]),
             #     "name": "Total VPP  P",
             # },
             # {
             #     "type": "scatter",
-            #     "x": vpp.index,
-            #     "y": np.imag(vpp["vpp_load"]),
+            #     "x": grid.index,
+            #     "y": np.imag(grid["vpp_load"]),
             #     "name": "Total VPP Q",
             # },
             # {
             #     "type": "scatter",
-            #     "x": vpp.index,
-            #     "y": abs(vpp["vpp_load"]) * np.sign(np.real(vpp["vpp_load"])),
+            #     "x": grid.index,
+            #     "y": abs(grid["vpp_load"]) * np.sign(np.real(grid["vpp_load"])),
             #     "name": "Total VPP Load",
             # },
             {
@@ -373,7 +378,7 @@ class SubstationRecorder:
         houses = h["houses"]
         bids = h["bids"]
         auction = h["auction"]
-        vpp = h["vpp"]
+        grid = h["grid"]
         s = millis()
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
@@ -605,7 +610,7 @@ class SubstationRecorder:
         houses = h["houses"]
         bids = h["bids"]
         auction = h["auction"]
-        vpp = h["vpp"]
+        grid = h["grid"]
         fig = make_subplots(rows=3, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}]])
         prices = []

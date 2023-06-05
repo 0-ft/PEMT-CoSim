@@ -9,53 +9,6 @@ from helics import HelicsFederate
 from pandas import DataFrame
 from scipy.stats import iqr
 
-
-# def match_orders(bids):
-#     buyers = bids[bids["role"] == "buyer"].sample(frac=1).sort_values("price",
-#                                                                       ascending=False)[
-#         ["trader", "price", "quantity"]].values
-#     sellers = bids[bids["role"] == "seller"].sample(frac=1).sort_values("price",
-#                                                                         ascending=True)[
-#         ["trader", "price", "quantity"]].values
-#
-#     traders = set(bids["trader"])
-#     # print(traders)
-#     # print(buyers, sellers)
-#     transactions = []
-#     while len(buyers) and len(sellers):
-#         for i, (buyer, seller) in enumerate(zip(buyers, sellers)):
-#             if buyer[1] == 0:
-#                 buyers = np.delete(buyers, i, axis=0)
-#             elif seller[1] == 0:
-#                 sellers = np.delete(sellers, i, axis=0)
-#             elif buyer[1] >= seller[1]:
-#                 transaction_quantity = min(buyer[2], seller[2])
-#                 transactions.append(
-#                     {"seller": seller[0], "buyer": buyer[0], "quantity": transaction_quantity, "price": seller[1]})
-#                 buyer[2] -= transaction_quantity
-#                 seller[2] -= transaction_quantity
-#                 if buyer[2] == 0.0:
-#                     buyers = np.delete(buyers, i, axis=0)
-#                 if seller[2] == 0.0:
-#                     sellers = np.delete(sellers, i, axis=0)
-#                 # elif buyer[2] < seller[2]:
-#                 #     seller[2] -= buyer[2]
-#                 # elif buyer[2] == seller[2]:
-#                 #     sellers = np.delete(sellers, i, axis=0)
-#                 #     buyers = np.delete(buyers, i, axis=0)
-#         # print(transactions)
-#         # print(buyers, sellers)
-#     # print(json.dumps(transactions, indent=2))
-#     response = {
-#         trader: [
-#             {"price": t["price"], "quantity": t["quantity"], "role": "buyer" if t["buyer"] == trader else "seller"}
-#             for t in transactions
-#             if trader in [t["buyer"], t["seller"]]
-#         ] for trader in traders
-#     }
-#     # print(json.dumps(response, indent=2))
-#     return transactions, response
-
 # SELLER ONLY DIVISIBLE
 def match_orders(bids):
     buyers = bids[bids["role"] == "buyer"].sample(frac=1).sort_values("price",
@@ -66,14 +19,9 @@ def match_orders(bids):
         ["trader", "price", "quantity"]].values
     buyers = buyers[buyers[:, 1] > 0]
     traders = set(bids["trader"])
-    # print(traders)
     transactions = []
-    # while match := np.where(buyers[:, 1] >= sellers[:, 1] and sellers[:, 2] >= buyers[:, 2])[0]:
     while len(match := np.where([b[1] >= s[1] and s[2] >= b[2] for b, s in zip(buyers, sellers)])[0]):
-        # print("MATCHA", match)
-        # print("MATCH", match[0])
         i, (buyer, seller) = match[0], (buyers[match[0]], sellers[match[0]])
-        # print("MATCH", i, buyer, seller)
         transaction_quantity = min(buyer[2], seller[2])
         transactions.append(
             {"seller": seller[0], "buyer": buyer[0], "quantity": transaction_quantity, "price": seller[1]})
@@ -83,13 +31,6 @@ def match_orders(bids):
             buyers = np.delete(buyers, i, axis=0)
         if seller[2] == 0.0:
             sellers = np.delete(sellers, i, axis=0)
-            # elif buyer[2] < seller[2]:
-            #     seller[2] -= buyer[2]
-            # elif buyer[2] == seller[2]:
-            #     sellers = np.delete(sellers, i, axis=0)
-            #     buyers = np.delete(buyers, i, axis=0)
-        # print(transactions)
-        # print(buyers, sellers)
     # print(json.dumps(transactions, indent=2))
     response = {
         trader: [
@@ -102,7 +43,7 @@ def match_orders(bids):
     return transactions, response
 
 
-class NewAuction:
+class ContinuousDoubleAuction:
     def __init__(self, helics_federate: HelicsFederate, start_time: datetime):
         self.clearing_price = 0
         self.lmp = 0.0
@@ -151,7 +92,8 @@ class NewAuction:
     def collect_bids(self, bids):
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]
         self.bids = DataFrame(bids, columns=["trader", "role", "price", "quantity"])
-        print(self.bids)
+        print("auction got bids:")
+        print(self.bids.to_string())
         self.num_bids = len(self.bids)
         self.num_sellers = (self.bids["role"] == "seller").sum()
         self.num_buyers = (self.bids["role"] == "buyer").sum()
@@ -179,74 +121,6 @@ class NewAuction:
             index=[current_time])])
         self.update_stats()
         return response
-        # all_prices = sorted([p for p in set(self.bids["price"])])
-        # # multiunit auction
-        # buyers = self.bids[self.bids["role"] == "buyer"].sample(frac=1).sort_values("price",
-        #                                                                             ascending=False).reset_index()
-        # sellers = self.bids[self.bids["role"] == "seller"].sample(frac=1).sort_values("price",
-        #                                                                               ascending=True).reset_index()
-        # print("CLEARING THESE BIDS:")
-        # print(self.bids)
-        # agg = np.array([
-        #     [
-        #         x,
-        #         buyers[buyers["price"] >= x]["quantity"].sum(),  # total quantity buyers would buy at price x
-        #         sellers[sellers["price"] <= x]["quantity"].sum()  # total quantity sellers would sell at price x
-        #     ]
-        #     for x in all_prices
-        # ])
-        # # print(agg)
-        # bought_lt_sold = agg[agg[:, 1] <= agg[:, 2]]
-        # # print("AGG\n", agg)
-        # # print("BLT\n", bought_lt_sold)
-        # initial_clearing_price, quantity_bought, quantity_sold = bought_lt_sold[0, [0, 1, 2]] if len(
-        #     bought_lt_sold) else (
-        #     float('inf'), 0, 0)
-        # # print(sold_gt_bought[-1])
-        # # cleared_quantity = agg[agg[:, 0] == clearing_price][0][2]
-        # # cleared_quantity = sold_gt_bought[0, 1] if len(sold_gt_bought) else 0
-        # # cleared_buyers = buyers[np.logical_or(buyers["quantity"].cumsum() <= max_cleared_quantity,
-        # #                                       np.isclose(buyers["quantity"].cumsum(), max_cleared_quantity))]
-        # cleared_buyers = buyers[buyers["price"] >= initial_clearing_price]
-        # # print((sellers["quantity"].cumsum() > quantity_sold))
-        # # print(sellers["quantity"].cumsum())
-        # cleared_sellers = sellers.iloc[:(sellers["quantity"].cumsum() > quantity_bought).idxmax() + 1]
-        # # print("CLEARED BUYERS:\n", cleared_buyers)
-        # # print("CLEARED SELLERS:\n", cleared_sellers, quantity_sold)
-        # print(
-        #     f"buy bids totaled {buyers['quantity'].sum()}, initial clearing price {initial_clearing_price}, max sold {quantity_sold}, max bought {quantity_bought}")
-        # cleared_quantity = cleared_buyers["quantity"].sum()
-        # marginal_quantity = cleared_sellers["quantity"].sum() - cleared_quantity
-        # if marginal_quantity > 0:
-        #     cleared_sellers.loc[cleared_sellers.index[-1], "quantity"] = cleared_quantity - \
-        #                                                                  cleared_sellers.loc[cleared_sellers.index[
-        #                                                                                      :-1], "quantity"].sum()
-        #
-        # cleared_bids = pandas.concat([cleared_sellers, cleared_buyers])
-        # # cleared_bids = cleared_bids.assign(price=self.clearing_price)
-        # print("Cleared\n", cleared_bids)
-        # assert np.isclose(cleared_sellers["quantity"].sum(),
-        #                   cleared_quantity), f"AUCTION ERROR: cleared sellers {cleared_sellers} vs buyers {cleared_buyers}"
-        #
-        # # print("CLEARED BUYERS:\n", cleared_buyers)
-        # # print("CLEARED SELLERS:\n", cleared_sellers)
-        # self.clearing_price = cleared_bids[cleared_bids["quantity"] > 0.0]["price"].min()
-        # if self.pub_clearing_price:
-        #     self.pub_clearing_price.publish(self.clearing_price)
-        # self.fraction_buyers_cleared = len(cleared_buyers) / self.num_buyers
-        # self.fraction_sellers_cleared = len(cleared_sellers) / self.num_sellers
-        # print("published CLEARING PRICE", self.clearing_price)
-        # self.history = pandas.concat([self.history, DataFrame(
-        #     {"clearing_price": self.clearing_price, "cleared_quantity": cleared_quantity,
-        #      "fraction_sellers_cleared": len(cleared_buyers) / self.num_buyers,
-        #      "fraction_buyers_cleared": len(cleared_sellers) / self.num_sellers},
-        #     index=[current_time])])
-        # self.update_stats()
-        # return {
-        #     trader: cleared_bids.loc[cleared_bids["trader"] == trader, ["quantity", "role"]].to_dict(
-        #         'records')
-        #     for trader in set(self.bids["trader"])
-        # }
 
     # def clear_market(self, current_time: datetime):
     #     all_prices = sorted([p for p in set(self.bids["price"])])
@@ -319,7 +193,7 @@ class NewAuction:
     #     }
 
 
-def test_auction(auction: NewAuction):
+def test_auction(auction: ContinuousDoubleAuction):
     test_bids = [
         ["s1", "seller", 1.6, float('inf')],
         ["b1", "buyer", float('inf'), 1600],
@@ -461,7 +335,7 @@ if __name__ == "__main__":
         # bids = history["auction"]["bids"]
         # print(datetime.strptime("2013-07-01 18:30:00", '%Y-%m-%d %H:%M:%S').strftime("%z"))
         # bid_round = bids.loc[parse("2013-07-01 13:09:58-08:00")]
-        a = NewAuction(None, datetime.now())
+        a = ContinuousDoubleAuction(None, datetime.now())
         test_auction(a)
         # a.collect_bids(bid_round[["trader", "role", "price", "quantity"]])
         # print(a.clear_market())
