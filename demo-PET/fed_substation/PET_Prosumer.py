@@ -504,11 +504,11 @@ class House:
         unresponsive_bid = [self.name, "buyer", float('inf'), self.unresponsive_load]
         bids = [unresponsive_bid]
         if hvac_load > 0:
-            bids.append([self.name, "buyer", float('inf'), hvac_load])
+            bids.append([self.name, "buyer", 9999, hvac_load])
             # bids.append([self.name, "buyer",
             #             self.trading_policy.price_for_probability(self.current_time, self.hvac.probability), hvac_load])
 
-        ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)
+        ev_bids = [] # self.trading_policy.trade(self.current_time, self.ev.load_range)
         bids += [[self.name] + bid for bid in ev_bids]
         # if abs(ev_quantity) > 0:
         #     bids.append([self.name, "buyer" if ev_quantity > 0 else "seller", ev_price, abs(ev_quantity)])
@@ -577,8 +577,8 @@ class House:
         hvac_allowed = power_bought >= self.unresponsive_load + self.hvac.predicted_load()
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
         hvac_load = self.hvac.hvac_on * self.hvac.predicted_load()
-        self.ev.set_desired_charge_rate(power_bought - self.unresponsive_load - hvac_load - power_sold)
-        print(f"{self.name} bought {power_bought}, sold {power_sold}, HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}")
+        self.ev.set_desired_charge_rate(0)#power_bought - self.unresponsive_load - hvac_load - power_sold)
+        print(f"{self.name} bought {power_bought}, sold {power_sold}, unresponsive @ {self.unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}")
         # print(power_available, self.unresponsive_load, hvac_load,
         #       self.unresponsive_load + self.hvac.predicted_load(), self.hvac.probability, self.hvac.hvac_on)
 

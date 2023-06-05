@@ -54,7 +54,7 @@ class V2GEV:
         self.prev_time = start_time
         self.current_time = start_time
         self.history = []
-        self.enable_movement = False
+        self.enable_movement = True
         self.enable_charging = True
         self.enable_discharging = True
 

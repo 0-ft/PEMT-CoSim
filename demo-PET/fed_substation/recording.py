@@ -251,30 +251,30 @@ class SubstationRecorder:
             #     "y": np.imag(vpp["vpp_load"]),
             #     "name": "Total VPP Q",
             # },
-            {
-                "type": "scatter",
-                "x": vpp.index,
-                "y": abs(vpp["vpp_load"]) * np.sign(np.real(vpp["vpp_load"])),
-                "name": "Total VPP Load",
-            },
+            # {
+            #     "type": "scatter",
+            #     "x": vpp.index,
+            #     "y": abs(vpp["vpp_load"]) * np.sign(np.real(vpp["vpp_load"])),
+            #     "name": "Total VPP Load",
+            # },
             {
                 "type": "scatter",
                 "x": houses.index,
                 "y": houses["sum.intended_load"],
-                "name": "Total Intended Load",
+                "name": "Total Purchased Load",
             },
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": houses["max.hvac.hvac_load"],
-                "name": "Max HVAC Load",
-            },
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": houses["sum.hvac.hvac_load"] / houses["sum.hvac.hvac_on"],
-                "name": "Avg HVAC Load",
-            },
+            # {
+            #     "type": "scatter",
+            #     "x": houses.index,
+            #     "y": houses["max.hvac.hvac_load"],
+            #     "name": "Max HVAC Load",
+            # },
+            # {
+            #     "type": "scatter",
+            #     "x": houses.index,
+            #     "y": houses["sum.hvac.hvac_load"] / houses["sum.hvac.hvac_on"],
+            #     "name": "Avg HVAC Load",
+            # },
             # {
             #     "type": "scatter",
             #     "x": houses.index,
@@ -346,20 +346,20 @@ class SubstationRecorder:
                 "stackgroup": "role"
             } for key, name in [("buyers", "Buyers"), ("sellers", "Sellers"), ("nontcp", "Non-participants")]
         ], rows=4, cols=1)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": auction.index,
-                "y": auction["fraction_buyers_cleared"],
-                "name": "Fraction Buyers Cleared",
-            }, row=4, col=1)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": auction.index,
-                "y": auction["fraction_sellers_cleared"],
-                "name": "Fraction Sellers Cleared",
-            }, row=4, col=1)
+        # fig.add_trace(
+        #     {
+        #         "type": "scatter",
+        #         "x": auction.index,
+        #         "y": auction["fraction_buyers_cleared"],
+        #         "name": "Fraction Buyers Cleared",
+        #     }, row=4, col=1)
+        # fig.add_trace(
+        #     {
+        #         "type": "scatter",
+        #         "x": auction.index,
+        #         "y": auction["fraction_sellers_cleared"],
+        #         "name": "Fraction Sellers Cleared",
+        #     }, row=4, col=1)
 
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
