@@ -16,14 +16,14 @@ EVPublications = namedtuple("EVPublications", "location load")
 
 
 class EVFederate:
-    def __init__(self, start_time: str, num_evs):
+    def __init__(self, start_time: str, num_evs, hour_stop):
         self.quant = None
         self.fed_name = None
         self.time_period_hours = 0.125
         self.time_period_seconds = self.time_period_hours * 3600
         self.num_evs = num_evs
         self.helics_fed: HelicsFederate = None
-        self.hour_stop = 96
+        self.hour_stop = hour_stop
         self.start_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
         self.current_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
         self.stop_time = self.start_time + timedelta(hours=self.hour_stop)
@@ -155,7 +155,7 @@ class EVFederate:
         # self.publish_locations()
 
 
-federate = EVFederate("2013-07-01 00:00:00", 30)
+federate = EVFederate("2013-07-01 00:00:00", 30, 192)
 federate.create_federate()
 federate.enabled = True
 federate.run()

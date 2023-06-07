@@ -119,7 +119,7 @@ fed = PETFederate(
     'TE_Challenge_agent_dict.json',
     'TE_Challenge_HELICS_substation.json',
     datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z'),
-    96
+    192
 )
 
 fed.initialise()

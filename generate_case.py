@@ -45,7 +45,7 @@ glm.generate_glm()
 """1. configure simulation time period"""
 year = 2013
 start_time = '2013-07-01 00:00:00'
-stop_time = '2013-07-05 00:00:00'
+stop_time = '2013-07-09 00:00:00'
 
 """2. configure weather data"""
 tmy_file_name = 'AZ-Tucson_International_Ap.tmy3'  # choose a .tmy3 file to specify the weather in a specific location
