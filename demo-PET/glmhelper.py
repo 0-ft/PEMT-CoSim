@@ -1,5 +1,6 @@
 import json
 import os
+import pickle
 import random
 import glm
 
@@ -88,7 +89,8 @@ class GLM_HELPER:
         template_glm = glm.load("./fed_gridlabd/glm-template/TE_Challenge_TE30.glm")
         global template_houses_list
         template_houses_list = [obj for obj in template_glm['objects'] if obj['name'] == 'house']
-
+        with open("template_houses.pkl", "wb") as f:
+            pickle.dump(template_houses_list, f)
         pass
 
     def configure_minimum_timestep(self):

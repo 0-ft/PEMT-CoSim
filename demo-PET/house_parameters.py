@@ -2,7 +2,7 @@ import pickle
 import random
 
 with open("template_houses.pkl", "rb") as f:
-    template_houses: dict = pickle.load(f)
+    template_houses: list = pickle.load(f)
 
 def generate_house_parameters():
     template_house = random.choice(template_houses)
