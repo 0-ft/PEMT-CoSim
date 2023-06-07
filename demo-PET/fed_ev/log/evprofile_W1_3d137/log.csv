@@ -1,7 +1,0 @@
-days,trips,iter,last_trip_to home,equal_state_and_destination home,min_or_max_state_duration home,min_or_max_state_duration leisure,equal_state_and_destination leisure,equal_state_and_destination errands,min_or_max_state_duration shopping,equal_state_and_destination shopping
-2,3,20,0.5,0.3,0.0,0.0,0.1,0.1,,
-2,3,30,0.4,0.1,0.1,0.2,0.0,0.1,0.1,
-2,3,40,0.6,0.3,0.0,0.0,0.0,0.0,0.1,
-2,3,50,0.7,0.3,0.0,0.0,0.0,0.0,0.0,
-2,3,60,0.6,0.1,0.0,0.1,0.1,0.0,0.0,0.1
-2,3,70,0.7,0.3,0.0,0.0,0.0,0.0,0.0,0.0

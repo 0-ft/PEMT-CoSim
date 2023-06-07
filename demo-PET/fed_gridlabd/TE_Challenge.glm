@@ -32,11 +32,6 @@ module generators;
 // winter
 //#define FIXED_PRICE=0.088
 
-object metrics_collector_writer {
-     interval 300;
-     filename ${METRICS_FILE}; // TE_Challenge_metrics.json
-}
-
 object climate {
   name localWeather;
 //     tmyfile "../../support/weather/AZ-Tucson_International_Ap.tmy3";
@@ -168,9 +163,6 @@ object substation {
 	bustype SWING;
     base_power 12MVA;
     power_convergence_value 100VA;
-    object metrics_collector {
-        interval 300;
-    };
 }
 
 // substation transformer
@@ -256,9 +248,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -298,26 +287,26 @@ object house {
 	name F0_house_A0;
     groupid VPP_0;
 	parent house_F0_tpm_A0;
-	schedule_skew -717;
-	Rroof 22.044;
-	Rwall 13.760000000000002;
-	Rfloor 10.321;
-	Rdoors 3;
-	Rwindows 0.952;
-	airchange_per_hour 1.117;
+	schedule_skew 96;
+	Rroof 27.555999999999997;
+	Rwall 21.424000000000003;
+	Rfloor 14.401;
+	Rdoors 5;
+	Rwindows 1.478;
+	airchange_per_hour 1.004;
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
 	heating_system_type GAS;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
-	total_thermal_mass_per_floor_area 5.1209999999999996;
+	total_thermal_mass_per_floor_area 3.1380000000000003;
 	motor_efficiency AVERAGE;
 	motor_model BASIC;
-	cooling_COP 3.5770000000000004;
-	floor_area 920.346;
-	number_of_doors 1;
-	air_temperature 69.61;
-	mass_temperature 69.61;
+	cooling_COP 3.464;
+	floor_area 1443.0430000000001;
+	number_of_doors 2;
+	air_temperature 70.229;
+	mass_temperature 70.229;
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
@@ -325,53 +314,9 @@ object house {
 	heating_setpoint 20;
 
     object ZIPload {
-  schedule_skew -717;
-  heat_fraction 0.738;
-  base_power LIGHTS*2.0005;
-  power_pf -0.78;
-  power_fraction 0.6;
-  current_pf 0.42;
-  current_fraction 0;
-  impedance_pf -0.88;
-  impedance_fraction 0.4;
-};
-object ZIPload {
-  schedule_skew -717;
-  heat_fraction 0.912;
-  base_power CLOTHESWASHER*0.7509;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -717;
-  heat_fraction 0.68;
-  base_power REFRIGERATOR*0.5147;
-  power_pf 0.97;
-  power_fraction 1;
-  current_pf 0.97;
-  current_fraction 0;
-  impedance_pf 0.97;
-  impedance_fraction 0;
-};
-object ZIPload {
-  schedule_skew -717;
-  heat_fraction 0.923;
-  base_power DRYER*0.8724;
-  power_pf 0.9;
-  power_fraction 0.1;
-  current_pf 0.9;
-  current_fraction 0.1;
-  impedance_pf 1;
-  impedance_fraction 0.8;
-};
-object ZIPload {
-  schedule_skew -717;
-  heat_fraction 0.902;
-  base_power RANGE*0.8541;
+  schedule_skew 96;
+  heat_fraction 0.874;
+  base_power LIGHTS*1.8722;
   power_pf 0;
   power_fraction 0;
   current_pf 0;
@@ -380,9 +325,64 @@ object ZIPload {
   impedance_fraction 1;
 };
 object ZIPload {
-  schedule_skew -717;
-  heat_fraction 0.923;
-  base_power MICROWAVE*0.9953;
+  schedule_skew 96;
+  heat_fraction 0.737;
+  base_power CLOTHESWASHER*1.0593;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 96;
+  heat_fraction 0.937;
+  base_power REFRIGERATOR*1.2533;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 96;
+  heat_fraction 0.733;
+  base_power DRYER*0.9076;
+  power_pf 0.9;
+  power_fraction 0.1;
+  current_pf 0.9;
+  current_fraction 0.1;
+  impedance_pf 1;
+  impedance_fraction 0.8;
+};
+object ZIPload {
+  schedule_skew 96;
+  heat_fraction 0.906;
+  base_power DISHWASHER*0.9959;
+  power_pf 0.97;
+  power_fraction 1;
+  current_pf 0.97;
+  current_fraction 0;
+  impedance_pf 0.97;
+  impedance_fraction 0;
+};
+object ZIPload {
+  schedule_skew 96;
+  heat_fraction 0.885;
+  base_power RANGE*0.9538;
+  power_pf 0;
+  power_fraction 0;
+  current_pf 0;
+  current_fraction 0;
+  impedance_pf 1;
+  impedance_fraction 1;
+};
+object ZIPload {
+  schedule_skew 96;
+  heat_fraction 0.707;
+  base_power MICROWAVE*0.4764;
   power_pf 0.97;
   power_fraction 1;
   current_pf 0.97;
@@ -391,17 +391,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A0_EV;
-//    parent F0_tpm_A0;
-//}
 object load {
     name F0_house_A0_EV;
     parent F0_tpm_A0;
@@ -438,9 +429,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 6720;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -462,9 +450,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -608,17 +593,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A1_EV;
-//    parent F0_tpm_A1;
-//}
 object load {
     name F0_house_A1_EV;
     parent F0_tpm_A1;
@@ -655,9 +631,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 4800;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -679,9 +652,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -814,17 +784,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A2_EV;
-//    parent F0_tpm_A2;
-//}
 object load {
     name F0_house_A2_EV;
     parent F0_tpm_A2;
@@ -861,9 +822,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 3840;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -885,9 +843,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -1020,17 +975,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A3_EV;
-//    parent F0_tpm_A3;
-//}
 object load {
     name F0_house_A3_EV;
     parent F0_tpm_A3;
@@ -1067,9 +1013,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 5280;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -1091,9 +1034,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -1226,17 +1166,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A4_EV;
-//    parent F0_tpm_A4;
-//}
 object load {
     name F0_house_A4_EV;
     parent F0_tpm_A4;
@@ -1273,9 +1204,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 5280;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -1297,9 +1225,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -1443,17 +1368,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A5_EV;
-//    parent F0_tpm_A5;
-//}
 object load {
     name F0_house_A5_EV;
     parent F0_tpm_A5;
@@ -1490,9 +1406,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 8160;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -1514,9 +1427,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -1660,17 +1570,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A6_EV;
-//    parent F0_tpm_A6;
-//}
 object load {
     name F0_house_A6_EV;
     parent F0_tpm_A6;
@@ -1707,9 +1608,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 9600;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -1731,9 +1629,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -1866,17 +1761,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A7_EV;
-//    parent F0_tpm_A7;
-//}
 object load {
     name F0_house_A7_EV;
     parent F0_tpm_A7;
@@ -1913,9 +1799,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 6240;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -1937,9 +1820,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -2072,17 +1952,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A8_EV;
-//    parent F0_tpm_A8;
-//}
 object load {
     name F0_house_A8_EV;
     parent F0_tpm_A8;
@@ -2119,9 +1990,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 5280;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -2143,9 +2011,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -2278,17 +2143,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A9_EV;
-//    parent F0_tpm_A9;
-//}
 object load {
     name F0_house_A9_EV;
     parent F0_tpm_A9;
@@ -2325,9 +2181,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 7200;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -2349,9 +2202,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -2484,17 +2334,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A10_EV;
-//    parent F0_tpm_A10;
-//}
 object load {
     name F0_house_A10_EV;
     parent F0_tpm_A10;
@@ -2531,9 +2372,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 8160;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -2555,9 +2393,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -2690,17 +2525,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A11_EV;
-//    parent F0_tpm_A11;
-//}
 object load {
     name F0_house_A11_EV;
     parent F0_tpm_A11;
@@ -2737,9 +2563,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 7200;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -2761,9 +2584,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -2907,17 +2727,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A12_EV;
-//    parent F0_tpm_A12;
-//}
 object load {
     name F0_house_A12_EV;
     parent F0_tpm_A12;
@@ -2954,9 +2765,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 7200;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -2978,9 +2786,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -3124,17 +2929,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A13_EV;
-//    parent F0_tpm_A13;
-//}
 object load {
     name F0_house_A13_EV;
     parent F0_tpm_A13;
@@ -3171,9 +2967,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 5760;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -3195,9 +2988,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -3341,17 +3131,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A14_EV;
-//    parent F0_tpm_A14;
-//}
 object load {
     name F0_house_A14_EV;
     parent F0_tpm_A14;
@@ -3388,9 +3169,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 4320;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -3412,9 +3190,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -3547,17 +3322,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A15_EV;
-//    parent F0_tpm_A15;
-//}
 object load {
     name F0_house_A15_EV;
     parent F0_tpm_A15;
@@ -3594,9 +3360,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 5280;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -3618,9 +3381,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -3764,17 +3524,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A16_EV;
-//    parent F0_tpm_A16;
-//}
 object load {
     name F0_house_A16_EV;
     parent F0_tpm_A16;
@@ -3811,9 +3562,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 6240;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -3835,9 +3583,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -3970,17 +3715,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A17_EV;
-//    parent F0_tpm_A17;
-//}
 object load {
     name F0_house_A17_EV;
     parent F0_tpm_A17;
@@ -4017,9 +3753,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 7680;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -4041,9 +3774,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -4187,17 +3917,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A18_EV;
-//    parent F0_tpm_A18;
-//}
 object load {
     name F0_house_A18_EV;
     parent F0_tpm_A18;
@@ -4234,9 +3955,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 4800;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -4258,9 +3976,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -4404,17 +4119,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A19_EV;
-//    parent F0_tpm_A19;
-//}
 object load {
     name F0_house_A19_EV;
     parent F0_tpm_A19;
@@ -4451,9 +4157,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 8640;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -4475,9 +4178,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -4610,17 +4310,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A20_EV;
-//    parent F0_tpm_A20;
-//}
 object load {
     name F0_house_A20_EV;
     parent F0_tpm_A20;
@@ -4657,9 +4348,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 9120;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -4681,9 +4369,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -4816,17 +4501,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A21_EV;
-//    parent F0_tpm_A21;
-//}
 object load {
     name F0_house_A21_EV;
     parent F0_tpm_A21;
@@ -4863,9 +4539,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 4800;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -4887,9 +4560,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -5033,17 +4703,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A22_EV;
-//    parent F0_tpm_A22;
-//}
 object load {
     name F0_house_A22_EV;
     parent F0_tpm_A22;
@@ -5080,9 +4741,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 4800;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -5104,9 +4762,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -5239,17 +4894,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A23_EV;
-//    parent F0_tpm_A23;
-//}
 object load {
     name F0_house_A23_EV;
     parent F0_tpm_A23;
@@ -5286,9 +4932,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 9600;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -5310,9 +4953,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -5456,17 +5096,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A24_EV;
-//    parent F0_tpm_A24;
-//}
 object load {
     name F0_house_A24_EV;
     parent F0_tpm_A24;
@@ -5503,9 +5134,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 9120;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -5527,9 +5155,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -5673,17 +5298,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A25_EV;
-//    parent F0_tpm_A25;
-//}
 object load {
     name F0_house_A25_EV;
     parent F0_tpm_A25;
@@ -5720,9 +5336,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 6720;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -5744,9 +5357,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -5890,17 +5500,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A26_EV;
-//    parent F0_tpm_A26;
-//}
 object load {
     name F0_house_A26_EV;
     parent F0_tpm_A26;
@@ -5937,9 +5538,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 9120;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -5961,9 +5559,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -6107,17 +5702,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A27_EV;
-//    parent F0_tpm_A27;
-//}
 object load {
     name F0_house_A27_EV;
     parent F0_tpm_A27;
@@ -6154,9 +5740,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 8640;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -6178,9 +5761,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -6313,17 +5893,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A28_EV;
-//    parent F0_tpm_A28;
-//}
 object load {
     name F0_house_A28_EV;
     parent F0_tpm_A28;
@@ -6360,9 +5931,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 4320;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
@@ -6384,9 +5952,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -6541,17 +6106,8 @@ object ZIPload {
   impedance_fraction 0;
 };
 
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F0_house_A29_EV;
-//    parent F0_tpm_A29;
-//}
 object load {
     name F0_house_A29_EV;
     parent F0_tpm_A29;
@@ -6588,9 +6144,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power 7680;
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 

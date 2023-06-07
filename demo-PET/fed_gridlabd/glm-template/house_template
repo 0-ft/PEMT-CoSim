@@ -16,9 +16,6 @@ object triplex_meter {
     bill_day 1;
     monthly_fee 6;
     price ${FIXED_PRICE};
-    object metrics_collector {
-    interval 300;
-  };
 }
 
 //1st line;a new node;2nd line
@@ -85,17 +82,8 @@ object house {
 	heating_setpoint 20;
 
     {ZIP_code}
-
-    object metrics_collector {
-        interval 300;
-    };
-
 }
 
-//object ZIPload {
-//    name F{vpp_idx}_house_{phase}{house_idx}_EV;
-//    parent F{vpp_idx}_tpm_{phase}{house_idx};
-//}
 object load {
     name F{vpp_idx}_house_{phase}{house_idx}_EV;
     parent F{vpp_idx}_tpm_{phase}{house_idx};

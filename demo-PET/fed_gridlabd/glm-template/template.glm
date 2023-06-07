@@ -32,11 +32,6 @@ module generators;
 // winter
 //#define FIXED_PRICE=0.088
 
-object metrics_collector_writer {
-     interval 300;
-     filename ${METRICS_FILE}; // TE_Challenge_metrics.json
-}
-
 object climate {
   name localWeather;
 //     tmyfile "../../support/weather/AZ-Tucson_International_Ap.tmy3";
@@ -168,9 +163,6 @@ object substation {
 	bustype SWING;
     base_power 12MVA;
     power_convergence_value 100VA;
-    object metrics_collector {
-        interval 300;
-    };
 }
 
 // substation transformer

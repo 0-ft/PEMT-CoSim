@@ -43,8 +43,5 @@ object inverter {
         state_of_charge {state_of_charge};
         generator_mode SUPPLY_DRIVEN;
     };
-    object metrics_collector {
-	interval 300;
-    };
 }
 

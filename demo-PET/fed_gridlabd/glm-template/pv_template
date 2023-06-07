@@ -30,9 +30,6 @@ object inverter {
 		orientation FIXED_AXIS; 
 		rated_power {rated_power_solar};
 	};
-    object metrics_collector {
-    	interval 300;
-    };
 }
 
 
