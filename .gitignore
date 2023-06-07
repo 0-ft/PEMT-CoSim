@@ -2,4 +2,4 @@
 **/*.log
 .idea/*
 **/*metrics.json
-demo-PET/fed_ev/log/*
+fed_ev/log/*

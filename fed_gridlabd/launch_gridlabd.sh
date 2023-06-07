@@ -1,1 +1,0 @@
-gridlabd -D SCHED_PATH=/PEMT-CoSim/demo-PET/tesp_support/schedules -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm
