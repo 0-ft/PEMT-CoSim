@@ -130,6 +130,8 @@ class V2GEV:
             else:
                 self.charging_load = 0
         else:
+            if abs(self.desired_charge_rate) > 0:
+                print(f"EV {self.name} unable to set DCR {self.desired_charge_rate} as at {self.location}")
             self.charging_load = 0
         # if self.desired_charge_rate > 0 and self.location == "home":
         #     self.charge_rate = self.desired_charge_rate if (

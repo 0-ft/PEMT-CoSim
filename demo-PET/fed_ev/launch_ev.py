@@ -145,7 +145,7 @@ class EVFederate:
             for ev in self.evs:
                 ev.update_state(new_time)
                 ev.publish_state()
-            print(f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}' for i, ev in enumerate(self.evs)]}")
+            print(f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}, {ev.desired_charge_rate}' for i, ev in enumerate(self.evs)]}")
             # print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
             self.current_time = new_time

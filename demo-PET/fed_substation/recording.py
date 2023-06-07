@@ -129,7 +129,6 @@ class SubstationRecorder:
             "num_bids",
             "num_buyers",
             "num_sellers",
-            "num_nontcp",
             "lmp",
             "fraction_buyers_cleared",
             "fraction_sellers_cleared",
@@ -349,7 +348,7 @@ class SubstationRecorder:
                 "y": auction[f"num_{key}"] / auction[f"num_bids"],
                 "name": name,
                 "stackgroup": "role"
-            } for key, name in [("buyers", "Buyers"), ("sellers", "Sellers"), ("nontcp", "Non-participants")]
+            } for key, name in [("buyers", "Buyers"), ("sellers", "Sellers")]
         ], rows=4, cols=1)
         # fig.add_trace(
         #     {

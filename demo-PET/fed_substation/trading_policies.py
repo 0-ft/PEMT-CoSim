@@ -21,13 +21,11 @@ class LimitedCrossoverTrader:
         self.movement_window = timedelta(minutes=20)
         self.short_ma = 0.0
         self.long_ma = 0.0
-        # self.amplitude = 0.0
         self.iqr = 0.0
         self.buy_threshold = 0.3
         self.sell_threshold = 0.3
-        self.should_buy = False
-        self.should_sell = False
-        self.should_trade = 0.0
+        self.buy_threshold_price = float('inf')
+        self.sell_threshold_price = float('-inf')
         self.predicted_clearing_price = 0.0
 
     def predict_clearing_price(self, current_time):
@@ -72,9 +70,9 @@ class LimitedCrossoverTrader:
         # self.predicted_price = short_ma_window.iloc[-1] + short_ma_window.diff().iloc[-1] * 1
         # self.predicted_clearing_price = self.predict_clearing_price(current_time)
         # diff = self.short_ma - self.long_ma
-        buy_threshold_price = self.long_ma - self.iqr * self.buy_threshold
+        self.buy_threshold_price = self.long_ma - self.iqr * self.buy_threshold
         # self.should_buy = diff < buy_threshold_price
-        sell_threshold_price = self.long_ma + self.iqr * self.sell_threshold
+        self.sell_threshold_price = self.long_ma + self.iqr * self.sell_threshold
         # self.should_sell = diff > sell_threshold_price
         # self.should_trade = self.should_buy * buy_range[1] + self.should_sell * buy_range[0]
         # price = sell_threshold_price if self.should_sell else buy_threshold_price
@@ -84,8 +82,8 @@ class LimitedCrossoverTrader:
             print("MUST SELL")
             return ["seller", 0, buy_range[1]]
         return [
-            ["buyer", buy_threshold_price, buy_range[1]],
-            ["seller", sell_threshold_price, -buy_range[0]]
+            ["buyer", self.buy_threshold_price, buy_range[1]],
+            ["seller", self.sell_threshold_price, -buy_range[0]]
         ]
 
 # def moving_average(a, n=3) :

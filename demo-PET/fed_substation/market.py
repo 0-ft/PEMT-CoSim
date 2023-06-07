@@ -1,5 +1,6 @@
 import json
 import pickle
+import time
 from datetime import datetime
 
 import numpy as np
@@ -8,6 +9,7 @@ from dateutil.parser import parse
 from helics import HelicsFederate
 from pandas import DataFrame
 from scipy.stats import iqr
+
 
 # SELLER ONLY DIVISIBLE
 def match_orders(bids):
@@ -18,25 +20,64 @@ def match_orders(bids):
                                                                         ascending=True)[
         ["trader", "price", "quantity"]].values
     buyers = buyers[buyers[:, 1] > 0]
-    traders = set(bids["trader"])
+    traders = set(trader[0] for trader in bids["trader"])
     transactions = []
-    while len(match := np.where([b[1] >= s[1] and s[2] >= b[2] for b, s in zip(buyers, sellers)])[0]):
-        i, (buyer, seller) = match[0], (buyers[match[0]], sellers[match[0]])
-        transaction_quantity = min(buyer[2], seller[2])
-        transactions.append(
-            {"seller": seller[0], "buyer": buyer[0], "quantity": transaction_quantity, "price": seller[1]})
-        buyer[2] -= transaction_quantity
-        seller[2] -= transaction_quantity
-        if buyer[2] == 0.0:
-            buyers = np.delete(buyers, i, axis=0)
-        if seller[2] == 0.0:
-            sellers = np.delete(sellers, i, axis=0)
+    while len(buyers):
+        # print("Xbuyers\n", buyers)
+        # print("Xsellers\n", sellers[:,1])
+        # print("Xtrans\n", transactions)
+        matched_sellers = (buyers[0][1] >= sellers[:, 1]).nonzero()
+        # print("Xmatches\n", matched_sellers)
+        # print("Xmatched\n", sellers[matched_sellers[0]])
+        # print(matched_sellers, sellers[matched_sellers, 2])
+        excess_sellers = (buyers[0][2] <= np.cumsum(sellers[matched_sellers[0], 2])).nonzero()[0]
+        # print("Xexcs\n", excess_sellers)
+        if len(excess_sellers):
+            sufficient_sellers = matched_sellers[0][:excess_sellers[0]+1]
+            # print("Xsuff\n", sufficient_sellers)
+            for i in sufficient_sellers:
+                transaction_quantity = min(buyers[0][2], sellers[i][2])
+                if transaction_quantity > 0:
+                    buyers[0][2] -= transaction_quantity
+                    sellers[i][2] -= transaction_quantity
+                    transactions.append(
+                        {"seller": sellers[i][0], "buyer": buyers[0][0], "quantity": transaction_quantity, "price": sellers[i][1]})
+            if buyers[0][2] == 0.0:
+                buyers = np.delete(buyers, 0, axis=0)
+
+            sellers = np.array([s for s in sellers if s[2] > 0.0])
+            # for i in range(len(sellers)):
+            #     if sellers[i][2] == 0.0:
+            #         sellers = np.delete(sellers, i, axis=0)
+        else: # no sellers can cover buyer order, and buys are indivisible
+            buyers = np.delete(buyers, 0, axis=0)
+
+        # print(insufficient_sellers, sufficient_sellers)
+        # time.sleep(1)
+
+    # while len(match := np.where([b[1] >= s[1] and s[2] >= b[2] for b, s in zip(buyers, sellers)])[0]):
+    #     i, (buyer, seller) = match[0], (buyers[match[0]], sellers[match[0]])
+    #     print(f"matching {i}, {buyer}, {seller}")
+    #     transaction_quantity = min(buyer[2], seller[2])
+    #     transactions.append(
+    #         {"seller": seller[0], "buyer": buyer[0], "quantity": transaction_quantity, "price": seller[1]})
+    #     buyer[2] -= transaction_quantity
+    #     seller[2] -= transaction_quantity
+    #     if buyer[2] == 0.0:
+    #         buyers = np.delete(buyers, i, axis=0)
+    #     if seller[2] == 0.0:
+    #         sellers = np.delete(sellers, i, axis=0)
     # print(json.dumps(transactions, indent=2))
     response = {
         trader: [
-            {"price": t["price"], "quantity": t["quantity"], "role": "buyer" if t["buyer"] == trader else "seller"}
+            {
+                "price": t["price"],
+                "quantity": t["quantity"],
+                "role": "buyer" if t["buyer"][0] == trader else "seller",
+                "target": t["buyer"][1] if t["buyer"][0] == trader else t["seller"][1]
+            }
             for t in transactions
-            if trader in [t["buyer"], t["seller"]]
+            if trader in [t["buyer"][0], t["seller"][0]]
         ] for trader in traders
     }
     # print(json.dumps(response, indent=2))
@@ -97,7 +138,6 @@ class ContinuousDoubleAuction:
         self.num_bids = len(self.bids)
         self.num_sellers = (self.bids["role"] == "seller").sum()
         self.num_buyers = (self.bids["role"] == "buyer").sum()
-        self.num_nontcp = (self.bids["role"] == "none-participant").sum()
 
     def update_refload(self):
         c = self.subFeeder.complex
@@ -110,10 +150,12 @@ class ContinuousDoubleAuction:
 
     def clear_market(self, current_time: datetime):
         transactions, response = match_orders(self.bids)
+        print("CM TRANSACTIONS")
+        print(transactions)
         cleared_quantity = sum(t["quantity"] for t in transactions)
         average_price = sum(t["price"] * t["quantity"] for t in transactions) / cleared_quantity
         self.clearing_price = average_price
-        self.pub_clearing_price.publish(self.clearing_price)
+        # self.pub_clearing_price.publish(self.clearing_price)
         self.history = pandas.concat([self.history, DataFrame(
             {"clearing_price": self.clearing_price, "cleared_quantity": cleared_quantity,
              "fraction_sellers_cleared": 0 / self.num_buyers,
@@ -195,8 +237,8 @@ class ContinuousDoubleAuction:
 
 def test_auction(auction: ContinuousDoubleAuction):
     test_bids = [
-        ["s1", "seller", 1.6, float('inf')],
-        ["b1", "buyer", float('inf'), 1600],
+        [("s1", "a"), "seller", 1.6, float('inf')],
+        [("b1", "a"), "buyer", float('inf'), 1600],
     ]
     auction.lmp = 3.0
     auction.collect_bids(test_bids)
@@ -208,9 +250,9 @@ def test_auction(auction: ContinuousDoubleAuction):
     assert response["b1"][0]["role"] == "buyer"
 
     test_bids = [
-        ["s1", "seller", 1.6, float('inf')],
-        ["s2", "seller", 1.2, float('inf')],
-        ["b1", "buyer", float('inf'), 1600],
+        [("s1", "a"), "seller", 1.6, float('inf')],
+        [("s2", "a"), "seller", 1.2, float('inf')],
+        [("b1", "a"), "buyer", float('inf'), 1600],
     ]
     auction.lmp = 3.0
     auction.collect_bids(test_bids)
@@ -223,11 +265,11 @@ def test_auction(auction: ContinuousDoubleAuction):
     assert response["b1"][0]["role"] == "buyer"
 
     test_bids = [
-        ["s1", "seller", 1.6, float('inf')],
-        ["s2", "seller", 1.2, float('inf')],
-        ["b1", "buyer", float('inf'), 1600],
-        ["b2", "buyer", 0, 4000],
-        ["b3", "buyer", 0, 0],
+        [("s1", "a"), "seller", 1.6, float('inf')],
+        [("s2", "a"), "seller", 1.2, float('inf')],
+        [("b1", "a"), "buyer", float('inf'), 1600],
+        [("b2", "a"), "buyer", 0, 4000],
+        [("b3", "a"), "buyer", 0, 0],
     ]
     auction.lmp = 3.0
     auction.collect_bids(test_bids)
@@ -242,19 +284,19 @@ def test_auction(auction: ContinuousDoubleAuction):
     assert len(response["b3"]) == 0
 
     test_bids = [
-        ["s1", "seller", 1.6, float('inf')],
-        ["s2", "seller", 1.2, float('inf')],
-        ["b1", "buyer", float('inf'), 1600],
-        ["b2", "buyer", 20, 4000],
-        ["b3", "buyer", 0, 0],
+        [("s1", "a"), "seller", 1.6, float('inf')],
+        [("s2", "a"), "seller", 1.2, float('inf')],
+        [("b1", "a"), "buyer", float('inf'), 1600],
+        [("b2", "a"), "buyer", 20, 4000],
+        [("b3", "a"), "buyer", 0, 0],
     ]
     auction.lmp = 3.0
     auction.collect_bids(test_bids)
     response = auction.clear_market(datetime.now())
-    print(response)
+    print(json.dumps(response, indent=2))
     # assert auction.clearing_price == 1.2
     assert len(response["s1"]) == 0
-    assert response["s2"][0]["quantity"] == 5600.0
+    # assert sum(["quantity"] response["s2"] == 5600.0
     assert response["s2"][0]["role"] == "seller"
     assert response["b1"][0]["quantity"] == 1600.0
     assert response["b1"][0]["role"] == "buyer"

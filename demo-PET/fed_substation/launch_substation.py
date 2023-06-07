@@ -94,12 +94,12 @@ class PETFederate:
                 self.auction.collect_bids(bids)
                 self.auction.update_lmp()  # get local marginal price (LMP) from the bulk power grid
                 self.auction.update_refload()  # get distribution load from gridlabd
-                responses = self.auction.clear_market(self.current_time)
-                for trader, response in responses.items():
+                market_response = self.auction.clear_market(self.current_time)
+                for trader, transactions in market_response.items():
                     if trader == self.grid_supply.name:
-                        self.grid_supply.post_market_control(response)
+                        self.grid_supply.post_market_control(transactions)
                     else:
-                        self.houses[trader].post_market_control(response)
+                        self.houses[trader].post_market_control(transactions)
 
                 self.recorder.record_auction(self.current_time)
                 self.next_market_time += self.market_period

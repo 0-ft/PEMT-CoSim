@@ -12,6 +12,7 @@ from collections import deque
 from datetime import datetime, timedelta
 
 import helics
+import numpy as np
 from helics import HelicsFederate
 
 from market import ContinuousDoubleAuction
@@ -216,7 +217,7 @@ class PV:
         self.solar_DC_V_out = 0.0
         self.solar_DC_I_out = 0.0
         self.desired_power = 0.0
-
+        self.fixed_price = 0.014 + (np.random.uniform(-1, 1) / 1000)
         # control parameters
         self.subSolarPower = helics_federate.subscriptions[f"gld1/solar_F0_tpm_A{house_id}#measured_power"]
         # for i in range(helics.helicsFederateGetInputCount(helics_federate)):
@@ -242,60 +243,6 @@ class PV:
         self.desired_power = p
         self.pubSolarPOut.publish(p)
         self.pubSolarQOut.publish(0.0)
-
-
-class BATTERY:
-    def __init__(self, helics_federate: HelicsFederate, house_id: int):
-        # measurements
-        self.power = 0
-        self.soc = 0.5
-
-        # control parameters
-        self.charge_on_threshold = 1500
-        self.charge_off_threshold = 1700
-        self.discharge_on_threshold = 3000
-        self.discharge_off_threshold = 2000
-
-        self.charge_on_threshold_offset = 0
-        self.charge_off_threshold_offset = 200
-        self.discharge_on_threshold_offset = 3000
-        self.discharge_off_threshold_offset = 2500
-
-        self.sub_power = helics_federate.subscriptions[f"gld1/batt_F0_tpm_A{house_id}#measured_power"]
-        self.sub_soc = helics_federate.subscriptions[f"gld1/batt_F0_house_A{house_id}#state_of_charge"]
-
-        self.pub_charge_on_threshold = helics_federate.publications[
-            f"sub1/batt_inv_F0_house_A{house_id}/charge_on_threshold"]
-        self.pub_charge_off_threshold = helics_federate.publications[
-            f"sub1/batt_inv_F0_house_A{house_id}/charge_off_threshold"]
-        self.pub_discharge_on_threshold = helics_federate.publications[
-            f"sub1/batt_inv_F0_house_A{house_id}/disharge_off_threshold"]
-        self.pub_discharge_off_threshold = helics_federate.publications[
-            f"sub1/batt_inv_F0_house_A{house_id}/disharge_on_threshold"]
-
-    def update_state(self):
-        self.power = self.sub_power.complex.real
-        self.soc = self.sub_soc.double
-
-    def auto_control(self, unresponsive_kw):
-        # unresponsive_kw is the base load
-        # charge when load drops below unresponsive load
-        self.charge_on_threshold = unresponsive_kw * 1000 + self.charge_on_threshold_offset
-
-        # stop charging when load is coming up to unresponsive load
-        self.charge_off_threshold = unresponsive_kw * 1000 + self.charge_off_threshold_offset
-
-        # discharge when the load is above unresponsive load + 3000
-        self.discharge_on_threshold = unresponsive_kw * 1000 + self.discharge_on_threshold_offset
-
-        # stop discharging when the load is below unresponsive load + 2500
-        self.discharge_off_threshold = unresponsive_kw * 1000 + self.discharge_off_threshold_offset
-
-        self.pub_charge_on_threshold.publish(self.charge_on_threshold)
-        self.pub_charge_off_threshold.publish(self.charge_off_threshold)
-        self.pub_discharge_on_threshold.publish(self.discharge_on_threshold)
-        self.pub_discharge_off_threshold.publish(self.discharge_off_threshold)
-
 
 class EV:
     def __init__(self, helics_federate: HelicsFederate, house_id: int, auction: ContinuousDoubleAuction):
@@ -338,7 +285,7 @@ class EV:
         max_discharge = -self.max_discharge_rate
         if self.location != "home":
             self.load_range = 0.0, 0.0
-        if .9 <= self.soc:
+        elif .9 <= self.soc:
             self.load_range = max_discharge, 0
         elif .3 <= self.soc < .9:
             self.load_range = max_discharge, self.max_charge_rate
@@ -349,7 +296,7 @@ class EV:
 
     def set_desired_charge_rate(self, desired_charge_rate):
         min_load, max_load = self.load_range
-        if not min_load <= desired_charge_rate <= max_load:
+        if not (min_load <= desired_charge_rate <= max_load):
             print(
                 f"WARNING: EV {self.house_id} setting desired_charge_rate {desired_charge_rate:3f}, outside range {min_load}-{max_load}")
 
@@ -373,7 +320,6 @@ class House:
         self.hvac = HVAC(helics_federate, house_id, hvac_config, auction) if hvac_config else None
         self.pv = PV(helics_federate, house_id) if has_pv else None
         self.ev = EV(helics_federate, house_id, auction) if ev_config else None
-        self.battery = BATTERY(helics_federate, house_id) if battery_config else None
         self.role = 'buyer'  # current role: buyer/sellehouse_F0_tpm_r/none-participant
 
         # market price related
@@ -431,23 +377,8 @@ class House:
         if self.pv:
             self.pv.update_state()
 
-        if self.battery:
-            self.battery.update_state()
-
         if self.ev:
             self.ev.update_state()
-
-    def real_time_control(self):
-        pass
-        # self.pv.set_power_out(self.pv.power_range()[1])
-        # self.hvac.auto_control()
-        # if self.total_house_load < self.pv.solar_power:
-        # print(
-        #     f"EV @ {self.name} setting to diff {self.pv.solar_power} - {self.total_house_load} = {self.pv.solar_power - self.total_house_load}")
-        # self.ev.set_desired_charge_rate(min(self.pv.solar_power - self.total_house_load, self.ev.load_range()[1]))
-
-    # def predicted_load(self):
-    #     return self.unresponsive_kw
 
     def publish_meter_price(self):
         self.pub_meter_price.publish(self.auction.clearing_price)
@@ -468,48 +399,47 @@ class House:
         min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
         hvac_load = self.hvac.predicted_load()
 
-        unresponsive_bid = [self.name, "buyer", float('inf'), self.unresponsive_load]
+        unresponsive_bid = [(self.name, "unresponsive"), "buyer", float('inf'), self.unresponsive_load]
         bids = [unresponsive_bid]
         if hvac_load > 0:
-            bids.append([self.name, "buyer", 9999, hvac_load])
+            bids.append([(self.name, "hvac"), "buyer", 9999, hvac_load])
             # bids.append([self.name, "buyer",
             #             self.trading_policy.price_for_probability(self.current_time, self.hvac.probability), hvac_load])
 
         ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)
-        bids += [[self.name] + bid for bid in ev_bids]
-
+        try:
+            bids += [[(self.name, "ev")] + bid for bid in ev_bids]
+        except:
+            print(type(self.name), type("ev"), bids, type(bids), ev_bids, type(ev_bids))
+        self.pv.fixed_price = max(self.auction.lmp * 0.95, 0)
+        pv_bid = [(self.name, "pv"), "seller", self.trading_policy.sell_threshold_price * 0.95, max_pv_power]
+        if max_pv_power > 0:
+            bids += [pv_bid]
         # print(f"house {self.name} bids: {bids}")
         return bids
 
-    def post_market_control(self, auction_response):
-        print(self.name, auction_response)
-        self.pv.set_power_out(0)
-        power_bought = sum(bid["quantity"] for bid in auction_response if bid["role"] == "buyer")
-        power_sold = sum(bid["quantity"] for bid in auction_response if bid["role"] == "seller")
+    def post_market_control(self, transactions):
+        print(self.name, transactions)
+        buys = [bid for bid in transactions if bid["role"] == "buyer"]
+        sells = [bid for bid in transactions if bid["role"] == "seller"]
+        total_bought = sum(bid["quantity"] for bid in buys)
+        total_sold = sum(bid["quantity"] for bid in sells)
+        self.intended_load = total_bought - total_sold
 
-        self.intended_load = power_bought - power_sold
-        hvac_allowed = power_bought >= self.unresponsive_load + self.hvac.predicted_load()
+        unresponsive_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "unresponsive"])
+        hvac_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "hvac"])
+        ev_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "ev"])
+        ev_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "ev"])
+        pv_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "pv"])
+
+        hvac_allowed = hvac_bought >= self.hvac.predicted_load()
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
         hvac_load = self.hvac.hvac_on * self.hvac.predicted_load()
-        self.ev.set_desired_charge_rate(power_bought - self.unresponsive_load - hvac_load - power_sold)
-        print(
-            f"{self.name} bought {power_bought}, sold {power_sold}, unresponsive @ {self.unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}")
-        # print(power_available, self.unresponsive_load, hvac_load,
-        #       self.unresponsive_load + self.hvac.predicted_load(), self.hvac.probability, self.hvac.hvac_on)
 
-        # role, quantity = auction_response[["role", "quantity"]].values
-        #
-        # # bid_price = self.bid[0]
-        # # quantity = self.bid[1]
-        # hvac_power_needed = self.bid[2]
-        # # role = self.bid[3]
-        # unresponsive_power = self.bid[4]
-        # # base_covered = self.bid[6]
-        #
-        # min_ev_load, max_ev_load = self.ev.load_range()
-        # min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
-        # hvac_load = self.hvac.predicted_load()
-        #
+        self.ev.set_desired_charge_rate(ev_bought - ev_sold)
+        self.pv.set_power_out(pv_sold)
+        print(
+            f"{self.name} bought {total_bought}, sold {total_sold}, unresponsive @ {self.unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {self.ev.desired_charge_rate}, solar @ {pv_sold}")
 
 
 class GridSupply:
@@ -535,7 +465,7 @@ class GridSupply:
         self.bid = None
 
     def formulate_bid(self):
-        self.bid = [self.name, "seller", self.lmp, 80000]  # float('inf')]
+        self.bid = [(self.name, "main"), "seller", self.lmp, 80000]  # float('inf')]
         return self.bid
 
     def receive_request(self, request):
