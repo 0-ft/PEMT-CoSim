@@ -50,8 +50,8 @@ class LimitedCrossoverTrader:
         # print(self.auction.history.index, current_time - self.short_window, self.auction.history.index <= current_time)
 
         # update moving averages
-        self.long_ma = self.auction.history["average_since"].asof(current_time - self.long_window)
-        self.short_ma = self.auction.history["average_since"].asof(current_time - self.short_window)
+        self.long_ma = self.auction.history["average_since"].last(self.long_window).iloc[0]
+        self.short_ma = self.auction.history["average_since"].last(self.short_window).iloc[0]
         # long_ma_mask = self.auction.history.index >= (current_time - self.long_window)
         # long_ma_window = self.auction.history["clearing_price"][long_ma_mask]
         # if len(long_ma_window) < 2:
@@ -62,9 +62,7 @@ class LimitedCrossoverTrader:
         # short_ma_window = self.auction.history["clearing_price"][short_ma_mask]
         # self.short_ma = short_ma_window.mean()
         # self.amplitude = long_ma_window.max() - long_ma_window.min()
-        self.iqr = self.auction.history["iqr_since"].asof(current_time - self.long_window)
-        if np.any(np.isnan([self.long_ma, self.short_ma, self.iqr])):
-            return []
+        self.iqr = self.auction.history["iqr_since"].last(self.long_window).iloc[0]
 
         # predict price
         # self.predicted_price = short_ma_window.iloc[-1] + short_ma_window.diff().iloc[-1] * 1
