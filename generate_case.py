@@ -6,12 +6,14 @@ last update time: 2021-11-11
 modified by Yuanliang Li
 
 """
+import json
 
 import numpy as np
 
 import my_tesp_support_api.api as tesp
 from fed_weather.TMY3toCSV import weathercsv
-from glmhelper import GLM_HELPER
+from glmhelper import GlmGenerator
+from helics_config_helper import HelicsConfigHelper
 
 """0. generate a glm file (TE_Challenge.glm) according to user's preference"""
 
@@ -26,7 +28,7 @@ class PETScenario:
 
     num_VPPs = 1  # number of VPPs, each VPP manages a number of houses
     VPP_phase_list = ['A']  # the phase managed by a VPP
-    num_house_phase_list = [30]  # number of houses of each phase for each VPP
+    num_house_phase_list = [0]  # number of houses of each phase for each VPP
     num_house_list = np.array(num_house_phase_list)  # number of houses for each VPP
     ratio_PV_only_list = [30 / 10]  # ratio of houses that have only PV installed for each VPP
     # in this case, each house must have battery installed, so ratio_PV_only_list = [0,..]
@@ -38,8 +40,9 @@ class PETScenario:
     ratio_PV_generation_list = [100 / 100]  # PV generation ratio for each VPP
     battery_mode = 'LOAD_FOLLOWING'  # CONSTANT_PQ
 
+
 scenario = PETScenario()
-glm = GLM_HELPER(scenario)
+glm = GlmGenerator(scenario)
 glm.generate_glm()
 
 """1. configure simulation time period"""
@@ -57,3 +60,10 @@ weathercsv(f"fed_weather/tesp_weather/{tmy_file_name}", 'weather.dat', start_tim
 tesp.glm_dict('TE_Challenge', te30=True)
 
 tesp.prep_substation('TE_Challenge', scenario)
+
+hch = HelicsConfigHelper(30, 30, 30)
+with open("fed_gridlabd/TE_Challenge_HELICS_gld_msg.json", "w") as f:
+    json.dump(hch.gridlab_config, f, indent=4)
+
+with open("fed_substation/TE_Challenge_HELICS_substation.json", "w") as f:
+    json.dump(hch.pet_config, f, indent=4)

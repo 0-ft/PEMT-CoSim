@@ -13,18 +13,23 @@ from scipy.stats import iqr
 
 # SELLER ONLY DIVISIBLE
 def match_orders(bids):
+    print(bids.to_string())
     buyers = bids[bids["role"] == "buyer"].sample(frac=1).sort_values("price",
                                                                       ascending=False)[
         ["trader", "price", "quantity"]].values
     sellers = bids[bids["role"] == "seller"].sample(frac=1).sort_values("price",
                                                                         ascending=True)[
         ["trader", "price", "quantity"]].values
+    assert not any(buyers[:, 1] < 0), "some buyer(s) have negative price"
+    assert not any(sellers[:, 1] < 0), "some seller(s) have negative price"
+    assert not any(buyers[:, 2] < 0), "some buyer(s) have negative quantity"
+    assert not any(sellers[:, 2] < 0), "some seller(s) have negative quantity"
     buyers = buyers[buyers[:, 1] > 0]
     traders = set(trader[0] for trader in bids["trader"])
     transactions = []
     while len(buyers):
         # print("Xbuyers\n", buyers)
-        # print("Xsellers\n", sellers[:,1])
+        # print("Xsellers\n", sellers)
         # print("Xtrans\n", transactions)
         matched_sellers = (buyers[0][1] >= sellers[:, 1]).nonzero()
         # print("Xmatches\n", matched_sellers)
@@ -133,6 +138,8 @@ class ContinuousDoubleAuction:
     def collect_bids(self, bids):
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]
         self.bids = DataFrame(bids, columns=["trader", "role", "price", "quantity"])
+        with open("latest_match.pkl", "wb") as f:
+            pickle.dump(self.bids, f)
         print("auction got bids:")
         print(self.bids.to_string())
         self.num_bids = len(self.bids)
@@ -358,10 +365,17 @@ def test_auction(auction: ContinuousDoubleAuction):
     # assert len(response["b2"]) == 0
     # assert len(response["b3"]) == 0
 
+def rerun_latest_bids(auction):
+    with open("latest_match.pkl", "rb") as f:
+        bids = pickle.load(f)
+    match_orders(bids)
+
 
 if __name__ == "__main__":
-    with open("metrics.pkl", "rb") as f:
-        history = pickle.load(f)
+    a = ContinuousDoubleAuction(None, datetime.now())
+    rerun_latest_bids(a)
+    # with open("metrics.pkl", "rb") as f:
+    #     history = pickle.load(f)
         # tbids = [
         #     [1000, 200, False, "seller", 0, "ann", False],
         #     [10000, 200, False, "seller", 0, "bobby", False],
@@ -377,8 +391,8 @@ if __name__ == "__main__":
         # bids = history["auction"]["bids"]
         # print(datetime.strptime("2013-07-01 18:30:00", '%Y-%m-%d %H:%M:%S').strftime("%z"))
         # bid_round = bids.loc[parse("2013-07-01 13:09:58-08:00")]
-        a = ContinuousDoubleAuction(None, datetime.now())
-        test_auction(a)
+    # a = ContinuousDoubleAuction(None, datetime.now())
+    # test_auction(a)
         # a.collect_bids(bid_round[["trader", "role", "price", "quantity"]])
         # print(a.clear_market())
         # print(a.response[a.response.index == "F0_house_A0"])

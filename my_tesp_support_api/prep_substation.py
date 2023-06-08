@@ -360,6 +360,7 @@ def ProcessGLM(fileroot, global_config):
     for house_id, (key, val) in enumerate(glm_dict['houses'].items()):
         meterName = val['parent']
         subs.append({"key": "gld1/" + meterName + "#measured_power", "type": "complex"})
+        subs.append({"key": f"gld1/F0_tpm_A{house_id}_EV/measured_power", "type": "complex"})
 
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/location", "type": "string"})
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/stored_energy", "type": "double"})
@@ -557,12 +558,12 @@ def ProcessGLM(fileroot, global_config):
                 subs.append({"key": "sub1/" + meterName + "/" + prop, "type": "double",
                              "info": {"object": meterName, "property": prop}})
 
-    # for house parent meter
-    for key, val in glm_dict['houses'].items():
-        meterName = val['parent']
-        prop = 'measured_power'
-        pubs.append({"global": False, "key": meterName + '#' + prop, "type": "complex",
-                     "info": {"object": meterName, "property": prop}})
+    # # for house parent meter
+    # for key, val in glm_dict['houses'].items():
+    #     meterName = val['parent']
+    #     prop = 'measured_power'
+    #     pubs.append({"global": False, "key": meterName + '#' + prop, "type": "complex",
+    #                  "info": {"object": meterName, "property": prop}})
     # for inverter parent meter
     for key, val in glm_dict['inverters'].items():
         meterName = val['parent']
@@ -581,6 +582,15 @@ def ProcessGLM(fileroot, global_config):
             prop = 'state_of_charge'
             pubs.append({"global": False, "key": resource_name + '#' + prop, "type": "double",
                          "info": {"object": resource_name, "property": prop}})
+
+    ev_meter_pubs = [
+        {
+            "global": False, "key": f"F0_tpm_A{house_index}_EV/{prop}", "type": prop_type,
+            "info": {"object": f"F0_tpm_A{house_index}_EV", "property": prop}
+        } for house_index in range(30) for prop, prop_type in [('measured_power', "complex")]
+    ]
+
+    pubs += ev_meter_pubs
 
     # for PV inverter control
     for key, val in glm_dict['inverters'].items():

@@ -21,10 +21,12 @@ house_code = ""
 
 PV_code = ""
 
+EV_code = ""
+
 batt_code = ""
 
 
-class GLM_HELPER:
+class GlmGenerator:
     """
     A class used to define the functions for generating .glm for Gridlab-d federate.
     ...
@@ -82,6 +84,11 @@ class GLM_HELPER:
         global PV_code
         with open('./fed_gridlabd/glm-template/pv_template', 'r') as f:
             PV_code = f.read()
+
+        global EV_code
+        with open('./fed_gridlabd/glm-template/ev_template', 'r') as f:
+            EV_code = f.read()
+
         global batt_code
         with open('./fed_gridlabd/glm-template/battery_template', 'r') as f:
             batt_code = f.read()
@@ -158,6 +165,9 @@ class GLM_HELPER:
                 h_code = h_code.replace("{mass_temperature}", str(h_par_dict['mass_temperature']))
                 h_code = h_code.replace("{ZIP_code}", str(h_par_dict['ZIP_code']))
 
+                if house_idx < 30:
+                    h_code += self.configure_ev(vpp_idx, phase, house_idx)
+
                 if count_pv_only > 0:
                     h_code += self.configure_PV(h_par_dict, vpp_idx, phase, house_idx)
                     count_pv_only -= 1
@@ -214,12 +224,13 @@ class GLM_HELPER:
 
         return b_code
 
-    def configure_ev(self):
-        ev_code = """object load {
-    name ev_zip_load;
-    parent house_F0_tpm_A29;
-};"""
+    def configure_ev(self, vpp_idx, phase, house_idx):
+        ev_code = EV_code
+        ev_code = ev_code.replace("{vpp_idx}", str(vpp_idx))
+        ev_code = ev_code.replace("{phase}", phase)
+        ev_code = ev_code.replace("{house_idx}", str(house_idx))
 
+        return ev_code
     # def get_house_parameters(self, vpp_idx, phase, house_idx):
     #     dict = {}
     #     if phase == 'A':

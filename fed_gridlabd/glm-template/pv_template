@@ -1,15 +1,22 @@
+object triplex_line {
+	groupid F{vpp_idx}_Triplex_Line;
+	phases {phase}S;
+	from H{house_idx}_meter_billing;
+	to H{house_idx}_solar_meter;
+	length 10 ft;
+	configuration TLCFG;
+}
 
 object triplex_meter {
-	name solar_F{vpp_idx}_tpm_{phase}{house_idx};
-	parent F{vpp_idx}_tpm_{phase}{house_idx};
+	name H{house_idx}_solar_meter;
 	phases {phase}S;
 	nominal_voltage 120;
 	groupid inverter_meter;
 }
 
 object inverter {
-	name solar_inv_F{vpp_idx}_house_{phase}{house_idx};
-    parent solar_F{vpp_idx}_tpm_{phase}{house_idx};
+	name H{house_idx}_solar_inv;
+    parent H{house_idx}_solar_meter;
 	phases {phase}S;
 	inverter_type FOUR_QUADRANT;
 	power_factor 1;
@@ -23,7 +30,7 @@ object inverter {
 	Q_Out 0;
     P_Out 0;
 	object solar {
-		name solar_F{vpp_idx}_house_{phase}{house_idx};
+		name H{house_idx}_solar;
 		// generator_mode SUPPLY_DRIVEN;
 		// generator_status ONLINE;
 		panel_type SINGLE_CRYSTAL_SILICON;

@@ -2,14 +2,13 @@ object triplex_line {
 	groupid F{vpp_idx}_Triplex_Line;
 	phases {phase}S;
 	from F{vpp_idx}_triplex_node_{phase};
-	to F{vpp_idx}_tpm_{phase}{house_idx};
+	to H{house_idx}_meter_billing;
 	length 10 ft;
 	configuration TLCFG;
 }
 
 object triplex_meter {
-	name F{vpp_idx}_tpm_{phase}{house_idx};
-	groupid F{vpp_idx}_meter;
+	name H{house_idx}_meter_billing;
 	phases {phase}S;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
@@ -18,43 +17,26 @@ object triplex_meter {
     price ${FIXED_PRICE};
 }
 
-//1st line;a new node;2nd line
 object triplex_line {
-     from F{vpp_idx}_tpm_{phase}{house_idx};
-     to F{vpp_idx}_tpm_{phase}{house_idx}_node;
-     phases {phase}S;
-     length 1 ft;
-     configuration TLCFG;
+	groupid F{vpp_idx}_Triplex_Line;
+	phases {phase}S;
+	from H{house_idx}_meter_billing;
+	to H{house_idx}_meter_house;
+	length 10 ft;
+	configuration TLCFG;
 }
 
-//a new node;
-object triplex_meter {     
-     name F{vpp_idx}_tpm_{phase}{house_idx}_node;
-     phases {phase}S;
-     nominal_voltage 120.00;     
-} 
-
-//2nd line
-object triplex_line {
-     from F{vpp_idx}_tpm_{phase}{house_idx}_node;
-     to house_F{vpp_idx}_tpm_{phase}{house_idx};
-     phases {phase}S;
-     length 1 ft;
-     configuration TLCFG;
-}
-
-// the new meter for the house
 object triplex_meter {
-	name house_F{vpp_idx}_tpm_{phase}{house_idx};
+	name H{house_idx}_meter_house;
+	groupid F{vpp_idx}_meter;
 	phases {phase}S;
 	nominal_voltage 120;
-	groupid house_meter;
 }
 
 object house {
-	name F{vpp_idx}_house_{phase}{house_idx};
+	name H{house_idx};
     groupid VPP_{vpp_idx};
-	parent house_F{vpp_idx}_tpm_{phase}{house_idx};
+	parent H{house_idx}_meter_house;
 	schedule_skew {skew};
 	Rroof {Rroof};
 	Rwall {Rwall};
@@ -83,8 +65,3 @@ object house {
 
     {ZIP_code}
 }
-
-object load {
-    name F{vpp_idx}_house_{phase}{house_idx}_EV;
-    parent F{vpp_idx}_tpm_{phase}{house_idx};
-};

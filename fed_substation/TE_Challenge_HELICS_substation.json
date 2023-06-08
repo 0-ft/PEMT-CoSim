@@ -1,3474 +1,2424 @@
 {
-  "name": "sub1",
-  "period": 1,
-  "publications": [
-    {
-      "key": "clear_price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "unresponsive_mw",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "responsive_max_mw",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "responsive_c2",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "responsive_c1",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "responsive_deg",
-      "type": "integer",
-      "global": false
-    },
-    {
-      "key": "F0_house_A0_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A0_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A0_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A0_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A0/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A0/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A0/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A1_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A1_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A1_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A1_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A1/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A1/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A1/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A2_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A2_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A2_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A2_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A2/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A2/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A2/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A3_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A3_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A3_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A3_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A3/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A3/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A3/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A4_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A4_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A4_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A4_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A4/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A4/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A4/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A5_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A5_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A5_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A5_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A5/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A5/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A5/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A6_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A6_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A6_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A6_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A6/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A6/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A6/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A7_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A7_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A7_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A7_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A7/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A7/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A7/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A8_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A8_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A8_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A8_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A8/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A8/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A8/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A9_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A9_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A9_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A9_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A9/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A9/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A9/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A10_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A10_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A10_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A10_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A10/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A10/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A10/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A11_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A11_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A11_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A11_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A11/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A11/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A11/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A12_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A12_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A12_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A12_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A12/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A12/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A12/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A13_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A13_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A13_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A13_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A13/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A13/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A13/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A14_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A14_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A14_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A14_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A14/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A14/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A14/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A15_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A15_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A15_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A15_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A15/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A15/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A15/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A16_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A16_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A16_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A16_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A16/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A16/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A16/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A17_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A17_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A17_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A17_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A17/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A17/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A17/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A18_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A18_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A18_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A18_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A18/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A18/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A18/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A19_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A19_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A19_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A19_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A19/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A19/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A19/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A20_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A20_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A20_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A20_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A20/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A20/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A20/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A21_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A21_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A21_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A21_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A21/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A21/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A21/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A22_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A22_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A22_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A22_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A22/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A22/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A22/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A23_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A23_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A23_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A23_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A23/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A23/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A23/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A24_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A24_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A24_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A24_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A24/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A24/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A24/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A25_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A25_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A25_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A25_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A25/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A25/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A25/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A26_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A26_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A26_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A26_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A26/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A26/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A26/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A27_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A27_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A27_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A27_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A27/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A27/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A27/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A28_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A28_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A28_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A28_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A28/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A28/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A28/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A29_hvac/cooling_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A29_hvac/heating_setpoint",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A29_hvac/thermostat_deadband",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A29_hvac/thermostat_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A29/bill_mode",
-      "type": "string",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A29/price",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_tpm_A29/monthly_fee",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A0_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A1_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A2_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A3_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A4_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A5_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A6_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A7_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A8_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A9_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A10_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A11_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A12_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A13_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A14_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A15_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A16_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A17_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A18_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A19_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A20_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A21_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A22_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A23_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A24_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A25_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A26_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A27_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A28_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "F0_house_A29_EV/charge_rate",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A0/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A0/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A1/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A1/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A2/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A2/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A3/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A3/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A4/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A4/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A5/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A5/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A6/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A6/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A7/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A7/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A8/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A8/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A9/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A9/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A10/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A10/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A11/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A11/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A12/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A12/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A13/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A13/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A14/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A14/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A15/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A15/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A16/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A16/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A17/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A17/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A18/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A18/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A19/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A19/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A20/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A20/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A21/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A21/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A22/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A22/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A23/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A23/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A24/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A24/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A25/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A25/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A26/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A26/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A27/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A27/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A28/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A28/Q_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A29/P_Out",
-      "type": "double",
-      "global": false
-    },
-    {
-      "key": "solar_inv_F0_house_A29/Q_Out",
-      "type": "double",
-      "global": false
-    }
-  ],
-  "subscriptions": [
-    {
-      "key": "pypower/LMP_B7",
-      "type": "double"
-    },
-    {
-      "key": "gld1/distribution_load",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_triplex_node_A#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_house_A0#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A0#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A0#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A0#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A0#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A0#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A0#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A1#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A1#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A1#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A1#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A1#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A1#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A1#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A2#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A2#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A2#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A2#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A2#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A2#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A2#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A3#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A3#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A3#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A3#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A3#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A3#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A3#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A4#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A4#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A4#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A4#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A4#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A4#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A4#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A5#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A5#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A5#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A5#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A5#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A5#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A5#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A6#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A6#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A6#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A6#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A6#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A6#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A6#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A7#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A7#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A7#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A7#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A7#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A7#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A7#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A8#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A8#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A8#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A8#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A8#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A8#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A8#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A9#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A9#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A9#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A9#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A9#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A9#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A9#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A10#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A10#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A10#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A10#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A10#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A10#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A10#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A11#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A11#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A11#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A11#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A11#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A11#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A11#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A12#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A12#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A12#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A12#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A12#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A12#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A12#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A13#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A13#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A13#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A13#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A13#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A13#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A13#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A14#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A14#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A14#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A14#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A14#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A14#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A14#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A15#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A15#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A15#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A15#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A15#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A15#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A15#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A16#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A16#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A16#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A16#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A16#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A16#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A16#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A17#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A17#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A17#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A17#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A17#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A17#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A17#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A18#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A18#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A18#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A18#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A18#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A18#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A18#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A19#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A19#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A19#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A19#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A19#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A19#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A19#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A20#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A20#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A20#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A20#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A20#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A20#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A20#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A21#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A21#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A21#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A21#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A21#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A21#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A21#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A22#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A22#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A22#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A22#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A22#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A22#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A22#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A23#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A23#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A23#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A23#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A23#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A23#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A23#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A24#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A24#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A24#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A24#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A24#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A24#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A24#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A25#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A25#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A25#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A25#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A25#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A25#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A25#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A26#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A26#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A26#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A26#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A26#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A26#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A26#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A27#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A27#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A27#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A27#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A27#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A27#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A27#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A28#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A28#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A28#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A28#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A28#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A28#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A28#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A29#air_temperature",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A29#hvac_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A29#total_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/F0_house_A29#power_state",
-      "type": "string"
-    },
-    {
-      "key": "gld1/F0_tpm_A29#measured_voltage_1",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A29#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/F0_tpm_A29#measured_demand",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A0#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A0_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A0_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A0_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A0_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A0_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A1#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A1_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A1_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A1_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A1_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A1_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A2#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A2_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A2_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A2_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A2_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A2_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A3#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A3_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A3_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A3_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A3_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A3_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A4#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A4_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A4_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A4_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A4_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A4_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A5#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A5_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A5_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A5_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A5_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A5_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A6#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A6_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A6_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A6_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A6_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A6_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A7#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A7_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A7_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A7_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A7_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A7_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A8#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A8_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A8_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A8_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A8_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A8_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A9#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A9_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A9_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A9_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A9_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A9_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A10#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A10_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A10_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A10_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A10_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A10_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A11#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A11_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A11_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A11_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A11_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A11_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A12#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A12_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A12_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A12_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A12_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A12_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A13#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A13_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A13_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A13_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A13_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A13_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A14#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A14_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A14_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A14_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A14_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A14_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A15#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A15_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A15_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A15_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A15_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A15_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A16#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A16_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A16_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A16_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A16_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A16_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A17#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A17_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A17_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A17_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A17_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A17_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A18#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A18_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A18_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A18_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A18_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A18_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A19#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A19_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A19_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A19_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A19_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A19_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A20#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A20_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A20_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A20_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A20_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A20_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A21#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A21_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A21_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A21_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A21_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A21_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A22#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A22_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A22_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A22_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A22_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A22_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A23#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A23_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A23_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A23_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A23_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A23_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A24#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A24_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A24_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A24_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A24_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A24_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A25#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A25_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A25_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A25_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A25_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A25_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A26#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A26_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A26_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A26_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A26_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A26_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A27#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A27_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A27_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A27_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A27_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A27_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A28#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A28_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A28_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A28_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A28_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A28_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/house_F0_tpm_A29#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A29_EV/location",
-      "type": "string"
-    },
-    {
-      "key": "ev1/F0_house_A29_EV/stored_energy",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A29_EV/soc",
-      "type": "double"
-    },
-    {
-      "key": "ev1/F0_house_A29_EV/charging_load",
-      "type": "complex"
-    },
-    {
-      "key": "ev1/F0_house_A29_EV/driving_load",
-      "type": "double"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A0#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A1#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A2#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A3#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A4#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A5#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A6#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A7#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A8#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A9#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A10#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A11#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A12#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A13#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A14#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A15#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A16#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A17#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A18#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A19#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A20#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A21#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A22#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A23#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A24#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A25#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A26#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A27#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A28#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_tpm_A29#measured_power",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A0#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A0#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A1#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A1#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A2#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A2#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A3#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A3#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A4#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A4#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A5#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A5#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A6#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A6#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A7#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A7#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A8#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A8#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A9#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A9#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A10#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A10#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A11#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A11#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A12#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A12#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A13#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A13#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A14#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A14#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A15#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A15#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A16#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A16#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A17#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A17#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A18#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A18#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A19#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A19#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A20#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A20#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A21#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A21#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A22#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A22#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A23#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A23#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A24#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A24#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A25#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A25#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A26#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A26#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A27#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A27#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A28#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A28#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A29#V_Out",
-      "type": "complex"
-    },
-    {
-      "key": "gld1/solar_F0_house_A29#I_Out",
-      "type": "complex"
-    },
-    {
-      "key": "localWeather/temperature",
-      "type": "double"
-    }
-  ]
+    "name": "pet1",
+    "period": 1,
+    "publications": [
+        {
+            "key": "clear_price",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "unresponsive_mw",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "responsive_max_mw",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "responsive_c2",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "responsive_c1",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "responsive_deg",
+            "type": "integer",
+            "global": false
+        },
+        {
+            "global": false,
+            "key": "H0_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H0_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H0_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H1_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H1_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H1_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H2_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H2_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H2_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H3_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H3_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H3_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H4_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H4_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H4_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H5_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H5_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H5_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H6_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H6_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H6_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H7_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H7_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H7_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H8_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H8_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H8_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H9_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H9_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H9_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H10_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H10_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H10_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H11_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H11_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H11_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H12_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H12_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H12_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H13_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H13_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H13_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H14_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H14_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H14_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H15_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H15_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H15_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H16_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H16_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H16_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H17_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H17_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H17_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H18_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H18_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H18_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H19_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H19_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H19_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H20_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H20_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H20_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H21_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H21_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H21_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H22_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H22_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H22_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H23_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H23_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H23_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H24_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H24_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H24_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H25_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H25_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H25_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H26_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H26_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H26_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H27_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H27_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H27_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H28_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H28_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H28_solar_inv#Q_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H29_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H29_solar_inv#P_Out",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H29_solar_inv#Q_Out",
+            "type": "double"
+        }
+    ],
+    "subscriptions": [
+        {
+            "key": "pypower/LMP_B7",
+            "type": "double"
+        },
+        {
+            "key": "gld1/distribution_load",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/F0_triplex_node_A#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "localWeather/temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H0_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H0_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H0_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H0_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H0_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H0_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H0_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H0_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H0_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H0_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H1#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H1_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H1_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H1_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H1_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H1_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H1_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H1_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H1_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H1_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H2#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H2_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H2_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H2_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H2_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H2_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H2_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H2_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H2_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H2_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H3#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H3_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H3_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H3_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H3_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H3_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H3_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H3_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H3_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H3_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H4#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H4_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H4_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H4_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H4_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H4_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H4_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H4_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H4_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H4_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H5#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H5_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H5_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H5_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H5_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H5_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H5_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H5_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H5_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H5_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H6#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H6_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H6_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H6_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H6_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H6_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H6_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H6_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H6_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H6_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H7#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H7_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H7_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H7_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H7_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H7_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H7_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H7_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H7_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H7_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H8#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H8_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H8_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H8_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H8_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H8_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H8_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H8_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H8_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H8_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H9#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H9_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H9_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H9_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H9_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H9_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H9_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H9_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H9_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H9_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H10#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H10_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H10_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H10_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H10_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H10_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H10_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H10_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H10_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H10_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H11#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H11_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H11_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H11_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H11_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H11_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H11_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H11_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H11_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H11_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H12#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H12_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H12_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H12_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H12_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H12_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H12_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H12_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H12_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H12_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H13#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H13_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H13_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H13_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H13_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H13_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H13_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H13_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H13_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H13_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H14#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H14_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H14_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H14_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H14_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H14_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H14_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H14_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H14_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H14_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H15#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H15_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H15_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H15_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H15_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H15_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H15_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H15_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H15_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H15_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H16#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H16_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H16_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H16_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H16_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H16_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H16_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H16_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H16_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H16_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H17#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H17_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H17_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H17_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H17_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H17_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H17_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H17_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H17_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H17_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H18#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H18_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H18_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H18_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H18_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H18_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H18_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H18_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H18_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H18_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H19#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H19_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H19_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H19_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H19_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H19_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H19_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H19_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H19_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H19_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H20#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H20_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H20_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H20_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H20_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H20_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H20_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H20_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H20_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H20_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H21#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H21_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H21_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H21_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H21_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H21_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H21_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H21_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H21_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H21_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H22#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H22_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H22_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H22_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H22_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H22_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H22_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H22_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H22_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H22_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H23#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H23_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H23_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H23_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H23_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H23_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H23_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H23_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H23_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H23_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H24#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H24_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H24_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H24_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H24_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H24_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H24_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H24_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H24_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H24_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H25#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H25_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H25_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H25_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H25_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H25_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H25_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H25_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H25_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H25_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H26#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H26_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H26_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H26_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H26_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H26_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H26_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H26_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H26_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H26_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H27#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H27_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H27_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H27_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H27_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H27_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H27_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H27_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H27_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H27_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H28#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H28_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H28_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H28_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H28_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H28_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H28_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H28_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H28_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H28_solar#V_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H29#hvac_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29#air_temperature",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29#total_load",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29#power_state",
+            "type": "string"
+        },
+        {
+            "key": "gld1/H29_ev_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H29_ev_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29_ev_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "ev1/H29_ev#location",
+            "type": "string"
+        },
+        {
+            "key": "ev1/H29_ev#driving_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H29_ev#charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H29_ev#soc",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29_solar_meter#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H29_solar_meter#measured_demand",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29_solar_meter#measured_voltage_1",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H29_solar#I_Out",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H29_solar#V_Out",
+            "type": "complex"
+        }
+    ]
 }

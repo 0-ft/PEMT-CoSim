@@ -88,6 +88,7 @@ class PETFederate:
             if time_granted >= self.next_market_time:
                 # auction.clear_bids()  # auction remove all previous records, re-initialize
                 print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range) for house in self.houses.values()]}")
+                print(f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load) for i, house in enumerate(self.houses.values())]}")
                 print("AUCTION HISTORY BEFORE BIDS")
                 print(self.auction.history)
                 bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [self.grid_supply.formulate_bid()]

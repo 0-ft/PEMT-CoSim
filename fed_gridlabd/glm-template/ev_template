@@ -1,4 +1,19 @@
-object ZIPload {
-    name F{vpp_idx}_house_{phase}{house_idx}_EV;
-    parent F{vpp_idx}_tpm_{phase}{house_idx};
+object triplex_line {
+	groupid F{vpp_idx}_Triplex_Line;
+	phases {phase}S;
+	from H{house_idx}_meter_billing;
+	to H{house_idx}_ev_meter;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name H{house_idx}_ev_meter;
+	phases {phase}S;
+	nominal_voltage 120;
+}
+
+object load {
+    name H{house_idx}_ev;
+    parent H{house_idx}_ev_meter;
 };

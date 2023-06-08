@@ -137,7 +137,7 @@ class HVAC:
     def update_state(self):
         self.air_temp = self.sub_temp.double
         # hvac load
-        self.hvac_load = max(self.sub_hvac_load.double * 1000, 0)
+        self.hvac_load = self.sub_hvac_load.double #max(self.sub_hvac_load.double * 1000, 0)
         # update request probability
         self.update_request_probability()
 
@@ -261,6 +261,8 @@ class EV:
         self.desired_charge_rate = 0.0
         self.charging_load = 0.0
         self.driving_load = 0.0
+        self.measured_load = 0.0
+
         self.sub_location = helics_federate.subscriptions[f"ev1/F0_house_A{house_id}_EV/location"]
         self.sub_stored_energy = helics_federate.subscriptions[f"ev1/F0_house_A{house_id}_EV/stored_energy"]
         self.sub_soc = helics_federate.subscriptions[f"ev1/F0_house_A{house_id}_EV/soc"]
@@ -270,12 +272,15 @@ class EV:
         self.pub_desired_charge_rate = helics.helicsFederateGetPublication(helics_federate,
                                                                            f"F0_house_A{house_id}_EV/charge_rate")
 
+        self.sub_measured_load = helics_federate.subscriptions[f"gld1/F0_tpm_A{house_id}_EV/measured_power"]
+
     def update_state(self):
         self.location = self.sub_location.string
         self.stored_energy = self.sub_stored_energy.double
         self.soc = self.sub_soc.double
         self.charging_load = self.sub_charging_load.complex.real
         self.driving_load = self.sub_driving_load.double
+        self.measured_load = abs(self.sub_measured_load.complex)
         # print(f"EV {self.house_id} got subs {self.load:3f}, {self.soc:3f}, {self.location}, {self.stored_energy:3f}")
         self.set_load_range()
 
@@ -320,17 +325,9 @@ class House:
         self.hvac = HVAC(helics_federate, house_id, hvac_config, auction) if hvac_config else None
         self.pv = PV(helics_federate, house_id) if has_pv else None
         self.ev = EV(helics_federate, house_id, auction) if ev_config else None
-        self.role = 'buyer'  # current role: buyer/sellehouse_F0_tpm_r/none-participant
-
-        # market price related
-        self.bid = []
-        self.bid_price = 0.0
-        random.seed(seed)
-        self.fixed_seller_price = random.uniform(0.01, 0.015)
 
         # measurements
         self.mtr_voltage = 120.0
-        self.mtr_power = 0.0
         self.total_house_load = 0.0
         self.unresponsive_load = 0.0
 
@@ -347,8 +344,7 @@ class House:
         self.pub_meter_price = helics.helicsFederateGetPublication(helics_federate, f"F0_tpm_A{house_id}/price")
 
         self.sub_meter_voltage = helics_federate.subscriptions[f"gld1/F0_tpm_A{house_id}#measured_voltage_1"]
-        self.sub_meter_power = helics_federate.subscriptions[f"gld1/F0_tpm_A{house_id}#measured_power"]
-        self.sub_house_load = helics_federate.subscriptions[f"gld1/house_F0_tpm_A{house_id}#measured_power"]
+        self.sub_house_load = helics_federate.subscriptions[f"gld1/F0_tpm_A{house_id}#measured_power"]
 
     def set_meter_mode(self):
         self.pub_meter_mode.publish('HOURLY')
@@ -358,13 +354,11 @@ class House:
         self.current_time = time
         # for billing meter measurements ==================
         # billing meter voltage
-        self.mtr_voltage = abs(self.sub_meter_voltage.complex)
-        # billing meter power
-        self.mtr_power = self.sub_meter_power.complex.real
+        self.mtr_voltage = self.sub_meter_voltage.complex
 
         # for house meter measurements ==================
         # house meter power, measured at house_F0_tpm_A(N) (excludes solar + ev)
-        self.total_house_load = abs(self.sub_house_load.complex)
+        self.total_house_load = self.sub_house_load.double
         # print(f"{self.name} got house load {self.total_house_load}")
 
         # for HVAC measurements  ==================
