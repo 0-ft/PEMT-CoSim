@@ -44,13 +44,13 @@ class V2GEV:
         self.driving_load = 0.0
         self.time_to_full_charge = float('inf')
 
-        self.pub_location = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/location")
-        self.pub_stored_energy = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/stored_energy")
-        self.pub_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/charging_load")
-        self.pub_soc = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/soc")
-        self.pub_driving_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}/driving_load")
+        self.pub_location = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#location")
+        self.pub_stored_energy = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#stored_energy")
+        self.pub_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#charging_load")
+        self.pub_soc = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#soc")
+        self.pub_driving_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#driving_load")
 
-        self.sub_charge_rate = helics.helicsFederateGetSubscription(self.helics_fed, f"sub1/{name}/charge_rate")
+        self.sub_charge_rate = helics.helicsFederateGetSubscription(self.helics_fed, f"pet1/{name}#charge_rate")
         self.prev_time = start_time
         self.current_time = start_time
         self.history = []

@@ -34,6 +34,26 @@
         },
         {
             "global": false,
+            "key": "H0_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H0_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H0_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H0#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H0_ev#charge_rate",
             "type": "double"
         },
@@ -46,6 +66,26 @@
             "global": false,
             "key": "H0_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H1_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H1_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H1_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H1#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -64,6 +104,26 @@
         },
         {
             "global": false,
+            "key": "H2_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H2_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H2_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H2#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H2_ev#charge_rate",
             "type": "double"
         },
@@ -76,6 +136,26 @@
             "global": false,
             "key": "H2_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H3_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H3_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H3_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H3#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -94,6 +174,26 @@
         },
         {
             "global": false,
+            "key": "H4_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H4_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H4_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H4#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H4_ev#charge_rate",
             "type": "double"
         },
@@ -106,6 +206,26 @@
             "global": false,
             "key": "H4_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H5_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H5_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H5_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H5#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -124,6 +244,26 @@
         },
         {
             "global": false,
+            "key": "H6_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H6_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H6_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H6#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H6_ev#charge_rate",
             "type": "double"
         },
@@ -136,6 +276,26 @@
             "global": false,
             "key": "H6_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H7_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H7_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H7_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H7#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -154,6 +314,26 @@
         },
         {
             "global": false,
+            "key": "H8_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H8_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H8_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H8#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H8_ev#charge_rate",
             "type": "double"
         },
@@ -166,6 +346,26 @@
             "global": false,
             "key": "H8_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H9_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H9_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H9_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H9#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -184,6 +384,26 @@
         },
         {
             "global": false,
+            "key": "H10_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H10_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H10_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H10#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H10_ev#charge_rate",
             "type": "double"
         },
@@ -196,6 +416,26 @@
             "global": false,
             "key": "H10_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H11_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H11_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H11_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H11#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -214,6 +454,26 @@
         },
         {
             "global": false,
+            "key": "H12_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H12_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H12_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H12#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H12_ev#charge_rate",
             "type": "double"
         },
@@ -226,6 +486,26 @@
             "global": false,
             "key": "H12_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H13_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H13_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H13_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H13#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -244,6 +524,26 @@
         },
         {
             "global": false,
+            "key": "H14_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H14_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H14_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H14#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H14_ev#charge_rate",
             "type": "double"
         },
@@ -256,6 +556,26 @@
             "global": false,
             "key": "H14_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H15_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H15_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H15_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H15#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -274,6 +594,26 @@
         },
         {
             "global": false,
+            "key": "H16_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H16_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H16_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H16#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H16_ev#charge_rate",
             "type": "double"
         },
@@ -286,6 +626,26 @@
             "global": false,
             "key": "H16_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H17_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H17_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H17_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H17#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -304,6 +664,26 @@
         },
         {
             "global": false,
+            "key": "H18_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H18_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H18_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H18#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H18_ev#charge_rate",
             "type": "double"
         },
@@ -316,6 +696,26 @@
             "global": false,
             "key": "H18_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H19_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H19_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H19_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H19#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -334,6 +734,26 @@
         },
         {
             "global": false,
+            "key": "H20_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H20_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H20_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H20#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H20_ev#charge_rate",
             "type": "double"
         },
@@ -346,6 +766,26 @@
             "global": false,
             "key": "H20_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H21_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H21_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H21_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H21#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -364,6 +804,26 @@
         },
         {
             "global": false,
+            "key": "H22_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H22_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H22_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H22#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H22_ev#charge_rate",
             "type": "double"
         },
@@ -376,6 +836,26 @@
             "global": false,
             "key": "H22_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H23_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H23_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H23_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H23#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -394,6 +874,26 @@
         },
         {
             "global": false,
+            "key": "H24_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H24_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H24_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H24#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H24_ev#charge_rate",
             "type": "double"
         },
@@ -406,6 +906,26 @@
             "global": false,
             "key": "H24_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H25_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H25_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H25_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H25#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -424,6 +944,26 @@
         },
         {
             "global": false,
+            "key": "H26_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H26_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H26_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H26#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H26_ev#charge_rate",
             "type": "double"
         },
@@ -436,6 +976,26 @@
             "global": false,
             "key": "H26_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H27_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H27_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H27_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H27#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -454,6 +1014,26 @@
         },
         {
             "global": false,
+            "key": "H28_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H28_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H28_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H28#thermostat_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
             "key": "H28_ev#charge_rate",
             "type": "double"
         },
@@ -466,6 +1046,26 @@
             "global": false,
             "key": "H28_solar_inv#Q_Out",
             "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H29_meter_billing#bill_mode",
+            "type": "string"
+        },
+        {
+            "global": false,
+            "key": "H29_meter_billing#monthly_fee",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H29_meter_billing#price",
+            "type": "double"
+        },
+        {
+            "global": false,
+            "key": "H29#thermostat_mode",
+            "type": "string"
         },
         {
             "global": false,
@@ -501,6 +1101,14 @@
             "type": "double"
         },
         {
+            "key": "gld1/H0_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H0_meter_house#measured_power",
+            "type": "complex"
+        },
+        {
             "key": "gld1/H0#hvac_load",
             "type": "double"
         },
@@ -521,14 +1129,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H0_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H0_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H0_ev#location",
             "type": "string"
         },
@@ -545,23 +1145,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H0_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H0_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H0_solar_meter#measured_demand",
+            "key": "gld1/H0_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H0_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H0_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H0_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H1_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H1_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -585,14 +1189,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H1_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H1_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H1_ev#location",
             "type": "string"
         },
@@ -609,23 +1205,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H1_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H1_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H1_solar_meter#measured_demand",
+            "key": "gld1/H1_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H1_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H1_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H1_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H2_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H2_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -649,14 +1249,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H2_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H2_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H2_ev#location",
             "type": "string"
         },
@@ -673,23 +1265,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H2_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H2_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H2_solar_meter#measured_demand",
+            "key": "gld1/H2_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H2_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H2_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H2_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H3_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H3_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -713,14 +1309,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H3_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H3_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H3_ev#location",
             "type": "string"
         },
@@ -737,23 +1325,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H3_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H3_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H3_solar_meter#measured_demand",
+            "key": "gld1/H3_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H3_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H3_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H3_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H4_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H4_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -777,14 +1369,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H4_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H4_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H4_ev#location",
             "type": "string"
         },
@@ -801,23 +1385,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H4_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H4_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H4_solar_meter#measured_demand",
+            "key": "gld1/H4_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H4_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H4_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H4_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H5_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H5_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -841,14 +1429,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H5_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H5_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H5_ev#location",
             "type": "string"
         },
@@ -865,23 +1445,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H5_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H5_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H5_solar_meter#measured_demand",
+            "key": "gld1/H5_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H5_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H5_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H5_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H6_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H6_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -905,14 +1489,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H6_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H6_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H6_ev#location",
             "type": "string"
         },
@@ -929,23 +1505,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H6_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H6_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H6_solar_meter#measured_demand",
+            "key": "gld1/H6_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H6_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H6_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H6_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H7_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H7_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -969,14 +1549,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H7_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H7_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H7_ev#location",
             "type": "string"
         },
@@ -993,23 +1565,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H7_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H7_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H7_solar_meter#measured_demand",
+            "key": "gld1/H7_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H7_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H7_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H7_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H8_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H8_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1033,14 +1609,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H8_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H8_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H8_ev#location",
             "type": "string"
         },
@@ -1057,23 +1625,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H8_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H8_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H8_solar_meter#measured_demand",
+            "key": "gld1/H8_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H8_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H8_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H8_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H9_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H9_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1097,14 +1669,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H9_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H9_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H9_ev#location",
             "type": "string"
         },
@@ -1121,23 +1685,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H9_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H9_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H9_solar_meter#measured_demand",
+            "key": "gld1/H9_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H9_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H9_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H9_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H10_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H10_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1161,14 +1729,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H10_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H10_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H10_ev#location",
             "type": "string"
         },
@@ -1185,23 +1745,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H10_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H10_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H10_solar_meter#measured_demand",
+            "key": "gld1/H10_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H10_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H10_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H10_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H11_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H11_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1225,14 +1789,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H11_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H11_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H11_ev#location",
             "type": "string"
         },
@@ -1249,23 +1805,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H11_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H11_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H11_solar_meter#measured_demand",
+            "key": "gld1/H11_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H11_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H11_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H11_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H12_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H12_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1289,14 +1849,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H12_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H12_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H12_ev#location",
             "type": "string"
         },
@@ -1313,23 +1865,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H12_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H12_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H12_solar_meter#measured_demand",
+            "key": "gld1/H12_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H12_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H12_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H12_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H13_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H13_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1353,14 +1909,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H13_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H13_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H13_ev#location",
             "type": "string"
         },
@@ -1377,23 +1925,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H13_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H13_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H13_solar_meter#measured_demand",
+            "key": "gld1/H13_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H13_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H13_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H13_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H14_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H14_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1417,14 +1969,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H14_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H14_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H14_ev#location",
             "type": "string"
         },
@@ -1441,23 +1985,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H14_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H14_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H14_solar_meter#measured_demand",
+            "key": "gld1/H14_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H14_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H14_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H14_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H15_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H15_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1481,14 +2029,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H15_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H15_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H15_ev#location",
             "type": "string"
         },
@@ -1505,23 +2045,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H15_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H15_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H15_solar_meter#measured_demand",
+            "key": "gld1/H15_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H15_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H15_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H15_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H16_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H16_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1545,14 +2089,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H16_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H16_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H16_ev#location",
             "type": "string"
         },
@@ -1569,23 +2105,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H16_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H16_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H16_solar_meter#measured_demand",
+            "key": "gld1/H16_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H16_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H16_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H16_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H17_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H17_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1609,14 +2149,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H17_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H17_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H17_ev#location",
             "type": "string"
         },
@@ -1633,23 +2165,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H17_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H17_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H17_solar_meter#measured_demand",
+            "key": "gld1/H17_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H17_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H17_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H17_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H18_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H18_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1673,14 +2209,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H18_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H18_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H18_ev#location",
             "type": "string"
         },
@@ -1697,23 +2225,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H18_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H18_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H18_solar_meter#measured_demand",
+            "key": "gld1/H18_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H18_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H18_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H18_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H19_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H19_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1737,14 +2269,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H19_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H19_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H19_ev#location",
             "type": "string"
         },
@@ -1761,23 +2285,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H19_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H19_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H19_solar_meter#measured_demand",
+            "key": "gld1/H19_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H19_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H19_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H19_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H20_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H20_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1801,14 +2329,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H20_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H20_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H20_ev#location",
             "type": "string"
         },
@@ -1825,23 +2345,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H20_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H20_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H20_solar_meter#measured_demand",
+            "key": "gld1/H20_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H20_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H20_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H20_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H21_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H21_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1865,14 +2389,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H21_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H21_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H21_ev#location",
             "type": "string"
         },
@@ -1889,23 +2405,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H21_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H21_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H21_solar_meter#measured_demand",
+            "key": "gld1/H21_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H21_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H21_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H21_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H22_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H22_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1929,14 +2449,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H22_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H22_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H22_ev#location",
             "type": "string"
         },
@@ -1953,23 +2465,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H22_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H22_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H22_solar_meter#measured_demand",
+            "key": "gld1/H22_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H22_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H22_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H22_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H23_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H23_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -1993,14 +2509,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H23_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H23_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H23_ev#location",
             "type": "string"
         },
@@ -2017,23 +2525,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H23_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H23_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H23_solar_meter#measured_demand",
+            "key": "gld1/H23_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H23_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H23_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H23_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H24_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H24_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -2057,14 +2569,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H24_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H24_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H24_ev#location",
             "type": "string"
         },
@@ -2081,23 +2585,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H24_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H24_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H24_solar_meter#measured_demand",
+            "key": "gld1/H24_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H24_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H24_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H24_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H25_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H25_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -2121,14 +2629,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H25_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H25_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H25_ev#location",
             "type": "string"
         },
@@ -2145,23 +2645,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H25_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H25_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H25_solar_meter#measured_demand",
+            "key": "gld1/H25_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H25_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H25_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H25_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H26_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H26_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -2185,14 +2689,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H26_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H26_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H26_ev#location",
             "type": "string"
         },
@@ -2209,23 +2705,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H26_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H26_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H26_solar_meter#measured_demand",
+            "key": "gld1/H26_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H26_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H26_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H26_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H27_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H27_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -2249,14 +2749,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H27_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H27_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H27_ev#location",
             "type": "string"
         },
@@ -2273,23 +2765,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H27_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H27_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H27_solar_meter#measured_demand",
+            "key": "gld1/H27_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H27_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H27_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H27_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H28_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H28_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -2313,14 +2809,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H28_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H28_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H28_ev#location",
             "type": "string"
         },
@@ -2337,23 +2825,27 @@
             "type": "double"
         },
         {
+            "key": "ev1/H28_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H28_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H28_solar_meter#measured_demand",
+            "key": "gld1/H28_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H28_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H28_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H28_solar#V_Out",
+            "type": "double"
+        },
+        {
+            "key": "gld1/H29_meter_billing#measured_power",
+            "type": "complex"
+        },
+        {
+            "key": "gld1/H29_meter_house#measured_power",
             "type": "complex"
         },
         {
@@ -2377,14 +2869,6 @@
             "type": "complex"
         },
         {
-            "key": "gld1/H29_ev_meter#measured_demand",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H29_ev_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
             "key": "ev1/H29_ev#location",
             "type": "string"
         },
@@ -2401,24 +2885,20 @@
             "type": "double"
         },
         {
+            "key": "ev1/H29_ev#stored_energy",
+            "type": "double"
+        },
+        {
             "key": "gld1/H29_solar_meter#measured_power",
             "type": "complex"
         },
         {
-            "key": "gld1/H29_solar_meter#measured_demand",
+            "key": "gld1/H29_solar#I_Out",
             "type": "double"
         },
         {
-            "key": "gld1/H29_solar_meter#measured_voltage_1",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H29_solar#I_Out",
-            "type": "complex"
-        },
-        {
             "key": "gld1/H29_solar#V_Out",
-            "type": "complex"
+            "type": "double"
         }
     ]
 }

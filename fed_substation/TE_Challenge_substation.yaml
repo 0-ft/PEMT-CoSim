@@ -1,4 +1,4 @@
-name: sub1
+name: pet1
 time_delta: 1s
 broker: tcp://localhost:5570
 aggregate_sub: true

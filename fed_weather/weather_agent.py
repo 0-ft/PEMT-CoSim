@@ -116,7 +116,7 @@ def startWeatherAgent(datafile, configfile):
     # find weather data on the hour for the hourly forecast
     hourlyWeatherData = weatherData.loc[
         (weatherData.index.minute == 0) & (weatherData.index.second == 0) & (weatherData.index.microsecond == 0) & (
-                    weatherData.index.nanosecond == 0)]
+                weatherData.index.nanosecond == 0)]
 
     # find all the time point that the data at that time need to be published
     timeNeedToPublishRealtime = [0]
@@ -160,6 +160,7 @@ def startWeatherAgent(datafile, configfile):
             hPubs[col + '/forecast'] = helics.helicsFederateRegisterGlobalPublication(hFed, pubName,
                                                                                       helics.helics_data_type_string,
                                                                                       "")
+        print('HELICS initializing to publish', hPubs, flush=True)
         helics.helicsFederateEnterExecutingMode(hFed)
         print('HELICS initialized to publish', hPubs, flush=True)
     else:

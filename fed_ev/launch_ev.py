@@ -45,27 +45,27 @@ class EVFederate:
             "publications": [
                 p for i in range(self.num_evs) for p in [
                     {
-                        "key": f"F0_house_A{i}_EV/location",
+                        "key": f"H{i}_ev#location",
                         "type": "string",
                         "global": False
                     },
                     {
-                        "key": f"F0_house_A{i}_EV/stored_energy",
+                        "key": f"H{i}_ev#stored_energy",
                         "type": "double",
                         "global": False
                     },
                     {
-                        "key": f"F0_house_A{i}_EV/soc",
+                        "key": f"H{i}_ev#soc",
                         "type": "double",
                         "global": False
                     },
                     {
-                        "key": f"F0_house_A{i}_EV/charging_load",
+                        "key": f"H{i}_ev#charging_load",
                         "type": "complex",
                         "global": False
                     },
                     {
-                        "key": f"F0_house_A{i}_EV/driving_load",
+                        "key": f"H{i}_ev#driving_load",
                         "type": "double",
                         "global": False
                     }
@@ -73,7 +73,7 @@ class EVFederate:
             ],
             "subscriptions": [
                 {
-                    "key": f"sub1/F0_house_A{i}_EV/charge_rate",
+                    "key": f"pet1/H{i}_ev#charge_rate",
                     "type": "double"
                 } for i in range(self.num_evs)
             ]
@@ -85,7 +85,7 @@ class EVFederate:
         self.fed_name = self.helics_fed.name
         print(f"EV federate {self.fed_name} created", flush=True)
         self.evs = [
-            V2GEV(self.helics_fed, f"F0_house_A{i}_EV", self.current_time, profile.consumption, profile.car_model)
+            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model)
             for i, profile in enumerate(self.ev_profiles.profiles)
         ]
 
@@ -115,9 +115,9 @@ class EVFederate:
         data.to_csv(f"out.csv")
 
     def run(self):
-        print("EV federate to enter initializing mode")
+        print("EV federate to enter initializing mode", flush=True)
         self.helics_fed.enter_initializing_mode()
-        print("EV federate entered initializing mode")
+        print("EV federate entered initializing mode", flush=True)
         for ev in self.evs:
             # ev.update_state(self.start_time)
             ev.publish_state()

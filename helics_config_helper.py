@@ -1,3 +1,8 @@
+import json
+
+from scenario import PETScenario
+
+
 def pub(obj, prop, prop_type, info=False):
     return {
         "global": False,
@@ -6,15 +11,15 @@ def pub(obj, prop, prop_type, info=False):
     } | ({"info": {"object": obj, "property": prop}} if info else {})
 
 
-def sub(source, obj, prop, prop_type, info=False):
+def sub(source, obj, prop, prop_type, info=False, target_name=None):
     return {
         "key": f"{source}/{obj}#{prop}",
         "type": prop_type
-    } | ({"info": {"object": obj, "property": prop}} if info else {})
+    } | ({"info": {"object": obj, "property": target_name or prop}} if info else {})
 
 
 class HelicsConfigHelper:
-    def __init__(self, num_houses, num_pvs, num_evs):
+    def __init__(self, scenario: PETScenario):
         self.gridlab_config = {
             "name": "gld1",
             "period": 1,
@@ -25,14 +30,14 @@ class HelicsConfigHelper:
             "period": 1,
             "publications": self.pet_other_pubs(), "subscriptions": self.pet_other_subs()
         }
-        for i in range(num_houses):
-            self.add_house(i, has_ev=i < num_evs, has_pv=i < num_pvs)
+        for i in range(scenario.num_houses):
+            self.add_house(i, has_ev=i < scenario.num_ev, has_pv=i < scenario.num_pv)
 
     def add_meter(self, meter_name, billing=False):
         gridlab_pubs_meter = [
             pub(meter_name, prop, prop_type, True)
             for prop, prop_type in
-            [("measured_power", "complex"), ("measured_demand", "double"), ("measured_voltage_1", "complex")]
+            [("measured_power", "complex")]#, ("measured_voltage_1", "complex")]#, ("measured_demand", "double")]
         ]
 
         gridlab_subs_meter = [
@@ -43,11 +48,10 @@ class HelicsConfigHelper:
 
         self.gridlab_config["publications"] += gridlab_pubs_meter
         self.gridlab_config["subscriptions"] += gridlab_subs_meter
-
         pet_subs_meter = [
             sub("gld1", meter_name, prop, prop_type, False)
             for prop, prop_type in
-            [("measured_power", "complex"), ("measured_demand", "double"), ("measured_voltage_1", "complex")]
+            [("measured_power", "complex")]#, ("measured_voltage_1", "complex")]#, ("measured_demand", "double")]
         ]
 
         pet_pubs_meter = [
@@ -63,7 +67,7 @@ class HelicsConfigHelper:
         self.add_meter(f"{solar_name}_meter", billing=False)
         pet_subs_pv = [
             sub("gld1", solar_name, prop, prop_type, False)
-            for prop, prop_type in [("I_Out", "complex"), ("V_Out", "complex")]
+            for prop, prop_type in [("I_Out", "double"), ("V_Out", "double")]
         ]
 
         pet_pubs_pv = [
@@ -81,7 +85,7 @@ class HelicsConfigHelper:
 
         gridlabd_pubs_pv = [
             pub(solar_name, prop, prop_type, True)
-            for prop, prop_type in [("V_Out", "complex"), ("I_Out", "complex")]
+            for prop, prop_type in [("V_Out", "double"), ("I_Out", "double")]
         ]
         self.gridlab_config["subscriptions"] += gridlabd_subs_pv
         self.gridlab_config["publications"] += gridlabd_pubs_pv
@@ -92,7 +96,7 @@ class HelicsConfigHelper:
         pet_subs_ev = [
             sub("ev1", ev_name, prop, prop_type, False)
             for prop, prop_type in
-            [("location", "string"), ("driving_load", "double"), ("charging_load", "double"), ("soc", "double")]
+            [("location", "string"), ("driving_load", "double"), ("charging_load", "double"), ("soc", "double"), ("stored_energy", "double")]
         ]
 
         pet_pubs_ev = [
@@ -104,14 +108,16 @@ class HelicsConfigHelper:
         self.pet_config["publications"] += pet_pubs_ev
 
         gridlabd_subs_ev = [
-            sub("ev1", f"{ev_name}_charger", prop, prop_type, True)
-            for prop, prop_type in [("charging_load", "complex")]
+            sub("ev1", f"{ev_name}", "charging_load", "complex", True, "constant_power_A")
         ]
 
         self.gridlab_config["subscriptions"] += gridlabd_subs_ev
 
     def add_house(self, house_index, has_ev, has_pv):
         house_name = f"H{house_index}"
+        self.add_meter(f"H{house_index}_meter_billing", billing=True)
+        self.add_meter(f"H{house_index}_meter_house", billing=False)
+
         gridlab_pubs_house = [
             pub(house_name, prop, prop_type, True)
             for prop, prop_type in [("hvac_load", "double"), ("air_temperature", "double"), ("total_load", "double"),
@@ -119,19 +125,24 @@ class HelicsConfigHelper:
         ]
 
         gridlab_subs_hvac = [
-            sub("pet1", f"{house_name}_hvac", prop, prop_type, True)
+            sub("pet1", f"{house_name}", prop, prop_type, True)
             for prop, prop_type in
             [("cooling_setpoint", "double"), ("heating_setpoint", "double"), ("thermostat_mode", "string"),
              ("thermostat_deadband", "double")]
         ]
 
-        gridlab_subs_billing = [
-            sub(f"{house_name}_meter_billing", prop, prop_type, True)
-            for prop, prop_type in [("bill_mode", "string"), ("monthly_fee", "double"), ("price", "double")]
-        ]
+        # gridlab_subs_billing = [
+        #     sub(f"{house_name}_meter_billing", prop, prop_type, True)
+        #     for prop, prop_type in [("bill_mode", "string"), ("monthly_fee", "double"), ("price", "double")]
+        # ]
 
         self.gridlab_config["publications"] += gridlab_pubs_house
-        self.gridlab_config["subscriptions"] += gridlab_subs_hvac + gridlab_subs_billing
+        self.gridlab_config["subscriptions"] += gridlab_subs_hvac
+
+        pet_pubs_house = [
+            pub(house_name, prop, prop_type, False)
+            for prop, prop_type in [("thermostat_mode", "string")]
+        ]
 
         pet_subs_house = [
             sub("gld1", house_name, prop, prop_type, False)
@@ -139,6 +150,7 @@ class HelicsConfigHelper:
                                     ("power_state", "string")]
         ]
 
+        self.pet_config["publications"] += pet_pubs_house
         self.pet_config["subscriptions"] += pet_subs_house
         if has_ev:
             self.add_ev(f"{house_name}_ev")

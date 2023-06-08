@@ -3,18 +3,8 @@ import os
 import pickle
 import random
 
+from scenario import PETScenario
 
-class PETScenario:
-    def __init__(self, minimum_timestep=1, market_period=300, num_houses=30, num_pv=30, num_ev=30):
-        self.minimum_timestep = minimum_timestep
-        self.market_period = market_period
-        self.num_houses = num_houses
-        self.num_pv = num_pv
-        self.num_ev = num_ev
-
-    def save(self, path):
-        with open(f"{path}/scenario.pkl", "wb") as f:
-            pickle.dump(self, f)
 
 class GlmGenerator:
     """
@@ -88,7 +78,7 @@ class GlmGenerator:
         self.configure_vpp_infrastructure()
         self.generate_houses()
         self.configure_helics_msg()
-        return self.glm_code
+        return self.glm_code.replace("{phase}", "A")
 
     def save(self, gridlab_path):
         glm = self.generate_glm()
@@ -101,7 +91,7 @@ class GlmGenerator:
     def configure_helics_msg(self):
         """configure helics msg module in .glm file
         """
-        return "\n\
+        self.glm_code += "\n\
 module connection;\n\
 object helics_msg {\n\
   configure TE_Challenge_HELICS_gld_msg.json;\n\

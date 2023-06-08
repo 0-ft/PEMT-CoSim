@@ -5,7 +5,7 @@ Function:
 last update time: 2022-6-15
 modified by Yuanliang Li
 """
-
+import pickle
 from datetime import datetime
 from datetime import timedelta
 
@@ -15,27 +15,31 @@ from PET_Prosumer import House, GridSupply  # import user-defined my_hvac class 
 from federate_helper import FederateHelper
 from market import ContinuousDoubleAuction
 from recording import SubstationRecorder
+from scenario import PETScenario
 
 
 class PETFederate:
-    def __init__(self, configfile: str, helics_config: str, start_time: datetime, hour_stop: int):
+    def __init__(self, scenario: PETScenario, helics_config: str, start_time: datetime, hour_stop: int):
+        print("initialising PETFederate", flush=True)
         self.start_time = start_time
         self.current_time = start_time
         self.hour_stop = hour_stop
         self.stop_seconds = int(hour_stop * 3600)  # co-simulation stop time in seconds
 
         self.draw_figure = True  # draw figures during the simulation
-        self.fh = FederateHelper(configfile)  # initialize the federate helper
+        # self.fh = FederateHelper(configfile)  # initialize the federate helper
         self.helics_federate = helics.helicsCreateValueFederateFromConfig(helics_config)
 
+        print("making auction", flush=True)
         self.auction = ContinuousDoubleAuction(self.helics_federate, self.current_time)
         self.grid_supply = GridSupply(self.helics_federate, self.auction, True)
+        print("making houses", flush=True)
         self.houses = {
-            house_name: House(self.helics_federate, house_id, self.current_time, self.fh.agents['hvacs'][info['HVAC']],
-                              info['PV'],
-                              True, False, self.auction, house_id + 1)
-            for house_id, (house_name, info) in enumerate(self.fh.housesInfo_dict.items())
+            f"H{house_id}": House(self.helics_federate, house_id, self.current_time,
+                                  scenario.hvac_configs[house_id], house_id < scenario.num_pv, house_id < scenario.num_ev, self.auction)
+            for house_id in range(scenario.num_houses)
         }
+        print("made houses", flush=True)
         self.update_period = 15  # state update period (15 seconds)
         self.market_period = 300  # market period (300 seconds)
         self.fig_update_period = 10000  # figure update time period
@@ -49,16 +53,15 @@ class PETFederate:
         self.recorder = SubstationRecorder(self.grid_supply, self.houses, self.auction)
 
     def initialise(self):
-        print("Substation federate to enter initializing mode")
+        print("Substation federate to enter initializing mode", flush=True)
         self.helics_federate.enter_initializing_mode()
-        print("Substation federate entered initializing mode")
+        print("Substation federate entered initializing mode", flush=True)
 
-        for house_id, (house_name, info) in enumerate(
-                self.fh.housesInfo_dict.items()):  # key: house name, info: information of the house, including names of PV, battery ...
-            self.houses[house_name].set_meter_mode()  # set meter mode
-            self.houses[house_name].hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
-            self.houses[house_name].ev.current_time = self.current_time
-            self.houses[house_name].ev.set_desired_charge_rate(0)
+        for house_name, house in self.houses.items():  # key: house name, info: information of the house, including names of PV, battery ...
+            house.set_meter_mode()  # set meter mode
+            house.hvac.set_on(False)  # at the beginning of the simulation, turn off all HVACs
+            if house.ev is not None:
+                house.ev.set_desired_charge_rate(0)
         print("Substation federate to enter executing mode")
         self.helics_federate.enter_executing_mode()
         print("Substation federate entered executing mode")
@@ -87,11 +90,14 @@ class PETFederate:
             """ 5. houses formulate and send their bids"""
             if time_granted >= self.next_market_time:
                 # auction.clear_bids()  # auction remove all previous records, re-initialize
-                print(f"EVs @ {[(house.ev.location, house.ev.soc, house.ev.load_range) for house in self.houses.values()]}")
-                print(f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load) for i, house in enumerate(self.houses.values())]}")
+                print(
+                    f"EVs @ {[(i, house.ev.location, house.ev.soc, house.ev.load_range) for i, house in enumerate(self.houses.values()) if house.ev is not None]}")
+                print(
+                    f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load if house.ev else 0) for i, house in enumerate(self.houses.values())]}")
                 print("AUCTION HISTORY BEFORE BIDS")
                 print(self.auction.history)
-                bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [self.grid_supply.formulate_bid()]
+                bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [
+                    self.grid_supply.formulate_bid()]
                 self.auction.collect_bids(bids)
                 self.auction.update_lmp()  # get local marginal price (LMP) from the bulk power grid
                 self.auction.update_refload()  # get distribution load from gridlabd
@@ -116,8 +122,11 @@ class PETFederate:
         print(f"federate {self.helics_federate.name} has been destroyed")
 
 
+with open("../scenario.pkl", "rb") as f:
+    scenario = pickle.load(f)
+
 fed = PETFederate(
-    'TE_Challenge_agent_dict.json',
+    scenario,
     'TE_Challenge_HELICS_substation.json',
     datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z'),
     192
@@ -125,5 +134,3 @@ fed = PETFederate(
 
 fed.initialise()
 fed.run()
-
-

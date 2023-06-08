@@ -10,7 +10,7 @@
       "directory": "./fed_substation",
       "exec": "python3 launch_substation.py",
       "host": "localhost",
-      "name": "sub1"
+      "name": "pet1"
     },
     {
       "directory": "./fed_ev",
