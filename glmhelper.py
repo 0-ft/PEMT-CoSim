@@ -2,29 +2,19 @@ import json
 import os
 import pickle
 import random
-import glm
 
-from house_parameters import generate_house_parameters
-from texthelper import replaceInPattern
 
-helics_msg_code = "\n\
-module connection;\n\
-object helics_msg {\n\
-  configure TE_Challenge_HELICS_gld_msg.json;\n\
-}\n"
+class PETScenario:
+    def __init__(self, minimum_timestep=1, market_period=300, num_houses=30, num_pv=30, num_ev=30):
+        self.minimum_timestep = minimum_timestep
+        self.market_period = market_period
+        self.num_houses = num_houses
+        self.num_pv = num_pv
+        self.num_ev = num_ev
 
-# base code for a vpp infrastructure including a overhead line, meter for a vpp,
-# center tap transformers for three phases, triple lines and triple meters for three phases
-line_to_tripmeter_code = ""
-
-house_code = ""
-
-PV_code = ""
-
-EV_code = ""
-
-batt_code = ""
-
+    def save(self, path):
+        with open(f"{path}/scenario.pkl", "wb") as f:
+            pickle.dump(self, f)
 
 class GlmGenerator:
     """
@@ -49,155 +39,169 @@ class GlmGenerator:
 
     """
 
-    def __init__(self, config):
+    def __init__(self, scenario: PETScenario):
         """
         Parameters
         ----------
-        config: class object
+        scenario: class object
             The GLM_Configuration class object which contains the configurations for
             .glm file of the GridLAB-D federate
         """
+        self.config = scenario
         self.file_name_np = "TE_Challenge.glm"  # the file name of the .glm file without path added
         self.file_name = "./fed_gridlabd/" + self.file_name_np
         os.system("cp ./fed_gridlabd/glm-template/template.glm " + self.file_name + "")  # copy a standard .glm file
+        with open("./fed_gridlabd/glm-template/template.glm", "r") as f:
+            self.template = f.read()
 
+        self.glm_code = ""
         # get configured time step configuration
-        self.minimum_timestep = config.minimum_timestep
-        self.helics_connected = config.helics_connected
+        # self.minimum_timestep = config.minimum_timestep
+        # self.helics_connected = config.helics_connected
 
-        self.num_VPPs = config.num_VPPs  # number of VPPs, each VPP manages a number of houses
-        self.VPP_phase_list = config.VPP_phase_list
-        self.num_house_phase_list = config.num_house_phase_list  # number of houses of each phase for each VPP
-        self.num_house_list = config.num_house_list  # number of houses for each VPP
-        self.ratio_PV_only_list = config.ratio_PV_only_list  # ratio of houses that have only PV installed for each VPP
-        self.ratio_Bat_only_list = config.ratio_Bat_only_list  # ratio of houses that have only battery installed for each VPP
-        self.ratio_PV_Bat_list = config.ratio_PV_Bat_list  # ratio oh houses that have both PV and battery installed for each VP
-        self.ratio_PV_generation_list = config.ratio_PV_generation_list  # PV generation ratio for each VPP
-        self.battery_mode = config.battery_mode
-
-        global line_to_tripmeter_code
         with open('./fed_gridlabd/glm-template/line_to_tripmeter_template', 'r') as f:
-            line_to_tripmeter_code = f.read()
-        global house_code
+            self.line_to_tpm_template = f.read()
         with open('./fed_gridlabd/glm-template/house_template', 'r') as f:
-            house_code = f.read()
-        global PV_code
+            self.house_template = f.read()
         with open('./fed_gridlabd/glm-template/pv_template', 'r') as f:
-            PV_code = f.read()
-
-        global EV_code
+            self.pv_template = f.read()
         with open('./fed_gridlabd/glm-template/ev_template', 'r') as f:
-            EV_code = f.read()
+            self.ev_template = f.read()
 
-        global batt_code
-        with open('./fed_gridlabd/glm-template/battery_template', 'r') as f:
-            batt_code = f.read()
+        with open("template_houses.pkl", "rb") as f:
+            self.template_houses = pickle.load(f)
 
-        template_glm = glm.load("./fed_gridlabd/glm-template/TE_Challenge_TE30.glm")
-        global template_houses_list
-        template_houses_list = [obj for obj in template_glm['objects'] if obj['name'] == 'house']
-        with open("template_houses.pkl", "wb") as f:
-            pickle.dump(template_houses_list, f)
+        # template_glm = glm.load("./fed_gridlabd/glm-template/TE_Challenge_TE30.glm")
+        # global template_houses_list
+        # template_houses_list = [obj for obj in template_glm['objects'] if obj['name'] == 'house']
+        # with open("template_houses.pkl", "wb") as f:
+        #     pickle.dump(template_houses_list, f)
         pass
 
-    def configure_minimum_timestep(self):
-        """configure the minimum time step for .glm file
-        """
-        replaceInPattern(self.file_name, "{minimum_timestep}", str(self.minimum_timestep))
+    # def configure_minimum_timestep(self):
+    #     """configure the minimum time step for .glm file
+    #     """
+    #     replaceInPattern(self.file_name, "{minimum_timestep}", str(self.minimum_timestep))
+
+    def generate_glm(self):
+        self.glm_code = self.template.replace("{minimum_timestep}", str(self.config.minimum_timestep))
+        self.configure_vpp_infrastructure()
+        self.generate_houses()
+        self.configure_helics_msg()
+        return self.glm_code
+
+    def save(self, gridlab_path):
+        glm = self.generate_glm()
+        with open(f"{gridlab_path}/TE_Challenge.glm", "w") as f:
+            f.write(glm)
+        #
+        # with open(f"{gridlab_path}/TE_Challenge_HELICS_gld_msg.json", "w") as f:
+        #     f.write(json.dumps(helics_config, indent=4))
 
     def configure_helics_msg(self):
         """configure helics msg module in .glm file
         """
-
-        code_text = ""
-        hm_code = helics_msg_code
-        code_text += hm_code
-
-        # write codes to the .glm file
-        with open(self.file_name, 'a+') as f:
-            f.write(code_text)
+        return "\n\
+module connection;\n\
+object helics_msg {\n\
+  configure TE_Challenge_HELICS_gld_msg.json;\n\
+}\n"
 
     def configure_vpp_infrastructure(self):
 
         code_text = ""
 
-        for i in range(self.num_VPPs):
-            phase = self.VPP_phase_list[i]
-            ltt_code = line_to_tripmeter_code
-            ltt_code = ltt_code.replace("{vpp_idx}", str(i))
-            ltt_code = ltt_code.replace("{phase}", phase)
-            code_text += ltt_code
+        ltt_code = self.line_to_tpm_template
+        ltt_code = ltt_code.replace("{vpp_idx}", "0")
+        ltt_code = ltt_code.replace("{phase}", "A")
+        code_text += ltt_code
 
-        # write codes to the .glm file
-        with open(self.file_name, 'a+') as f:
-            f.write(code_text)
+        self.glm_code += code_text
 
-    def configure_houses(self):
+    def generate_house_parameters(self):
+        template_house = random.choice(self.template_houses)
+        air_temperature = float(template_house['attributes']['air_temperature']) + round(random.uniform(-1, 1))
+        skew = int(template_house['attributes']['schedule_skew']) + random.randint(-10, 10)
+        ZIP_code = ""
+        for child in template_house['children']:
+            if child['name'] == 'ZIPload':
+                ZIP_code += "object ZIPload {\n"
+                for attr in child['attributes']:
+                    if attr == 'schedule_skew':
+                        ZIP_code += '  ' + attr + ' ' + str(skew) + ';\n'
+                    else:
+                        ZIP_code += '  ' + attr + ' ' + child['attributes'][attr] + ';\n'
+                ZIP_code += '};\n'
 
-        code_text = ""
+        return {
+            "skew": skew,
+            "Rroof": float(template_house['attributes']['Rroof']) + round(random.uniform(-1, 1), 2),
+            "Rwall": float(template_house['attributes']['Rwall']) + round(random.uniform(-1, 1), 2),
+            "Rfloor": float(template_house['attributes']['Rfloor']) + round(random.uniform(-1, 1), 2),
+            "Rdoors": int(template_house['attributes']['Rdoors']),
+            "Rwindows": float(template_house['attributes']['Rwindows']) + round(random.uniform(-0.1, 0.1), 2),
+            "airchange_per_hour": float(template_house['attributes']['airchange_per_hour']) + round(
+                random.uniform(-0.1, 0.1), 2),
+            "total_thermal_mass_per_floor_area": float(
+                template_house['attributes']['total_thermal_mass_per_floor_area']) + round(
+                random.uniform(-0.2, 0.2), 2),
+            "cooling_COP": float(template_house['attributes']['cooling_COP']) + round(random.uniform(-0.1, 0.1), 2),
+            "floor_area": float(template_house['attributes']['floor_area']) + round(random.uniform(-20, 20), 2),
+            "number_of_doors": int(template_house['attributes']['number_of_doors']),
+            "air_temperature": air_temperature,
+            "mass_temperature": air_temperature,
+            "ZIP_code": ZIP_code
+        }
 
-        for vpp_idx in range(self.num_VPPs):
-            num_houses_phase = self.num_house_phase_list[vpp_idx]
-            phase = self.VPP_phase_list[vpp_idx]
-            # for phase in "ABC":
-            count_pv_only = self.ratio_PV_only_list[vpp_idx] * self.num_house_phase_list[vpp_idx]
-            count_bat_only = self.ratio_Bat_only_list[vpp_idx] * self.num_house_phase_list[vpp_idx]
-            count_pv_bat = self.ratio_PV_Bat_list[vpp_idx] * self.num_house_phase_list[vpp_idx]
-            for house_idx in range(num_houses_phase):
-                h_code = house_code
-                h_code = h_code.replace("{vpp_idx}", str(vpp_idx))
-                h_code = h_code.replace("{phase}", phase)
-                h_code = h_code.replace("{house_idx}", str(house_idx))
-                h_par_dict = generate_house_parameters()
-                h_code = h_code.replace("{skew}", str(h_par_dict['skew']))
-                h_code = h_code.replace("{Rroof}", str(h_par_dict['Rroof']))
-                h_code = h_code.replace("{Rwall}", str(h_par_dict['Rwall']))
-                h_code = h_code.replace("{Rfloor}", str(h_par_dict['Rfloor']))
-                h_code = h_code.replace("{Rdoors}", str(h_par_dict['Rdoors']))
-                h_code = h_code.replace("{Rwindows}", str(h_par_dict['Rwindows']))
-                h_code = h_code.replace("{airchange_per_hour}", str(h_par_dict['airchange_per_hour']))
-                h_code = h_code.replace("{total_thermal_mass_per_floor_area}",
-                                        str(h_par_dict['total_thermal_mass_per_floor_area']))
-                h_code = h_code.replace("{cooling_COP}", str(h_par_dict['cooling_COP']))
-                h_code = h_code.replace("{floor_area}", str(h_par_dict['floor_area']))
-                h_code = h_code.replace("{number_of_doors}", str(h_par_dict['number_of_doors']))
-                h_code = h_code.replace("{air_temperature}", str(h_par_dict['air_temperature']))
-                h_code = h_code.replace("{mass_temperature}", str(h_par_dict['mass_temperature']))
-                h_code = h_code.replace("{ZIP_code}", str(h_par_dict['ZIP_code']))
+    def generate_house(self, house_index, has_ev, has_pv):
+        h_code = self.house_template
+        h_code = h_code.replace("{vpp_idx}", "0")
+        h_code = h_code.replace("{phase}", "A")
+        h_code = h_code.replace("{house_idx}", str(house_index))
+        h_par_dict = self.generate_house_parameters()
+        h_code = h_code.replace("{skew}", str(h_par_dict['skew']))
+        h_code = h_code.replace("{Rroof}", str(h_par_dict['Rroof']))
+        h_code = h_code.replace("{Rwall}", str(h_par_dict['Rwall']))
+        h_code = h_code.replace("{Rfloor}", str(h_par_dict['Rfloor']))
+        h_code = h_code.replace("{Rdoors}", str(h_par_dict['Rdoors']))
+        h_code = h_code.replace("{Rwindows}", str(h_par_dict['Rwindows']))
+        h_code = h_code.replace("{airchange_per_hour}", str(h_par_dict['airchange_per_hour']))
+        h_code = h_code.replace("{total_thermal_mass_per_floor_area}",
+                                str(h_par_dict['total_thermal_mass_per_floor_area']))
+        h_code = h_code.replace("{cooling_COP}", str(h_par_dict['cooling_COP']))
+        h_code = h_code.replace("{floor_area}", str(h_par_dict['floor_area']))
+        h_code = h_code.replace("{number_of_doors}", str(h_par_dict['number_of_doors']))
+        h_code = h_code.replace("{air_temperature}", str(h_par_dict['air_temperature']))
+        h_code = h_code.replace("{mass_temperature}", str(h_par_dict['mass_temperature']))
+        h_code = h_code.replace("{ZIP_code}", str(h_par_dict['ZIP_code']))
 
-                if house_idx < 30:
-                    h_code += self.configure_ev(vpp_idx, phase, house_idx)
+        if has_ev:
+            h_code += self.configure_ev(house_index)
+        if has_pv:
+            h_code += self.configure_pv(house_index)
 
-                if count_pv_only > 0:
-                    h_code += self.configure_PV(h_par_dict, vpp_idx, phase, house_idx)
-                    count_pv_only -= 1
+        return h_code
 
-                elif count_pv_only <= 0 and count_bat_only > 0:
-                    h_code += self.configure_battery(h_par_dict, vpp_idx, phase, house_idx)
-                    count_bat_only -= 1
+    def generate_houses(self):
+        houses = [
+            self.generate_house(i, i < self.config.num_ev, i < self.config.num_pv)
+            for i in range(self.config.num_houses)
+        ]
+        self.glm_code += "\n".join(houses)
 
-                elif count_pv_only <= 0 and count_bat_only <= 0 and count_pv_bat > 0:
-                    h_code += self.configure_PV(h_par_dict, vpp_idx, phase, house_idx)
-                    h_code += self.configure_battery(h_par_dict, vpp_idx, phase, house_idx)
-                    count_pv_bat -= 1
+        # return code_text
+        # # write codes to the .glm file
+        # with open(self.file_name, 'a+') as f:
+        #     f.write(code_text)
 
-                code_text += h_code
+    def configure_pv(self, house_index):
 
-        # write codes to the .glm file
-        with open(self.file_name, 'a+') as f:
-            f.write(code_text)
+        pv_code = self.pv_template
+        pv_code = pv_code.replace("{vpp_idx}", "0")
+        pv_code = pv_code.replace("{phase}", "A")
+        pv_code = pv_code.replace("{house_idx}", str(house_index))
 
-    def configure_PV(self, house_par_dict, vpp_idx, phase, house_idx):
-
-        pv_code = PV_code
-        pv_code = pv_code.replace("{vpp_idx}", str(vpp_idx))
-        pv_code = pv_code.replace("{phase}", phase)
-        pv_code = pv_code.replace("{house_idx}", str(house_idx))
-
-        seed = int(vpp_idx * 1000 + house_idx)
-        random.seed(seed)
-        # num_pv_panels = max(2, int((house_par_dict['floor_area']/240.3+random.randint(-2,2))*self.ratio_PV_generation_list[vpp_idx]))
-        num_pv_panels = int(random.randint(8, 20) * self.ratio_PV_generation_list[vpp_idx])
+        num_pv_panels = int(random.randint(8, 20))
         rated_power_solar = 480 * num_pv_panels  # W
         pv_code = pv_code.replace("{rated_power_solar}", str(rated_power_solar))
         pv_code = pv_code.replace("{maximum_dc_power}", str(rated_power_solar * 0.9))
@@ -205,32 +209,11 @@ class GlmGenerator:
 
         return pv_code
 
-    def configure_battery(self, house_par_dict, vpp_idx, phase, house_idx):
-
-        b_code = batt_code
-        b_code = b_code.replace("{vpp_idx}", str(vpp_idx))
-        b_code = b_code.replace("{phase}", phase)
-        b_code = b_code.replace("{house_idx}", str(house_idx))
-
-        seed = int(vpp_idx * 1000 + house_idx)
-
-        battery_capacity = 100  # 10 kWh
-        random.seed(seed)
-        state_of_charge = 0.5  # round(random.uniform(0.4,0.6),2)
-
-        b_code = b_code.replace("{battery_capacity}", str(battery_capacity))
-        b_code = b_code.replace("{state_of_charge}", str(state_of_charge))
-        b_code = b_code.replace("{battery_mode}", self.battery_mode)
-
-        return b_code
-
-    def configure_ev(self, vpp_idx, phase, house_idx):
-        ev_code = EV_code
-        ev_code = ev_code.replace("{vpp_idx}", str(vpp_idx))
-        ev_code = ev_code.replace("{phase}", phase)
-        ev_code = ev_code.replace("{house_idx}", str(house_idx))
+    def configure_ev(self, house_index: int):
+        ev_code = self.ev_template.replace("{house_idx}", str(house_index))
 
         return ev_code
+
     # def get_house_parameters(self, vpp_idx, phase, house_idx):
     #     dict = {}
     #     if phase == 'A':
@@ -329,19 +312,3 @@ class GlmGenerator:
     #     # dict['ratio_MICROWAVE'] = float(template_house['children'][5]['attributes']['base_power'].replace('MICROWAVE*','')) + round(random.uniform(-0.1,0.1),2)
     #     # seed+=1
     #     return dict
-
-    def generate_glm(self):
-        """generate .glm file for GridLAB-D federate
-        """
-
-        # 1.1 configure the time step for gridlabd simulation
-        self.configure_minimum_timestep()
-
-        # 1.2 configure vpp infrastructure
-        self.configure_vpp_infrastructure()
-
-        # 1.3 configure houses
-        self.configure_houses()
-
-        if self.helics_connected:
-            self.configure_helics_msg()

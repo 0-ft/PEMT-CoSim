@@ -1,0 +1,878 @@
+{
+    "name": "ev1",
+    "uninterruptible": false,
+    "publications": [
+        {
+            "key": "F0_house_A0_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A0_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A0_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A0_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A0_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A1_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A1_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A1_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A1_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A1_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A2_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A2_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A2_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A2_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A2_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A3_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A3_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A3_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A3_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A3_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A4_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A4_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A4_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A4_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A4_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A5_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A5_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A5_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A5_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A5_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A6_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A6_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A6_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A6_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A6_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A7_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A7_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A7_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A7_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A7_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A8_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A8_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A8_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A8_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A8_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A9_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A9_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A9_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A9_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A9_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A10_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A10_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A10_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A10_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A10_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A11_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A11_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A11_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A11_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A11_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A12_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A12_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A12_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A12_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A12_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A13_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A13_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A13_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A13_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A13_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A14_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A14_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A14_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A14_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A14_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A15_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A15_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A15_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A15_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A15_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A16_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A16_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A16_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A16_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A16_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A17_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A17_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A17_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A17_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A17_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A18_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A18_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A18_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A18_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A18_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A19_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A19_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A19_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A19_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A19_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A20_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A20_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A20_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A20_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A20_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A21_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A21_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A21_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A21_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A21_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A22_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A22_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A22_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A22_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A22_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A23_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A23_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A23_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A23_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A23_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A24_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A24_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A24_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A24_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A24_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A25_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A25_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A25_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A25_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A25_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A26_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A26_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A26_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A26_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A26_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A27_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A27_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A27_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A27_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A27_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A28_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A28_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A28_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A28_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A28_EV/driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A29_EV/location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "F0_house_A29_EV/stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A29_EV/soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "F0_house_A29_EV/charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "F0_house_A29_EV/driving_load",
+            "type": "double",
+            "global": false
+        }
+    ],
+    "subscriptions": [
+        {
+            "key": "sub1/F0_house_A0_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A1_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A2_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A3_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A4_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A5_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A6_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A7_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A8_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A9_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A10_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A11_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A12_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A13_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A14_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A15_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A16_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A17_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A18_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A19_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A20_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A21_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A22_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A23_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A24_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A25_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A26_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A27_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A28_EV/charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "sub1/F0_house_A29_EV/charge_rate",
+            "type": "double"
+        }
+    ]
+}

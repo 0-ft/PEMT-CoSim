@@ -1,5 +1,4 @@
 object triplex_line {
-	groupid F{vpp_idx}_Triplex_Line;
 	phases {phase}S;
 	from F{vpp_idx}_triplex_node_{phase};
 	to H{house_idx}_meter_billing;
@@ -18,7 +17,6 @@ object triplex_meter {
 }
 
 object triplex_line {
-	groupid F{vpp_idx}_Triplex_Line;
 	phases {phase}S;
 	from H{house_idx}_meter_billing;
 	to H{house_idx}_meter_house;
