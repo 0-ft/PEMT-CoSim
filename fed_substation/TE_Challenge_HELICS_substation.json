@@ -174,7 +174,7 @@
         },
         {
             "global": false,
-            "key": "H9_solar_inv#P_Out",git
+            "key": "H9_solar_inv#P_Out",
             "type": "double"
         },
         {
