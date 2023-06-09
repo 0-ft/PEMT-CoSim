@@ -59,6 +59,14 @@ if __name__ == "__main__":
     with open("fed_substation/TE_Challenge_HELICS_substation.json", "w") as f:
         json.dump(helics_config_helper.pet_config, f, indent=4)
 
-    weather_config = json.load(open("fed_weather/TE_Challenge_HELICS_Weather_Config.json", "r"))
+    # update weather config
+    weather_config_path = "fed_weather/TE_Challenge_HELICS_Weather_Config.json"
+    weather_config = json.load(open(weather_config_path, "r"))
     weather_config["time_stop"] = f"{int((scenario.end_time - scenario.start_time).total_seconds() / 60)}m"
-    json.dump(weather_config, open("fed_weather/TE_Challenge_HELICS_Weather_Config.json", "w"), indent=4)
+    json.dump(weather_config, open(weather_config_path, "w"), indent=4)
+
+    # update pypower config
+    pypower_config_path = "fed_pypower/te30_pp.json"
+    pypower_config = json.load(open(pypower_config_path, "r"))
+    pypower_config["Tmax"] = int((scenario.end_time - scenario.start_time).total_seconds())
+    json.dump(pypower_config, open(pypower_config_path, "w"), indent=4)

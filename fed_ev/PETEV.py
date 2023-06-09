@@ -35,7 +35,7 @@ class V2GEV:
         self.car_model = car_model
 
         self.battery_capacity = car_model.parameters["battery_cap"] * 1000 * 3600
-        self.stored_energy = (1.0 - random() * 0.1) * self.battery_capacity
+        self.stored_energy = random() * self.battery_capacity
 
         self.location = self.profile["state"].asof(start_time)
         self.desired_charge_rate = 0.0

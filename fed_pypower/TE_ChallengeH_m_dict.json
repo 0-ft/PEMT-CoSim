@@ -79,12 +79,6 @@
       "c0": 0.0
     }
   },
-  "UnitsOut": [
-    {
-      "unit": 2,
-      "tout": 108000,
-      "tin": 154800
-    }
-  ],
+  "UnitsOut": [],
   "BranchesOut": []
 }
