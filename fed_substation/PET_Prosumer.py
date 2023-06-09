@@ -296,7 +296,7 @@ class House:
         return bids
 
     def post_market_control(self, transactions):
-        print(self.name, transactions)
+        # print(self.name, transactions)
         buys = [bid for bid in transactions if bid["role"] == "buyer"]
         sells = [bid for bid in transactions if bid["role"] == "seller"]
         total_bought = sum(bid["quantity"] for bid in buys)

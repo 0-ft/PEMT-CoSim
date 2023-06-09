@@ -89,14 +89,14 @@ class PETFederate:
             """ 5. houses formulate and send their bids"""
             if time_granted >= self.next_market_time:
                 # auction.clear_bids()  # auction remove all previous records, re-initialize
-                print(
-                    f"EVs @ {[(i, house.ev.location, house.ev.soc, house.ev.load_range) for i, house in enumerate(self.houses.values()) if house.ev is not None]}")
-                print(
-                    f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load if house.ev else 0) for i, house in enumerate(self.houses.values())]}")
-                print(
-                    f"HVAC LOADS SUM {sum(house.hvac.hvac_load for house in self.houses.values())} @ {[(i, house.hvac.hvac_load) for i, house in enumerate(self.houses.values())]}")
-                print("AUCTION HISTORY BEFORE BIDS")
-                print(self.auction.history)
+                # print(
+                #     f"EVs @ {[(i, house.ev.location, house.ev.soc, house.ev.load_range) for i, house in enumerate(self.houses.values()) if house.ev is not None]}")
+                # print(
+                #     f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load if house.ev else 0) for i, house in enumerate(self.houses.values())]}")
+                # print(
+                #     f"HVAC LOADS SUM {sum(house.hvac.hvac_load for house in self.houses.values())} @ {[(i, house.hvac.hvac_load) for i, house in enumerate(self.houses.values())]}")
+                # print("AUCTION HISTORY BEFORE BIDS")
+                # print(self.auction.history)
                 bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [
                     self.grid_supply.formulate_bid()]
                 self.auction.collect_bids(bids)

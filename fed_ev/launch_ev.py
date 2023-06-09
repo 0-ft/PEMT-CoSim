@@ -17,17 +17,17 @@ EVPublications = namedtuple("EVPublications", "location load")
 
 
 class EVFederate:
-    def __init__(self, num_evs, start_time: datetime, end_time: datetime):
-        self.quant = None
+    def __init__(self, scenario: PETScenario):
+        self.scenario = scenario
         self.fed_name = None
         self.time_period_hours = 0.125
         self.time_period_seconds = self.time_period_hours * 3600
-        self.num_evs = num_evs
+        self.num_evs = scenario.num_ev
         self.helics_fed: HelicsFederate = None
-        self.start_time = start_time
-        self.current_time = start_time
-        self.end_time = end_time
-        self.hour_stop = (end_time - start_time).total_seconds() / 3600
+        self.start_time = scenario.start_time
+        self.current_time = self.start_time
+        self.end_time = scenario.end_time
+        self.hour_stop = (self.end_time - self.start_time).total_seconds() / 3600
 
         self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, num_evs,
                                       "emobpy_data/profiles").load_from_saved()
@@ -122,8 +122,7 @@ class EVFederate:
             [pandas.DataFrame(ev.history, columns=["time", "location", "stored_energy", "charge_rate", "soc"]) for ev in
              self.evs], axis=1,
             keys=range(self.num_evs))
-        print(data)
-        data.to_csv(f"out.csv")
+        pickle.dump(data, open(f"{scenario.name}_ev_history.pkl", "wb"))
 
     def run(self):
         print("EV federate to enter initializing mode", flush=True)
@@ -172,7 +171,7 @@ class EVFederate:
 with open("../scenario.pkl", "rb") as f:
     scenario: PETScenario = pickle.load(f)
 
-federate = EVFederate(scenario.num_ev, scenario.start_time, scenario.end_time)
+federate = EVFederate(scenario)
 federate.create_federate()
 federate.enabled = True
 federate.run()

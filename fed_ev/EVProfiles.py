@@ -29,8 +29,7 @@ STATION_DISTRIBUTION = {
         'leisure': {'none': 1},
         'shopping': {'none': 1},
         'home': {'home': 1},
-        'workplace': {'workplace': 0.5},
-        # If the vehicle is at the workplace, it will always find a charging station available (assumption)
+        'workplace': {'workplace': 0.8},
         'driving': {'none': 1}
     },
     # with the low probability given to fast charging is to ensure fast charging only for very long trips (assumption)
@@ -79,8 +78,8 @@ class EVProfiles:
         self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
                                         keys=range(self.num_evs))
 
-        self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
-                                   keys=range(self.num_evs))
+        # self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
+        #                            keys=range(self.num_evs))
 
         print("Finished loading EV profiles from saved")
         print("Loaded " + ", ".join(
@@ -102,23 +101,24 @@ class EVProfiles:
                          k=self.num_evs)
 
         print("Generating " + ", ".join([f"{n}x{m.name}" for m, n in collections.Counter(models).items()]))
+
         with Pool(pool_size) as p:
             self.profiles = p.starmap(self.create_ev_profile, zip(range(self.num_evs), models))
             print("Finished generating EV profiles")
-            self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
-                                            keys=range(self.num_evs))
-            self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
-                                       keys=range(self.num_evs))
+        self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
+                                        keys=range(self.num_evs))
+        # self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
+        #                            keys=range(self.num_evs))
         return self.profiles
 
     def create_ev_profile(self, i, car_model: ModelSpecs):
         print(f"Creating EV profile {i}, car model {car_model.name}")
         try:
-            mobility = self.create_mobility_timeseries()
+            mobility = self.create_mobility_timeseries(np.random.uniform(0, 1) < 0.8, np.random.uniform(0, 1) < 0.8)
             consumption = self.create_consumption_timeseries(mobility, car_model)
-            availability = self.create_availability_timeseries(consumption)
-            demand = self.create_demand_timeseries(availability)
-            result = EVProfile(mobility, consumption, availability, demand, car_model)
+            # availability = self.create_availability_timeseries(consumption)
+            # demand = self.create_demand_timeseries(availability)
+            result = EVProfile(mobility, consumption, None, None, car_model)
             print(f"EV profile {i} created, saving now")
 
             with gzip.open(f"{self.output_folder}/{i}.pkl", 'wb') as handle:
@@ -130,8 +130,9 @@ class EVProfiles:
             print(f"Failed to create mobility timeseries. Retrying...")
             return self.create_ev_profile(i, car_model)
 
-    def create_mobility_timeseries(self):
-        print("Creating mobility timeseries")
+    def create_mobility_timeseries(self, worker=True, full_time=True):
+        full_time=True
+        print(f"Creating mobility timeseries, worker={worker}, full_time={full_time}")
         m = Mobility(config_folder='emobpy_data/config_files')
         m.set_params(
             name_prefix="evprofile",
@@ -143,10 +144,11 @@ class EVProfiles:
 
         m.set_stats(
             stat_ntrip_path="TripsPerDay.csv",
-            stat_dest_path="DepartureDestinationTrip.csv",
+            stat_dest_path=f"DepartureDestinationTrip_{'Worker' if worker else 'Free'}.csv",
             stat_km_duration_path="DistanceDurationTrip.csv",
         )
-        m.set_rules(rule_key="user_defined")
+        rule_key = ("fulltime" if full_time else "parttime") if worker else "freetime"
+        m.set_rules(rule_key=rule_key)
         m.run()
         print(f"Mobility timeseries created {m.name}")
         return m
@@ -354,12 +356,14 @@ def energy_used_between(ts, start_time: datetime, end_time: datetime):
 if __name__ == '__main__':
     start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
     ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
-    # ev_profiles.run()
-    ev_profiles.load_from_saved()
+    ev_profiles.run(pool_size=1)
+    # ev_profiles.load_from_saved()
     t = start_t + timedelta(hours=14)
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)
-    ev_profiles.get_locations_at_time(t)
+    # ev_profiles.get_locations_at_time(t)
+    print(ev_profiles.profiles[2].mobility.timeseries)
+    print(set(s for p in ev_profiles.profiles for s in set(p.mobility.timeseries["state"])))
     # print(ev_profiles.profiles[2].consumption.timeseries.to_string())
     print(ev_profiles.profiles[2].car_model.parameters)
     # c = ev_profiles.profiles[2].consumption.timeseries

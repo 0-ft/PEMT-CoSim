@@ -177,6 +177,8 @@ class V2GEV:
         # home_charge_delta = min(home_charge_delta, self.battery_capacity - self.stored_energy)
 
         work_charge_delta = time_delta * self.work_charge_rate * (self.location == "workplace")
+        if work_charge_delta > 0:
+            print(f"EV {self.name} charging at work {work_charge_delta} @ {self.current_time}")
         total_charge_delta = min(home_charge_delta + work_charge_delta, self.battery_capacity - self.stored_energy)
 
         self.stored_energy += total_charge_delta - energy_used

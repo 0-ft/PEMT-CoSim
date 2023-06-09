@@ -6,4 +6,4 @@ fed_ev/log/*
 fed_gridlabd/TE_Challenge.glm
 fed_gridlabd/TE_Challenge_HELICS_msg.json
 fed_gridlabd/TE_Challenge_glm_dict.json
-
+fed_substation/TE_Challenge_HELICS_substation.json
