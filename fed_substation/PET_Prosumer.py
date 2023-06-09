@@ -17,7 +17,7 @@ from helics import HelicsFederate
 from market import ContinuousDoubleAuction
 from trading_policies import BoundedCrossoverTrader
 
-hvac_load_predictor = pickle.load(open("hvac_load_predictor.pkl", "rb"))
+# hvac_load_predictor = pickle.load(open("hvac_load_predictor.pkl", "rb"))
 
 class HVAC:
 
