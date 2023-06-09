@@ -14,6 +14,7 @@ class EVChargingState(IntEnum):
     CHARGING = 1
     DISCHARGING = 2
 
+
 # MAX_CHARGE_RATE = 3700
 # MAX_DISCHARGE_RATE = 4000
 
@@ -32,22 +33,31 @@ class V2GEV:
             lambda x: x].index
         self.time_to_location_change = 0  # (self.location_change_times[0] - start_time).total_seconds()
 
+        # parameters
         self.car_model = car_model
-
+        self.max_discharge_rate = 4000
+        self.max_home_charge_rate = 4500
+        self.min_home_charge_rate = 2500
         self.battery_capacity = car_model.parameters["battery_cap"] * 1000 * 3600
-        self.stored_energy = random() * self.battery_capacity
+        self.work_charge_rate = 7000
 
+        # state
+        self.stored_energy = random() * self.battery_capacity
         self.location = self.profile["state"].asof(start_time)
         self.desired_charge_rate = 0.0
         self.charging_load = 0.0
         self.driving_load = 0.0
         self.time_to_full_charge = float('inf')
+        self.charging_load_range = 0.0, 0.0
 
         self.pub_location = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#location")
         self.pub_stored_energy = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#stored_energy")
         self.pub_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#charging_load")
         self.pub_soc = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#soc")
         self.pub_driving_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#driving_load")
+
+        self.pub_max_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#max_charging_load")
+        self.pub_min_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#min_charging_load")
 
         self.sub_charge_rate = helics.helicsFederateGetSubscription(self.helics_fed, f"pet1/{name}#charge_rate")
         self.prev_time = start_time
@@ -96,15 +106,34 @@ class V2GEV:
         self.pub_charging_load.publish(complex(self.charging_load, 0))
         self.pub_driving_load.publish(self.driving_load)
         self.pub_soc.publish(self.stored_energy / self.battery_capacity)
+        self.pub_max_charging_load.publish(self.charging_load_range[1])
+        self.pub_min_charging_load.publish(self.charging_load_range[0])
 
     def time_to_next_location_change(self):
         future_changes = self.location_change_times[self.location_change_times > self.current_time]
         return (future_changes[0] - self.current_time).total_seconds() if len(future_changes) else float('inf')
 
+    def load_range(self):
+        # max_discharge = -self.max_discharge_rate * any(
+        #     a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
+        max_discharge = -self.max_discharge_rate
+        soc = self.stored_energy / self.battery_capacity
+        if self.location != "home":
+            return 0.0, 0.0
+        elif .9 <= soc:
+            return max_discharge, 0
+        elif .3 <= soc < .9:
+            return max_discharge, self.max_home_charge_rate
+        elif .2 <= soc < .3:
+            return 0, self.max_home_charge_rate
+        else:
+            return self.min_home_charge_rate, self.max_home_charge_rate
+
     def update_state(self, new_time):
         self.prev_time = self.current_time
         self.current_time = new_time
         time_delta = (self.current_time - self.prev_time).total_seconds()
+        self.charging_load_range = self.load_range()
 
         new_desired_charge_rate = self.sub_charge_rate.double
         # if new_desired_charge_rate != self.desired_charge_rate:
@@ -140,14 +169,17 @@ class V2GEV:
         #                                                            self.stored_energy / self.battery_capacity > 0.0001) and self.enable_discharging else 0.0
 
         # calculate charge change from charge/discharge
-        charge_delta = time_delta * self.charging_load * (
+        home_charge_delta = time_delta * self.charging_load * (
             self.car_model.parameters["battery_charging_eff"]
             if self.charging_load > 0 else
             self.car_model.parameters["battery_discharging_eff"]
         )
-        charge_delta = min(charge_delta, self.battery_capacity - self.stored_energy)
+        # home_charge_delta = min(home_charge_delta, self.battery_capacity - self.stored_energy)
 
-        self.stored_energy += charge_delta - energy_used
+        work_charge_delta = time_delta * self.work_charge_rate * (self.location == "workplace")
+        total_charge_delta = min(home_charge_delta + work_charge_delta, self.battery_capacity - self.stored_energy)
+
+        self.stored_energy += total_charge_delta - energy_used
 
         if 0.9999 < self.stored_energy / self.battery_capacity and self.stored_energy != self.battery_capacity:
             print(f"{self.name} reached full charge")

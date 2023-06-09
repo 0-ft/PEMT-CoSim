@@ -96,7 +96,8 @@ class HelicsConfigHelper:
         pet_subs_ev = [
             sub("ev1", ev_name, prop, prop_type, False)
             for prop, prop_type in
-            [("location", "string"), ("driving_load", "double"), ("charging_load", "double"), ("soc", "double"), ("stored_energy", "double")]
+            [("location", "string"), ("driving_load", "double"), ("charging_load", "double"), ("soc", "double"), ("stored_energy", "double"),
+             ("max_charging_load", "double"), ("min_charging_load", "double")]
         ]
 
         pet_pubs_ev = [

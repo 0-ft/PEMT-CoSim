@@ -40,7 +40,7 @@ class PETFederate:
         }
         self.update_period = 15  # state update period (15 seconds)
         self.market_period = 300  # market period (300 seconds)
-        self.fig_update_period = 10000  # figure update time period
+        self.fig_update_period = 1000  # figure update time period
 
         self.next_update_time = 0  # the next time to update the state
         self.next_market_time = 0

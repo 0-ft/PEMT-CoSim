@@ -999,6 +999,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H0_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H0_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H1_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1044,6 +1052,14 @@
         },
         {
             "key": "ev1/H1_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H1_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H1_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1095,6 +1111,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H2_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H2_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H3_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1140,6 +1164,14 @@
         },
         {
             "key": "ev1/H3_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H3_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H3_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1191,6 +1223,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H4_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H4_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H5_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1236,6 +1276,14 @@
         },
         {
             "key": "ev1/H5_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H5_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H5_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1287,6 +1335,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H6_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H6_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H7_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1332,6 +1388,14 @@
         },
         {
             "key": "ev1/H7_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H7_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H7_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1383,6 +1447,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H8_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H8_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H9_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1428,6 +1500,14 @@
         },
         {
             "key": "ev1/H9_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H9_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H9_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1479,6 +1559,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H10_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H10_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H11_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1524,6 +1612,14 @@
         },
         {
             "key": "ev1/H11_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H11_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H11_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1575,6 +1671,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H12_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H12_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H13_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1620,6 +1724,14 @@
         },
         {
             "key": "ev1/H13_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H13_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H13_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1671,6 +1783,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H14_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H14_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H15_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1716,6 +1836,14 @@
         },
         {
             "key": "ev1/H15_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H15_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H15_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1767,6 +1895,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H16_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H16_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H17_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1812,6 +1948,14 @@
         },
         {
             "key": "ev1/H17_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H17_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H17_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1863,6 +2007,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H18_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H18_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H19_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1908,6 +2060,14 @@
         },
         {
             "key": "ev1/H19_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H19_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H19_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -1959,6 +2119,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H20_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H20_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H21_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2004,6 +2172,14 @@
         },
         {
             "key": "ev1/H21_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H21_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H21_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -2055,6 +2231,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H22_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H22_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H23_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2100,6 +2284,14 @@
         },
         {
             "key": "ev1/H23_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H23_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H23_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -2151,6 +2343,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H24_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H24_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H25_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2196,6 +2396,14 @@
         },
         {
             "key": "ev1/H25_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H25_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H25_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -2247,6 +2455,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H26_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H26_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H27_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2292,6 +2508,14 @@
         },
         {
             "key": "ev1/H27_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H27_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H27_ev#min_charging_load",
             "type": "double"
         },
         {
@@ -2343,6 +2567,14 @@
             "type": "double"
         },
         {
+            "key": "ev1/H28_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H28_ev#min_charging_load",
+            "type": "double"
+        },
+        {
             "key": "gld1/H29_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2388,6 +2620,14 @@
         },
         {
             "key": "ev1/H29_ev#stored_energy",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H29_ev#max_charging_load",
+            "type": "double"
+        },
+        {
+            "key": "ev1/H29_ev#min_charging_load",
             "type": "double"
         }
     ]

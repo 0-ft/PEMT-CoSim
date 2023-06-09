@@ -155,11 +155,6 @@ class EV:
     def __init__(self, helics_federate: HelicsFederate, house_id: int, auction: ContinuousDoubleAuction):
         self.house_id = house_id
 
-        self.max_discharge_rate = 4000
-        self.max_charge_rate = 4500
-        self.min_charge_rate = 2500
-        # self.discharge_hod_ranges = [(0.0, 3.0), (18.0, 24.0)]
-
         self.load_range = 0.0, 0.0
 
         self.location = "home"
@@ -175,10 +170,12 @@ class EV:
         self.sub_soc = helics_federate.subscriptions[f"ev1/H{house_id}_ev#soc"]
         self.sub_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#charging_load"]
         self.sub_driving_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#driving_load"]
+        self.sub_max_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#max_charging_load"]
+        self.sub_min_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#min_charging_load"]
+        self.sub_measured_load = helics_federate.subscriptions[f"gld1/H{house_id}_ev_meter#measured_power"]
 
         self.pub_desired_charge_rate = helics_federate.publications[f"pet1/H{house_id}_ev#charge_rate"]
 
-        self.sub_measured_load = helics_federate.subscriptions[f"gld1/H{house_id}_ev_meter#measured_power"]
 
     def update_state(self):
         self.location = self.sub_location.string
@@ -187,23 +184,8 @@ class EV:
         self.charging_load = self.sub_charging_load.complex.real
         self.driving_load = self.sub_driving_load.double
         self.measured_load = abs(self.sub_measured_load.complex)
+        self.load_range = self.sub_min_charging_load.double, self.sub_max_charging_load.double
         # print(f"EV {self.house_id} got subs {self.load:3f}, {self.soc:3f}, {self.location}, {self.stored_energy:3f}")
-        self.set_load_range()
-
-    def set_load_range(self):
-        # max_discharge = -self.max_discharge_rate * any(
-        #     a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
-        max_discharge = -self.max_discharge_rate
-        if self.location != "home":
-            self.load_range = 0.0, 0.0
-        elif .9 <= self.soc:
-            self.load_range = max_discharge, 0
-        elif .3 <= self.soc < .9:
-            self.load_range = max_discharge, self.max_charge_rate
-        elif .2 <= self.soc < .3:
-            self.load_range = 0, self.max_charge_rate
-        else:
-            self.load_range = self.min_charge_rate, self.max_charge_rate
 
     def set_desired_charge_rate(self, desired_charge_rate):
         min_load, max_load = self.load_range
