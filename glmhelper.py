@@ -112,7 +112,8 @@ object helics_msg {\n\
 
     def generate_house_parameters(self):
         template_house = random.choice(self.template_houses)
-        air_temperature = float(template_house['attributes']['air_temperature']) + round(random.uniform(-1, 1))
+        # air_temperature = float(template_house['attributes']['air_temperature']) + round(random.uniform(-1, 1))
+        air_temperature = 73 + round(random.uniform(-1, 1))
         skew = int(template_house['attributes']['schedule_skew']) + random.randint(-10, 10)
         ZIP_code = ""
         for child in template_house['children']:

@@ -14,7 +14,6 @@ class EVChargingState(IntEnum):
     CHARGING = 1
     DISCHARGING = 2
 
-
 # MAX_CHARGE_RATE = 3700
 # MAX_DISCHARGE_RATE = 4000
 
@@ -141,7 +140,11 @@ class V2GEV:
         #                                                            self.stored_energy / self.battery_capacity > 0.0001) and self.enable_discharging else 0.0
 
         # calculate charge change from charge/discharge
-        charge_delta = time_delta * self.charging_load
+        charge_delta = time_delta * self.charging_load * (
+            self.car_model.parameters["battery_charging_eff"]
+            if self.charging_load > 0 else
+            self.car_model.parameters["battery_discharging_eff"]
+        )
         charge_delta = min(charge_delta, self.battery_capacity - self.stored_energy)
 
         self.stored_energy += charge_delta - energy_used

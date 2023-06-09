@@ -243,12 +243,12 @@ class SubstationRecorder:
                 "name": "Total HVAC Load",
                 "stackgroup": "house_load"
             },
-            # {
-            #     "type": "scatter",
-            #     "x": grid.index,
-            #     "y": np.real(grid["vpp_load"]),
-            #     "name": "Total VPP  P",
-            # },
+            {
+                "type": "scatter",
+                "x": grid.index,
+                "y": np.real(grid["vpp_load"]),
+                "name": "Total VPP  P",
+            },
             # {
             #     "type": "scatter",
             #     "x": grid.index,

@@ -22,22 +22,27 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='generate_case',
         description='Generate a PET scenario for simulation')
+    parser.add_argument("-i", "--input_file", type=argparse.FileType('rb'), required=False)
+    # parser.add_argument("-o", "--output_file", type=argparse.FileType('wb'), required=False)
     parser.add_argument("-n", "--num_houses", type=int, default=30)
     parser.add_argument("-e", "--num_ev", type=int, default=30)
     parser.add_argument("-p", "--num_pv", type=int, default=30)
     parser.add_argument("-g", "--grid_cap", type=int, default=200000)
     args = parser.parse_args()
 
-    scenario = PETScenario(
-        num_houses=args.num_houses,
-        num_ev=args.num_ev,
-        num_pv=args.num_pv,
-        grid_power_cap=args.grid_cap,
-        start_time=datetime(2013, 7, 1, 0, 0, 0),
-        end_time=datetime(2013, 7, 9, 0, 0, 0),
-    )
-    with open("scenario.pkl", "wb") as f:
-        pickle.dump(scenario, f)
+    if args.input_file:
+        scenario = pickle.load(args.input_file)
+    else:
+        scenario = PETScenario(
+            num_houses=args.num_houses,
+            num_ev=args.num_ev,
+            num_pv=args.num_pv,
+            grid_power_cap=args.grid_cap,
+            start_time=datetime(2013, 7, 1, 0, 0, 0),
+            end_time=datetime(2013, 7, 9, 0, 0, 0),
+        )
+        pickle.dump(scenario, open(f"scenarios/{scenario.name}.pkl", "wb"))
+    pickle.dump(scenario, open("scenario.pkl", "wb"))
 
     GlmGenerator(scenario).save("fed_gridlabd")
 

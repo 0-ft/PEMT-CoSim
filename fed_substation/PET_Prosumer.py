@@ -156,7 +156,7 @@ class EV:
         self.house_id = house_id
 
         self.max_discharge_rate = 4000
-        self.max_charge_rate = 4000
+        self.max_charge_rate = 4500
         self.min_charge_rate = 2500
         # self.discharge_hod_ranges = [(0.0, 3.0), (18.0, 24.0)]
 

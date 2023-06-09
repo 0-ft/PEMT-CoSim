@@ -16,6 +16,15 @@ class BoundedCrossoverTrader:
         self.sell_threshold_price = float('-inf')
 
     def trade(self, current_time: datetime, buy_range):
+        if buy_range[0] > 0:
+            return [["buyer", float('inf'), buy_range[0]]]
+        if buy_range[1] < 0:
+            print("MUST SELL")
+            return [["seller", 0, buy_range[1]]]
+
+        if (current_time - self.auction.history.index.min()) < self.long_window:
+            return []
+
         # update moving averages
         self.long_ma = self.auction.history["average_since"].last(self.long_window).iloc[0]
         self.short_ma = self.auction.history["average_since"].last(self.short_window).iloc[0]
@@ -24,11 +33,6 @@ class BoundedCrossoverTrader:
         self.buy_threshold_price = self.long_ma - self.iqr * self.buy_iqr_ratio
         self.sell_threshold_price = self.long_ma + self.iqr * self.sell_iqr_ratio
 
-        if buy_range[0] > 0:
-            return [["buyer", float('inf'), buy_range[0]]]
-        if buy_range[1] < 0:
-            print("MUST SELL")
-            return [["seller", 0, buy_range[1]]]
         return [
             ["buyer", self.buy_threshold_price, buy_range[1]],
             ["seller", self.sell_threshold_price, -buy_range[0]]

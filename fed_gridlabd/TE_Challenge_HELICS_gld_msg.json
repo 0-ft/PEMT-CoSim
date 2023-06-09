@@ -76,6 +76,15 @@
         },
         {
             "global": false,
+            "key": "H0_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H0_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H1_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -126,6 +135,15 @@
             "info": {
                 "object": "H1",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H1_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H1_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -184,6 +202,15 @@
         },
         {
             "global": false,
+            "key": "H2_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H2_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H3_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -234,6 +261,15 @@
             "info": {
                 "object": "H3",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H3_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H3_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -292,6 +328,15 @@
         },
         {
             "global": false,
+            "key": "H4_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H4_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H5_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -342,6 +387,15 @@
             "info": {
                 "object": "H5",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H5_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H5_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -400,6 +454,15 @@
         },
         {
             "global": false,
+            "key": "H6_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H6_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H7_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -450,6 +513,15 @@
             "info": {
                 "object": "H7",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H7_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H7_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -508,6 +580,15 @@
         },
         {
             "global": false,
+            "key": "H8_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H8_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H9_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -558,6 +639,15 @@
             "info": {
                 "object": "H9",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H9_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H9_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -616,6 +706,15 @@
         },
         {
             "global": false,
+            "key": "H10_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H10_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H11_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -666,6 +765,15 @@
             "info": {
                 "object": "H11",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H11_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H11_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -724,6 +832,15 @@
         },
         {
             "global": false,
+            "key": "H12_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H12_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H13_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -774,6 +891,15 @@
             "info": {
                 "object": "H13",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H13_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H13_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -832,6 +958,15 @@
         },
         {
             "global": false,
+            "key": "H14_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H14_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H15_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -882,6 +1017,15 @@
             "info": {
                 "object": "H15",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H15_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H15_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -940,6 +1084,15 @@
         },
         {
             "global": false,
+            "key": "H16_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H16_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H17_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -990,6 +1143,15 @@
             "info": {
                 "object": "H17",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H17_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H17_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -1048,6 +1210,15 @@
         },
         {
             "global": false,
+            "key": "H18_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H18_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H19_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1098,6 +1269,15 @@
             "info": {
                 "object": "H19",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H19_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H19_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -1156,6 +1336,15 @@
         },
         {
             "global": false,
+            "key": "H20_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H20_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H21_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1206,6 +1395,15 @@
             "info": {
                 "object": "H21",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H21_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H21_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -1264,6 +1462,15 @@
         },
         {
             "global": false,
+            "key": "H22_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H22_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H23_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1314,6 +1521,15 @@
             "info": {
                 "object": "H23",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H23_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H23_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -1372,6 +1588,15 @@
         },
         {
             "global": false,
+            "key": "H24_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H24_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H25_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1422,6 +1647,15 @@
             "info": {
                 "object": "H25",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H25_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H25_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -1480,6 +1714,15 @@
         },
         {
             "global": false,
+            "key": "H26_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H26_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H27_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1530,6 +1773,15 @@
             "info": {
                 "object": "H27",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H27_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H27_ev_meter",
+                "property": "measured_power"
             }
         },
         {
@@ -1588,6 +1840,15 @@
         },
         {
             "global": false,
+            "key": "H28_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H28_ev_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
             "key": "H29_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1638,6 +1899,15 @@
             "info": {
                 "object": "H29",
                 "property": "power_state"
+            }
+        },
+        {
+            "global": false,
+            "key": "H29_ev_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H29_ev_meter",
+                "property": "measured_power"
             }
         }
     ],
@@ -1755,6 +2025,14 @@
             }
         },
         {
+            "key": "ev1/H0_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H0_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H1_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -1808,6 +2086,14 @@
             "info": {
                 "object": "H1",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H1_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H1_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -1867,6 +2153,14 @@
             }
         },
         {
+            "key": "ev1/H2_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H2_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H3_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -1920,6 +2214,14 @@
             "info": {
                 "object": "H3",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H3_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H3_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -1979,6 +2281,14 @@
             }
         },
         {
+            "key": "ev1/H4_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H4_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H5_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2032,6 +2342,14 @@
             "info": {
                 "object": "H5",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H5_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H5_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2091,6 +2409,14 @@
             }
         },
         {
+            "key": "ev1/H6_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H6_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H7_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2144,6 +2470,14 @@
             "info": {
                 "object": "H7",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H7_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H7_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2203,6 +2537,14 @@
             }
         },
         {
+            "key": "ev1/H8_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H8_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H9_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2256,6 +2598,14 @@
             "info": {
                 "object": "H9",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H9_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H9_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2315,6 +2665,14 @@
             }
         },
         {
+            "key": "ev1/H10_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H10_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H11_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2368,6 +2726,14 @@
             "info": {
                 "object": "H11",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H11_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H11_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2427,6 +2793,14 @@
             }
         },
         {
+            "key": "ev1/H12_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H12_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H13_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2480,6 +2854,14 @@
             "info": {
                 "object": "H13",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H13_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H13_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2539,6 +2921,14 @@
             }
         },
         {
+            "key": "ev1/H14_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H14_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H15_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2592,6 +2982,14 @@
             "info": {
                 "object": "H15",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H15_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H15_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2651,6 +3049,14 @@
             }
         },
         {
+            "key": "ev1/H16_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H16_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H17_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2704,6 +3110,14 @@
             "info": {
                 "object": "H17",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H17_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H17_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2763,6 +3177,14 @@
             }
         },
         {
+            "key": "ev1/H18_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H18_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H19_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2816,6 +3238,14 @@
             "info": {
                 "object": "H19",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H19_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H19_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2875,6 +3305,14 @@
             }
         },
         {
+            "key": "ev1/H20_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H20_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H21_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2928,6 +3366,14 @@
             "info": {
                 "object": "H21",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H21_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H21_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -2987,6 +3433,14 @@
             }
         },
         {
+            "key": "ev1/H22_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H22_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H23_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3040,6 +3494,14 @@
             "info": {
                 "object": "H23",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H23_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H23_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -3099,6 +3561,14 @@
             }
         },
         {
+            "key": "ev1/H24_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H24_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H25_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3152,6 +3622,14 @@
             "info": {
                 "object": "H25",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H25_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H25_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -3211,6 +3689,14 @@
             }
         },
         {
+            "key": "ev1/H26_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H26_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H27_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3264,6 +3750,14 @@
             "info": {
                 "object": "H27",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H27_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H27_ev",
+                "property": "constant_power_A"
             }
         },
         {
@@ -3323,6 +3817,14 @@
             }
         },
         {
+            "key": "ev1/H28_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H28_ev",
+                "property": "constant_power_A"
+            }
+        },
+        {
             "key": "pet1/H29_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3376,6 +3878,14 @@
             "info": {
                 "object": "H29",
                 "property": "thermostat_deadband"
+            }
+        },
+        {
+            "key": "ev1/H29_ev#charging_load",
+            "type": "complex",
+            "info": {
+                "object": "H29_ev",
+                "property": "constant_power_A"
             }
         }
     ]
