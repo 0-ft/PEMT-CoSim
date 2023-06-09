@@ -6,6 +6,7 @@ Implements the ramp bidding method, with HVAC power as the
 bid quantity, and thermostat setting changes as the response
 mechanism.
 """
+import pickle
 import random
 from datetime import datetime, timedelta
 
@@ -14,8 +15,9 @@ import numpy as np
 from helics import HelicsFederate
 
 from market import ContinuousDoubleAuction
-from trading_policies import LimitedCrossoverTrader
+from trading_policies import BoundedCrossoverTrader
 
+hvac_load_predictor = pickle.load(open("hvac_load_predictor.pkl", "rb"))
 
 class HVAC:
 
@@ -42,6 +44,7 @@ class HVAC:
         self.hvac_load_last = self.hvac_load  # save the last power measurement that > 0
         self.hvac_on = False
         self.power_needed = False
+        self.predicted_load = 4000
 
         # setpoint related
         self.base_point = 80.6
@@ -56,6 +59,7 @@ class HVAC:
         self.sub_hvac_load = helics_federate.subscriptions[f"gld1/H{house_id}#hvac_load"]
 
         self.pub_thermostat_mode = helics_federate.publications[f"pet1/H{house_id}#thermostat_mode"]
+        self.pub_setpoint = helics_federate.publications[f"pet1/H{house_id}#cooling_setpoint"]
 
     def update_state(self):
         self.air_temp = self.sub_temp.double
@@ -63,7 +67,7 @@ class HVAC:
         self.hvac_load = self.sub_hvac_load.double * 1000  # max(self.sub_hvac_load.double * 1000, 0)
         # print(f"house {self.house_id} hvac load: {self.hvac_load}, hvac_needed {self.power_needed}")
 
-    def determine_power_needed(self):
+    def determine_power_needed(self, weather_temperature):
         self.set_point = self.base_point + self.offset
 
         up_bound = self.set_point + 1 / 2 * self.deadband
@@ -73,6 +77,7 @@ class HVAC:
             self.power_needed = True
         if self.air_temp < lower_bound:
             self.power_needed = False
+        self.predict_load(weather_temperature)
 
         # if self.air_temp < (lower_bound - 3) and self.hvac_on:
         #     print(
@@ -82,19 +87,26 @@ class HVAC:
     #     will_request = random.random() < self.probability
     #     return self.auction.lmp + 0.01 * (self.probability - 0.5)
 
-    def predicted_load(self):
-        return self.power_needed * 4000
-
-    def auto_control(self):
-        self.determine_power_needed()
-        self.set_on(self.power_needed)
+    def predict_load(self, weather_temperature):
+        self.predicted_load = self.power_needed * 4000
+        # self.predicted_load = (4703
+        #                        - 560 * self.set_point
+        #                        + 152 * self.air_temp
+        #                        + 372 * weather_temperature
+        #                        ) * self.power_needed
+        # self.predicted_load = hvac_load_predictor.predict(np.array([[
+        #     self.set_point - self.air_temp, weather_temperature - self.air_temp, weather_temperature - self.set_point
+        # ]]))[0] * self.power_needed
+        # print(self.house_id, self.predicted_load)
 
     def set_on(self, on: bool):
+        # on = self.power_needed
+        # self.pub_setpoint.publish(self.set_point)
         self.pub_thermostat_mode.publish("COOL" if on else "OFF")
         self.hvac_on = on
 
     def change_basepoint(self, hod, dow):
-        if dow > 4:  # a weekend
+        if False and dow > 4:  # a weekend
             val = self.weekend_night_set if self.weekend_day_start <= hod < self.weekend_night_start else self.weekend_day_set
         else:  # a weekday
             val = [self.night_set, self.wakeup_set, self.daylight_set, self.evening_set, self.night_set][
@@ -222,16 +234,12 @@ class House:
         self.ev = EV(helics_federate, house_id, auction) if has_ev else None
 
         # measurements
-        self.mtr_voltage = 120.0
         self.total_house_load = 0.0
         self.unresponsive_load = 0.0
 
         self.intended_load = 0.0
 
-        # about packet
-        self.packet_unit = 1000
-
-        self.trading_policy = LimitedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24))
+        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24), 0.3, 0.3)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]
         self.pub_meter_mode = helics.helicsFederateGetPublication(helics_federate,
@@ -270,7 +278,7 @@ class House:
             self.ev.update_state()
 
     def publish_meter_price(self):
-        self.pub_meter_price.publish(self.auction.clearing_price)
+        self.pub_meter_price.publish(self.auction.average_price)
 
     def formulate_bids(self):
         """ formulate the bid for prosumer
@@ -285,7 +293,7 @@ class House:
         """
         # self.bid.clear()
         min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
-        hvac_load = self.hvac.predicted_load()
+        hvac_load = self.hvac.predicted_load
 
         unresponsive_bid = [(self.name, "unresponsive"), "buyer", float('inf'), self.unresponsive_load]
         bids = [unresponsive_bid]
@@ -295,7 +303,6 @@ class House:
             #             self.trading_policy.price_for_probability(self.current_time, self.hvac.probability), hvac_load])
 
         if self.ev:
-            min_ev_load, max_ev_load = self.ev.load_range
             ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)
             bids += [[(self.name, "ev")] + bid for bid in ev_bids]
         if self.pv:
@@ -320,9 +327,9 @@ class House:
         ev_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "ev"])
         pv_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "pv"])
 
-        hvac_allowed = hvac_bought >= self.hvac.predicted_load()
+        hvac_allowed = hvac_bought >= self.hvac.predicted_load
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
-        hvac_load = self.hvac.hvac_on * self.hvac.predicted_load()
+        hvac_load = self.hvac.hvac_on * self.hvac.predicted_load
 
         if self.ev:
             self.ev.set_desired_charge_rate(ev_bought - ev_sold)
@@ -333,14 +340,13 @@ class House:
 
 
 class GridSupply:
-    def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, enable=True):
+    def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, power_cap: int):
         self.name = "grid"
-        self.enable = enable
 
         self.vpp_load_p = 0
         self.vpp_load_q = 0
         self.vpp_load = complex(0)
-        self.balance_signal = 220  # kVA
+        self.power_cap = power_cap
 
         self.request_list = []
         self.response_list = []
@@ -355,43 +361,8 @@ class GridSupply:
         self.bid = None
 
     def formulate_bid(self):
-        self.bid = [(self.name, "main"), "seller", self.lmp, 80000]  # float('inf')]
+        self.bid = [(self.name, "main"), "seller", self.lmp, self.power_cap]
         return self.bid
-
-    def receive_request(self, request):
-        # request is a list [name, load type, power, length]
-        if len(request) > 0:
-            self.request_list.append(request)
-
-    def aggregate_requests(self):
-        self.update_load()
-        self.update_balance_signal()
-        self.response_list.clear()
-        self.response_list = self.request_list.copy()  # copy messages
-
-        if len(self.response_list) > 0:
-            if not self.enable:  # if VPP coordinator is not enable, all requests will be accepted
-                for i in range(len(self.response_list)):
-                    self.response_list[i]['response'] = 'YES'
-            else:
-                arrive_idx_list = list(range(len(self.response_list)))
-                random.shuffle(arrive_idx_list)  # randomize the arrive time
-                load_est = self.vpp_load_p
-
-                for idx in arrive_idx_list:
-                    response = self.response_list[idx]
-                    key = response['name']
-                    load = response['power']
-                    length = response['packet-length']
-                    load_est += load
-                    if (self.balance_signal - load_est) >= 0:
-                        self.response_list[idx]['response'] = 'YES'
-                    else:
-                        self.response_list[idx]['response'] = 'NO'
-        self.request_list.clear()
-
-    def post_market_control(self, market_response):
-        pass
 
     def update_load(self):
         self.vpp_load = self.sub_vpp_power.complex
@@ -400,5 +371,5 @@ class GridSupply:
         self.weather_temp = self.sub_weather.double
         self.lmp = self.sub_lmp.double
 
-    def update_balance_signal(self):
+    def post_market_control(self, transactions):
         pass

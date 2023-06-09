@@ -1,9 +1,8 @@
 import pickle
 from collections.abc import Sequence
 from datetime import datetime
-from random import randint
+from sys import argv
 from time import time as millis
-from functools import reduce
 
 import numpy as np
 import pandas
@@ -78,68 +77,69 @@ class SubstationRecorder:
             "balance_signal",
             "weather_temp"
         ])
-        self.house_recorder = HistoryRecorder(houses, list(set([x for t in [
+        self.house_recorder = HistoryRecorder(houses, [
+            "values.hvac.air_temp",
             "mean.hvac.air_temp",
             "min.hvac.air_temp",
             "max.hvac.air_temp",
+
+            "values.hvac.hvac_load",
             "sum.hvac.hvac_load",
             "max.hvac.hvac_load",
+
+            "values.hvac.hvac_on",
             "sum.hvac.hvac_on",
+
+            "values.hvac.set_point",
             "mean.hvac.set_point",
+
+            "values.hvac.base_point",
             "mean.hvac.base_point",
-            # "sum.battery.power",
-            # "sum.battery.soc",
+
             "values.ev.location",
+
+            "values.ev.stored_energy",
             "sum.ev.stored_energy",
+
+            "values.ev.soc",
             "sum.ev.soc",
+
+            "values.ev.desired_charge_rate",
             "sum.ev.desired_charge_rate",
+
+            "values.ev.driving_load",
             "sum.ev.driving_load",
+
+            "values.ev.charging_load",
             "sum.ev.charging_load",
+
+            "values.pv.solar_power",
             "sum.pv.solar_power",
             # "values.pv.solar_DC_V_out",
             # "values.pv.solar_DC_I_out",
-            "sum.unresponsive_load",
-            "values.unresponsive_load",
-            "sum.total_house_load",
-            "sum.intended_load"
-        ] for x in [t, ".".join(["F0_house_A0"] + t.split(".")[1:])]])) + [
-                                                  "F0_house_A0.trading_policy.long_ma",
-                                                  "F0_house_A0.trading_policy.short_ma",
-                                                  "F0_house_A0.trading_policy.should_trade",
-                                                  "F0_house_A0.trading_policy.should_buy",
-                                                  "F0_house_A0.trading_policy.should_sell",
-                                                  "F0_house_A0.trading_policy.buy_threshold",
-                                                  "F0_house_A0.trading_policy.sell_threshold",
-                                                  "F0_house_A0.trading_policy.predicted_clearing_price",
-                                                  "F0_house_A0.trading_policy.iqr",
-                                                  "F0_house_A0.ev.load_range.0",
-                                                  "F0_house_A0.ev.load_range.1",
-                                              ])
 
-        self.bid_recorder = HistoryRecorder(houses, [
-            "values.bid.values"
+            "values.unresponsive_load",
+            "sum.unresponsive_load",
+
+            "values.total_house_load",
+            "sum.total_house_load",
+
+            "values.intended_load",
+            "sum.intended_load"
         ])
 
         self.auction_recorder = HistoryRecorder(auction, [
-            "clearing_price",
-            "clearing_type",
-            "consumerSurplus",
-            "averageConsumerSurplus",
-            "supplierSurplus",
+            "average_price",
             "num_bids",
             "num_buyers",
             "num_sellers",
             "lmp",
-            "fraction_buyers_cleared",
-            "fraction_sellers_cleared",
-            "bids"
+            "bids",
+            "transactions"
         ])
 
     def record_houses(self, time):
         self.house_recorder.record(time)
-
-    def record_bids(self, time):
-        self.bid_recorder.record(time)
 
     def record_auction(self, time):
         self.auction_recorder.record(time)
@@ -150,7 +150,6 @@ class SubstationRecorder:
     def history(self):
         return {
             "houses": self.house_recorder.df(),
-            "bids": self.bid_recorder.df(),
             "auction": self.auction_recorder.df(),
             "grid": self.grid_recorder.df()
         }
@@ -160,11 +159,11 @@ class SubstationRecorder:
             pickle.dump(self.history(), f)
 
     @staticmethod
-    def make_figure(h: dict, path, freq=None):
+    def make_figure(h: dict, path, freq=None, make_html=False):
         start_time = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-        end_time = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+        end_time = datetime.strptime('2013-07-09 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
         houses = h["houses"][(start_time <= h["houses"].index) & (h["houses"].index < end_time)]
-        bids = h["bids"][(start_time <= h["bids"].index) & (h["bids"].index < end_time)]
+        # bids = h["bids"][(start_time <= h["bids"].index) & (h["bids"].index < end_time)]
         auction = h["auction"][(start_time <= h["auction"].index) & (h["auction"].index < end_time)]
         grid = h["grid"][(start_time <= h["grid"].index) & (h["grid"].index < end_time)]
         # if freq:
@@ -212,8 +211,8 @@ class SubstationRecorder:
 
         fig.update_yaxes(title_text="Temperature", row=1, col=1)
 
-        clipped_hvac = np.clip(houses["sum.hvac.hvac_load"], None,
-                               80000 - houses["sum.ev.charging_load"] - houses["sum.unresponsive_load"])
+        # clipped_hvac = np.clip(houses["sum.hvac.hvac_load"], None,
+        #                        80000 - houses["sum.ev.charging_load"] - houses["sum.unresponsive_load"])
 
         fig.add_traces([
             {
@@ -240,7 +239,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": clipped_hvac,
+                "y": houses["sum.hvac.hvac_load"],
                 "name": "Total HVAC Load",
                 "stackgroup": "house_load"
             },
@@ -327,13 +326,12 @@ class SubstationRecorder:
         fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)  # ,
         #                         range=[min(houses["sum.ev.desired_charge_rate"]), max(houses["sum.ev.desired_charge_rate"])])
 
-        print(auction["clearing_price"])
         fig.add_trace(
             {
                 "type": "scatter",
                 "x": auction.index,
-                "y": auction["clearing_price"],
-                "name": "Clearing Price",
+                "y": auction["average_price"],
+                "name": "Average Price",
             }, row=4, col=1, secondary_y=True)
         fig.add_trace(
             {
@@ -370,13 +368,14 @@ class SubstationRecorder:
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
 
         fig.write_image(f"{path}.svg")
-        fig.write_html(f"{path}.html")
+        if make_html:
+            fig.write_html(f"{path}.html")
         print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
 
     @staticmethod
     def make_figure_solo(h: dict, path):
         houses = h["houses"]
-        bids = h["bids"]
+        # bids = h["bids"]
         auction = h["auction"]
         grid = h["grid"]
         s = millis()
@@ -495,8 +494,8 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": auction.index,
-                "y": auction["clearing_price"],
-                "name": "Cleared Price",
+                "y": auction["average_price"],
+                "name": "Average Price",
             }, row=4, col=1, secondary_y=True)
         fig.add_trace(
             {
@@ -597,8 +596,8 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": auction.index,
-                "y": auction["clearing_price"],
-                "name": "Clearing Price",
+                "y": auction["average_price"],
+                "name": "Average Price",
             }, row=2, col=1)
 
         fig.add_trace(
@@ -620,16 +619,17 @@ class SubstationRecorder:
         fig.write_html(f"{path}.html")
 
     def figure(self):
-        self.make_figure(self.history(), "progress")
+        self.make_figure(self.history(), "progress", make_html=False)
 
 
 if __name__ == "__main__":
-    with open("metrics.pkl", "rb") as f:
+    print(argv[1])
+    with open(argv[1], "rb") as f:
         history = pickle.load(f)
 
     # SubstationRecorder.make_figure_bids(history, "bids_metrics")
-    # SubstationRecorder.make_figure(history, "final_metrics")
-    SubstationRecorder.make_figure_solo(history, "solo_metrics")
+    SubstationRecorder.make_figure(history, argv[1].split(".")[0], make_html=True)
+    # SubstationRecorder.make_figure_solo(history, "solo_metrics")
 
 # class Tester:
 #     def __init__(self):

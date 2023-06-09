@@ -44,7 +44,7 @@ object house {
 	airchange_per_hour {airchange_per_hour};
 	hvac_power_factor 0.97;
 	cooling_system_type ELECTRIC;
-	heating_system_type GAS;
+	heating_system_type NONE;
 	fan_type ONE_SPEED;
 	hvac_breaker_rating 200;
 	total_thermal_mass_per_floor_area {total_thermal_mass_per_floor_area};
@@ -58,8 +58,8 @@ object house {
     system_mode COOL;
     thermostat_cycle_time 5;
     thermostat_mode OFF;
-    cooling_setpoint 20;
-	heating_setpoint 20;
+    cooling_setpoint 10;
+	heating_setpoint 1.0;
 
     {ZIP_code}
 }

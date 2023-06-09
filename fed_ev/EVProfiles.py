@@ -67,6 +67,8 @@ class EVProfiles:
         self.station_distribution = station_distribution
 
     def load_from_saved(self):
+        if self.num_evs == 0:
+            return self
         print("Loading EV profiles from saved")
         files = glob.glob(f"{self.output_folder}/*")
         if len(files) < self.num_evs:

@@ -11,22 +11,23 @@ from helics import HelicsFederate
 
 from EVProfiles import EVProfiles, EVProfile
 from fed_ev.PETEV import V2GEV
+from scenario import PETScenario
 
 EVPublications = namedtuple("EVPublications", "location load")
 
 
 class EVFederate:
-    def __init__(self, start_time: str, num_evs, hour_stop):
+    def __init__(self, num_evs, start_time: datetime, end_time: datetime):
         self.quant = None
         self.fed_name = None
         self.time_period_hours = 0.125
         self.time_period_seconds = self.time_period_hours * 3600
         self.num_evs = num_evs
         self.helics_fed: HelicsFederate = None
-        self.hour_stop = hour_stop
-        self.start_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
-        self.current_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
-        self.stop_time = self.start_time + timedelta(hours=self.hour_stop)
+        self.start_time = start_time
+        self.current_time = start_time
+        self.end_time = end_time
+        self.hour_stop = (end_time - start_time).total_seconds() / 3600
 
         self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, num_evs,
                                       "emobpy_data/profiles").load_from_saved()
@@ -130,8 +131,10 @@ class EVFederate:
         # pub_ID = helics.helicsFederateGetPublicationByIndex(self.helics_fed, 1)
         # pub_name = helics.helicsPublicationGetKey(pub_ID)
         # print(f"EV federate has {pub_count} publications, pub_ID = {pub_name}")
-
-        while self.current_time < self.stop_time:
+        if self.num_evs == 0:
+            print("EV federate has 0 EVs, finishing early")
+            return
+        while self.current_time < self.end_time:
             current_time_s = (self.current_time - self.start_time).total_seconds()
             next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
             next_location_change = min([ev.time_to_location_change for ev in self.evs]) + current_time_s
@@ -145,7 +148,8 @@ class EVFederate:
             for ev in self.evs:
                 ev.update_state(new_time)
                 ev.publish_state()
-            print(f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}, {ev.desired_charge_rate}' for i, ev in enumerate(self.evs)]}")
+            print(
+                f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}, {ev.desired_charge_rate}' for i, ev in enumerate(self.evs)]}")
             # print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
             self.current_time = new_time
@@ -155,7 +159,10 @@ class EVFederate:
         # self.publish_locations()
 
 
-federate = EVFederate("2013-07-01 00:00:00", 30, 192)
+with open("../scenario.pkl", "rb") as f:
+    scenario: PETScenario = pickle.load(f)
+
+federate = EVFederate(scenario.num_ev, scenario.start_time, scenario.end_time)
 federate.create_federate()
 federate.enabled = True
 federate.run()

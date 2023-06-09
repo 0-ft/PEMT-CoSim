@@ -6,8 +6,10 @@ last update time: 2021-11-11
 modified by Yuanliang Li
 
 """
+import argparse
 import json
 import pickle
+from datetime import datetime
 
 from fed_weather.TMY3toCSV import weathercsv
 from glmhelper import GlmGenerator
@@ -16,32 +18,42 @@ from scenario import PETScenario
 
 """0. generate a glm file (TE_Challenge.glm) according to user's preference"""
 
-scenario = PETScenario(num_houses=30, num_ev=30, num_pv=30)
-with open("scenario.pkl", "wb") as f:
-    pickle.dump(scenario, f)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog='generate_case',
+        description='Generate a PET scenario for simulation')
+    parser.add_argument("-n", "--num_houses", type=int, default=30)
+    parser.add_argument("-e", "--num_ev", type=int, default=30)
+    parser.add_argument("-p", "--num_pv", type=int, default=30)
+    parser.add_argument("-g", "--grid_cap", type=int, default=200000)
+    args = parser.parse_args()
 
-glm = GlmGenerator(scenario)
-# glm.generate_glm()
-glm.save("fed_gridlabd")
-"""1. configure simulation time period"""
-year = 2013
-start_time = '2013-07-01 00:00:00'
-stop_time = '2013-07-09 00:00:00'
+    scenario = PETScenario(
+        num_houses=args.num_houses,
+        num_ev=args.num_ev,
+        num_pv=args.num_pv,
+        grid_power_cap=args.grid_cap,
+        start_time=datetime(2013, 7, 1, 0, 0, 0),
+        end_time=datetime(2013, 7, 9, 0, 0, 0),
+    )
+    with open("scenario.pkl", "wb") as f:
+        pickle.dump(scenario, f)
 
-"""2. configure weather data"""
-tmy_file_name = 'AZ-Tucson_International_Ap.tmy3'  # choose a .tmy3 file to specify the weather in a specific location
+    GlmGenerator(scenario).save("fed_gridlabd")
 
-weathercsv(f"fed_weather/tesp_weather/{tmy_file_name}", 'weather.dat', start_time, stop_time,
-           year)  # it will output weather.dat in the weather fold as the input of the weather federate
+    # configure weather data
+    weathercsv(f"fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.dat', scenario.start_time,
+               scenario.end_time,
+               scenario.start_time.year)
 
-"""3. generate configuration files for gridlabd, substation, pypower, and weather"""
-# tesp.glm_dict('TE_Challenge', te30=True)
-#
-# tesp.prep_substation('TE_Challenge', scenario)
+    # generate HELICS configs for fed_gridlabd and fed_substation
+    helics_config_helper = HelicsConfigHelper(scenario)
+    with open("fed_gridlabd/TE_Challenge_HELICS_gld_msg.json", "w") as f:
+        json.dump(helics_config_helper.gridlab_config, f, indent=4)
 
-hch = HelicsConfigHelper(scenario)
-with open("fed_gridlabd/TE_Challenge_HELICS_gld_msg.json", "w") as f:
-    json.dump(hch.gridlab_config, f, indent=4)
+    with open("fed_substation/TE_Challenge_HELICS_substation.json", "w") as f:
+        json.dump(helics_config_helper.pet_config, f, indent=4)
 
-with open("fed_substation/TE_Challenge_HELICS_substation.json", "w") as f:
-    json.dump(hch.pet_config, f, indent=4)
+    weather_config = json.load(open("fed_weather/TE_Challenge_HELICS_Weather_Config.json", "r"))
+    weather_config["time_stop"] = f"{int((scenario.end_time - scenario.start_time).total_seconds() / 60)}m"
+    json.dump(weather_config, open("fed_weather/TE_Challenge_HELICS_Weather_Config.json", "w"), indent=4)

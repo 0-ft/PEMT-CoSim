@@ -13,7 +13,6 @@ from scipy.stats import iqr
 
 # SELLER ONLY DIVISIBLE
 def match_orders(bids):
-    print(bids.to_string())
     buyers = bids[bids["role"] == "buyer"].sample(frac=1).sort_values("price",
                                                                       ascending=False)[
         ["trader", "price", "quantity"]].values
@@ -91,25 +90,23 @@ def match_orders(bids):
 
 class ContinuousDoubleAuction:
     def __init__(self, helics_federate: HelicsFederate, start_time: datetime):
-        self.clearing_price = 0
+        self.average_price = 0
         self.lmp = 0.0
         self.refload = 0.0
         self.refload_p = 0.0
         self.refload_q = 0.0
         self.helics_federate = helics_federate
         self.bids: DataFrame = DataFrame()
-        self.response: DataFrame = DataFrame()
         self.period = 300
+        self.transactions = {}
 
         self.num_bids = 0
         self.num_sellers = 0
         self.num_buyers = 0
         self.num_nontcp = 0
-        self.fraction_sellers_cleared = 0
-        self.fraction_buyers_cleared = 0
 
-        self.history = DataFrame([[self.clearing_price, 0.0, 0.0, 0.0, 0.0, 0.0]],
-                                 columns=["clearing_price", "cleared_quantity", "average_since", "iqr_since",
+        self.history = DataFrame([[self.average_price, 0.0, 0.0, 0.0, 0.0, 0.0]],
+                                 columns=["average_price", "cleared_quantity", "average_since", "iqr_since",
                                           "fraction_buyers_cleared", "fraction_sellers_cleared"],
                                  index=[start_time])
         # # substation always sells infinite at LMP
@@ -128,10 +125,10 @@ class ContinuousDoubleAuction:
             self.sub_lmp = helics_federate.subscriptions["pypower/LMP_B7"]
 
     def update_stats(self):
-        self.history["average_since"] = (self.history.loc[::-1, "clearing_price"]
+        self.history["average_since"] = (self.history.loc[::-1, "average_price"]
                                          .cumsum() / range(1, len(self.history) + 1))[::-1]
         self.history["iqr_since"] = [
-            iqr(self.history.loc[self.history.index >= i, "clearing_price"])
+            iqr(self.history.loc[self.history.index >= i, "average_price"])
             for i in self.history.index
         ]
 
@@ -140,8 +137,8 @@ class ContinuousDoubleAuction:
         self.bids = DataFrame(bids, columns=["trader", "role", "price", "quantity"])
         with open("latest_match.pkl", "wb") as f:
             pickle.dump(self.bids, f)
-        print("auction got bids:")
-        print(self.bids.to_string())
+        # print("auction got bids:")
+        # print(self.bids.to_string())
         self.num_bids = len(self.bids)
         self.num_sellers = (self.bids["role"] == "seller").sum()
         self.num_buyers = (self.bids["role"] == "buyer").sum()
@@ -156,17 +153,13 @@ class ContinuousDoubleAuction:
         self.lmp = self.sub_lmp.double
 
     def clear_market(self, current_time: datetime):
-        transactions, response = match_orders(self.bids)
-        print("CM TRANSACTIONS")
-        print(transactions)
-        cleared_quantity = sum(t["quantity"] for t in transactions)
-        average_price = sum(t["price"] * t["quantity"] for t in transactions) / cleared_quantity
-        self.clearing_price = average_price
+        self.transactions, response = match_orders(self.bids)
+        cleared_quantity = sum(t["quantity"] for t in self.transactions)
+        average_price = sum(t["price"] * t["quantity"] for t in self.transactions) / cleared_quantity
+        self.average_price = average_price
         # self.pub_clearing_price.publish(self.clearing_price)
         self.history = pandas.concat([self.history, DataFrame(
-            {"clearing_price": self.clearing_price, "cleared_quantity": cleared_quantity,
-             "fraction_sellers_cleared": 0 / self.num_buyers,
-             "fraction_buyers_cleared": 0 / self.num_sellers},
+            {"average_price": self.average_price, "cleared_quantity": cleared_quantity},
             index=[current_time])])
         self.update_stats()
         return response

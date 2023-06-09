@@ -141,7 +141,7 @@ class HelicsConfigHelper:
 
         pet_pubs_house = [
             pub(house_name, prop, prop_type, False)
-            for prop, prop_type in [("thermostat_mode", "string")]
+            for prop, prop_type in [("thermostat_mode", "string"), ("cooling_setpoint", "double")]
         ]
 
         pet_subs_house = [

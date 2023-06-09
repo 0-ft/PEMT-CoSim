@@ -30,16 +30,14 @@ class PETFederate:
         # self.fh = FederateHelper(configfile)  # initialize the federate helper
         self.helics_federate = helics.helicsCreateValueFederateFromConfig(helics_config)
 
-        print("making auction", flush=True)
         self.auction = ContinuousDoubleAuction(self.helics_federate, self.current_time)
-        self.grid_supply = GridSupply(self.helics_federate, self.auction, True)
-        print("making houses", flush=True)
+        self.grid_supply = GridSupply(self.helics_federate, self.auction, scenario.grid_power_cap)
         self.houses = {
             f"H{house_id}": House(self.helics_federate, house_id, self.current_time,
-                                  scenario.hvac_configs[house_id], house_id < scenario.num_pv, house_id < scenario.num_ev, self.auction)
+                                  scenario.hvac_configs[house_id], house_id < scenario.num_pv,
+                                  house_id < scenario.num_ev, self.auction)
             for house_id in range(scenario.num_houses)
         }
-        print("made houses", flush=True)
         self.update_period = 15  # state update period (15 seconds)
         self.market_period = 300  # market period (300 seconds)
         self.fig_update_period = 10000  # figure update time period
@@ -80,8 +78,9 @@ class PETFederate:
             if time_granted >= self.next_update_time or True:
                 for house_name, house in self.houses.items():
                     house.update_measurements(self.current_time)  # update measurements for all devices
-                    house.hvac.change_basepoint(self.current_time.hour, self.current_time.weekday())  # update schedule
-                    house.hvac.determine_power_needed()  # hvac determines if power is needed based on current state
+                    house.hvac.change_basepoint(self.current_time.hour + self.current_time.minute / 60, self.current_time.weekday())  # update schedule
+                    house.hvac.determine_power_needed(
+                        self.grid_supply.weather_temp)  # hvac determines if power is needed based on current state
                 self.grid_supply.update_load()  # get the VPP load
                 self.recorder.record_houses(self.current_time)
                 self.recorder.record_grid(self.current_time)
@@ -94,6 +93,8 @@ class PETFederate:
                     f"EVs @ {[(i, house.ev.location, house.ev.soc, house.ev.load_range) for i, house in enumerate(self.houses.values()) if house.ev is not None]}")
                 print(
                     f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load if house.ev else 0) for i, house in enumerate(self.houses.values())]}")
+                print(
+                    f"HVAC LOADS SUM {sum(house.hvac.hvac_load for house in self.houses.values())} @ {[(i, house.hvac.hvac_load) for i, house in enumerate(self.houses.values())]}")
                 print("AUCTION HISTORY BEFORE BIDS")
                 print(self.auction.history)
                 bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [
@@ -115,8 +116,8 @@ class PETFederate:
             if self.draw_figure and time_granted >= self.next_figure_time:
                 self.recorder.figure()
                 self.next_figure_time += self.fig_update_period
-                self.recorder.save("metrics.pkl")
-        self.recorder.save("metrics.pkl")
+                self.recorder.save(f"metrics/{scenario.name}.pkl")
+        self.recorder.save(f"metrics/{scenario.name}.pkl")
         print('writing metrics', flush=True)
         helics.helicsFederateDestroy(self.helics_federate)
         print(f"federate {self.helics_federate.name} has been destroyed")

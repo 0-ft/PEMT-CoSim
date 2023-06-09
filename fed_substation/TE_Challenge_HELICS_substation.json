@@ -54,17 +54,7 @@
         },
         {
             "global": false,
-            "key": "H0_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H0_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H0_solar_inv#Q_Out",
+            "key": "H0#cooling_setpoint",
             "type": "double"
         },
         {
@@ -89,17 +79,7 @@
         },
         {
             "global": false,
-            "key": "H1_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H1_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H1_solar_inv#Q_Out",
+            "key": "H1#cooling_setpoint",
             "type": "double"
         },
         {
@@ -124,17 +104,7 @@
         },
         {
             "global": false,
-            "key": "H2_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H2_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H2_solar_inv#Q_Out",
+            "key": "H2#cooling_setpoint",
             "type": "double"
         },
         {
@@ -159,17 +129,7 @@
         },
         {
             "global": false,
-            "key": "H3_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H3_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H3_solar_inv#Q_Out",
+            "key": "H3#cooling_setpoint",
             "type": "double"
         },
         {
@@ -194,17 +154,7 @@
         },
         {
             "global": false,
-            "key": "H4_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H4_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H4_solar_inv#Q_Out",
+            "key": "H4#cooling_setpoint",
             "type": "double"
         },
         {
@@ -229,17 +179,7 @@
         },
         {
             "global": false,
-            "key": "H5_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H5_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H5_solar_inv#Q_Out",
+            "key": "H5#cooling_setpoint",
             "type": "double"
         },
         {
@@ -264,17 +204,7 @@
         },
         {
             "global": false,
-            "key": "H6_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H6_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H6_solar_inv#Q_Out",
+            "key": "H6#cooling_setpoint",
             "type": "double"
         },
         {
@@ -299,17 +229,7 @@
         },
         {
             "global": false,
-            "key": "H7_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H7_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H7_solar_inv#Q_Out",
+            "key": "H7#cooling_setpoint",
             "type": "double"
         },
         {
@@ -334,17 +254,7 @@
         },
         {
             "global": false,
-            "key": "H8_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H8_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H8_solar_inv#Q_Out",
+            "key": "H8#cooling_setpoint",
             "type": "double"
         },
         {
@@ -369,17 +279,7 @@
         },
         {
             "global": false,
-            "key": "H9_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H9_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H9_solar_inv#Q_Out",
+            "key": "H9#cooling_setpoint",
             "type": "double"
         },
         {
@@ -404,17 +304,7 @@
         },
         {
             "global": false,
-            "key": "H10_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H10_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H10_solar_inv#Q_Out",
+            "key": "H10#cooling_setpoint",
             "type": "double"
         },
         {
@@ -439,17 +329,7 @@
         },
         {
             "global": false,
-            "key": "H11_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H11_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H11_solar_inv#Q_Out",
+            "key": "H11#cooling_setpoint",
             "type": "double"
         },
         {
@@ -474,17 +354,7 @@
         },
         {
             "global": false,
-            "key": "H12_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H12_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H12_solar_inv#Q_Out",
+            "key": "H12#cooling_setpoint",
             "type": "double"
         },
         {
@@ -509,17 +379,7 @@
         },
         {
             "global": false,
-            "key": "H13_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H13_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H13_solar_inv#Q_Out",
+            "key": "H13#cooling_setpoint",
             "type": "double"
         },
         {
@@ -544,17 +404,7 @@
         },
         {
             "global": false,
-            "key": "H14_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H14_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H14_solar_inv#Q_Out",
+            "key": "H14#cooling_setpoint",
             "type": "double"
         },
         {
@@ -579,17 +429,7 @@
         },
         {
             "global": false,
-            "key": "H15_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H15_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H15_solar_inv#Q_Out",
+            "key": "H15#cooling_setpoint",
             "type": "double"
         },
         {
@@ -614,17 +454,7 @@
         },
         {
             "global": false,
-            "key": "H16_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H16_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H16_solar_inv#Q_Out",
+            "key": "H16#cooling_setpoint",
             "type": "double"
         },
         {
@@ -649,17 +479,7 @@
         },
         {
             "global": false,
-            "key": "H17_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H17_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H17_solar_inv#Q_Out",
+            "key": "H17#cooling_setpoint",
             "type": "double"
         },
         {
@@ -684,17 +504,7 @@
         },
         {
             "global": false,
-            "key": "H18_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H18_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H18_solar_inv#Q_Out",
+            "key": "H18#cooling_setpoint",
             "type": "double"
         },
         {
@@ -719,17 +529,7 @@
         },
         {
             "global": false,
-            "key": "H19_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H19_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H19_solar_inv#Q_Out",
+            "key": "H19#cooling_setpoint",
             "type": "double"
         },
         {
@@ -754,17 +554,7 @@
         },
         {
             "global": false,
-            "key": "H20_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H20_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H20_solar_inv#Q_Out",
+            "key": "H20#cooling_setpoint",
             "type": "double"
         },
         {
@@ -789,17 +579,7 @@
         },
         {
             "global": false,
-            "key": "H21_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H21_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H21_solar_inv#Q_Out",
+            "key": "H21#cooling_setpoint",
             "type": "double"
         },
         {
@@ -824,17 +604,7 @@
         },
         {
             "global": false,
-            "key": "H22_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H22_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H22_solar_inv#Q_Out",
+            "key": "H22#cooling_setpoint",
             "type": "double"
         },
         {
@@ -859,17 +629,7 @@
         },
         {
             "global": false,
-            "key": "H23_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H23_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H23_solar_inv#Q_Out",
+            "key": "H23#cooling_setpoint",
             "type": "double"
         },
         {
@@ -894,17 +654,7 @@
         },
         {
             "global": false,
-            "key": "H24_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H24_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H24_solar_inv#Q_Out",
+            "key": "H24#cooling_setpoint",
             "type": "double"
         },
         {
@@ -929,17 +679,7 @@
         },
         {
             "global": false,
-            "key": "H25_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H25_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H25_solar_inv#Q_Out",
+            "key": "H25#cooling_setpoint",
             "type": "double"
         },
         {
@@ -964,17 +704,7 @@
         },
         {
             "global": false,
-            "key": "H26_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H26_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H26_solar_inv#Q_Out",
+            "key": "H26#cooling_setpoint",
             "type": "double"
         },
         {
@@ -999,17 +729,7 @@
         },
         {
             "global": false,
-            "key": "H27_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H27_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H27_solar_inv#Q_Out",
+            "key": "H27#cooling_setpoint",
             "type": "double"
         },
         {
@@ -1034,17 +754,7 @@
         },
         {
             "global": false,
-            "key": "H28_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H28_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H28_solar_inv#Q_Out",
+            "key": "H28#cooling_setpoint",
             "type": "double"
         },
         {
@@ -1069,17 +779,7 @@
         },
         {
             "global": false,
-            "key": "H29_ev#charge_rate",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H29_solar_inv#P_Out",
-            "type": "double"
-        },
-        {
-            "global": false,
-            "key": "H29_solar_inv#Q_Out",
+            "key": "H29#cooling_setpoint",
             "type": "double"
         }
     ],
@@ -1125,42 +825,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H0_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H0_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H0_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H0_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H0_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H0_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H0_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H0_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H0_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H1_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1183,42 +847,6 @@
         {
             "key": "gld1/H1#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H1_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H1_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H1_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H1_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H1_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H1_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H1_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H1_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H1_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H2_meter_billing#measured_power",
@@ -1245,42 +873,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H2_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H2_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H2_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H2_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H2_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H2_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H2_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H2_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H2_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H3_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1303,42 +895,6 @@
         {
             "key": "gld1/H3#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H3_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H3_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H3_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H3_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H3_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H3_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H3_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H3_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H3_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H4_meter_billing#measured_power",
@@ -1365,42 +921,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H4_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H4_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H4_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H4_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H4_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H4_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H4_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H4_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H4_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H5_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1423,42 +943,6 @@
         {
             "key": "gld1/H5#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H5_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H5_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H5_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H5_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H5_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H5_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H5_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H5_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H5_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H6_meter_billing#measured_power",
@@ -1485,42 +969,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H6_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H6_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H6_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H6_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H6_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H6_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H6_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H6_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H6_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H7_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1543,42 +991,6 @@
         {
             "key": "gld1/H7#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H7_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H7_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H7_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H7_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H7_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H7_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H7_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H7_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H7_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H8_meter_billing#measured_power",
@@ -1605,42 +1017,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H8_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H8_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H8_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H8_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H8_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H8_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H8_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H8_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H8_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H9_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1663,42 +1039,6 @@
         {
             "key": "gld1/H9#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H9_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H9_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H9_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H9_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H9_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H9_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H9_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H9_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H9_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H10_meter_billing#measured_power",
@@ -1725,42 +1065,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H10_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H10_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H10_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H10_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H10_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H10_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H10_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H10_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H10_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H11_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1783,42 +1087,6 @@
         {
             "key": "gld1/H11#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H11_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H11_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H11_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H11_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H11_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H11_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H11_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H11_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H11_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H12_meter_billing#measured_power",
@@ -1845,42 +1113,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H12_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H12_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H12_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H12_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H12_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H12_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H12_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H12_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H12_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H13_meter_billing#measured_power",
             "type": "complex"
         },
@@ -1903,42 +1135,6 @@
         {
             "key": "gld1/H13#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H13_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H13_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H13_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H13_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H13_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H13_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H13_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H13_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H13_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H14_meter_billing#measured_power",
@@ -1965,42 +1161,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H14_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H14_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H14_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H14_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H14_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H14_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H14_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H14_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H14_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H15_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2023,42 +1183,6 @@
         {
             "key": "gld1/H15#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H15_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H15_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H15_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H15_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H15_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H15_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H15_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H15_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H15_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H16_meter_billing#measured_power",
@@ -2085,42 +1209,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H16_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H16_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H16_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H16_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H16_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H16_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H16_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H16_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H16_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H17_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2143,42 +1231,6 @@
         {
             "key": "gld1/H17#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H17_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H17_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H17_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H17_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H17_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H17_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H17_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H17_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H17_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H18_meter_billing#measured_power",
@@ -2205,42 +1257,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H18_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H18_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H18_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H18_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H18_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H18_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H18_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H18_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H18_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H19_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2263,42 +1279,6 @@
         {
             "key": "gld1/H19#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H19_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H19_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H19_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H19_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H19_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H19_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H19_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H19_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H19_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H20_meter_billing#measured_power",
@@ -2325,42 +1305,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H20_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H20_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H20_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H20_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H20_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H20_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H20_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H20_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H20_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H21_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2383,42 +1327,6 @@
         {
             "key": "gld1/H21#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H21_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H21_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H21_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H21_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H21_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H21_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H21_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H21_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H21_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H22_meter_billing#measured_power",
@@ -2445,42 +1353,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H22_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H22_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H22_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H22_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H22_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H22_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H22_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H22_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H22_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H23_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2503,42 +1375,6 @@
         {
             "key": "gld1/H23#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H23_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H23_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H23_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H23_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H23_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H23_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H23_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H23_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H23_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H24_meter_billing#measured_power",
@@ -2565,42 +1401,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H24_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H24_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H24_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H24_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H24_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H24_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H24_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H24_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H24_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H25_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2623,42 +1423,6 @@
         {
             "key": "gld1/H25#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H25_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H25_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H25_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H25_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H25_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H25_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H25_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H25_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H25_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H26_meter_billing#measured_power",
@@ -2685,42 +1449,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H26_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H26_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H26_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H26_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H26_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H26_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H26_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H26_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H26_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H27_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2743,42 +1471,6 @@
         {
             "key": "gld1/H27#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H27_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H27_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H27_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H27_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H27_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H27_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H27_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H27_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H27_solar#V_Out",
-            "type": "double"
         },
         {
             "key": "gld1/H28_meter_billing#measured_power",
@@ -2805,42 +1497,6 @@
             "type": "string"
         },
         {
-            "key": "gld1/H28_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H28_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H28_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H28_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H28_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H28_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H28_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H28_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H28_solar#V_Out",
-            "type": "double"
-        },
-        {
             "key": "gld1/H29_meter_billing#measured_power",
             "type": "complex"
         },
@@ -2863,42 +1519,6 @@
         {
             "key": "gld1/H29#power_state",
             "type": "string"
-        },
-        {
-            "key": "gld1/H29_ev_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "ev1/H29_ev#location",
-            "type": "string"
-        },
-        {
-            "key": "ev1/H29_ev#driving_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H29_ev#charging_load",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H29_ev#soc",
-            "type": "double"
-        },
-        {
-            "key": "ev1/H29_ev#stored_energy",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H29_solar_meter#measured_power",
-            "type": "complex"
-        },
-        {
-            "key": "gld1/H29_solar#I_Out",
-            "type": "double"
-        },
-        {
-            "key": "gld1/H29_solar#V_Out",
-            "type": "double"
         }
     ]
 }
