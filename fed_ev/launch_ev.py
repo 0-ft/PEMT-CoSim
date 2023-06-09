@@ -29,7 +29,7 @@ class EVFederate:
         self.end_time = scenario.end_time
         self.hour_stop = (self.end_time - self.start_time).total_seconds() / 3600
 
-        self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, num_evs,
+        self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, self.num_evs,
                                       "emobpy_data/profiles").load_from_saved()
 
         self.evs: list[V2GEV] = []
