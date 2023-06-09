@@ -105,9 +105,8 @@ class ContinuousDoubleAuction:
         self.num_buyers = 0
         self.num_nontcp = 0
 
-        self.history = DataFrame([[self.average_price, 0.0, 0.0, 0.0, 0.0, 0.0]],
-                                 columns=["average_price", "cleared_quantity", "average_since", "iqr_since",
-                                          "fraction_buyers_cleared", "fraction_sellers_cleared"],
+        self.history = DataFrame([[self.average_price, 0.0, 0.0, 0.0]],
+                                 columns=["average_price", "cleared_quantity", "average_since", "iqr_since"],
                                  index=[start_time])
         # # substation always sells infinite at LMP
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]

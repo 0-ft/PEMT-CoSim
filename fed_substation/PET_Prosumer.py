@@ -289,7 +289,7 @@ class House:
             bids += [[(self.name, "ev")] + bid for bid in ev_bids]
         if self.pv:
             self.pv.fixed_price = max(self.auction.lmp * 0.95, 0)
-            pv_bid = [(self.name, "pv"), "seller", self.trading_policy.sell_threshold_price * 0.95, max_pv_power]
+            pv_bid = [(self.name, "pv"), "seller", self.pv.fixed_price, max_pv_power]
             if max_pv_power > 0:
                 bids += [pv_bid]
         # print(f"house {self.name} bids: {bids}")

@@ -85,6 +85,33 @@
         },
         {
             "global": false,
+            "key": "H0_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H0_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H0_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H0_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H0_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H0_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H1_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -144,6 +171,33 @@
             "info": {
                 "object": "H1_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H1_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H1_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H1_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H1_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H1_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H1_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -211,6 +265,33 @@
         },
         {
             "global": false,
+            "key": "H2_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H2_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H2_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H2_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H2_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H2_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H3_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -270,6 +351,33 @@
             "info": {
                 "object": "H3_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H3_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H3_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H3_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H3_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H3_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H3_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -337,6 +445,33 @@
         },
         {
             "global": false,
+            "key": "H4_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H4_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H4_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H4_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H4_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H4_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H5_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -396,6 +531,33 @@
             "info": {
                 "object": "H5_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H5_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H5_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H5_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H5_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H5_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H5_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -463,6 +625,33 @@
         },
         {
             "global": false,
+            "key": "H6_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H6_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H6_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H6_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H6_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H6_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H7_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -522,6 +711,33 @@
             "info": {
                 "object": "H7_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H7_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H7_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H7_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H7_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H7_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H7_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -589,6 +805,33 @@
         },
         {
             "global": false,
+            "key": "H8_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H8_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H8_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H8_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H8_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H8_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H9_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -648,6 +891,33 @@
             "info": {
                 "object": "H9_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H9_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H9_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H9_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H9_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H9_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H9_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -715,6 +985,33 @@
         },
         {
             "global": false,
+            "key": "H10_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H10_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H10_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H10_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H10_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H10_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H11_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -774,6 +1071,33 @@
             "info": {
                 "object": "H11_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H11_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H11_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H11_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H11_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H11_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H11_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -841,6 +1165,33 @@
         },
         {
             "global": false,
+            "key": "H12_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H12_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H12_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H12_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H12_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H12_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H13_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -900,6 +1251,33 @@
             "info": {
                 "object": "H13_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H13_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H13_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H13_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H13_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H13_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H13_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -967,6 +1345,33 @@
         },
         {
             "global": false,
+            "key": "H14_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H14_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H14_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H14_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H14_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H14_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H15_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1026,6 +1431,33 @@
             "info": {
                 "object": "H15_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H15_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H15_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H15_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H15_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H15_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H15_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1093,6 +1525,33 @@
         },
         {
             "global": false,
+            "key": "H16_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H16_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H16_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H16_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H16_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H16_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H17_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1152,6 +1611,33 @@
             "info": {
                 "object": "H17_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H17_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H17_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H17_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H17_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H17_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H17_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1219,6 +1705,33 @@
         },
         {
             "global": false,
+            "key": "H18_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H18_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H18_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H18_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H18_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H18_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H19_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1278,6 +1791,33 @@
             "info": {
                 "object": "H19_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H19_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H19_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H19_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H19_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H19_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H19_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1345,6 +1885,33 @@
         },
         {
             "global": false,
+            "key": "H20_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H20_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H20_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H20_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H20_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H20_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H21_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1404,6 +1971,33 @@
             "info": {
                 "object": "H21_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H21_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H21_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H21_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H21_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H21_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H21_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1471,6 +2065,33 @@
         },
         {
             "global": false,
+            "key": "H22_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H22_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H22_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H22_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H22_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H22_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H23_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1530,6 +2151,33 @@
             "info": {
                 "object": "H23_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H23_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H23_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H23_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H23_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H23_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H23_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1597,6 +2245,33 @@
         },
         {
             "global": false,
+            "key": "H24_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H24_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H24_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H24_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H24_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H24_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H25_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1656,6 +2331,33 @@
             "info": {
                 "object": "H25_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H25_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H25_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H25_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H25_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H25_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H25_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1723,6 +2425,33 @@
         },
         {
             "global": false,
+            "key": "H26_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H26_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H26_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H26_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H26_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H26_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H27_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1782,6 +2511,33 @@
             "info": {
                 "object": "H27_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H27_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H27_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H27_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H27_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H27_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H27_solar",
+                "property": "I_Out"
             }
         },
         {
@@ -1849,6 +2605,33 @@
         },
         {
             "global": false,
+            "key": "H28_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H28_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H28_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H28_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H28_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H28_solar",
+                "property": "I_Out"
+            }
+        },
+        {
+            "global": false,
             "key": "H29_meter_billing#measured_power",
             "type": "complex",
             "info": {
@@ -1908,6 +2691,33 @@
             "info": {
                 "object": "H29_ev_meter",
                 "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H29_solar_meter#measured_power",
+            "type": "complex",
+            "info": {
+                "object": "H29_solar_meter",
+                "property": "measured_power"
+            }
+        },
+        {
+            "global": false,
+            "key": "H29_solar#V_Out",
+            "type": "double",
+            "info": {
+                "object": "H29_solar",
+                "property": "V_Out"
+            }
+        },
+        {
+            "global": false,
+            "key": "H29_solar#I_Out",
+            "type": "double",
+            "info": {
+                "object": "H29_solar",
+                "property": "I_Out"
             }
         }
     ],
@@ -2033,6 +2843,22 @@
             }
         },
         {
+            "key": "pet1/H0_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H0_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H0_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H0_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H1_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2094,6 +2920,22 @@
             "info": {
                 "object": "H1_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H1_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H1_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H1_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H1_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2161,6 +3003,22 @@
             }
         },
         {
+            "key": "pet1/H2_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H2_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H2_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H2_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H3_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2222,6 +3080,22 @@
             "info": {
                 "object": "H3_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H3_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H3_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H3_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H3_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2289,6 +3163,22 @@
             }
         },
         {
+            "key": "pet1/H4_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H4_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H4_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H4_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H5_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2350,6 +3240,22 @@
             "info": {
                 "object": "H5_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H5_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H5_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H5_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H5_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2417,6 +3323,22 @@
             }
         },
         {
+            "key": "pet1/H6_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H6_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H6_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H6_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H7_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2478,6 +3400,22 @@
             "info": {
                 "object": "H7_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H7_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H7_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H7_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H7_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2545,6 +3483,22 @@
             }
         },
         {
+            "key": "pet1/H8_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H8_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H8_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H8_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H9_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2606,6 +3560,22 @@
             "info": {
                 "object": "H9_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H9_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H9_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H9_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H9_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2673,6 +3643,22 @@
             }
         },
         {
+            "key": "pet1/H10_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H10_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H10_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H10_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H11_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2734,6 +3720,22 @@
             "info": {
                 "object": "H11_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H11_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H11_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H11_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H11_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2801,6 +3803,22 @@
             }
         },
         {
+            "key": "pet1/H12_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H12_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H12_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H12_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H13_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2862,6 +3880,22 @@
             "info": {
                 "object": "H13_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H13_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H13_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H13_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H13_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -2929,6 +3963,22 @@
             }
         },
         {
+            "key": "pet1/H14_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H14_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H14_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H14_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H15_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -2990,6 +4040,22 @@
             "info": {
                 "object": "H15_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H15_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H15_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H15_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H15_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3057,6 +4123,22 @@
             }
         },
         {
+            "key": "pet1/H16_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H16_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H16_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H16_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H17_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3118,6 +4200,22 @@
             "info": {
                 "object": "H17_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H17_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H17_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H17_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H17_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3185,6 +4283,22 @@
             }
         },
         {
+            "key": "pet1/H18_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H18_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H18_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H18_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H19_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3246,6 +4360,22 @@
             "info": {
                 "object": "H19_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H19_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H19_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H19_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H19_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3313,6 +4443,22 @@
             }
         },
         {
+            "key": "pet1/H20_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H20_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H20_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H20_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H21_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3374,6 +4520,22 @@
             "info": {
                 "object": "H21_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H21_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H21_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H21_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H21_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3441,6 +4603,22 @@
             }
         },
         {
+            "key": "pet1/H22_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H22_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H22_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H22_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H23_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3502,6 +4680,22 @@
             "info": {
                 "object": "H23_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H23_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H23_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H23_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H23_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3569,6 +4763,22 @@
             }
         },
         {
+            "key": "pet1/H24_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H24_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H24_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H24_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H25_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3630,6 +4840,22 @@
             "info": {
                 "object": "H25_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H25_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H25_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H25_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H25_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3697,6 +4923,22 @@
             }
         },
         {
+            "key": "pet1/H26_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H26_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H26_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H26_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H27_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3758,6 +5000,22 @@
             "info": {
                 "object": "H27_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H27_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H27_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H27_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H27_solar_inv",
+                "property": "Q_Out"
             }
         },
         {
@@ -3825,6 +5083,22 @@
             }
         },
         {
+            "key": "pet1/H28_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H28_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H28_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H28_solar_inv",
+                "property": "Q_Out"
+            }
+        },
+        {
             "key": "pet1/H29_meter_billing#bill_mode",
             "type": "string",
             "info": {
@@ -3886,6 +5160,22 @@
             "info": {
                 "object": "H29_ev",
                 "property": "constant_power_A"
+            }
+        },
+        {
+            "key": "pet1/H29_solar_inv#P_Out",
+            "type": "double",
+            "info": {
+                "object": "H29_solar_inv",
+                "property": "P_Out"
+            }
+        },
+        {
+            "key": "pet1/H29_solar_inv#Q_Out",
+            "type": "double",
+            "info": {
+                "object": "H29_solar_inv",
+                "property": "Q_Out"
             }
         }
     ]
