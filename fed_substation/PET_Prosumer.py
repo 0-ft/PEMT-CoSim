@@ -6,16 +6,13 @@ Implements the ramp bidding method, with HVAC power as the
 bid quantity, and thermostat setting changes as the response
 mechanism.
 """
-import pickle
-import random
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 import helics
 import numpy as np
 from helics import HelicsFederate
 
 from market import ContinuousDoubleAuction
-from scenario import PETScenario
 from trading_policies import BoundedCrossoverTrader
 
 
@@ -205,7 +202,7 @@ class EV:
 
 
 class House:
-    def __init__(self, helics_federate: HelicsFederate, house_id: int, scenario: PETScenario, hvac_config, has_pv,
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, scenario, hvac_config, has_pv,
                  has_ev, auction: ContinuousDoubleAuction):
         self.current_time = scenario.start_time
         self.number = house_id

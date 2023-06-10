@@ -15,11 +15,10 @@ from PET_Prosumer import House, GridSupply  # import user-defined my_hvac class 
 from federate_helper import FederateHelper
 from market import ContinuousDoubleAuction
 from recording import SubstationRecorder
-from scenario import PETScenario
 
 
 class PETFederate:
-    def __init__(self, scenario: PETScenario, helics_config: str, start_time: datetime, hour_stop: int):
+    def __init__(self, scenario, helics_config: str, start_time: datetime, hour_stop: int):
         print("initialising PETFederate", flush=True)
         self.start_time = start_time
         self.current_time = start_time
@@ -33,7 +32,7 @@ class PETFederate:
         self.auction = ContinuousDoubleAuction(self.helics_federate, self.current_time)
         self.grid_supply = GridSupply(self.helics_federate, self.auction, scenario.grid_power_cap)
         self.houses = {
-            f"H{house_id}": House(self.helics_federate, house_id, self.current_time,
+            f"H{house_id}": House(self.helics_federate, house_id, scenario,
                                   scenario.hvac_configs[house_id], house_id < scenario.num_pv,
                                   house_id < scenario.num_ev, self.auction)
             for house_id in range(scenario.num_houses)
