@@ -30,6 +30,8 @@ if __name__ == "__main__":
     parser.add_argument("-g", "--grid_cap", type=int, default=200000)
     parser.add_argument("-w", "--work_charge_rate", type=int, default=7000)
     parser.add_argument("-f", "--figure_period", type=int, default=3600*24)
+    parser.add_argument("-b", "--buy_iqr_ratio", type=float, default=0.3)
+    parser.add_argument("-s", "--sell_iqr_ratio", type=float, default=0.3)
     args = parser.parse_args()
 
     if args.input_file:
@@ -43,7 +45,9 @@ if __name__ == "__main__":
             start_time=datetime(2013, 7, 1, 0, 0, 0),
             end_time=datetime(2013, 7, 9, 0, 0, 0),
             workplace_charge_capacity=args.work_charge_rate,
-            figure_period=args.figure_period
+            figure_period=args.figure_period,
+            buy_iqr_threshold=args.buy_iqr_ratio,
+            sell_iqr_threshold=args.sell_iqr_ratio
         )
         pickle.dump(scenario, open(f"scenarios/{scenario.name}.pkl", "wb"))
     pickle.dump(scenario, open("scenario.pkl", "wb"))

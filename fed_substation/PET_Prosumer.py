@@ -15,7 +15,9 @@ import numpy as np
 from helics import HelicsFederate
 
 from market import ContinuousDoubleAuction
+from scenario import PETScenario
 from trading_policies import BoundedCrossoverTrader
+
 
 # hvac_load_predictor = pickle.load(open("hvac_load_predictor.pkl", "rb"))
 
@@ -176,7 +178,6 @@ class EV:
 
         self.pub_desired_charge_rate = helics_federate.publications[f"pet1/H{house_id}_ev#charge_rate"]
 
-
     def update_state(self):
         self.location = self.sub_location.string
         self.stored_energy = self.sub_stored_energy.double
@@ -204,9 +205,9 @@ class EV:
 
 
 class House:
-    def __init__(self, helics_federate: HelicsFederate, house_id: int, start_time: datetime, hvac_config, has_pv,
+    def __init__(self, helics_federate: HelicsFederate, house_id: int, scenario: PETScenario, hvac_config, has_pv,
                  has_ev, auction: ContinuousDoubleAuction):
-        self.current_time = start_time
+        self.current_time = scenario.start_time
         self.number = house_id
         self.name = f"H{house_id}"
         self.auction = auction
@@ -221,7 +222,8 @@ class House:
 
         self.intended_load = 0.0
 
-        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24), 0.15, 0.3)
+        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24),
+                                                     scenario.buy_iqr_threshold, scenario.sell_iqr_threshold)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]
         self.pub_meter_mode = helics.helicsFederateGetPublication(helics_federate,
