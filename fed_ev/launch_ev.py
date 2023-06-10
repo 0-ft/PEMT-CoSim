@@ -95,9 +95,10 @@ class EVFederate:
         self.helics_fed = helics.helicsCreateValueFederateFromConfig("ev_helics_config.json")
         self.fed_name = self.helics_fed.name
         print(f"EV federate {self.fed_name} created", flush=True)
+        initial_socs = np.linspace(0.3, 0.7, self.num_evs)
         self.evs = [
             V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model, scenario.workplace_charge_capacity,
-                  initial_soc=np.linspace(0.3, 0.7, self.num_evs))
+                  initial_soc=initial_socs[i])
             for i, profile in enumerate(self.ev_profiles.profiles)
         ]
 
