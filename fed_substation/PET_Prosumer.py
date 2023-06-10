@@ -221,7 +221,7 @@ class House:
 
         self.intended_load = 0.0
 
-        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24), 0.3, 0.3)
+        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24), 0.15, 0.3)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]
         self.pub_meter_mode = helics.helicsFederateGetPublication(helics_federate,
@@ -273,7 +273,6 @@ class House:
             unresponsive load unit. kw,
             name of the house
         """
-        # self.bid.clear()
         min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
         hvac_load = self.hvac.predicted_load
 
@@ -281,8 +280,6 @@ class House:
         bids = [unresponsive_bid]
         if hvac_load > 0:
             bids.append([(self.name, "hvac"), "buyer", 9999, hvac_load])
-            # bids.append([self.name, "buyer",
-            #             self.trading_policy.price_for_probability(self.current_time, self.hvac.probability), hvac_load])
 
         if self.ev:
             ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)

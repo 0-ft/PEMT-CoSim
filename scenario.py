@@ -42,7 +42,7 @@ ctrl_cap_hi = 3.0
 
 class PETScenario:
     def __init__(self, scenario_name=None, minimum_timestep=1, market_period=300, grid_power_cap=80000, num_houses=30, num_pv=30, num_ev=30,
-                 start_time=datetime(2013, 7, 1, 0, 0, 0), end_time=datetime(2013, 7, 5, 0, 0, 0)):
+                 start_time=datetime(2013, 7, 1, 0, 0, 0), end_time=datetime(2013, 7, 5, 0, 0, 0), workplace_charge_capacity=7000, figure_period=24*3600):
         self.name = scenario_name or f"{num_houses}h_{num_pv}pv_{num_ev}ev_{grid_power_cap}grid"
         self.minimum_timestep = minimum_timestep
         self.market_period = market_period
@@ -52,7 +52,9 @@ class PETScenario:
         self.num_ev = num_ev
         self.start_time = start_time
         self.end_time = end_time
+        self.workplace_charge_capacity = workplace_charge_capacity
         self.hvac_configs = [self.generate_hvac_config() for _ in range(num_houses)]
+        self.figure_period = figure_period
 
     def generate_hvac_config(self):
         wakeup_start = np.random.uniform(wakeup_start_lo, wakeup_start_hi)

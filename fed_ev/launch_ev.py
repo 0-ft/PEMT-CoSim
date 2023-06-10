@@ -96,7 +96,7 @@ class EVFederate:
         self.fed_name = self.helics_fed.name
         print(f"EV federate {self.fed_name} created", flush=True)
         self.evs = [
-            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model)
+            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model, scenario.workplace_charge_capacity)
             for i, profile in enumerate(self.ev_profiles.profiles)
         ]
 
@@ -119,7 +119,7 @@ class EVFederate:
         with open("arr.pkl", "wb") as out:
             pickle.dump(nparr, out)
         data = pandas.concat(
-            [pandas.DataFrame(ev.history, columns=["time", "location", "stored_energy", "charge_rate", "soc"]) for ev in
+            [pandas.DataFrame(ev.history, columns=["time", "location", "stored_energy", "charge_rate", "soc", "workplace_charge_rate"]) for ev in
              self.evs], axis=1,
             keys=range(self.num_evs))
         pickle.dump(data, open(f"{scenario.name}_ev_history.pkl", "wb"))
@@ -143,6 +143,7 @@ class EVFederate:
         if self.num_evs == 0:
             print("EV federate has 0 EVs, finishing early")
             return
+        time_save = self.current_time
         while self.current_time < self.end_time:
             current_time_s = (self.current_time - self.start_time).total_seconds()
             next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
@@ -158,11 +159,15 @@ class EVFederate:
                 ev.update_state(new_time)
                 ev.publish_state()
             print(
-                f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}, {ev.desired_charge_rate}' for i, ev in enumerate(self.evs)]}")
+                f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}, {ev.desired_charge_load}' for i, ev in enumerate(self.evs)]}")
             # print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
             self.current_time = new_time
             print(self.state_summary(), flush=True)
+            if self.current_time >= time_save:
+                print("writing data")
+                self.save_data()
+                time_save += timedelta(hours=3)
         self.save_data()
         print("EV federate finished + saved", flush=True)
         # self.publish_locations()
@@ -175,3 +180,4 @@ federate = EVFederate(scenario)
 federate.create_federate()
 federate.enabled = True
 federate.run()
+federate.helics_fed.finalize()

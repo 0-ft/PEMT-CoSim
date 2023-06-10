@@ -356,13 +356,14 @@ def energy_used_between(ts, start_time: datetime, end_time: datetime):
 if __name__ == '__main__':
     start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
     ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
-    ev_profiles.run(pool_size=1)
-    # ev_profiles.load_from_saved()
+    # ev_profiles.run(pool_size=1)
+    ev_profiles.load_from_saved()
     t = start_t + timedelta(hours=14)
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)
     # ev_profiles.get_locations_at_time(t)
-    print(ev_profiles.profiles[2].mobility.timeseries)
+    c = ev_profiles.profiles[2].consumption.timeseries
+    print(c[c["state"] == "workplace"])
     print(set(s for p in ev_profiles.profiles for s in set(p.mobility.timeseries["state"])))
     # print(ev_profiles.profiles[2].consumption.timeseries.to_string())
     print(ev_profiles.profiles[2].car_model.parameters)

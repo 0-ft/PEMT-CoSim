@@ -113,6 +113,9 @@ class SubstationRecorder:
             "values.ev.charging_load",
             "sum.ev.charging_load",
 
+            "values.ev.workplace_charge_rate",
+            "sum.ev.workplace_charge_rate",
+
             "values.pv.solar_power",
             "sum.pv.solar_power",
             # "values.pv.solar_DC_V_out",
@@ -159,7 +162,7 @@ class SubstationRecorder:
             pickle.dump(self.history(), f)
 
     @staticmethod
-    def make_figure(h: dict, path, freq=None, make_html=False):
+    def make_figure(h: dict, path, freq=None, make_html=False, ev_history=None):
         start_time = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
         end_time = datetime.strptime('2013-07-09 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
         houses = h["houses"][(start_time <= h["houses"].index) & (h["houses"].index < end_time)]
@@ -289,6 +292,8 @@ class SubstationRecorder:
 
         fig.update_yaxes(title_text="Load", row=2, col=1)
 
+
+
         fig.add_trace(
             {
                 "type": "scatter",
@@ -321,6 +326,29 @@ class SubstationRecorder:
                 "name": "EV Driving Out",
                 "stackgroup": "ev_battery_delta",
             }, row=3, col=1, secondary_y=True)
+
+        # locs = houses["values.ev.location"].to_list()
+        # wp_charge = np.sum(np.array([ev_history[i]["workplace_charge_rate"].to_list() for i in range(30)]).T, axis=1)
+        # fig.add_trace(
+        #     {
+        #         "type": "scatter",
+        #         "x": ev_history[0]["time"],
+        #         "y": wp_charge,
+        #         "name": "EV Workplace Charge In",
+        #         "stackgroup": "ev_battery_delta",
+        #     }, row=3, col=1, secondary_y=True)
+
+        se_deriv = houses["sum.ev.stored_energy"].diff()
+        se_deriv = se_deriv.resample("300S", origin=houses.index.min()).mean() / 15
+
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": se_deriv.index,
+                "y": se_deriv,
+                "name": "EV Delta",
+            }, row=3, col=1, secondary_y=True)
+
 
         fig.update_yaxes(title_text="Energy", row=3, col=1)  # , range=[0, max(houses["sum.ev.stored_energy"])])
         fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)  # ,
@@ -367,9 +395,9 @@ class SubstationRecorder:
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
 
-        fig.write_image(f"{path}.svg")
+        fig.write_image(f"metrics/{path}.svg")
         if make_html:
-            fig.write_html(f"{path}.html")
+            fig.write_html(f"metrics/{path}.html")
         print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
 
     @staticmethod
@@ -552,8 +580,8 @@ class SubstationRecorder:
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
 
-        fig.write_image(f"{path}.svg")
-        fig.write_html(f"{path}.html")
+        fig.write_image(f"metrics/{path}.svg")
+        fig.write_html(f"metrics/{path}.html")
         print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
 
     @staticmethod
@@ -624,11 +652,13 @@ class SubstationRecorder:
 
 if __name__ == "__main__":
     print(argv[1])
-    with open(argv[1], "rb") as f:
+    with open(f"metrics/{argv[1]}.pkl", "rb") as f:
         history = pickle.load(f)
 
+    ev_history = pickle.load(open(f"../fed_ev/{argv[1]}_ev_history.pkl", "rb"))
+
     # SubstationRecorder.make_figure_bids(history, "bids_metrics")
-    SubstationRecorder.make_figure(history, argv[1].split(".")[0], make_html=True)
+    SubstationRecorder.make_figure(history, argv[1], make_html=True, ev_history=ev_history)
     # SubstationRecorder.make_figure_solo(history, "solo_metrics")
 
 # class Tester:

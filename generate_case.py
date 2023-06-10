@@ -28,6 +28,8 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--num_ev", type=int, default=30)
     parser.add_argument("-p", "--num_pv", type=int, default=30)
     parser.add_argument("-g", "--grid_cap", type=int, default=200000)
+    parser.add_argument("-w", "--work_charge_rate", type=int, default=7000)
+    parser.add_argument("-f", "--figure_period", type=int, default=3600*24)
     args = parser.parse_args()
 
     if args.input_file:
@@ -40,6 +42,8 @@ if __name__ == "__main__":
             grid_power_cap=args.grid_cap,
             start_time=datetime(2013, 7, 1, 0, 0, 0),
             end_time=datetime(2013, 7, 9, 0, 0, 0),
+            workplace_charge_capacity=args.work_charge_rate,
+            figure_period=args.figure_period
         )
         pickle.dump(scenario, open(f"scenarios/{scenario.name}.pkl", "wb"))
     pickle.dump(scenario, open("scenario.pkl", "wb"))
