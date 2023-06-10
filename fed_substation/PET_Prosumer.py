@@ -219,7 +219,7 @@ class House:
 
         self.intended_load = 0.0
 
-        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=24),
+        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=48),
                                                      scenario.buy_iqr_threshold, scenario.sell_iqr_threshold)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]

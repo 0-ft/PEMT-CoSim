@@ -292,8 +292,6 @@ class SubstationRecorder:
 
         fig.update_yaxes(title_text="Load", row=2, col=1)
 
-
-
         fig.add_trace(
             {
                 "type": "scatter",
@@ -316,6 +314,7 @@ class SubstationRecorder:
                 "y": houses["sum.ev.charging_load"],
                 "name": "EV Charge In",
                 "stackgroup": "ev_battery_delta",
+                "line": {"width": 0},
             }, row=3, col=1, secondary_y=True)
 
         fig.add_trace(
@@ -325,8 +324,16 @@ class SubstationRecorder:
                 "y": -houses["sum.ev.driving_load"],
                 "name": "EV Driving Out",
                 "stackgroup": "ev_battery_delta",
+                "line": {"width": 0},
             }, row=3, col=1, secondary_y=True)
 
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["sum.ev.charging_load"]-houses["sum.ev.driving_load"],
+                "name": "Sum EV Delta",
+            }, row=3, col=1, secondary_y=True)
         # locs = houses["values.ev.location"].to_list()
         # wp_charge = np.sum(np.array([ev_history[i]["workplace_charge_rate"].to_list() for i in range(30)]).T, axis=1)
         # fig.add_trace(
@@ -338,17 +345,16 @@ class SubstationRecorder:
         #         "stackgroup": "ev_battery_delta",
         #     }, row=3, col=1, secondary_y=True)
 
-        se_deriv = houses["sum.ev.stored_energy"].diff()
-        se_deriv = se_deriv.resample("300S", origin=houses.index.min()).mean() / 15
-
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": se_deriv.index,
-                "y": se_deriv,
-                "name": "EV Delta",
-            }, row=3, col=1, secondary_y=True)
-
+        # se_deriv = houses["sum.ev.stored_energy"].diff()
+        # se_deriv = se_deriv.resample("300S", origin=houses.index.min()).mean() / 15
+        #
+        # fig.add_trace(
+        #     {
+        #         "type": "scatter",
+        #         "x": se_deriv.index,
+        #         "y": se_deriv,
+        #         "name": "EV Delta",
+        #     }, row=3, col=1, secondary_y=True)
 
         fig.update_yaxes(title_text="Energy", row=3, col=1)  # , range=[0, max(houses["sum.ev.stored_energy"])])
         fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)  # ,
