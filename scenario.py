@@ -48,7 +48,7 @@ class PETScenario:
                  buy_iqr_threshold=0.3, sell_iqr_threshold=0.3):
         self.buy_iqr_threshold = buy_iqr_threshold
         self.sell_iqr_threshold = sell_iqr_threshold
-        self.name = scenario_name or f"{num_houses}h_{num_pv}pv_{num_ev}ev_{grid_power_cap}grid"
+        self.name = scenario_name or f"{num_houses}h_{num_pv}pv_{num_ev}ev_{grid_power_cap}grid_{buy_iqr_threshold}br_{sell_iqr_threshold}sr"
         self.minimum_timestep = minimum_timestep
         self.market_period = market_period
         self.grid_power_cap = grid_power_cap
