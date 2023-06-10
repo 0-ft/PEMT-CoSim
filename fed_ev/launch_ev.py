@@ -96,7 +96,8 @@ class EVFederate:
         self.fed_name = self.helics_fed.name
         print(f"EV federate {self.fed_name} created", flush=True)
         self.evs = [
-            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model, scenario.workplace_charge_capacity)
+            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model, scenario.workplace_charge_capacity,
+                  initial_soc=np.linspace(0.3, 0.7, self.num_evs))
             for i, profile in enumerate(self.ev_profiles.profiles)
         ]
 

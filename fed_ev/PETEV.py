@@ -24,7 +24,7 @@ class EVChargingState(IntEnum):
 # market conditions according to a strategy.
 class V2GEV:
     def __init__(self, helics_fed: HelicsFederate, name: str, start_time: datetime, consumption: Consumption,
-                 car_model: ModelSpecs, workplace_charge_capacity=7000):
+                 car_model: ModelSpecs, workplace_charge_capacity=7000, initial_soc=0.5):
         # self.mobility = mobility
         # self.consumption = consumption
         self.helics_fed = helics_fed
@@ -45,7 +45,7 @@ class V2GEV:
         self.discharging_efficiency = car_model.parameters["battery_discharging_eff"]
         self.charging_efficiencies = self.discharging_efficiency, self.charging_efficiency
         # state
-        self.stored_energy = random() * self.battery_capacity
+        self.stored_energy = initial_soc * self.battery_capacity
         self.location = self.profile["state"].asof(start_time)
         self.desired_charge_load = 0.0
         self.charging_load = 0.0
