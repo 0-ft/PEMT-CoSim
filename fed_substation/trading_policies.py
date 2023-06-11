@@ -22,16 +22,31 @@ class BoundedCrossoverTrader:
             print("MUST SELL")
             return [["seller", 0, buy_range[1]]]
 
+        # if (current_time - self.auction.history.index.min()) < self.short_window:
+        #     return []
+        # self.short_ma = self.auction.history["average_since"].last(self.short_window).iloc[0]
+
+        # self.buy_threshold_price = 0.016
+        # self.sell_threshold_price = 0.0195
+        # return [
+        #     ["buyer", self.buy_threshold_price, buy_range[1]],
+        #     ["seller", self.sell_threshold_price, -buy_range[0]]
+        # ]
+
         if (current_time - self.auction.history.index.min()) < self.long_window:
             return []
 
         # update moving averages
+        # self.long_ma = self.auction.history["average_since"].last(self.long_window).iloc[0]
+        # self.short_ma = self.auction.history["average_since"].last(self.short_window).iloc[0]
+        # self.iqr = self.auction.history["iqr_since"].last(self.long_window).iloc[0]
         self.long_ma = self.auction.history["average_since"].last(self.long_window).iloc[0]
         self.short_ma = self.auction.history["average_since"].last(self.short_window).iloc[0]
         self.iqr = self.auction.history["iqr_since"].last(self.long_window).iloc[0]
-
+        # self.buy_threshold_price = self.long_ma - self.iqr * self.buy_iqr_ratio
+        # self.sell_threshold_price = self.long_ma + self.iqr * self.sell_iqr_ratio
         self.buy_threshold_price = self.long_ma - self.iqr * self.buy_iqr_ratio
-        self.sell_threshold_price = self.long_ma + self.iqr * self.sell_iqr_ratio
+        self.sell_threshold_price = max(self.buy_threshold_price + 0.05 * self.iqr, self.short_ma + 0.2 * self.iqr)
 
         return [
             ["buyer", self.buy_threshold_price, buy_range[1]],

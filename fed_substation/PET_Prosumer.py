@@ -219,7 +219,7 @@ class House:
 
         self.intended_load = 0.0
 
-        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=1), timedelta(hours=48),
+        self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=0.5), timedelta(hours=24),
                                                      scenario.buy_iqr_threshold, scenario.sell_iqr_threshold)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]
@@ -231,6 +231,7 @@ class House:
         # self.sub_meter_voltage = helics_federate.subscriptions[f"gld1/H{house_id}_meter#measured_voltage_1"]
         self.sub_house_load = helics_federate.subscriptions[f"gld1/H{house_id}_meter_house#measured_power"]
 
+        self.bids = []
     def set_meter_mode(self):
         self.pub_meter_mode.publish('HOURLY')
         self.pub_meter_monthly_fee.publish(0.0)
@@ -282,6 +283,7 @@ class House:
 
         if self.ev:
             ev_bids = self.trading_policy.trade(self.current_time, self.ev.load_range)
+            print(f"{self.name}: {self.trading_policy.sell_threshold_price}, {self.trading_policy.long_ma} + {self.trading_policy.iqr} * {self.trading_policy.sell_iqr_ratio}")
             bids += [[(self.name, "ev")] + bid for bid in ev_bids]
         if self.pv:
             self.pv.fixed_price = max(self.auction.lmp * 0.95, 0)
@@ -289,6 +291,7 @@ class House:
             if max_pv_power > 0:
                 bids += [pv_bid]
         # print(f"house {self.name} bids: {bids}")
+        self.bids = bids
         return bids
 
     def post_market_control(self, transactions):
@@ -298,12 +301,12 @@ class House:
         total_bought = sum(bid["quantity"] for bid in buys)
         total_sold = sum(bid["quantity"] for bid in sells)
         self.intended_load = total_bought - total_sold
-
         unresponsive_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "unresponsive"])
         hvac_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "hvac"])
         ev_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "ev"])
         ev_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "ev"])
         pv_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "pv"])
+        print(f"{self.name} ev bids {[b for b in self.bids if b[0][1] == 'ev']} bought {ev_bought} sold {ev_sold}")
 
         hvac_allowed = hvac_bought >= self.hvac.predicted_load
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)

@@ -37,7 +37,7 @@ def match_orders(bids):
         excess_sellers = (buyers[0][2] <= np.cumsum(sellers[matched_sellers[0], 2])).nonzero()[0]
         # print("Xexcs\n", excess_sellers)
         if len(excess_sellers):
-            sufficient_sellers = matched_sellers[0][:excess_sellers[0]+1]
+            sufficient_sellers = matched_sellers[0][:excess_sellers[0] + 1]
             # print("Xsuff\n", sufficient_sellers)
             for i in sufficient_sellers:
                 transaction_quantity = min(buyers[0][2], sellers[i][2])
@@ -45,7 +45,8 @@ def match_orders(bids):
                     buyers[0][2] -= transaction_quantity
                     sellers[i][2] -= transaction_quantity
                     transactions.append(
-                        {"seller": sellers[i][0], "buyer": buyers[0][0], "quantity": transaction_quantity, "price": sellers[i][1]})
+                        {"seller": sellers[i][0], "buyer": buyers[0][0], "quantity": transaction_quantity,
+                         "price": sellers[i][1]})
             if buyers[0][2] == 0.0:
                 buyers = np.delete(buyers, 0, axis=0)
 
@@ -53,7 +54,7 @@ def match_orders(bids):
             # for i in range(len(sellers)):
             #     if sellers[i][2] == 0.0:
             #         sellers = np.delete(sellers, i, axis=0)
-        else: # no sellers can cover buyer order, and buys are indivisible
+        else:  # no sellers can cover buyer order, and buys are indivisible
             buyers = np.delete(buyers, 0, axis=0)
 
         # print(insufficient_sellers, sufficient_sellers)
@@ -105,9 +106,16 @@ class ContinuousDoubleAuction:
         self.num_buyers = 0
         self.num_nontcp = 0
 
-        self.history = DataFrame([[self.average_price, 0.0, 0.0, 0.0]],
-                                 columns=["average_price", "cleared_quantity", "average_since", "iqr_since"],
-                                 index=[start_time])
+        self.history = DataFrame({
+            "average_price": self.average_price,
+            "cleared_quantity": 0.0,
+            "average_since": self.average_price,
+            "iqr_since": 0,
+            "lmp_median_since": self.lmp,
+            "lmp_mean_since": self.lmp,
+            "lmp": self.lmp,
+            "lmp_iqr_since": 0,
+        }, index=[start_time])
         # # substation always sells infinite at LMP
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]
 
@@ -124,8 +132,24 @@ class ContinuousDoubleAuction:
             self.sub_lmp = helics_federate.subscriptions["pypower/LMP_B7"]
 
     def update_stats(self):
-        self.history["average_since"] = (self.history.loc[::-1, "average_price"]
-                                         .cumsum() / range(1, len(self.history) + 1))[::-1]
+        self.history["average_since"] = [
+            np.mean(self.history.loc[self.history.index >= i, "average_price"])
+            for i in self.history.index
+        ]
+        # self.history["average_since"] = (self.history.loc[::-1, "average_price"]
+        #                                  .cumsum() / range(1, len(self.history) + 1))[::-1]
+        self.history["lmp_median_since"] = [
+            np.median(self.history.loc[self.history.index >= i, "lmp"])
+            for i in self.history.index
+        ]
+        self.history["lmp_mean_since"] = [
+            np.mean(self.history.loc[self.history.index >= i, "lmp"])
+            for i in self.history.index
+        ]
+        self.history["lmp_iqr_since"] = [
+            iqr(self.history.loc[self.history.index >= i, "lmp"])
+            for i in self.history.index
+        ]
         self.history["iqr_since"] = [
             iqr(self.history.loc[self.history.index >= i, "average_price"])
             for i in self.history.index
@@ -158,7 +182,7 @@ class ContinuousDoubleAuction:
         self.average_price = average_price
         # self.pub_clearing_price.publish(self.clearing_price)
         self.history = pandas.concat([self.history, DataFrame(
-            {"average_price": self.average_price, "cleared_quantity": cleared_quantity},
+            {"average_price": self.average_price, "cleared_quantity": cleared_quantity, "lmp": self.lmp},
             index=[current_time])])
         self.update_stats()
         return response
@@ -357,6 +381,7 @@ def test_auction(auction: ContinuousDoubleAuction):
     # assert len(response["b2"]) == 0
     # assert len(response["b3"]) == 0
 
+
 def rerun_latest_bids(auction):
     with open("latest_match.pkl", "rb") as f:
         bids = pickle.load(f)
@@ -368,24 +393,24 @@ if __name__ == "__main__":
     rerun_latest_bids(a)
     # with open("metrics.pkl", "rb") as f:
     #     history = pickle.load(f)
-        # tbids = [
-        #     [1000, 200, False, "seller", 0, "ann", False],
-        #     [10000, 200, False, "seller", 0, "bobby", False],
-        #     [1500, 400, False, "seller", 0, "ekk", False],
-        #     [3100, 800, False, "seller", 0, "okr", False],
-        #     [3150, 800, False, "seller", 0, "asdasd", False],
-        #     # [1210, 1000, False, "seller", 0, "5", False],
-        #     [float('inf'), 1600, False, "buyer", 0, "a", False],
-        #     [3150, 200, False, "buyer", 0, "a", False],
-        #     [300, 200, False, "buyer", 0, "b", False],
-        #     [10, 2000, False, "buyer", 0, "c", False]
-        # ]
-        # bids = history["auction"]["bids"]
-        # print(datetime.strptime("2013-07-01 18:30:00", '%Y-%m-%d %H:%M:%S').strftime("%z"))
-        # bid_round = bids.loc[parse("2013-07-01 13:09:58-08:00")]
+    # tbids = [
+    #     [1000, 200, False, "seller", 0, "ann", False],
+    #     [10000, 200, False, "seller", 0, "bobby", False],
+    #     [1500, 400, False, "seller", 0, "ekk", False],
+    #     [3100, 800, False, "seller", 0, "okr", False],
+    #     [3150, 800, False, "seller", 0, "asdasd", False],
+    #     # [1210, 1000, False, "seller", 0, "5", False],
+    #     [float('inf'), 1600, False, "buyer", 0, "a", False],
+    #     [3150, 200, False, "buyer", 0, "a", False],
+    #     [300, 200, False, "buyer", 0, "b", False],
+    #     [10, 2000, False, "buyer", 0, "c", False]
+    # ]
+    # bids = history["auction"]["bids"]
+    # print(datetime.strptime("2013-07-01 18:30:00", '%Y-%m-%d %H:%M:%S').strftime("%z"))
+    # bid_round = bids.loc[parse("2013-07-01 13:09:58-08:00")]
     # a = ContinuousDoubleAuction(None, datetime.now())
     # test_auction(a)
-        # a.collect_bids(bid_round[["trader", "role", "price", "quantity"]])
-        # print(a.clear_market())
-        # print(a.response[a.response.index == "F0_house_A0"])
-        # print(a.response.loc["F0_house_A0"])
+    # a.collect_bids(bid_round[["trader", "role", "price", "quantity"]])
+    # print(a.clear_market())
+    # print(a.response[a.response.index == "F0_house_A0"])
+    # print(a.response.loc["F0_house_A0"])

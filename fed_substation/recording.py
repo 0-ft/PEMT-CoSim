@@ -128,7 +128,10 @@ class SubstationRecorder:
             "sum.total_house_load",
 
             "values.intended_load",
-            "sum.intended_load"
+            "sum.intended_load",
+
+            "mean.trading_policy.buy_threshold_price",
+            "mean.trading_policy.sell_threshold_price",
         ])
 
         self.auction_recorder = HistoryRecorder(auction, [
@@ -374,6 +377,21 @@ class SubstationRecorder:
                 "y": auction["lmp"],
                 "name": "Local Marginal Price",
             }, row=4, col=1, secondary_y=True)
+        # print(houses["mean.trading_policy.buy_threshold_price"])
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["mean.trading_policy.buy_threshold_price"],
+                "name": "Mean Buy Threshold",
+            }, row=4, col=1, secondary_y=True)
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": houses.index,
+                "y": houses["mean.trading_policy.sell_threshold_price"],
+                "name": "Mean Sell Threshold",
+            }, row=4, col=1, secondary_y=True)
         fig.add_traces([
             {
                 "type": "scatter",
@@ -551,25 +569,6 @@ class SubstationRecorder:
                 "x": houses.index,
                 "y": houses["F0_house_A0.trading_policy.iqr"],
                 "name": "IQR",
-            }, row=4, col=1, secondary_y=True)
-        diff = houses["F0_house_A0.trading_policy.short_ma"] - houses["F0_house_A0.trading_policy.long_ma"]
-        b_t = houses["F0_house_A0.trading_policy.long_ma"] - houses["F0_house_A0.trading_policy.iqr"] * houses[
-            "F0_house_A0.trading_policy.buy_threshold"]
-        s_t = houses["F0_house_A0.trading_policy.long_ma"] + houses["F0_house_A0.trading_policy.iqr"] * houses[
-            "F0_house_A0.trading_policy.sell_threshold"]
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": b_t,
-                "name": "Buy Threshold",
-            }, row=4, col=1, secondary_y=True)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": s_t,
-                "name": "Sell Threshold",
             }, row=4, col=1, secondary_y=True)
 
         # print(houses["F0_house_A0.trading_policy.should_buy"])

@@ -36,8 +36,8 @@ class V2GEV:
 
         # parameters
         self.car_model = car_model
-        self.max_home_discharge_rate = 4000
-        self.max_home_charge_rate = 4500
+        self.max_home_discharge_rate = 5000
+        self.max_home_charge_rate = 5000
         self.min_home_charge_rate = 2500
         self.battery_capacity = car_model.parameters["battery_cap"] * 1000 * 3600
         self.work_charge_capacity = workplace_charge_capacity
@@ -156,10 +156,9 @@ class V2GEV:
         charge_load_cap = charge_rate_cap * self.enable_charging / self.charging_efficiency
 
         discharge_rate_cap = (self.stored_energy - (self.battery_capacity * 0.0001)) / time_delta
-        discharge_load_cap = discharge_rate_cap * self.enable_discharging / self.discharging_efficiency
+        discharge_load_cap = discharge_rate_cap * self.enable_discharging * self.discharging_efficiency
 
         home_charge_load = np.clip(home_charge_load_intended, -discharge_load_cap, charge_load_cap)
-        print(home_charge_load, sign(home_charge_load))
         home_charge_rate = home_charge_load * self.charging_efficiencies[home_charge_load > 0]
 
         self.workplace_charge_rate = min(charge_rate_cap, self.work_charge_capacity * (self.location == "workplace"))
