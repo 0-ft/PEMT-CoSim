@@ -7,6 +7,7 @@ import pandas as pd
 from pandas import DataFrame
 from plotly.subplots import make_subplots
 import plotly
+from scipy.integrate import trapezoid
 
 colors = plotly.colors.DEFAULT_PLOTLY_COLORS
 
@@ -14,12 +15,20 @@ START_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %
 END_TIME = datetime.strptime('2013-07-04 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 
 
+def rate_integ(series):
+    total_s = (series.index.max() - series.index.min()).total_seconds()
+    seconds = (series.index - series.index.min()).total_seconds()
+    trap = trapezoid(y=series.values, x=seconds)
+    return trap / total_s
+
+
 def oneplot(h, keys, scenario_name, ax_names, scale=None):
     has_y2 = any([axis for _, _, axis, _, _ in keys])
     fig = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": has_y2}]])
     print(keys)
     for varnum, (table, key, axis, name, stackgroup) in enumerate(keys):
-        print(f"{name}: min={h[table][key].min()}, max={h[table][key].max()}, mean={h[table][key].mean()} range={h[table][key].max() - h[table][key].min()}")
+        print(
+            f"{name}: min={h[table][key].min()}, max={h[table][key].max()}, mean={h[table][key].mean()} range={h[table][key].max() - h[table][key].min()}")
         fig.add_trace(
             {
                 "type": "scatter",
@@ -73,7 +82,8 @@ def multiplot(hs, keys, scenario_names, ax_names, layout, size=1000):
     for i, h in enumerate(hs):
         row, col = i // cols, i % cols
         for varnum, (table, key, axis, name) in enumerate(keys):
-            print(f"{name}: min={h[table][key].min()}, max={h[table][key].max()}, mean={h[table][key].mean()}, range={h[table][key].max() - h[table][key].min()}}}")
+            print(
+                f"{name}: min={h[table][key].min()}, max={h[table][key].max()}, mean={h[table][key].mean()}, range={h[table][key].max() - h[table][key].min()}}}")
             fig.add_traces([
                 {
                     "type": "scatter",
@@ -144,7 +154,7 @@ def layout(fig):
         font=dict(size=18))
 
 
-def one_figs(hs):
+def one_figs_capped(hs):
     house_means = days_mean(hs, {
         "houses": [
             "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
@@ -170,7 +180,63 @@ def one_figs(hs):
     layout(load)
     load.write_html(f"figs/{argv[1]}_load.html")
     load.write_image(f"figs/{argv[1]}_load.png", scale=1)
-    total_l = house_means[0]["houses"]["sum.hvac.hvac_load"] + house_means[0]["houses"]["sum.unresponsive_load"]
+
+    hvac_rate = rate_integ(house_means[0]["houses"]["sum.hvac.hvac_load"])
+    print(f"HVAC {hvac_rate} W = {hvac_rate * 3600 * 24} J/day = {hvac_rate * 3600 * 24 / 3.6e6} kWh/day")
+    unresp_rate = rate_integ(house_means[0]["houses"]["sum.unresponsive_load"])
+    print(f"Unresp {unresp_rate} W = {unresp_rate * 3600 * 24} J/day = {unresp_rate * 3600 * 24 / 3.6e6} kWh/day")
+    total_rate = unresp_rate + hvac_rate
+    print(f"Total {total_rate} W = {total_rate * 3600 * 24} J/day = {total_rate * 3600 * 24 / 3.6e6} kWh/day")
+
+    price_means = days_mean(hs, {
+        "auction": ["average_price", "lmp"]
+    })
+    # price_means = hs
+
+    price = oneplot(price_means[0], [
+        ("auction", "average_price", False, "VWAP", None),
+        # ("auction", "lmp", False, "VWAP \= LMP", None),
+    ], argv[1], ["Price ($)"])
+    layout(price)
+    price.write_html(f"figs/{argv[1]}_price.html")
+    price.write_image(f"figs/{argv[1]}_price.png", scale=1)
+    # print(max(total_l), min(total_l), max(total_l) - min(total_l))
+
+def one_figs_uncapped(hs):
+    house_means = days_mean(hs, {
+        "houses": [
+            "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
+            "sum.hvac.hvac_load", "sum.unresponsive_load",
+            "sum.pv.solar_power"
+        ],
+        "grid": ["weather_temp"],
+    }, resample=True)
+    hvac = oneplot(house_means[0], [
+        ("houses", "mean.hvac.air_temp", False, "Mean House Air Temperature", None),
+        ("houses", "max.hvac.air_temp", False, "Max House Air Temperature", None),
+        ("houses", "min.hvac.air_temp", False, "Min House Air Temperature", None),
+        ("houses", "mean.hvac.set_point", False, "Mean House Set Point", None),
+        ("grid", "weather_temp", False, "Weather Temperature", None),
+    ], argv[1], ["Temperature (°C)"], scale=lambda x: (x - 32) * 5 / 9)
+    layout(hvac)
+    hvac.write_html(f"figs/{argv[1]}_hvac.html")
+    hvac.write_image(f"figs/{argv[1]}_hvac.png", scale=1)
+
+    load = oneplot(house_means[0], [
+        ("houses", "sum.unresponsive_load", False, "Unresponsive Load", "load"),
+        ("houses", "sum.hvac.hvac_load", False, "HVAC Load", "load"),
+        ("houses", "sum.pv.solar_power", False, "PV Supply", "load"),
+    ], argv[1], ["Load (W)"])
+    layout(load)
+    load.write_html(f"figs/{argv[1]}_load.html")
+    load.write_image(f"figs/{argv[1]}_load.png", scale=1)
+
+    hvac_rate = rate_integ(house_means[0]["houses"]["sum.hvac.hvac_load"])
+    print(f"HVAC {hvac_rate} W = {hvac_rate * 3600 * 24} J/day = {hvac_rate * 3600 * 24 / 3.6e6} kWh/day")
+    unresp_rate = rate_integ(house_means[0]["houses"]["sum.unresponsive_load"])
+    print(f"Unresp {unresp_rate} W = {unresp_rate * 3600 * 24} J/day = {unresp_rate * 3600 * 24 / 3.6e6} kWh/day")
+    total_rate = unresp_rate + hvac_rate
+    print(f"Total {total_rate} W = {total_rate * 3600 * 24} J/day = {total_rate * 3600 * 24 / 3.6e6} kWh/day")
 
     price_means = days_mean(hs, {
         "auction": ["average_price", "lmp"]
@@ -190,6 +256,7 @@ def one_figs(hs):
 if __name__ == "__main__":
     # print(argv[1])
     hs = [pickle.load(open(f"metrics/{a}.pkl", "rb")) for a in argv[1:]]
+    print(hs[0]["houses"].index)
     end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
     hs = [
         {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
@@ -197,7 +264,7 @@ if __name__ == "__main__":
     ]
     # samegraph([h1, h2], [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], [argv[1], argv[2]], ["HVAC Load (W)"])
     if len(hs) == 1:
-        one_figs(hs)
+        one_figs_uncapped(hs)
     else:
         sameplot(hs, [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], argv[1:], ["HVAC Load (W)"])
         multiplot(hs, [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], argv[1:], ["HVAC Load (W)"],

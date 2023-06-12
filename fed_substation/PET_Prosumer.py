@@ -122,6 +122,7 @@ class PV:
         self.solar_DC_V_out = 0.0
         self.solar_DC_I_out = 0.0
         self.desired_power = 0.0
+        self.max_power = 0
         self.fixed_price = 0.014 + (np.random.uniform(-1, 1) / 1000)
         # control parameters
         self.subSolarPower = helics_federate.subscriptions[f"gld1/H{house_id}_solar_meter#measured_power"]
@@ -137,9 +138,10 @@ class PV:
         self.solar_power = abs(self.subSolarPower.complex.real)  # unit. kW
         self.solar_DC_V_out = self.subSolarDCVOut.double  # unit. V
         self.solar_DC_I_out = self.subSolarDCIOut.double  # unit. A
+        self.max_power = self.solar_DC_V_out * self.solar_DC_I_out
 
     def power_range(self):
-        return 0, self.solar_DC_V_out * self.solar_DC_I_out
+        return 0, self.max_power
 
     # def predicted_power(self):
     #     return self.solar_DC_V_out * self.solar_DC_I_out

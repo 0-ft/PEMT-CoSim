@@ -118,6 +118,9 @@ class SubstationRecorder:
 
             "values.pv.solar_power",
             "sum.pv.solar_power",
+
+            "sum.pv.max_power",
+            "values.pv.max_power",
             # "values.pv.solar_DC_V_out",
             # "values.pv.solar_DC_I_out",
 
