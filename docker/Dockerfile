@@ -48,6 +48,13 @@ COPY requirements.txt .
 RUN pip install -r ./requirements.txt
 RUN emobpy create -n unused
 
+RUN apt -y install openssh-server
+RUN sed -i 's/\#PermitRootLogin.*/PermitRootLogin Yes/' /etc/ssh/sshd_config
+RUN systemctl enable ssh & update-rc.d ssh defaults & systemctl enable ssh.socket & systemctl enable ssh.service
+RUN echo "root:helics" | chpasswd
+EXPOSE 22
+
+ENTRYPOINT service ssh start && bash
 #RUN apt install libzmq3-dev libczmq-dev
 ## Java support
 #RUN apt -y install openjdk-11-jdk
