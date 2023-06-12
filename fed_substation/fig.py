@@ -62,8 +62,21 @@ def load_plot(h, grid_power_cap=100000):
         "line": {"color": colors["total"]},
     }, row=1, col=1)
 
-    grid_cap = np.ones_like(h["grid"].index, dtype=float) * grid_power_cap
+    grid_cap = pd.Series(np.ones_like(h["grid"].index, dtype=float) * grid_power_cap, index=h["grid"].index)
+
     max_pv = h["houses"]["sum.pv.max_power"]
+    seconds = (max_pv.index - max_pv.index.min()).total_seconds()
+    total_s = (max_pv.index.max() - max_pv.index.min()).total_seconds()
+
+    pv_trap = rate_integ(max_pv)
+    print(f"PV trap: {pv_trap} = {pv_trap * 3600 * 24 / 3.6e6} kWh/day")
+
+    grid_trap = rate_integ(grid_cap)
+    print(f"Grid trap: {grid_trap} = {grid_trap * 3600 * 24 / 3.6e6} kWh/day")
+
+    pv_surp = rate_integ(max_pv - solar_supply)
+    print(f"PV surp: {pv_surp} = {pv_surp * 3600 * 24 / 3.6e6} kWh/day")
+
 
     supply_breakdown.add_traces([
         {
@@ -73,8 +86,8 @@ def load_plot(h, grid_power_cap=100000):
             "name": f"{name}",
             "line": {"width": 2, "color": color, "dash": "dash"},
         } for name, supply, color in [
-            ("Available Grid Supply", grid_cap, colors["grid"]),
-            ("Available EV Supply", max_pv, colors["pv"])
+            ("Grid Supply Capacity", grid_cap, colors["grid"]),
+            ("PV Supply Capacity", max_pv, colors["pv"])
         ]
     ], rows=1, cols=1)
 
@@ -107,7 +120,7 @@ def load_plot(h, grid_power_cap=100000):
         "name": f"Total Supply",
         "line": {"color": colors["total"]},
     }, row=1, col=1)
-    # load_breakdown.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
+    load_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     load_breakdown.update_yaxes(title_text="Power (W)", row=1, col=1, rangemode="tozero")
     layout(supply_breakdown, 1200, 400)
     layout(load_breakdown, 1200, 400)
@@ -356,7 +369,8 @@ def one_figs_capped(hs):
         "houses": [
             "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
             "sum.hvac.hvac_load", "sum.unresponsive_load",
-            "sum.pv.solar_power", "sum.ev.charging_load"
+            "sum.pv.solar_power", "sum.ev.charging_load",
+            "sum.pv.max_power"
         ],
         "grid": ["weather_temp", "vpp_load_p"],
     }, resample=True)
