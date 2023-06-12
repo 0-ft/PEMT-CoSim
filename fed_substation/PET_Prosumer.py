@@ -286,7 +286,8 @@ class House:
             print(f"{self.name}: {self.trading_policy.sell_threshold_price}, {self.trading_policy.long_ma} + {self.trading_policy.iqr} * {self.trading_policy.sell_iqr_ratio}")
             bids += [[(self.name, "ev")] + bid for bid in ev_bids]
         if self.pv:
-            self.pv.fixed_price = max(self.auction.lmp * 0.95, 0)
+            # self.pv.fixed_price = max(self.auction.lmp * 0.95, 0)
+            pv_bids = self.trading_policy.trade(self.current_time, (-max_pv_power, 0))
             pv_bid = [(self.name, "pv"), "seller", self.pv.fixed_price, max_pv_power]
             if max_pv_power > 0:
                 bids += [pv_bid]

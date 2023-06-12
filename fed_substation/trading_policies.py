@@ -15,8 +15,9 @@ class BoundedCrossoverTrader:
         self.buy_threshold_price = float('inf')
         self.sell_threshold_price = float('-inf')
 
-    def trade(self, current_time: datetime, buy_range):
+    def     trade(self, current_time: datetime, buy_range):
         if buy_range[0] > 0:
+            print("MUST BUY")
             return [["buyer", float('inf'), buy_range[0]]]
         if buy_range[1] < 0:
             print("MUST SELL")
@@ -48,7 +49,6 @@ class BoundedCrossoverTrader:
         self.buy_threshold_price = self.long_ma - self.iqr * self.buy_iqr_ratio
         self.sell_threshold_price = max(self.buy_threshold_price + 0.05 * self.iqr, self.short_ma + 0.2 * self.iqr)
 
-        return [
-            ["buyer", self.buy_threshold_price, buy_range[1]],
-            ["seller", self.sell_threshold_price, -buy_range[0]]
-        ]
+        buy_bid = [["buyer", self.buy_threshold_price, buy_range[1]]] if buy_range[1] > 0 else []
+        sell_bid = [["seller", self.sell_threshold_price, -buy_range[0]]] if -buy_range[0] > 0 else []
+        return buy_bid + sell_bid
