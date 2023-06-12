@@ -12,7 +12,7 @@ from scipy.integrate import trapezoid
 colors = plotly.colors.DEFAULT_PLOTLY_COLORS
 
 START_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-END_TIME = datetime.strptime('2013-07-04 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+END_TIME = datetime.strptime('2013-07-06 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 
 
 def rate_integ(series):
@@ -231,7 +231,8 @@ def one_figs_capped(hs):
     layout(load)
     load.write_html(f"figs/{argv[1]}_load.html")
     load.write_image(f"figs/{argv[1]}_load.png", scale=1)
-
+    pv_rate = rate_integ(hs[0]["houses"]["sum.pv.solar_power"])
+    print(f"PV {pv_rate} W = {pv_rate * 3600 * 24} J/day = {pv_rate * 3600 * 24 / 3.6e6} kWh/day")
     hvac_rate = rate_integ(house_means[0]["houses"]["sum.hvac.hvac_load"])
     print(f"HVAC {hvac_rate} W = {hvac_rate * 3600 * 24} J/day = {hvac_rate * 3600 * 24 / 3.6e6} kWh/day")
     unresp_rate = rate_integ(house_means[0]["houses"]["sum.unresponsive_load"])
