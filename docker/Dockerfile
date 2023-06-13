@@ -54,7 +54,7 @@ RUN systemctl enable ssh & update-rc.d ssh defaults & systemctl enable ssh.socke
 RUN echo "root:helics" | chpasswd
 EXPOSE 22
 
-ENTRYPOINT service ssh start && bash
+ENTRYPOINT service ssh start && sleep infinity
 #RUN apt install libzmq3-dev libczmq-dev
 ## Java support
 #RUN apt -y install openjdk-11-jdk
