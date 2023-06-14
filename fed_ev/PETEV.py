@@ -42,6 +42,7 @@ class V2GEV:
         self.charging_efficiency = car_model.parameters["battery_charging_eff"]
         self.discharging_efficiency = car_model.parameters["battery_discharging_eff"]
         self.charging_efficiencies = self.discharging_efficiency, self.charging_efficiency
+
         # state
         self.stored_energy = initial_soc * self.battery_capacity
         self.location = self.profile["state"].asof(start_time)
@@ -114,7 +115,6 @@ class V2GEV:
     def next_location_change(self):
         future_changes = self.location_changes[self.location_changes.index > self.current_time]
         if len(future_changes):
-            print(future_changes.index[0])
             return (future_changes.index[0] - self.current_time).total_seconds(), future_changes.iloc[0]["state"]
         else:
             return float('inf'), None
@@ -175,7 +175,6 @@ class V2GEV:
         total_charge_rate = home_charge_rate + self.workplace_charge_rate
 
         self.stored_energy += total_charge_rate * time_delta - energy_used
-        print(self.stored_energy)
         self.charging_load = home_charge_load
 
         if 0.9999 < self.stored_energy / self.battery_capacity and self.stored_energy != self.battery_capacity:
