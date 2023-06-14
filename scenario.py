@@ -30,14 +30,10 @@ weekend_night_start_hi = 24.0
 weekend_night_set_lo = 72.0
 weekend_night_set_hi = 74.0
 
-ramp_lo = 0.5
-ramp_hi = 3.0
-deadband_lo = 2.0
-deadband_hi = 3.0
+deadband_lo = 1.0
+deadband_hi = 1.0
 offset_limit_lo = 2.0
 offset_limit_hi = 4.0
-ctrl_cap_lo = 1.0
-ctrl_cap_hi = 3.0
 
 
 class PETScenario:

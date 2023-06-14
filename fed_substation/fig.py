@@ -21,7 +21,7 @@ colors = {
 }
 
 START_TIME = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-END_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+END_TIME = datetime.strptime('2013-07-08 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 
 
 def rate_integ(series):
@@ -136,6 +136,7 @@ def hvac_plot(day_means, h):
     diffs = np.maximum(airtemps - setpoints, 0)
     diffs_sq = np.power(diffs, 2)
     mean_diffs_sq = diffs_sq.mean(axis=1)
+    mean_diffs_sq = df_days_mean(DataFrame({"diffs": mean_diffs_sq}), True)
     hvac.add_traces([
         {
             "type": "scatter",
@@ -155,7 +156,7 @@ def hvac_plot(day_means, h):
         {
             "type": "scatter",
             "x": mean_diffs_sq.index,
-            "y": mean_diffs_sq,
+            "y": mean_diffs_sq["diffs"],
             "name": f"T_excesssq",
             "line": {"dash": "dash"},
             "showlegend": False
@@ -273,6 +274,14 @@ def multiplot(hs, keys, scenario_names, ax_names, layout, size=1000):
 
     return fig
 
+def df_days_mean(df: DataFrame, resample=False):
+    groups = list(df.groupby(df.index.dayofyear))
+    stack = pd.concat([df.set_index(df.index.time) for doy, df in groups])
+    means = stack.groupby(stack.index).mean()
+    dated = means.set_index(means.index.map(lambda t: datetime.combine(START_TIME.date(), t)))
+    if resample:
+        dated = dated.resample(timedelta(minutes=3)).mean()
+    return dated
 
 def days_mean(hs: list[dict[str: DataFrame]], cols, resample=False):
     hs = [
