@@ -51,6 +51,21 @@ CAR_MODELS_DISTRIBUTION = np.array([
 EVProfile = namedtuple("EVProfile", ["mobility", "consumption", "availability", "demand", "car_model"])
 
 
+def layout(fig, w=None, h=None):
+    fig.update_layout(
+        width=w or 1000, height=h or 500, margin=dict(l=0, r=0, t=0, b=0),
+        legend=dict(
+            orientation="h",
+            xanchor="center",
+            x=0.5,
+            # yanchor="bottom",
+            # y=1.02,
+            # y=1,
+            # traceorder="normal",
+        ),
+        font=dict(size=18))
+
+
 class EVProfiles:
     def __init__(self, start_date: datetime, hours, time_step, num_evs, output_folder,
                  station_distribution=STATION_DISTRIBUTION, car_models_distribution=CAR_MODELS_DISTRIBUTION):
@@ -131,7 +146,7 @@ class EVProfiles:
             return self.create_ev_profile(i, car_model)
 
     def create_mobility_timeseries(self, worker=True, full_time=True):
-        full_time=True
+        full_time = True
         print(f"Creating mobility timeseries, worker={worker}, full_time={full_time}")
         m = Mobility(config_folder='emobpy_data/config_files')
         m.set_params(
@@ -224,106 +239,81 @@ class EVProfiles:
     #     print(f"Profiles saved to {self.output_folder}")
 
     def draw_figures(self):
-        fig = make_subplots(rows=4, cols=1,
-                            specs=[[{"secondary_y": True}], [{"secondary_y": True}], [{"secondary_y": True}], [{}]])
-        fig.update_layout(title_text="EV Grid Demand")
+        fig = make_subplots(rows=1, cols=1,
+                            specs=[[{}]])
+        fig.update_layout(title_text="EV Locations")
 
         # EV Locations
-        states = self.demand_df.xs('state', level=1, axis=1).apply(lambda x: collections.Counter(x), axis=1,
-                                                                   result_type="expand")
+        states = self.consumption_df.xs('state', level=1, axis=1).apply(lambda x: collections.Counter(x), axis=1,
+                                                                        result_type="expand")
+        START_TIME = datetime.strptime('2013-07-02 00:00:00', '%Y-%m-%d %H:%M:%S')
+        END_TIME = datetime.strptime('2013-07-06 00:00:00', '%Y-%m-%d %H:%M:%S')
+        states = states[(states.index >= START_TIME) & (states.index <= END_TIME)]
         fig.add_traces([
             {
                 "type": "scatter",
                 "x": states.index,
                 "y": states[column],
-                "name": f"{column} count",
-                "showlegend": False,
+                "name": f"{column}",
+                "stackgroup": "location",
+                # "line": {"width": 0}
             }
             for column in states.columns
         ], rows=1, cols=1)
 
+        fig.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
         fig.update_yaxes(title_text="EV Locations", row=1, col=1)
+        layout(fig, 1200, 400)
+        fig.write_html("ev_fig.html")
+        fig.write_image("ev_locations2.png")
 
-        # EVs at Charging Points
+        fig = make_subplots(rows=1, cols=1,
+                            specs=[[{"secondary_y": True}]])
+        fig.update_layout(title_text="EV Driving Load")
 
-        num_at_charging_points = self.demand_df.xs('charging_point', level=1, axis=1).apply(
-            lambda x: x.str.count('^((?!none).)*$'), axis=1).sum(axis=1)
-        fig.add_trace({
-            "type": "scatter",
-            "x": num_at_charging_points.index,
-            "y": num_at_charging_points,
-            "name": f"EVs at charging points",
-            "showlegend": False,
-        }, row=2, col=1)
+        # EV Driving Loads
+        driving_loads = self.consumption_df.xs('average power in W', level=1, axis=1).apply(lambda x: x, axis=1,
+                                                                                            result_type="expand")
 
-        num_charging = self.demand_df.xs('charge_grid', level=1, axis=1).apply(
-            lambda x: (x > 1).sum(), axis=1)
-
-        fig.add_trace({
-            "type": "scatter",
-            "x": num_charging.index,
-            "y": num_charging,
-            "name": f"EVs at charging points",
-
-            "showlegend": False,
-        }, row=2, col=1, secondary_y=True)
-
-        fig.update_yaxes(title_text="EVs at charging points", row=2, col=1)
-        fig.update_yaxes(title_text="EVs charging", row=2, col=1, secondary_y=True)
-
-        # EV Grid Demand
-
+        START_TIME = datetime.strptime('2013-07-02 00:00:00', '%Y-%m-%d %H:%M:%S')
+        END_TIME = datetime.strptime('2013-07-06 00:00:00', '%Y-%m-%d %H:%M:%S')
+        driving_loads = driving_loads[(driving_loads.index >= START_TIME) & (driving_loads.index <= END_TIME)]
         fig.add_traces([
             {
                 "type": "scatter",
-                "x": profile.demand.timeseries.index,
-                "y": profile.demand.timeseries['charge_grid'],
-                "name": f"EV {i} Grid Demand",
+                "x": driving_loads.index,
+                "y": driving_loads[ev],
+                "name": f"EV {ev} Driving Load",
+                "stackgroup": "dload",
                 "showlegend": False,
-                "line": {"color": "#bbb"}
-            }
-            for i, profile in enumerate(self.profiles)
-        ], rows=3, cols=1)
-
-        fig.update_yaxes(title_text="Individual EV Demand (kW)", secondary_y=False, row=3, col=1)
-
-        total_charge_grid = self.demand_df.xs('charge_grid', level=1, axis=1).sum(axis=1)
-        fig.add_trace({
-            "type": "scatter",
-            "x": total_charge_grid.index,
-            "y": total_charge_grid,
-            "name": f"Sum EV Grid Demand",
-            "showlegend": False,
-            "line": {"color": "#2594f4", "width": 4}
-        }, secondary_y=True, row=3, col=1)
-        fig.update_yaxes(title_text="Sum EV Grid Demand (kW)", secondary_y=True, row=3, col=1)
-
-        stored_power = self.get_stored_power().xs('stored_power', level=1, axis=1)
-        #
-        fig.add_traces([
-            {
-                "type": "scatter",
-                "x": stored_power.index,
-                "y": stored_power[i],
-                "name": f"EV {i} Stored Power",
-                "showlegend": False,
-                "stackgroup": "stored_power",
                 "line": {"width": 0}
             }
-            for i, profile in enumerate(self.profiles)
-        ], rows=4, cols=1)
+            for ev in range(30)
+        ], rows=1, cols=1)
 
-        for i in range(1, 5):
-            fig.update_xaxes(title_text="Time", tickformat="%Hh", tickmode="linear",
-                             tick0=self.profiles[0].demand.timeseries.index[0], dtick=7200e3, row=i, col=1)
+        driving_loads_total = driving_loads.sum(axis=1).cumsum()
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": driving_loads_total.index,
+                "y": driving_loads_total,
+                "name": f"Total battery energy used by driving",
+                "showlegend": False,
+                # "line": {"color": k}
+            }, row=1, col=1, secondary_y=True)
 
-        # fig.write_image("ev_grid_demand.svg")
-        fig.write_html("ev_grid_demand.html")
-        # fig.show()
+        fig.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
+        fig.update_yaxes(title_text="EV Driving Load (W)", row=1, col=1)
+        fig.update_yaxes(title_text="EV Energy Used (J)", row=1, col=1, secondary_y=True)
+        layout(fig, 1200, 400)
+        fig.write_html("ev_fig.html")
+        fig.write_image("ev_driving_loads2.png")
+    # fig.show()
 
-        # fig2 = px.area(stored_power, x=stored_power.index, y=stored_power.columns,
-        #                labels={str(int(i)): f"EV {i}" for i in stored_power.columns})
-        # fig2.show()
+    # fig2 = px.area(stored_power, x=stored_power.index, y=stored_power.columns,
+    #                labels={str(int(i)): f"EV {i}" for i in stored_power.columns})
+    # fig2.show()
+
 
 def energy_used_between(ts, start_time: datetime, end_time: datetime):
     # print("ss", start_time)
@@ -349,8 +339,7 @@ def energy_used_between(ts, start_time: datetime, end_time: datetime):
         energy += delta * avg_power.asof(t)
         t = next_t
     print(energy, start_time, end_time)
-        # new_t = min()
-
+    # new_t = min()
 
 
 if __name__ == '__main__':
@@ -358,15 +347,16 @@ if __name__ == '__main__':
     ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
     # ev_profiles.run(pool_size=1)
     ev_profiles.load_from_saved()
+    ev_profiles.draw_figures()
     t = start_t + timedelta(hours=14)
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)
     # ev_profiles.get_locations_at_time(t)
-    c = ev_profiles.profiles[2].consumption.timeseries
-    print(c[c["state"] == "workplace"])
-    print(set(s for p in ev_profiles.profiles for s in set(p.mobility.timeseries["state"])))
+    # c = ev_profiles.profiles[2].consumption.timeseries
+    # print(c[c["state"] == "workplace"])
+    # print(set(s for p in ev_profiles.profiles for s in set(p.mobility.timeseries["state"])))
     # print(ev_profiles.profiles[2].consumption.timeseries.to_string())
-    print(ev_profiles.profiles[2].car_model.parameters)
+    # print(ev_profiles.profiles[2].car_model.parameters)
     # c = ev_profiles.profiles[2].consumption.timeseries
     # loc_changes = (c["state"].shift() != c["state"]).loc[lambda x: x].index
     # print("FF", loc_changes[loc_changes > datetime.strptime("2013-07-01 09:00:00", '%Y-%m-%d %H:%M:%S')][0])

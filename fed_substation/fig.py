@@ -5,7 +5,7 @@ from time import time as millis
 
 import numpy as np
 import pandas as pd
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from plotly.subplots import make_subplots
 import plotly
 from scipy.integrate import trapezoid
@@ -20,8 +20,8 @@ colors = {
     "total": "black",
 }
 
-START_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-END_TIME = datetime.strptime('2013-07-06 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+START_TIME = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+END_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 
 
 def rate_integ(series):
@@ -127,10 +127,15 @@ def load_plot(h, grid_power_cap=100000):
     return supply_breakdown, load_breakdown
     # return fig
 
-def hvac_plot(h):
-    hvac = make_subplots(rows=1, cols=1)
+def hvac_plot(day_means, h):
+    hvac = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": True}]])
 
-    ftoc = lambda x : (x - 32) * 5 / 9
+    ftoc = lambda x: (x - 32) * 5 / 9
+    setpoints = h["houses"]["values.hvac.set_point"].apply(lambda x: Series(ftoc(np.array(x))))
+    airtemps = h["houses"]["values.hvac.air_temp"].apply(lambda x: Series(ftoc(np.array(x))))
+    diffs = np.maximum(airtemps - setpoints, 0)
+    diffs_sq = np.power(diffs, 2)
+    mean_diffs_sq = diffs_sq.mean(axis=1)
     hvac.add_traces([
         {
             "type": "scatter",
@@ -138,22 +143,32 @@ def hvac_plot(h):
             "y": quant,
             "name": f"{name}",
         } for name, quant in [
-            ("Min House Air Temp", ftoc(h["houses"]["min.hvac.air_temp"])),
-            ("Max House Air Temperature", ftoc(h["houses"]["max.hvac.air_temp"])),
-            ("Mean House Air Temperature", ftoc(h["houses"]["mean.hvac.air_temp"])),
-            ("Mean House Set Point", ftoc(h["houses"]["mean.hvac.set_point"])),
-            ("Weather Temperature", ftoc(h["grid"]["weather_temp"])),
+            ("Min House Air Temp", ftoc(day_means["houses"]["min.hvac.air_temp"])),
+            ("Max House Air Temperature", ftoc(day_means["houses"]["max.hvac.air_temp"])),
+            ("Mean House Air Temperature", ftoc(day_means["houses"]["mean.hvac.air_temp"])),
+            ("Mean House Set Point", ftoc(day_means["houses"]["mean.hvac.set_point"])),
+            ("Weather Temperature", ftoc(day_means["grid"]["weather_temp"])),
         ]
     ], rows=1, cols=1)
 
-    setpoint = ftoc(h["houses"]["mean.hvac.set_point"])
-    meantemp = ftoc(h["houses"]["mean.hvac.air_temp"])
-    diff = np.maximum(meantemp - setpoint, 0)
-    seconds = (diff.index - diff.index.min()).total_seconds()
-    excess_quant = trapezoid(y=diff.values, x=seconds)
-    print(f"EXC: {excess_quant} Ks = {excess_quant / 60 / 24} Kmin/day")
+    hvac.add_trace(
+        {
+            "type": "scatter",
+            "x": mean_diffs_sq.index,
+            "y": mean_diffs_sq,
+            "name": f"T_excesssq",
+            "line": {"dash": "dash"},
+            "showlegend": False
+        }, row=1, col=1, secondary_y=True
+    )
+
+    # seconds = (diff.index - diff.index.min()).total_seconds()
+    # excess_quant = trapezoid(y=diff.values, x=seconds)
+    # print(f"EXC: {excess_quant} Ks = {excess_quant / 60 / 24} Kmin/day")
+
     # hvac.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
     hvac.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
+    hvac.update_yaxes(title_text="$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}\mkern 1.5mu$", row=1, col=1, secondary_y=True)
     layout(hvac, 1200, 400)
     return hvac
 
@@ -374,7 +389,7 @@ def one_figs_capped(hs):
         ],
         "grid": ["weather_temp", "vpp_load_p"],
     }, resample=True)
-    hvac = hvac_plot(house_means[0])
+    hvac = hvac_plot(house_means[0], hs[0])
     hvac.write_html(f"figs/{argv[1]}_hvac.html")
     hvac.write_image(f"figs/a_{argv[1]}_hvac.png", scale=1)
 

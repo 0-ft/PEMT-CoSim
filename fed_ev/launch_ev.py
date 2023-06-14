@@ -38,7 +38,6 @@ class EVFederate:
         self.enabled = True
 
     def create_federate(self):
-
         print(f"Creating EV federate")
         fed_json = {
             "name": "ev1",
@@ -149,9 +148,7 @@ class EVFederate:
         while self.current_time < self.end_time:
             current_time_s = (self.current_time - self.start_time).total_seconds()
             next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
-            next_location_change = min([ev.time_to_location_change for ev in self.evs]) + current_time_s
-            # delta_to_request = max(1.0, min([ev.time_to_full_charge for ev in self.evs] + [self.time_period_seconds]))
-            # time_to_request = (self.current_time - self.start_time).total_seconds() + delta_to_request
+            next_location_change = min([ev.next_location_change()[0] for ev in self.evs]) + current_time_s
             time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600)
             delta_to_request = time_to_request - current_time_s
             time_granted_seconds = self.helics_fed.request_time(time_to_request)

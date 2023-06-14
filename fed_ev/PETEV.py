@@ -30,9 +30,7 @@ class V2GEV:
         self.helics_fed = helics_fed
         self.name = name
         self.profile = consumption.timeseries
-        self.location_change_times = (self.profile["state"].shift() != self.profile["state"]).loc[
-            lambda x: x].index
-        self.time_to_location_change = 0  # (self.location_change_times[0] - start_time).total_seconds()
+        self.location_changes = self.profile[(self.profile["state"].shift() != self.profile["state"])]
 
         # parameters
         self.car_model = car_model
@@ -113,16 +111,24 @@ class V2GEV:
         self.pub_max_charging_load.publish(self.charging_load_range[1])
         self.pub_min_charging_load.publish(self.charging_load_range[0])
 
-    def time_to_next_location_change(self):
-        future_changes = self.location_change_times[self.location_change_times > self.current_time]
-        return (future_changes[0] - self.current_time).total_seconds() if len(future_changes) else float('inf')
+    def next_location_change(self):
+        future_changes = self.location_changes[self.location_changes.index > self.current_time]
+        if len(future_changes):
+            print(future_changes.index[0])
+            return (future_changes.index[0] - self.current_time).total_seconds(), future_changes.iloc[0]["state"]
+        else:
+            return float('inf'), None
 
     def charge_rate_range(self):
         # max_discharge = -self.max_discharge_rate * any(
         #     a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
         max_discharge = -self.max_home_discharge_rate
         soc = self.stored_energy / self.battery_capacity
+        time_to_next_loc, next_loc = self.next_location_change()
+
         if self.location != "home":
+            return 0.0, 0.0
+        elif next_loc != "home" and time_to_next_loc < 300:
             return 0.0, 0.0
         elif .9 <= soc:
             return max_discharge, 0
@@ -180,5 +186,4 @@ class V2GEV:
             if self.charging_load > 0 and self.stored_energy < self.battery_capacity else float('inf')
 
         self.location = self.profile["state"].asof(new_time) if self.enable_movement else "home"
-        self.time_to_location_change = self.time_to_next_location_change()
         self.charging_load_range = self.grid_load_range()
