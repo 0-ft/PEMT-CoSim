@@ -1,5 +1,6 @@
 import pickle
 from datetime import datetime, timedelta
+from os import listdir
 from sys import argv
 from time import time as millis
 
@@ -384,7 +385,7 @@ def layout(fig, w=None, h=None):
         font=dict(size=18))
 
 
-def one_figs_capped(hs):
+def one_figs_capped(hs, name):
     house_means = days_mean(hs, {
         "houses": [
             "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
@@ -397,8 +398,8 @@ def one_figs_capped(hs):
     # house_means = hs
 
     hvac = hvac_plot(house_means[0], hs[0])
-    hvac.write_html(f"figs/{argv[1]}_hvac.html")
-    hvac.write_image(f"figs/{argv[1]}_hvac.png", scale=1)
+    hvac.write_html(f"figs/{name}_hvac.html")
+    hvac.write_image(f"figs/{name}_hvac.png", scale=1)
 
     # der_supply = house_means[0]["houses"]["sum.pv.solar_power"] - np.minimum(
     #     house_means[0]["houses"]["sum.ev.charging_load"], 0)
@@ -407,10 +408,10 @@ def one_figs_capped(hs):
     # grid_supply = house_means[0]["grid"]["vpp_load_p"]
 
     supply_breakdown, load_breakdown = load_plot(house_means[0])
-    supply_breakdown.write_html(f"figs/{argv[1]}_supply.html")
-    supply_breakdown.write_image(f"figs/{argv[1]}_supply.png")
-    load_breakdown.write_html(f"figs/{argv[1]}_load.html")
-    load_breakdown.write_image(f"figs/{argv[1]}_load.png")
+    supply_breakdown.write_html(f"figs/{name}_supply.html")
+    supply_breakdown.write_image(f"figs/{name}_supply.png")
+    load_breakdown.write_html(f"figs/{name}_load.html")
+    load_breakdown.write_image(f"figs/{name}_load.png")
 
     price_means = days_mean(hs, {
         "auction": ["average_price", "lmp"]
@@ -418,29 +419,47 @@ def one_figs_capped(hs):
     # price_means = hs
 
     price = price_plot(price_means[0])
-    price.write_html(f"figs/{argv[1]}_price.html")
-    price.write_image(f"figs/{argv[1]}_price.png", scale=1)
+    price.write_html(f"figs/{name}_price.html")
+    price.write_image(f"figs/{name}_price.png", scale=1)
     # print(max(total_l), min(total_l), max(total_l) - min(total_l))
 
     ev = ev_plot(house_means[0])
-    ev.write_html(f"figs/{argv[1]}_ev.html")
-    ev.write_image(f"figs/{argv[1]}_ev.png")
+    ev.write_html(f"figs/{name}_ev.html")
+    ev.write_image(f"figs/{name}_ev.png")
 
+
+def all_single_figs():
+    pkls = [f.replace(".pkl", "") for f in listdir("metrics") if "pkl" in f]
+    for pkl in pkls:
+        print(pkl)
+        hs = [pickle.load(open(f"metrics/{pkl}.pkl", "rb"))]
+        end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
+        hs = [
+            {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
+            for h in hs
+        ]
+        one_figs_capped(hs, pkl)
 
 if __name__ == "__main__":
-    print(argv[1])
-
-    hs = [pickle.load(open(f"metrics/{a}.pkl", "rb")) for a in argv[1:]]
-    end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
-    hs = [
-        {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
-        for h in hs
-    ]
     # samegraph([h1, h2], [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], [argv[1], argv[2]], ["HVAC Load (W)"])
-    if len(hs) == 1:
+    if len(argv) == 1:
+        all_single_figs()
+    elif len(argv[1:]) == 1:
+        hs = [pickle.load(open(f"metrics/{a}.pkl", "rb")) for a in argv[1:]]
+        end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
+        hs = [
+            {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
+            for h in hs
+        ]
         one_figs_capped(hs)
 
     else:
+        hs = [pickle.load(open(f"metrics/{a}.pkl", "rb")) for a in argv[1:]]
+        end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
+        hs = [
+            {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
+            for h in hs
+        ]
         sameplot(hs, [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], argv[1:], ["HVAC Load (W)"])
         multiplot(hs, [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], argv[1:], ["HVAC Load (W)"],
                   layout=(1, 2))
