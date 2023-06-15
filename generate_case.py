@@ -32,12 +32,14 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--figure_period", type=int, default=3600*24)
     parser.add_argument("-b", "--buy_iqr_ratio", type=float, default=0.3)
     parser.add_argument("-s", "--sell_iqr_ratio", type=float, default=0.3)
+    parser.add_argument("-a", "--name", type=str, default=None)
     args = parser.parse_args()
 
     if args.input_file:
         scenario = pickle.load(args.input_file)
     else:
         scenario = PETScenario(
+            scenario_name=args.name,
             num_houses=args.num_houses,
             num_ev=args.num_ev,
             num_pv=args.num_pv,
