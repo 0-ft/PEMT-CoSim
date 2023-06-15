@@ -1,6 +1,1178 @@
 {
     "name": "ev1",
     "uninterruptible": false,
-    "publications": [],
-    "subscriptions": []
+    "publications": [
+        {
+            "key": "H0_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H0_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H0_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H0_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H0_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H0_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H0_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H1_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H1_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H1_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H1_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H1_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H1_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H1_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H2_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H2_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H2_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H2_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H2_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H2_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H2_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H3_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H3_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H3_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H3_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H3_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H3_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H3_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H4_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H4_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H4_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H4_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H4_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H4_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H4_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H5_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H5_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H5_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H5_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H5_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H5_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H5_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H6_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H6_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H6_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H6_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H6_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H6_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H6_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H7_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H7_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H7_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H7_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H7_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H7_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H7_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H8_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H8_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H8_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H8_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H8_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H8_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H8_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H9_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H9_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H9_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H9_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H9_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H9_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H9_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H10_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H10_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H10_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H10_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H10_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H10_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H10_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H11_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H11_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H11_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H11_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H11_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H11_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H11_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H12_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H12_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H12_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H12_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H12_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H12_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H12_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H13_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H13_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H13_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H13_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H13_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H13_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H13_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H14_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H14_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H14_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H14_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H14_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H14_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H14_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H15_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H15_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H15_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H15_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H15_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H15_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H15_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H16_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H16_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H16_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H16_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H16_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H16_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H16_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H17_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H17_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H17_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H17_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H17_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H17_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H17_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H18_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H18_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H18_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H18_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H18_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H18_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H18_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H19_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H19_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H19_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H19_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H19_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H19_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H19_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H20_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H20_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H20_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H20_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H20_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H20_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H20_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H21_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H21_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H21_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H21_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H21_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H21_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H21_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H22_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H22_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H22_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H22_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H22_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H22_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H22_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H23_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H23_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H23_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H23_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H23_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H23_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H23_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H24_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H24_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H24_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H24_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H24_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H24_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H24_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H25_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H25_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H25_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H25_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H25_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H25_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H25_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H26_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H26_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H26_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H26_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H26_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H26_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H26_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H27_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H27_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H27_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H27_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H27_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H27_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H27_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H28_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H28_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H28_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H28_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H28_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H28_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H28_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H29_ev#location",
+            "type": "string",
+            "global": false
+        },
+        {
+            "key": "H29_ev#stored_energy",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H29_ev#soc",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H29_ev#charging_load",
+            "type": "complex",
+            "global": false
+        },
+        {
+            "key": "H29_ev#driving_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H29_ev#max_charging_load",
+            "type": "double",
+            "global": false
+        },
+        {
+            "key": "H29_ev#min_charging_load",
+            "type": "double",
+            "global": false
+        }
+    ],
+    "subscriptions": [
+        {
+            "key": "pet1/H0_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H1_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H2_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H3_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H4_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H5_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H6_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H7_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H8_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H9_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H10_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H11_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H12_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H13_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H14_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H15_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H16_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H17_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H18_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H19_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H20_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H21_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H22_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H23_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H24_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H25_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H26_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H27_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H28_ev#charge_rate",
+            "type": "double"
+        },
+        {
+            "key": "pet1/H29_ev#charge_rate",
+            "type": "double"
+        }
+    ]
 }

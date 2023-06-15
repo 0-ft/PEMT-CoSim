@@ -20,8 +20,8 @@ colors = {
     "total": "black",
 }
 
-START_TIME = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-END_TIME = datetime.strptime('2013-07-08 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+START_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+END_TIME = datetime.strptime('2013-07-09 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 
 
 def rate_integ(series):
@@ -35,7 +35,19 @@ def load_plot(h, grid_power_cap=100000):
     solar_supply = np.abs(h["houses"]["sum.pv.solar_power"])
     grid_supply = np.maximum(h["grid"]["vpp_load_p"], 0)
     supply_breakdown = make_subplots(rows=1, cols=1)
-    print(supply_breakdown.layout.colorway)
+
+    w_to_kwhd = lambda x: x / 1000 * 24
+
+    hvac_rate = rate_integ(h["houses"]["sum.hvac.hvac_load"])
+    print(f"HVAC Load {hvac_rate} W = {w_to_kwhd(hvac_rate)} kWh/day")
+    unresp_rate = rate_integ(h["houses"]["sum.unresponsive_load"])
+    print(f"Unresp Load {unresp_rate} W = {w_to_kwhd(unresp_rate)} kWh/day")
+    total_rate = unresp_rate + hvac_rate
+    print(f"Total Load {total_rate} W = {w_to_kwhd(total_rate)} kWh/day")
+
+    pv_rate = rate_integ(h["houses"]["sum.pv.solar_power"])
+    print(f"PV Supply {pv_rate} W = {w_to_kwhd(pv_rate)} kWh/day")
+
     supply_breakdown.add_traces([
         {
             "type": "scatter",
@@ -63,20 +75,14 @@ def load_plot(h, grid_power_cap=100000):
     }, row=1, col=1)
 
     grid_cap = pd.Series(np.ones_like(h["grid"].index, dtype=float) * grid_power_cap, index=h["grid"].index)
+    pv_average_capacity = rate_integ(h["houses"]["sum.pv.max_power"])
+    print(f"PV Capacity Average: {pv_average_capacity} = {w_to_kwhd(pv_average_capacity)} kWh/day")
 
-    max_pv = h["houses"]["sum.pv.max_power"]
-    seconds = (max_pv.index - max_pv.index.min()).total_seconds()
-    total_s = (max_pv.index.max() - max_pv.index.min()).total_seconds()
+    grid_cap_average = rate_integ(grid_cap)
+    print(f"Grid Capacity Average: {grid_cap_average} = {w_to_kwhd(grid_cap_average)} kWh/day")
 
-    pv_trap = rate_integ(max_pv)
-    print(f"PV trap: {pv_trap} = {pv_trap * 3600 * 24 / 3.6e6} kWh/day")
-
-    grid_trap = rate_integ(grid_cap)
-    print(f"Grid trap: {grid_trap} = {grid_trap * 3600 * 24 / 3.6e6} kWh/day")
-
-    pv_surp = rate_integ(max_pv - solar_supply)
-    print(f"PV surp: {pv_surp} = {pv_surp * 3600 * 24 / 3.6e6} kWh/day")
-
+    pv_surp = rate_integ(h["houses"]["sum.pv.max_power"] - solar_supply)
+    print(f"PV Surplus: {pv_surp} = {w_to_kwhd(pv_surp)} kWh/day")
 
     supply_breakdown.add_traces([
         {
@@ -84,14 +90,14 @@ def load_plot(h, grid_power_cap=100000):
             "x": supply.index,
             "y": supply,
             "name": f"{name}",
-            "line": {"width": 2, "color": color, "dash": "dash"},
+            "line": {"width": 2, "color": color, "dash": "dash"}
         } for name, supply, color in [
             ("Grid Supply Capacity", grid_cap, colors["grid"]),
-            ("PV Supply Capacity", max_pv, colors["pv"])
+            ("PV Supply Capacity", h["houses"]["sum.pv.max_power"], colors["pv"])
         ]
     ], rows=1, cols=1)
 
-    # supply_breakdown.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
+    supply_breakdown.update_xaxes(row=1, col=1, tickformat="%H:%M")
     supply_breakdown.update_yaxes(title_text="Power (W)", row=1, col=1, rangemode="tozero")
 
     load_breakdown = make_subplots(rows=1, cols=1)
@@ -127,6 +133,7 @@ def load_plot(h, grid_power_cap=100000):
     return supply_breakdown, load_breakdown
     # return fig
 
+
 def hvac_plot(day_means, h):
     hvac = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": True}]])
 
@@ -137,6 +144,7 @@ def hvac_plot(day_means, h):
     diffs_sq = np.power(diffs, 2)
     mean_diffs_sq = diffs_sq.mean(axis=1)
     mean_diffs_sq = df_days_mean(DataFrame({"diffs": mean_diffs_sq}), True)
+    # mean_diffs_sq = DataFrame({"diffs": mean_diffs_sq})
     hvac.add_traces([
         {
             "type": "scatter",
@@ -157,9 +165,9 @@ def hvac_plot(day_means, h):
             "type": "scatter",
             "x": mean_diffs_sq.index,
             "y": mean_diffs_sq["diffs"],
-            "name": f"T_excesssq",
+            "name": "$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$",
             "line": {"dash": "dash"},
-            "showlegend": False
+            "showlegend": True
         }, row=1, col=1, secondary_y=True
     )
 
@@ -169,9 +177,11 @@ def hvac_plot(day_means, h):
 
     # hvac.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
     hvac.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
-    hvac.update_yaxes(title_text="$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}\mkern 1.5mu$", row=1, col=1, secondary_y=True)
+    hvac.update_yaxes(title_text="$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$", row=1,
+                      col=1, secondary_y=True)
     layout(hvac, 1200, 400)
     return hvac
+
 
 def price_plot(h):
     price = make_subplots(rows=1, cols=1)
@@ -192,6 +202,40 @@ def price_plot(h):
     price.update_yaxes(title_text="Price ($)", row=1, col=1)
     layout(price, 1200, 400)
     return price
+
+
+def ev_plot(h):
+    ev = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": True}]])
+
+    ev.add_traces([
+        {
+            "type": "scatter",
+            "x": quant.index,
+            "y": quant,
+            "name": f"{name}",
+            "stackgroup": "load",
+            "showlegend": True
+        } for name, quant in [
+            ("Driving", h["houses"]["sum.ev.driving_load"]),
+            ("Charging/Discharging", -h["houses"]["sum.ev.charging_load"])
+        ]
+    ], rows=1, cols=1)
+
+    ev.add_trace(
+        {
+            "type": "scatter",
+            "x": h["houses"]["sum.ev.stored_energy"].index,
+            "y": h["houses"]["sum.ev.stored_energy"],
+            "name": f"Total EV Stored Energy",
+            "showlegend": True
+        }, row=1, col=1, secondary_y=True
+    )
+
+    # price.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
+    ev.update_yaxes(title_text="Power (W)", row=1, col=1)
+    ev.update_yaxes(title_text="Energy (J)", row=1, col=1, secondary_y=True)
+    layout(ev, 1200, 400)
+    return ev
 
 
 def oneplot(h, keys, scenario_name, ax_names):
@@ -274,14 +318,16 @@ def multiplot(hs, keys, scenario_names, ax_names, layout, size=1000):
 
     return fig
 
+
 def df_days_mean(df: DataFrame, resample=False):
     groups = list(df.groupby(df.index.dayofyear))
     stack = pd.concat([df.set_index(df.index.time) for doy, df in groups])
     means = stack.groupby(stack.index).mean()
     dated = means.set_index(means.index.map(lambda t: datetime.combine(START_TIME.date(), t)))
     if resample:
-        dated = dated.resample(timedelta(minutes=3)).mean()
+        dated = dated.resample(timedelta(seconds=300)).mean()
     return dated
+
 
 def days_mean(hs: list[dict[str: DataFrame]], cols, resample=False):
     hs = [
@@ -315,7 +361,7 @@ def days_mean(hs: list[dict[str: DataFrame]], cols, resample=False):
     if resample:
         hs = [
             {
-                k: ts.resample(timedelta(minutes=3)).mean()
+                k: ts.resample(timedelta(seconds=300)).mean()
                 for k, ts in h.items()
             }
             for h in hs
@@ -338,100 +384,47 @@ def layout(fig, w=None, h=None):
         font=dict(size=18))
 
 
-def one_figs_uncapped(hs):
-    house_means = days_mean(hs, {
-        "houses": [
-            "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
-            "sum.hvac.hvac_load", "sum.unresponsive_load"
-        ],
-        "grid": ["weather_temp"],
-    }, resample=True)
-    # hvac = oneplot(house_means[0], [
-    #     ("houses", "mean.hvac.air_temp", False, "Mean House Air Temperature", None, lambda x: (x - 32) * 5 / 9),
-    #     ("houses", "max.hvac.air_temp", False, "Max House Air Temperature", None, lambda x: (x - 32) * 5 / 9),
-    #     ("houses", "min.hvac.air_temp", False, "Min House Air Temperature", None, lambda x: (x - 32) * 5 / 9),
-    #     ("houses", "mean.hvac.set_point", False, "Mean House Set Point", None, lambda x: (x - 32) * 5 / 9),
-    #     ("grid", "weather_temp", False, "Weather Temperature", None, lambda x: (x - 32) * 5 / 9),
-    # ], argv[1], ["Temperature (°C)"])
-    # layout(hvac)
-    # hvac.write_html(f"figs/{argv[1]}_hvac.html")
-    # hvac.write_image(f"figs/{argv[1]}_hvac.png", scale=1)
-
-    load = oneplot(house_means[0], [
-        ("houses", "sum.unresponsive_load", False, "Unresponsive Load", "load", None),
-        ("houses", "sum.hvac.hvac_load", False, "HVAC Load", "load", None),
-    ], argv[1], ["Load (W)"])
-    layout(load)
-    load.write_html(f"figs/{argv[1]}_load.html")
-    load.write_image(f"figs/{argv[1]}_load.png", scale=1)
-
-    hvac_rate = rate_integ(house_means[0]["houses"]["sum.hvac.hvac_load"])
-    print(f"HVAC {hvac_rate} W = {hvac_rate * 3600 * 24} J/day = {hvac_rate * 3600 * 24 / 3.6e6} kWh/day")
-    unresp_rate = rate_integ(house_means[0]["houses"]["sum.unresponsive_load"])
-    print(f"Unresp {unresp_rate} W = {unresp_rate * 3600 * 24} J/day = {unresp_rate * 3600 * 24 / 3.6e6} kWh/day")
-    total_rate = unresp_rate + hvac_rate
-    print(f"Total {total_rate} W = {total_rate * 3600 * 24} J/day = {total_rate * 3600 * 24 / 3.6e6} kWh/day")
-
-    price_means = days_mean(hs, {
-        "auction": ["average_price", "lmp"]
-    })
-    # price_means = hs
-
-    price = oneplot(price_means[0], [
-        ("auction", "average_price", False, "VWAP", None, None),
-        # ("auction", "lmp", False, "VWAP \= LMP", None),
-    ], argv[1], ["Price ($)"])
-    layout(price)
-    price.write_html(f"figs/{argv[1]}_price.html")
-    price.write_image(f"figs/{argv[1]}_price.png", scale=1)
-    # print(max(total_l), min(total_l), max(total_l) - min(total_l))
-
-
 def one_figs_capped(hs):
-
     house_means = days_mean(hs, {
         "houses": [
             "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
             "sum.hvac.hvac_load", "sum.unresponsive_load",
             "sum.pv.solar_power", "sum.ev.charging_load",
-            "sum.pv.max_power"
+            "sum.pv.max_power", "sum.ev.driving_load", "sum.ev.stored_energy"
         ],
         "grid": ["weather_temp", "vpp_load_p"],
     }, resample=True)
+    # house_means = hs
+
     hvac = hvac_plot(house_means[0], hs[0])
     hvac.write_html(f"figs/{argv[1]}_hvac.html")
-    hvac.write_image(f"figs/a_{argv[1]}_hvac.png", scale=1)
+    hvac.write_image(f"figs/{argv[1]}_hvac.png", scale=1)
 
-    der_supply = house_means[0]["houses"]["sum.pv.solar_power"] - np.minimum(
-        house_means[0]["houses"]["sum.ev.charging_load"], 0)
-    total_load = house_means[0]["houses"]["sum.unresponsive_load"] + house_means[0]["houses"][
-        "sum.hvac.hvac_load"] + np.maximum(house_means[0]["houses"]["sum.ev.charging_load"], 0)
-    grid_supply = house_means[0]["grid"]["vpp_load_p"]
+    # der_supply = house_means[0]["houses"]["sum.pv.solar_power"] - np.minimum(
+    #     house_means[0]["houses"]["sum.ev.charging_load"], 0)
+    # total_load = house_means[0]["houses"]["sum.unresponsive_load"] + house_means[0]["houses"][
+    #     "sum.hvac.hvac_load"] + np.maximum(house_means[0]["houses"]["sum.ev.charging_load"], 0)
+    # grid_supply = house_means[0]["grid"]["vpp_load_p"]
 
     supply_breakdown, load_breakdown = load_plot(house_means[0])
     supply_breakdown.write_html(f"figs/{argv[1]}_supply.html")
-    supply_breakdown.write_image(f"figs/a_{argv[1]}_supply.png")
+    supply_breakdown.write_image(f"figs/{argv[1]}_supply.png")
     load_breakdown.write_html(f"figs/{argv[1]}_load.html")
-    load_breakdown.write_image(f"figs/a_{argv[1]}_load.png")
-
-    pv_rate = rate_integ(hs[0]["houses"]["sum.pv.solar_power"])
-    print(f"PV {pv_rate} W = {pv_rate * 3600 * 24} J/day = {pv_rate * 3600 * 24 / 3.6e6} kWh/day")
-    hvac_rate = rate_integ(house_means[0]["houses"]["sum.hvac.hvac_load"])
-    print(f"HVAC {hvac_rate} W = {hvac_rate * 3600 * 24} J/day = {hvac_rate * 3600 * 24 / 3.6e6} kWh/day")
-    unresp_rate = rate_integ(house_means[0]["houses"]["sum.unresponsive_load"])
-    print(f"Unresp {unresp_rate} W = {unresp_rate * 3600 * 24} J/day = {unresp_rate * 3600 * 24 / 3.6e6} kWh/day")
-    total_rate = unresp_rate + hvac_rate
-    print(f"Total {total_rate} W = {total_rate * 3600 * 24} J/day = {total_rate * 3600 * 24 / 3.6e6} kWh/day")
+    load_breakdown.write_image(f"figs/{argv[1]}_load.png")
 
     price_means = days_mean(hs, {
         "auction": ["average_price", "lmp"]
-    })
+    }, resample=True)
     # price_means = hs
 
     price = price_plot(price_means[0])
     price.write_html(f"figs/{argv[1]}_price.html")
-    price.write_image(f"figs/a_{argv[1]}_price.png", scale=1)
+    price.write_image(f"figs/{argv[1]}_price.png", scale=1)
     # print(max(total_l), min(total_l), max(total_l) - min(total_l))
+
+    ev = ev_plot(house_means[0])
+    ev.write_html(f"figs/{argv[1]}_ev.html")
+    ev.write_image(f"figs/{argv[1]}_ev.png")
 
 
 if __name__ == "__main__":
