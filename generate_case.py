@@ -34,7 +34,6 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--sell_iqr_ratio", type=float, default=0.3)
     parser.add_argument("-a", "--name", type=str, default=None)
     args = parser.parse_args()
-
     if args.input_file:
         scenario = pickle.load(args.input_file)
     else:
@@ -53,6 +52,7 @@ if __name__ == "__main__":
         )
         pickle.dump(scenario, open(f"scenarios/{scenario.name}.pkl", "wb"))
     pickle.dump(scenario, open("scenario.pkl", "wb"))
+    print(f"Saved scenario:\n{scenario.__dict__}")
 
     GlmGenerator(scenario).save("fed_gridlabd")
 

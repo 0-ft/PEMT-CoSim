@@ -1,3 +1,4 @@
+import json
 import pickle
 from datetime import datetime
 
@@ -82,3 +83,4 @@ class PETScenario:
     def save(self, path):
         with open(f"{path}/scenario.pkl", "wb") as f:
             pickle.dump(self, f)
+        print(f"Saved scenario:\n{json.dumps(self.__dict__, indent=4)}")
