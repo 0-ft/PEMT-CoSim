@@ -24,7 +24,6 @@ colors = {
 START_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 END_TIME = datetime.strptime('2013-07-09 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 
-
 def rate_integ(series):
     total_s = (series.index.max() - series.index.min()).total_seconds()
     seconds = (series.index - series.index.min()).total_seconds()
@@ -395,7 +394,7 @@ def one_figs_capped(hs, name):
         ],
         "grid": ["weather_temp", "vpp_load_p"],
     }, resample=True)
-    # house_means = hs
+    house_means = hs
 
     hvac = hvac_plot(house_means[0], hs[0])
     hvac.write_html(f"figs/{name}_hvac.html")
@@ -427,11 +426,10 @@ def one_figs_capped(hs, name):
     ev.write_html(f"figs/{name}_ev.html")
     ev.write_image(f"figs/{name}_ev.png")
 
-
 def all_single_figs():
     pkls = [f.replace(".pkl", "") for f in listdir("metrics") if "pkl" in f]
     for pkl in pkls:
-        print(pkl)
+        print(f"\n\n{pkl}")
         hs = [pickle.load(open(f"metrics/{pkl}.pkl", "rb"))]
         end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
         hs = [
@@ -451,7 +449,7 @@ if __name__ == "__main__":
             {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
             for h in hs
         ]
-        one_figs_capped(hs)
+        one_figs_capped(hs, argv[1])
 
     else:
         hs = [pickle.load(open(f"metrics/{a}.pkl", "rb")) for a in argv[1:]]
