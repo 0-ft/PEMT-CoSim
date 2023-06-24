@@ -1,3 +1,4 @@
+import json
 import pickle
 from datetime import datetime, timedelta
 from os import listdir
@@ -21,8 +22,9 @@ colors = {
     "total": "black",
 }
 
-START_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+START_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
 END_TIME = datetime.strptime('2013-07-09 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+
 
 def rate_integ(series):
     total_s = (series.index.max() - series.index.min()).total_seconds()
@@ -97,7 +99,7 @@ def load_plot(h, grid_power_cap=100000):
         ]
     ], rows=1, cols=1)
 
-    supply_breakdown.update_xaxes(row=1, col=1, tickformat="%H:%M")
+    # supply_breakdown.update_xaxes(row=1, col=1, tickformat="%H:%M")
     supply_breakdown.update_yaxes(title_text="Power (W)", row=1, col=1, rangemode="tozero")
 
     load_breakdown = make_subplots(rows=1, cols=1)
@@ -126,7 +128,7 @@ def load_plot(h, grid_power_cap=100000):
         "name": f"Total Supply",
         "line": {"color": colors["total"]},
     }, row=1, col=1)
-    load_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
+    # load_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     load_breakdown.update_yaxes(title_text="Power (W)", row=1, col=1, rangemode="tozero")
     layout(supply_breakdown, 1200, 400)
     layout(load_breakdown, 1200, 400)
@@ -177,7 +179,8 @@ def hvac_plot(day_means, h):
 
     # hvac.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
     hvac.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
-    hvac.update_yaxes(title_text="$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$", row=1,
+    hvac.update_yaxes(title_text="$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$",
+                      row=1,
                       col=1, secondary_y=True)
     layout(hvac, 1200, 400)
     return hvac
@@ -236,6 +239,37 @@ def ev_plot(h):
     ev.update_yaxes(title_text="Energy (J)", row=1, col=1, secondary_y=True)
     layout(ev, 1200, 400)
     return ev
+
+
+def market_curves_plot(auction):
+    times = [datetime.strptime(d, '%Y-%m-%d %H:%M:%S %z') for d in [
+        '2013-07-05 00:00:00 -0800',
+        '2013-07-05 06:00:00 -0800',
+        '2013-07-05 12:00:00 -0800',
+        '2013-07-05 18:00:00 -0800']]
+    market = make_subplots(rows=1, cols=len(times), shared_yaxes=True, shared_xaxes=True)
+    for i, (t, bids) in enumerate(auction["bids"].loc[times].items()):
+        prices = sorted(bids["price"].unique())
+        buys = bids[bids["role"] == "buyer"]
+        bought_at_price = [buys[buys["price"] >= p]["quantity"].sum() for p in prices]
+
+        sells = bids[bids["role"] == "seller"]
+        sold_at_price = [sells[sells["price"] <= p]["quantity"].sum() for p in prices]
+        market.add_trace({
+            "type": "scatter",
+            "x": prices,
+            "y": bought_at_price,
+            "name": f"Buyers {t}",
+            "showlegend": True
+        }, row=1, col=i+1)
+        market.add_trace({
+            "type": "scatter",
+            "x": prices,
+            "y": sold_at_price,
+            "name": f"Sellers {t}",
+            "showlegend": True
+        }, row=1, col=i+1)
+    return market
 
 
 def oneplot(h, keys, scenario_name, ax_names):
@@ -385,15 +419,22 @@ def layout(fig, w=None, h=None):
 
 
 def one_figs_capped(hs, name):
-    house_means = days_mean(hs, {
-        "houses": [
-            "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
-            "sum.hvac.hvac_load", "sum.unresponsive_load",
-            "sum.pv.solar_power", "sum.ev.charging_load",
-            "sum.pv.max_power", "sum.ev.driving_load", "sum.ev.stored_energy"
-        ],
-        "grid": ["weather_temp", "vpp_load_p"],
-    }, resample=True)
+    print(hs[0]["auction"]["bids"][START_TIME + timedelta(hours=14, minutes=25)])
+    print(json.dumps(hs[0]["auction"]["transactions"][START_TIME + timedelta(hours=14, minutes=25)], indent=2))
+
+    # market = market_curves_plot(hs[0]["auction"])
+    # market.write_html(f"figs/{name}_market.html")
+    # market.write_image(f"figs/{name}_market.png")
+    # return
+    # house_means = days_mean(hs, {
+    #     "houses": [
+    #         "mean.hvac.air_temp", "max.hvac.air_temp", "min.hvac.air_temp", "mean.hvac.set_point",
+    #         "sum.hvac.hvac_load", "sum.unresponsive_load",
+    #         "sum.pv.solar_power", "sum.ev.charging_load",
+    #         "sum.pv.max_power", "sum.ev.driving_load", "sum.ev.stored_energy"
+    #     ],
+    #     "grid": ["weather_temp", "vpp_load_p"],
+    # }, resample=True)
     house_means = hs
 
     hvac = hvac_plot(house_means[0], hs[0])
@@ -426,6 +467,7 @@ def one_figs_capped(hs, name):
     ev.write_html(f"figs/{name}_ev.html")
     ev.write_image(f"figs/{name}_ev.png")
 
+
 def all_single_figs():
     pkls = [f.replace(".pkl", "") for f in listdir("metrics") if "pkl" in f]
     for pkl in pkls:
@@ -437,6 +479,7 @@ def all_single_figs():
             for h in hs
         ]
         one_figs_capped(hs, pkl)
+
 
 if __name__ == "__main__":
     # samegraph([h1, h2], [("houses", "sum.hvac.hvac_load", False, "HVAC Load")], [argv[1], argv[2]], ["HVAC Load (W)"])

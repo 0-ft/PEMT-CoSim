@@ -83,9 +83,9 @@ class SubstationRecorder:
             "min.hvac.air_temp",
             "max.hvac.air_temp",
 
-            "values.hvac.hvac_load",
-            "sum.hvac.hvac_load",
-            "max.hvac.hvac_load",
+            "values.hvac.measured_load",
+            "sum.hvac.measured_load",
+            "max.hvac.measured_load",
 
             "values.hvac.hvac_on",
             "sum.hvac.hvac_on",
@@ -116,11 +116,14 @@ class SubstationRecorder:
             "values.ev.workplace_charge_rate",
             "sum.ev.workplace_charge_rate",
 
-            "values.pv.solar_power",
-            "sum.pv.solar_power",
+            "values.ev.measured_load",
+            "sum.ev.measured_load",
 
-            "sum.pv.max_power",
-            "values.pv.max_power",
+            "values.pv.measured_power",
+            "sum.pv.measured_power",
+
+            "sum.pv.predicted_max_power",
+            "values.pv.predicted_max_power",
             # "values.pv.solar_DC_V_out",
             # "values.pv.solar_DC_I_out",
 
@@ -220,14 +223,14 @@ class SubstationRecorder:
 
         fig.update_yaxes(title_text="Temperature", row=1, col=1)
 
-        # clipped_hvac = np.clip(houses["sum.hvac.hvac_load"], None,
+        # clipped_hvac = np.clip(houses["sum.hvac.measured_load"], None,
         #                        80000 - houses["sum.ev.charging_load"] - houses["sum.unresponsive_load"])
 
         fig.add_traces([
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.pv.solar_power"] * -1,
+                "y": houses["sum.pv.measured_power"] * -1,
                 "name": "Total Solar PV Power Generated",
                 "stackgroup": "house_load"
             },
@@ -248,7 +251,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.hvac.hvac_load"],
+                "y": houses["sum.hvac.measured_load"],
                 "name": "Total HVAC Load",
                 "stackgroup": "house_load"
             },
@@ -279,13 +282,13 @@ class SubstationRecorder:
             # {
             #     "type": "scatter",
             #     "x": houses.index,
-            #     "y": houses["max.hvac.hvac_load"],
+            #     "y": houses["max.hvac.measured_load"],
             #     "name": "Max HVAC Load",
             # },
             # {
             #     "type": "scatter",
             #     "x": houses.index,
-            #     "y": houses["sum.hvac.hvac_load"] / houses["sum.hvac.hvac_on"],
+            #     "y": houses["sum.hvac.measured_load"] / houses["sum.hvac.hvac_on"],
             #     "name": "Avg HVAC Load",
             # },
             # {
@@ -458,7 +461,7 @@ class SubstationRecorder:
         #     {
         #         "type": "scatter",
         #         "x": houses.index,
-        #         "y": houses["F0_house_A0.pv.solar_power"] * -1,
+        #         "y": houses["F0_house_A0.pv.measured_power"] * -1,
         #         "name": "PV Load",
         #         "line": {"width": 0},
         #         "stackgroup": "house_load"
@@ -484,7 +487,7 @@ class SubstationRecorder:
         #     {
         #         "type": "scatter",
         #         "x": houses.index,
-        #         "y": houses["F0_house_A0.hvac.hvac_load"],
+        #         "y": houses["F0_house_A0.hvac.measured_load"],
         #         "name": "HVAC Load",
         #         "line": {"width": 0},
         #         "stackgroup": "house_load",

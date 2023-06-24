@@ -77,7 +77,7 @@ class PETFederate:
             if time_granted >= self.next_update_time or True:
                 for house_name, house in self.houses.items():
                     house.update_measurements(self.current_time)  # update measurements for all devices
-                    house.hvac.change_basepoint(self.current_time.hour + self.current_time.minute / 60, self.current_time.weekday())  # update schedule
+                    house.hvac.change_basepoint(self.current_time.hour + self.current_time.minute / 60)  # update schedule
                     house.hvac.determine_power_needed(
                         self.grid_supply.weather_temp)  # hvac determines if power is needed based on current state
                 self.grid_supply.update_load()  # get the VPP load
