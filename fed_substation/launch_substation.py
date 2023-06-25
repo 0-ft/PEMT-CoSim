@@ -8,7 +8,7 @@ modified by Yuanliang Li
 import pickle
 from datetime import datetime
 from datetime import timedelta
-
+from time import time
 import helics
 
 from PET_Prosumer import House, GridSupply  # import user-defined my_hvac class for hvac controllers
@@ -22,6 +22,7 @@ class PETFederate:
         print("initialising PETFederate", flush=True)
         self.start_time = start_time
         self.current_time = start_time
+        self.end_time = scenario.end_time
         self.hour_stop = hour_stop
         self.stop_seconds = int(hour_stop * 3600)  # co-simulation stop time in seconds
 
@@ -47,7 +48,7 @@ class PETFederate:
 
         self.time_granted = 0
 
-        self.recorder = SubstationRecorder(self.grid_supply, self.houses, self.auction)
+        self.recorder = SubstationRecorder(self.grid_supply, self.houses, self.auction, f"metrics/{scenario.name}")
 
     def initialise(self):
         print("Substation federate to enter initializing mode", flush=True)
@@ -63,39 +64,48 @@ class PETFederate:
         self.helics_federate.enter_executing_mode()
         print("Substation federate entered executing mode")
 
+    def update_states(self):
+        for house_name, house in self.houses.items():
+            house.update_measurements(self.current_time)  # update measurements for all devices
+            house.hvac.change_basepoint(self.current_time.hour + self.current_time.minute / 60)  # update schedule
+            house.hvac.determine_power_needed(
+                self.grid_supply.weather_temp)  # hvac determines if power is needed based on current state
+        self.grid_supply.update_load()  # get the VPP load
+
+    def converge_market(self):
+        iter_time_to_request = min([self.next_update_time, self.next_market_time, self.stop_seconds])
+        iter_time_granted_seconds, iter_res = self.helics_federate.request_time_iterative(iter_time_to_request,
+                                                                                      helics.HELICS_ITERATION_REQUEST_ITERATE_IF_NEEDED)
+
     def run(self):
-        while (
-                time_granted := self.helics_federate.request_time(
-                    min([self.next_update_time, self.next_market_time, self.stop_seconds]))) < self.stop_seconds:
-            self.current_time = self.start_time + timedelta(seconds=time_granted)  # this is the actual time
-            print(f"substation federate granted time {time_granted} = {self.current_time}")
+        while (self.current_time - self.start_time).total_seconds() < self.stop_seconds:
+            time_to_request = min([self.next_update_time, self.next_market_time, self.stop_seconds])
+            time_granted_seconds, iter_res = self.helics_federate.request_time_iterative(time_to_request,
+                                                                                    helics.HELICS_ITERATION_REQUEST_ITERATE_IF_NEEDED
+                                                                                    if time_to_request == self.next_market_time
+                                                                                    else helics.HELICS_ITERATION_REQUEST_NO_ITERATION)
+
+            self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)  # this is the actual time
+
+            print(f"PET granted {time_granted_seconds}, {iter_res} = {self.current_time}")
 
             """ 2. houses update state/measurements for all devices, 
                    update schedule and determine the power needed for hvac,
                    make power predictions for solar,
                    make power predictions for house load"""
-            if time_granted >= self.next_update_time or True:
-                for house_name, house in self.houses.items():
-                    house.update_measurements(self.current_time)  # update measurements for all devices
-                    house.hvac.change_basepoint(self.current_time.hour + self.current_time.minute / 60)  # update schedule
-                    house.hvac.determine_power_needed(
-                        self.grid_supply.weather_temp)  # hvac determines if power is needed based on current state
-                self.grid_supply.update_load()  # get the VPP load
-                self.recorder.record_houses(self.current_time)
-                self.recorder.record_grid(self.current_time)
+            if time_granted_seconds >= self.next_update_time or True:
                 self.next_update_time += self.update_period
+                self.update_states()
 
-            """ 5. houses formulate and send their bids"""
-            if time_granted >= self.next_market_time:
-                # auction.clear_bids()  # auction remove all previous records, re-initialize
-                # print(
-                #     f"EVs @ {[(i, house.ev.location, house.ev.soc, house.ev.load_range) for i, house in enumerate(self.houses.values()) if house.ev is not None]}")
-                # print(
-                #     f"LOADs @ {[(i, house.unresponsive_load, house.hvac.hvac_load, house.ev.measured_load if house.ev else 0) for i, house in enumerate(self.houses.values())]}")
-                # print(
-                #     f"HVAC LOADS SUM {sum(house.hvac.hvac_load for house in self.houses.values())} @ {[(i, house.hvac.hvac_load) for i, house in enumerate(self.houses.values())]}")
-                # print("AUCTION HISTORY BEFORE BIDS")
-                # print(self.auction.history)
+            """ 5. receive capacity from EVs, formulate bids, set loads"""
+            if time_granted_seconds >= self.next_market_time:
+                self.next_market_time += self.market_period
+                iter_time_to_request = min([self.next_update_time, self.next_market_time, self.stop_seconds])
+                iter_time_granted_seconds, iter_res = self.helics_federate.request_time_iterative(iter_time_to_request,
+                                                                                                  helics.HELICS_ITERATION_REQUEST_ITERATE_IF_NEEDED)
+                self.current_time = self.start_time + timedelta(seconds=iter_time_granted_seconds)
+                print(f"PET granted {iter_time_granted_seconds}, {iter_res} = {self.current_time}")
+                self.update_states()
                 bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [
                     self.grid_supply.formulate_bid()]
                 self.auction.collect_bids(bids)
@@ -107,16 +117,17 @@ class PETFederate:
                         self.grid_supply.post_market_control(transactions)
                     else:
                         self.houses[trader].post_market_control(transactions)
-
                 self.recorder.record_auction(self.current_time)
-                self.next_market_time += self.market_period
+            self.recorder.record_houses(self.current_time)
+            self.recorder.record_grid(self.current_time)
 
             """ 9. visualize some results during the simulation"""
-            if self.draw_figure and time_granted >= self.next_figure_time:
+            if self.draw_figure and time_granted_seconds >= self.next_figure_time:
                 self.recorder.figure()
                 self.next_figure_time += self.fig_update_period
-                self.recorder.save(f"metrics/{scenario.name}.pkl")
-        self.recorder.save(f"metrics/{scenario.name}.pkl")
+                self.recorder.save()
+
+        self.recorder.save()
         print('writing metrics', flush=True)
         helics.helicsFederateDestroy(self.helics_federate)
         print(f"federate {self.helics_federate.name} has been destroyed")

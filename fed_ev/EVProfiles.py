@@ -87,7 +87,7 @@ class EVProfiles:
         files = glob.glob(f"{self.output_folder}/*")
         if len(files) < self.num_evs:
             raise Exception(f"Not enough saved EV profiles. Found {len(files)}, expected {self.num_evs}")
-        for f in files:
+        for f in files[:self.num_evs]:
             with gzip.open(f, 'rb') as handle:
                 self.profiles.append(pickle.load(handle))
         self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,

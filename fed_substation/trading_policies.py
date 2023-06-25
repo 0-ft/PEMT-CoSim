@@ -13,13 +13,13 @@ class BoundedCrossoverTrader:
         self.buy_iqr_ratio = buy_iqr_ratio
         self.sell_iqr_ratio = sell_iqr_ratio
         self.ev_buy_threshold_price = float('inf')
-        self.ev_sell_threshold_price = float('-inf')
+        self.ev_sell_threshold_price = float('inf')
 
     def update_averages(self, current_time):
         if (current_time - self.auction.history.index.min()) < self.long_window:
             return False
-        self.long_ma = self.auction.history["average_since"].last(self.long_window).iloc[0]
-        self.short_ma = self.auction.history["average_since"].last(self.short_window).iloc[0]
+        self.long_ma = self.auction.history["lmp_mean_since"].last(self.long_window).iloc[0]
+        self.short_ma = self.auction.history["lmp_mean_since"].last(self.short_window).iloc[0]
         self.iqr = self.auction.history["iqr_since"].last(self.long_window).iloc[0]
         return True
 
@@ -42,9 +42,9 @@ class BoundedCrossoverTrader:
         return buy_bid + sell_bid
 
     def formulate_bids(self, house_name, current_time: datetime, ev_buy_range, pv_max_power):
-        ev_bids = self.formulate_ev_bids(current_time, ev_buy_range)
+        ev_bids = self.formulate_ev_bids(current_time, ev_buy_range) if ev_buy_range else []
         ev_sell_prices = [bid[1] for bid in ev_bids if bid[0] == "seller"]
-        ev_sell_price = min(ev_sell_prices) if ev_sell_prices else 0
-        pv_sell_price = min(self.auction.lmp * 0.9, ev_sell_price * 0.95)
+        # ev_sell_price = min(ev_sell_prices) if ev_sell_prices else float('inf')
+        pv_sell_price = min(self.auction.lmp * 0.9, self.ev_sell_threshold_price * 0.95)
         pv_bids = [[(house_name, "pv"), "seller", pv_sell_price, pv_max_power]] if pv_max_power > 0 else []
         return [[(house_name, "ev")] + bid for bid in ev_bids] + pv_bids

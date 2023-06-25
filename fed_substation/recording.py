@@ -1,8 +1,11 @@
+import os
 import pickle
 from collections.abc import Sequence
 from datetime import datetime
+from os.path import splitext, basename
+from pathlib import Path
 from sys import argv
-from time import time as millis
+from time import time as millis, time
 
 import numpy as np
 import pandas
@@ -57,6 +60,10 @@ class HistoryRecorder:
                 raise Exception(f"couldn't get key {key}, {e}")
         return state
 
+    def clear(self):
+        self.history = []
+        self.times = []
+
     def record(self, time):
         self.times.append(time)
         # self.history.append([deep_get(self.target, key, None) for key in self.keys])
@@ -65,17 +72,18 @@ class HistoryRecorder:
     def df(self):
         return pandas.DataFrame(self.history, index=self.times, columns=self.keys)
 
-    def save(self, path):
-        self.df().to_pickle(path)
-
 
 class SubstationRecorder:
-    def __init__(self, grid, houses, auction):
+    def __init__(self, grid, houses, auction, out_dir: str):
+        self.file_number = 0
+        self.out_dir = out_dir
+        os.makedirs(self.out_dir, exist_ok=True)
+        [f.unlink() for f in Path(out_dir).glob("*") if f.is_file()]
+
         self.grid_recorder = HistoryRecorder(grid, [
-            "vpp_load_p",
-            "vpp_load",
-            "balance_signal",
-            "weather_temp"
+            "measured_load",
+            "weather_temp",
+            "intended_load"
         ])
         self.house_recorder = HistoryRecorder(houses, [
             "values.hvac.air_temp",
@@ -122,16 +130,19 @@ class SubstationRecorder:
             "values.pv.measured_power",
             "sum.pv.measured_power",
 
+            "values.pv.desired_power",
+            "sum.pv.desired_power",
+
             "sum.pv.predicted_max_power",
             "values.pv.predicted_max_power",
             # "values.pv.solar_DC_V_out",
             # "values.pv.solar_DC_I_out",
 
-            "values.unresponsive_load",
-            "sum.unresponsive_load",
+            "values.measured_unresponsive_load",
+            "sum.measured_unresponsive_load",
 
-            "values.total_house_load",
-            "sum.total_house_load",
+            "values.measured_total_load",
+            "sum.measured_total_load",
 
             "values.intended_load",
             "sum.intended_load",
@@ -166,9 +177,30 @@ class SubstationRecorder:
             "grid": self.grid_recorder.df()
         }
 
-    def save(self, path):
-        with open(path, "wb") as f:
+    def clear(self):
+        self.house_recorder.clear()
+        self.auction_recorder.clear()
+        self.grid_recorder.clear()
+
+    def save(self):
+        proftime = time()
+        with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
             pickle.dump(self.history(), f)
+        self.file_number += 1
+        self.clear()
+        print(f"wrote file {self.file_number - 1} in {time() - proftime:3f}s")
+
+    @staticmethod
+    def load_history(outdir):
+        files = sorted([os.path.join(outdir, f) for f in os.listdir(outdir) if f.endswith(".pkl")],
+                       key=lambda x: int(splitext(basename(x))[0]))
+        print(f"loading {files}")
+        dicts = [pickle.load(open(f, "rb")) for f in files]
+        res = {
+            k: pandas.concat([dict[k] for dict in dicts])
+            for k in ["houses", "auction", "grid"]
+        }
+        return res
 
     @staticmethod
     def make_figure(h: dict, path, freq=None, make_html=False, ev_history=None):
@@ -244,7 +276,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.unresponsive_load"],
+                "y": houses["sum.measured_unresponsive_load"],
                 "name": "Total Unresponsive Load",
                 "stackgroup": "house_load"
             },
@@ -258,8 +290,8 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": grid.index,
-                "y": np.real(grid["vpp_load"]),
-                "name": "Total VPP  P",
+                "y": np.abs(grid["measured_load"]),
+                "name": "Total Grid Load",
             },
             # {
             #     "type": "scatter",
@@ -340,7 +372,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.ev.charging_load"]-houses["sum.ev.driving_load"],
+                "y": houses["sum.ev.charging_load"] - houses["sum.ev.driving_load"],
                 "name": "Sum EV Delta",
             }, row=3, col=1, secondary_y=True)
         # locs = houses["values.ev.location"].to_list()

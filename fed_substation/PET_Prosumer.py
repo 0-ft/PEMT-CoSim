@@ -9,7 +9,6 @@ mechanism.
 from datetime import timedelta
 
 import helics
-import numpy as np
 from helics import HelicsFederate
 
 from market import ContinuousDoubleAuction
@@ -205,26 +204,23 @@ class House:
         print(f"house with {has_pv} PV, {has_ev} EV")
         self.pv = PV(helics_federate, house_id) if has_pv else None
         self.ev = EV(helics_federate, house_id, auction) if has_ev else None
-
-        # measurements
-        self.total_house_load = 0.0
-        self.unresponsive_load = 0.0
-
-        self.intended_load = 0.0
-
         self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=0.5), timedelta(hours=24),
                                                      scenario.buy_iqr_threshold, scenario.sell_iqr_threshold)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]
         self.pub_meter_mode = helics.helicsFederateGetPublication(helics_federate,
                                                                   f"H{house_id}_meter_billing#bill_mode")
-
         self.pub_meter_price = helics.helicsFederateGetPublication(helics_federate, f"H{house_id}_meter_billing#price")
 
-        # self.sub_meter_voltage = helics_federate.subscriptions[f"gld1/H{house_id}_meter#measured_voltage_1"]
         self.sub_house_load = helics_federate.subscriptions[f"gld1/H{house_id}_meter_house#measured_power"]
 
+        # state
+        self.intended_load = 0.0
+        self.measured_total_load = 0.0
+        self.measured_unresponsive_load = 0.0
+
         self.bids = []
+
     def set_meter_mode(self):
         self.pub_meter_mode.publish('HOURLY')
         self.pub_meter_monthly_fee.publish(0.0)
@@ -237,14 +233,14 @@ class House:
 
         # for house meter measurements ==================
         # house meter power, measured at house_F0_tpm_A(N) (excludes solar + ev)
-        self.total_house_load = self.sub_house_load.double
+        self.measured_total_load = self.sub_house_load.double
         # print(f"{self.name} got house load {self.total_house_load}")
 
         # for HVAC measurements  ==================
         self.hvac.update_state()  # state update for control
 
         # for unresponsive load ==================
-        self.unresponsive_load = self.total_house_load - self.hvac.measured_load  # for unresponsive load
+        self.measured_unresponsive_load = self.measured_total_load - self.hvac.measured_load  # for unresponsive load
 
         if self.pv:
             self.pv.update_state()
@@ -256,35 +252,16 @@ class House:
         self.pub_meter_price.publish(self.auction.average_price)
 
     def formulate_bids(self):
-        """ formulate the bid for prosumer
-
-        Returns:
-            [float, float, boolean, string, float, name]:
-            bid price unit. $/kwh,
-            bid quantity unit. kw,
-            hvac needed,
-            unresponsive load unit. kw,
-            name of the house
-        """
         min_pv_power, max_pv_power = self.pv.power_range() if self.pv else (0, 0)
         hvac_load = self.hvac.predicted_load
 
-        unresponsive_bid = [(self.name, "unresponsive"), "buyer", float('inf'), self.unresponsive_load]
+        unresponsive_bid = [(self.name, "unresponsive"), "buyer", float('inf'), self.measured_unresponsive_load]
         bids = [unresponsive_bid]
         if hvac_load > 0:
             bids.append([(self.name, "hvac"), "buyer", 9999, hvac_load])
 
-        # if self.pv:
-        #     # self.pv.fixed_price = max(self.auction.lmp * 0.95, 0)
-        #     # pv_bids = self.trading_policy.trade(self.current_time, (-max_pv_power, 0))
-        #     pv_bid = [(self.name, "pv"), "seller", self.auction.lmp * 0.9, max_pv_power]
-        #     if max_pv_power > 0:
-        #         bids += [pv_bid]
-        # if self.ev:
-        #     ev_bids = self.trading_policy.formulate_ev_bids(self.current_time, self.ev.load_range)
-        #     print(f"{self.name}: {self.trading_policy.ev_sell_threshold_price}, {self.trading_policy.long_ma} + {self.trading_policy.iqr} * {self.trading_policy.sell_iqr_ratio}")
-        #     bids += [[(self.name, "ev")] + bid for bid in ev_bids]
-        bids += self.trading_policy.formulate_bids(self.name, self.current_time, self.ev.load_range, max_pv_power)
+        bids += self.trading_policy.formulate_bids(self.name, self.current_time,
+                                                   self.ev.load_range if self.ev else None, max_pv_power)
         # print(f"house {self.name} bids: {bids}")
         self.bids = bids
         return bids
@@ -312,40 +289,32 @@ class House:
         if self.pv:
             self.pv.set_power_out(pv_sold)
         print(
-            f"{self.name} bought {total_bought}, sold {total_sold}, unresponsive @ {self.unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {ev_bought - ev_sold}, solar @ {pv_sold}")
+            f"{self.name} bought {total_bought}, sold {total_sold}, unresponsive @ {self.measured_unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {ev_bought - ev_sold}, solar @ {pv_sold}")
 
 
 class GridSupply:
     def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, power_cap: int):
         self.name = "grid"
-
-        self.vpp_load_p = 0
-        self.vpp_load_q = 0
-        self.vpp_load = complex(0)
+        self.weather_temp = 0
+        self.auction = auction
         self.power_cap = power_cap
 
-        self.request_list = []
-        self.response_list = []
+        # state
+        self.measured_load = complex(0)
+        self.bid = None
+        self.intended_load = 0
 
         self.sub_vpp_power = helics_federate.subscriptions[f'gld1/F0_triplex_node_A#measured_power']
         self.sub_weather = helics_federate.subscriptions[f"localWeather/temperature"]
-        self.sub_lmp = helics_federate.subscriptions["pypower/LMP_B7"]
-
-        self.weather_temp = 0
-        self.lmp = 0.0
-
-        self.bid = None
 
     def formulate_bid(self):
-        self.bid = [(self.name, "main"), "seller", self.lmp, self.power_cap]
+        self.bid = [(self.name, "main"), "seller", self.auction.lmp, self.power_cap]
         return self.bid
 
     def update_load(self):
-        self.vpp_load = self.sub_vpp_power.complex
-        self.vpp_load_p = self.vpp_load.real
-        self.vpp_load_q = self.vpp_load.imag
+        self.measured_load = self.sub_vpp_power.complex
         self.weather_temp = self.sub_weather.double
-        self.lmp = self.sub_lmp.double
 
     def post_market_control(self, transactions):
-        pass
+        sells = [bid for bid in transactions if bid["role"] == "seller"]
+        self.intended_load = sum(bid["quantity"] for bid in sells)

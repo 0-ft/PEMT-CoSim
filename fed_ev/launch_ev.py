@@ -28,6 +28,7 @@ class EVFederate:
         self.current_time = self.start_time
         self.end_time = scenario.end_time
         self.hour_stop = (self.end_time - self.start_time).total_seconds() / 3600
+        self.market_period = 300
 
         self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, self.num_evs,
                                       "emobpy_data/profiles").load_from_saved()
@@ -36,6 +37,8 @@ class EVFederate:
 
         self.stop_seconds = int(self.hour_stop * 3600)  # co-simulation stop time in seconds
         self.enabled = True
+
+        self.prev_state_strings = [""] * self.num_evs
 
     def create_federate(self):
         print(f"Creating EV federate")
@@ -96,7 +99,8 @@ class EVFederate:
         print(f"EV federate {self.fed_name} created", flush=True)
         initial_socs = np.linspace(0.4, 0.8, self.num_evs)
         self.evs = [
-            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model, scenario.workplace_charge_capacity,
+            V2GEV(self.helics_fed, f"H{i}_ev", self.current_time, profile.consumption, profile.car_model,
+                  scenario.workplace_charge_capacity,
                   initial_soc=initial_socs[i])
             for i, profile in enumerate(self.ev_profiles.profiles)
         ]
@@ -120,19 +124,52 @@ class EVFederate:
         with open("arr.pkl", "wb") as out:
             pickle.dump(nparr, out)
         data = pandas.concat(
-            [pandas.DataFrame(ev.history, columns=["time", "location", "stored_energy", "charge_rate", "soc", "workplace_charge_rate"]) for ev in
+            [pandas.DataFrame(ev.history, columns=["time", "location", "stored_energy", "charge_rate", "soc",
+                                                   "workplace_charge_rate"]) for ev in
              self.evs], axis=1,
             keys=range(self.num_evs))
         pickle.dump(data, open(f"{scenario.name}_ev_history.pkl", "wb"))
+
+    def market_update(self, new_time: datetime, next_time_to_request: float):
+        print(f"market iter 1, granted {new_time}")
+        for ev in self.evs:
+            ev.publish_capacity()
+
+        while res := self.request_time(next_time_to_request, True):
+            time_granted_seconds, iteration_result = res
+            new_time = self.start_time + timedelta(seconds=time_granted_seconds)
+            print(f"market iter 2, granted {time_granted_seconds} = {new_time} | {iteration_result}")
+            for ev in self.evs:
+                ev.update_charge_rate()
+
+    def update_ev_states(self, new_time):
+        for ev in self.evs:
+            ev.update_state(new_time)
+
+        new_state_strings = [
+            f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, CL {ev.charging_load:3f}, desired {ev.desired_charge_load}'
+            for i, ev in enumerate(self.evs)]
+        diff_state_strings = [s for i, s in enumerate(new_state_strings) if self.prev_state_strings[i] != s]
+        self.prev_state_strings = new_state_strings
+        print(
+            f"EVs updated state: changed {diff_state_strings}")
+
+    def request_time(self, time_to_request, needs_iteration):
+        time_granted_seconds, iter_res = self.helics_fed.request_time_iterative(time_to_request,
+                                                                                helics.HELICS_ITERATION_REQUEST_ITERATE_IF_NEEDED
+                                                                                if needs_iteration
+                                                                                else helics.HELICS_ITERATION_REQUEST_NO_ITERATION)
+        print(
+            f"requested time {time_to_request} with needs_iter={needs_iteration}, got {time_granted_seconds}, {iter_res} = {self.start_time + timedelta(seconds=time_granted_seconds)}")
+        return time_granted_seconds, iter_res
 
     def run(self):
         print("EV federate to enter initializing mode", flush=True)
         self.helics_fed.enter_initializing_mode()
         print("EV federate entered initializing mode", flush=True)
         for ev in self.evs:
-            # ev.update_state(self.start_time)
             ev.publish_state()
-        print("published locations", list(enumerate([ev.location for ev in self.evs])))
+        print("published initial states", list(enumerate([ev.location for ev in self.evs])))
 
         print("EV federate to enter execution mode")
         self.helics_fed.enter_executing_mode()
@@ -145,28 +182,34 @@ class EVFederate:
             print("EV federate has 0 EVs, finishing early")
             return
         time_save = self.current_time
+        next_market_time = 0
         while self.current_time < self.end_time:
+            print(f"EV Loop @ {self.current_time}")
             current_time_s = (self.current_time - self.start_time).total_seconds()
             next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
             next_location_change = min([ev.next_location_change()[0] for ev in self.evs]) + current_time_s
-            time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600)
+            time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600, next_market_time)
             delta_to_request = time_to_request - current_time_s
-            time_granted_seconds = self.helics_fed.request_time(time_to_request)
-            new_time = self.start_time + timedelta(seconds=time_granted_seconds)
-            print(f"requested time {time_to_request} (delta +{delta_to_request}), got {time_granted_seconds}")
-            for ev in self.evs:
-                ev.update_state(new_time)
-                ev.publish_state()
-            print(
-                f"published EVS: {[f'{i}: {ev.location}, SOC {ev.stored_energy / ev.battery_capacity:3f}, {ev.charging_load:3f}, {ev.desired_charge_load}' for i, ev in enumerate(self.evs)]}")
-            # print("published locations", list(enumerate([ev.location for ev in self.evs])))
 
+            time_granted_seconds, iter_res = self.request_time(time_to_request, time_to_request == next_market_time)
+
+            new_time = self.start_time + timedelta(seconds=time_granted_seconds)
+
+            self.update_ev_states(new_time)
             self.current_time = new_time
             print(self.state_summary(), flush=True)
+
+            if time_granted_seconds >= next_market_time:
+                next_market_time += self.market_period
+                next_time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600,
+                                           next_market_time)
+                self.market_update(new_time, next_time_to_request)
+
             if self.current_time >= time_save:
-                print("writing data")
+                print(f"writing data @ {self.current_time}")
                 self.save_data()
                 time_save += timedelta(hours=3)
+
         self.save_data()
         print("EV federate finished + saved", flush=True)
         # self.publish_locations()

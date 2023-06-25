@@ -23,13 +23,13 @@ class HelicsConfigHelper:
         self.gridlab_config = {
             "name": "gld1",
             "period": 1,
-            "uninterruptible": False,
+            # "uninterruptible": False,
             "publications": self.gridlabd_other_pubs(), "subscriptions": self.gridlabd_other_subs()
         }
         self.pet_config = {
             "name": "pet1",
-            "period": 1,
-            "uninterruptible": False,
+            # "period": 1,
+            # "uninterruptible": False,
             "publications": self.pet_other_pubs(), "subscriptions": self.pet_other_subs()
         }
         for i in range(scenario.num_houses):

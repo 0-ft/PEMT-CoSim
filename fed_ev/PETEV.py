@@ -24,13 +24,14 @@ class EVChargingState(IntEnum):
 # market conditions according to a strategy.
 class V2GEV:
     def __init__(self, helics_fed: HelicsFederate, name: str, start_time: datetime, consumption: Consumption,
-                 car_model: ModelSpecs, workplace_charge_capacity=7000, initial_soc=0.5):
+                 car_model: ModelSpecs, workplace_charge_capacity=7000, initial_soc=0.5, market_period=300):
         # self.mobility = mobility
         # self.consumption = consumption
         self.helics_fed = helics_fed
         self.name = name
         self.profile = consumption.timeseries
         self.location_changes = self.profile[(self.profile["state"].shift() != self.profile["state"])]
+        self.market_period = market_period
 
         # parameters
         self.car_model = car_model
@@ -101,18 +102,21 @@ class V2GEV:
         # print(first_row_energy)
         # print(rows)
 
-    def publish_state(self):
+    def record_history(self):
         self.history.append([self.current_time, self.location, self.stored_energy, self.charging_load,
                              self.stored_energy / self.battery_capacity, self.workplace_charge_rate])
+
+    def publish_state(self):
         self.pub_location.publish(self.location)
         self.pub_stored_energy.publish(self.stored_energy)
         self.pub_charging_load.publish(complex(self.charging_load, 0))
         self.pub_driving_load.publish(self.driving_load)
         self.pub_soc.publish(self.stored_energy / self.battery_capacity)
-        self.pub_max_charging_load.publish(self.charging_load_range[1])
-        self.pub_min_charging_load.publish(self.charging_load_range[0])
 
     def next_location_change(self):
+        if not self.enable_movement:
+            return float('inf'), None
+
         future_changes = self.location_changes[self.location_changes.index > self.current_time]
         if len(future_changes):
             return (future_changes.index[0] - self.current_time).total_seconds(), future_changes.iloc[0]["state"]
@@ -120,15 +124,13 @@ class V2GEV:
             return float('inf'), None
 
     def charge_rate_range(self):
-        # max_discharge = -self.max_discharge_rate * any(
-        #     a <= (self.current_time.hour + self.current_time.minute / 60.0) < b for a, b in self.discharge_hod_ranges)
         max_discharge = -self.max_home_discharge_rate
         soc = self.stored_energy / self.battery_capacity
         time_to_next_loc, next_loc = self.next_location_change()
 
         if self.location != "home":
             return 0.0, 0.0
-        elif next_loc != "home" and time_to_next_loc < 300:
+        elif next_loc != "home" and time_to_next_loc < self.market_period:
             return 0.0, 0.0
         elif .9 <= soc:
             return max_discharge, 0
@@ -143,39 +145,55 @@ class V2GEV:
         charge_rate = self.charge_rate_range()
         return list(map(lambda x: x / self.charging_efficiencies[x > 0], charge_rate))
 
-    def update_state(self, new_time):
+    def update_charge_rate(self):
+        self.desired_charge_load = self.sub_desired_charge_load.double
+        home_charge_load_intended = self.desired_charge_load * (self.location == "home")
+
+        charge_rate_cap = max(0, ((self.battery_capacity * 0.9999) - self.stored_energy) / self.market_period)
+        charge_load_cap = charge_rate_cap * self.enable_charging / self.charging_efficiency
+
+        discharge_rate_cap = max(0, (self.stored_energy - (self.battery_capacity * 0.0001)) / self.market_period)
+        discharge_load_cap = discharge_rate_cap * self.enable_discharging * self.discharging_efficiency
+
+        home_charge_load = np.clip(home_charge_load_intended, -discharge_load_cap, charge_load_cap)
+        # home_charge_rate = home_charge_load * self.charging_efficiencies[home_charge_load > 0]
+        if home_charge_load > 10000:
+            print(f"HCL {home_charge_load}! charge_rate_cap {charge_rate_cap}, charge_load_cap {charge_load_cap}, discharge_rate_cap {discharge_rate_cap}, discharge_load_cap {discharge_load_cap}")
+        self.charging_load = home_charge_load
+        self.pub_charging_load.publish(complex(self.charging_load, 0))
+
+
+# T=m1: 1. EV sends capacity
+    #       2. PET does bidding
+    #       3. market clears
+    #       4. PET sends desired load
+    #       5. EV sets loads
+    # T=m1>m2: EV energy changes
+    # T=m2-e:
+
+    def publish_capacity(self):
+        self.charging_load_range = self.grid_load_range()
+        self.pub_min_charging_load.publish(self.charging_load_range[0])
+        self.pub_max_charging_load.publish(self.charging_load_range[1])
+
+    def update_state(self, new_time: datetime):
         self.prev_time = self.current_time
         self.current_time = new_time
+
         time_delta = (self.current_time - self.prev_time).total_seconds()
         if time_delta == 0:
             return
 
-        self.desired_charge_load = self.sub_desired_charge_load.double
+        if self.sub_desired_charge_load.is_updated():
+            self.update_charge_rate()
 
         # calculate energy used up to now
-        energy_used = self.driving_energy_between(self.prev_time, self.current_time)
-        self.driving_load = energy_used / time_delta if time_delta > 0 else 0
+        driving_energy_used = self.driving_energy_between(self.prev_time, self.current_time)
+        self.driving_load = driving_energy_used / time_delta if time_delta > 0 else 0
 
-        home_charge_load_intended = self.desired_charge_load * (self.location == "home")
+        home_charge_rate = self.charging_load * self.charging_efficiencies[self.charging_load > 0]
 
-        charge_rate_cap = ((self.battery_capacity * 0.9999) - self.stored_energy) / time_delta
-        charge_load_cap = charge_rate_cap * self.enable_charging / self.charging_efficiency
-
-        discharge_rate_cap = (self.stored_energy - (self.battery_capacity * 0.0001)) / time_delta
-        discharge_load_cap = discharge_rate_cap * self.enable_discharging * self.discharging_efficiency
-
-        home_charge_load = np.clip(home_charge_load_intended, -discharge_load_cap, charge_load_cap)
-        home_charge_rate = home_charge_load * self.charging_efficiencies[home_charge_load > 0]
-
-        self.workplace_charge_rate = min(charge_rate_cap, self.work_charge_capacity * (self.location == "workplace"))
-
-        if self.workplace_charge_rate > 0:
-            print(f"EV {self.name} charging at work {self.workplace_charge_rate} @ {self.current_time}")
-
-        total_charge_rate = home_charge_rate + self.workplace_charge_rate
-
-        self.stored_energy += total_charge_rate * time_delta - energy_used
-        self.charging_load = home_charge_load
+        self.stored_energy += home_charge_rate * time_delta - driving_energy_used
 
         if 0.9999 < self.stored_energy / self.battery_capacity and self.stored_energy != self.battery_capacity:
             print(f"{self.name} reached full charge")
@@ -184,5 +202,9 @@ class V2GEV:
         self.time_to_full_charge = ((self.battery_capacity - self.stored_energy) / self.charging_load) \
             if self.charging_load > 0 and self.stored_energy < self.battery_capacity else float('inf')
 
+        self.current_time = new_time
         self.location = self.profile["state"].asof(new_time) if self.enable_movement else "home"
-        self.charging_load_range = self.grid_load_range()
+        self.pub_location.publish(self.location)
+        self.pub_stored_energy.publish(self.stored_energy)
+        self.pub_driving_load.publish(self.driving_load)
+        self.pub_soc.publish(self.stored_energy / self.battery_capacity)
