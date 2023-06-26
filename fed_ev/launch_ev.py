@@ -68,11 +68,6 @@ class EVFederate:
                         "global": False
                     },
                     {
-                        "key": f"H{i}_ev#driving_load",
-                        "type": "double",
-                        "global": False
-                    },
-                    {
                         "key": f"H{i}_ev#max_charging_load",
                         "type": "double",
                         "global": False

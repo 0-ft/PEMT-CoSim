@@ -220,7 +220,7 @@ def hvac_plot(day_means, h):
     return hvac
 
 
-def price_plot(h):
+def price_plot(a, h):
     price = make_subplots(rows=1, cols=1)
 
     price.add_traces([
@@ -230,8 +230,10 @@ def price_plot(h):
             "y": quant,
             "name": f"{name}",
         } for name, quant in [
-            ("LMP", h["auction"]["lmp"]),
-            ("VWAP", h["auction"]["average_price"])
+            ("LMP", a["auction"]["lmp"]),
+            ("VWAP", a["auction"]["average_price"]),
+            ("Mean EV Sell Threshold", h["houses"]["mean.trading_policy.ev_sell_threshold_price"]),
+            ("Mean EV Buy Threshold", h["houses"]["mean.trading_policy.ev_buy_threshold_price"]),
         ]
     ], rows=1, cols=1)
 
@@ -253,7 +255,7 @@ def ev_plot(h):
             "stackgroup": "load",
             "showlegend": True
         } for name, quant in [
-            ("Driving Power", h["houses"]["sum.ev.driving_load"]),
+            # ("Driving Power", h["houses"]["sum.ev.driving_load"]),
             ("Charging/Discharging Power", -h["houses"]["sum.ev.charging_load"])
         ]
     ], rows=1, cols=1)
@@ -512,12 +514,12 @@ def one_figs_capped(hs, name):
     load_breakdown.write_html(f"figs/{name}_load.html")
     load_breakdown.write_image(f"figs/{name}_load.png")
 
-    price_means = days_mean(hs, {
-        "auction": ["average_price", "lmp"]
-    }, resample=True)
+    # price_means = days_mean(hs, {
+    #     "auction": ["average_price", "lmp"]
+    # }, resample=True)
     # price_means = hs
 
-    price = price_plot(price_means[0])
+    price = price_plot(house_means[0], house_means[0])
     price.write_html(f"figs/{name}_price.html")
     price.write_image(f"figs/{name}_price.png", scale=1)
     # print(max(total_l), min(total_l), max(total_l) - min(total_l))

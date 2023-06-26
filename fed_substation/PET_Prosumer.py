@@ -153,14 +153,12 @@ class EV:
         self.soc = 0.5
         self.desired_charge_rate = 0.0
         self.charging_load = 0.0
-        self.driving_load = 0.0
         self.measured_load = 0.0
 
         self.sub_location = helics_federate.subscriptions[f"ev1/H{house_id}_ev#location"]
         self.sub_stored_energy = helics_federate.subscriptions[f"ev1/H{house_id}_ev#stored_energy"]
         self.sub_soc = helics_federate.subscriptions[f"ev1/H{house_id}_ev#soc"]
         self.sub_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#charging_load"]
-        self.sub_driving_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#driving_load"]
         self.sub_max_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#max_charging_load"]
         self.sub_min_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#min_charging_load"]
         self.sub_measured_load = helics_federate.subscriptions[f"gld1/H{house_id}_ev_meter#measured_power"]
@@ -172,7 +170,6 @@ class EV:
         self.stored_energy = self.sub_stored_energy.double
         self.soc = self.sub_soc.double
         self.charging_load = self.sub_charging_load.complex.real
-        self.driving_load = self.sub_driving_load.double
         self.measured_load = self.sub_measured_load.complex
         self.load_range = self.sub_min_charging_load.double, self.sub_max_charging_load.double
         # print(f"EV {self.house_id} got subs {self.load:3f}, {self.soc:3f}, {self.location}, {self.stored_energy:3f}")

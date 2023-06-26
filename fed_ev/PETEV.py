@@ -49,7 +49,6 @@ class V2GEV:
         self.location = self.profile["state"].asof(start_time)
         self.desired_charge_load = 0.0
         self.charging_load = 0.0
-        self.driving_load = 0.0
         self.workplace_charge_rate = 0.0
         self.time_to_full_charge = float('inf')
         self.charging_load_range = 0.0, 0.0
@@ -58,7 +57,6 @@ class V2GEV:
         self.pub_stored_energy = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#stored_energy")
         self.pub_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#charging_load")
         self.pub_soc = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#soc")
-        self.pub_driving_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#driving_load")
 
         self.pub_max_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#max_charging_load")
         self.pub_min_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#min_charging_load")
@@ -110,7 +108,6 @@ class V2GEV:
         self.pub_location.publish(self.location)
         self.pub_stored_energy.publish(self.stored_energy)
         self.pub_charging_load.publish(complex(self.charging_load, 0))
-        self.pub_driving_load.publish(self.driving_load)
         self.pub_soc.publish(self.stored_energy / self.battery_capacity)
 
     def next_location_change(self):
@@ -189,7 +186,6 @@ class V2GEV:
 
         # calculate energy used up to now
         driving_energy_used = self.driving_energy_between(self.prev_time, self.current_time)
-        self.driving_load = driving_energy_used / time_delta if time_delta > 0 else 0
 
         home_charge_rate = self.charging_load * self.charging_efficiencies[self.charging_load > 0]
 
@@ -206,5 +202,4 @@ class V2GEV:
         self.location = self.profile["state"].asof(new_time) if self.enable_movement else "home"
         self.pub_location.publish(self.location)
         self.pub_stored_energy.publish(self.stored_energy)
-        self.pub_driving_load.publish(self.driving_load)
         self.pub_soc.publish(self.stored_energy / self.battery_capacity)

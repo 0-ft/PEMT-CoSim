@@ -115,9 +115,6 @@ class SubstationRecorder:
             "values.ev.desired_charge_rate",
             "sum.ev.desired_charge_rate",
 
-            "values.ev.driving_load",
-            "sum.ev.driving_load",
-
             "values.ev.charging_load",
             "sum.ev.charging_load",
 
@@ -147,8 +144,8 @@ class SubstationRecorder:
             "values.intended_load",
             "sum.intended_load",
 
-            "mean.trading_policy.buy_threshold_price",
-            "mean.trading_policy.sell_threshold_price",
+            "mean.trading_policy.ev_buy_threshold_price",
+            "mean.trading_policy.ev_sell_threshold_price",
         ])
 
         self.auction_recorder = HistoryRecorder(auction, [
@@ -360,23 +357,21 @@ class SubstationRecorder:
                 "line": {"width": 0},
             }, row=3, col=1, secondary_y=True)
 
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": -houses["sum.ev.driving_load"],
-                "name": "EV Driving Out",
-                "stackgroup": "ev_battery_delta",
-                "line": {"width": 0},
-            }, row=3, col=1, secondary_y=True)
+        ev_battery_delta = houses["sum.ev.stored_energy"].diff()
+        driving_load = ev_battery_delta - houses["sum.ev.charging_load"]
+        # print(ev_battery_delta)
+        # print(driving_load)
 
         fig.add_trace(
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.ev.charging_load"] - houses["sum.ev.driving_load"],
-                "name": "Sum EV Delta",
+                "y": driving_load,
+                "name": "EV Driving Out",
+                "stackgroup": "ev_battery_delta",
+                "line": {"width": 0},
             }, row=3, col=1, secondary_y=True)
+
         # locs = houses["values.ev.location"].to_list()
         # wp_charge = np.sum(np.array([ev_history[i]["workplace_charge_rate"].to_list() for i in range(30)]).T, axis=1)
         # fig.add_trace(
@@ -422,14 +417,14 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["mean.trading_policy.buy_threshold_price"],
+                "y": houses["mean.trading_policy.ev_buy_threshold_price"],
                 "name": "Mean Buy Threshold",
             }, row=4, col=1, secondary_y=True)
         fig.add_trace(
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["mean.trading_policy.sell_threshold_price"],
+                "y": houses["mean.trading_policy.ev_sell_threshold_price"],
                 "name": "Mean Sell Threshold",
             }, row=4, col=1, secondary_y=True)
         fig.add_traces([

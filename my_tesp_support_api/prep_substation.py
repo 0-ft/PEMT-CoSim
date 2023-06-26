@@ -366,7 +366,6 @@ def ProcessGLM(fileroot, global_config):
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/stored_energy", "type": "double"})
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/soc", "type": "double"})
         subs.append({"key": f"ev1/F0_house_A{house_id}_EV/charging_load", "type": "complex"})
-        subs.append({"key": f"ev1/F0_house_A{house_id}_EV/driving_load", "type": "double"})
         pubs.append({"key": f"F0_house_A{house_id}_EV/charge_rate", "type": "double", "global": False, })
         # "only_transmit_on_change": True, "tolerance": 0.1})
 
