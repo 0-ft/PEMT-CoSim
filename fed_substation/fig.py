@@ -40,37 +40,54 @@ def rate_integ(series):
     trap = trapezoid(y=series.values, x=seconds)
     return trap / total_s
 
+
 def take_changes_only(series: Series):
     last_row = pd.Series(False, index=series.index)
     last_row.iloc[-1] = True
     mask = (series != series.shift()) | last_row
     return series[mask]
 
+
+def shift(series: Series, offset=-1, res=300):
+    idx = pd.date_range(START_TIME, END_TIME, freq=f'{res}S').repeat(2)[1:-1]
+    adj = series.set_axis(series.index + timedelta(seconds=offset))
+    adj = adj.resample(f'{res}S', origin=START_TIME).first().repeat(2).loc[START_TIME:]
+    adj = adj.set_axis(idx)
+    return adj
+    # .reindex(index=idx, method="ffill")
+    # .reindex(index=idx.repeat(2)[1:-1], method="ffill")
+
+
 def load_plot(h, grid_power_cap=100000):
     solar_supply = h["houses"]["sum.pv.measured_power"].map(np.abs)
+    solar_supply = shift(solar_supply[solar_supply.duplicated(keep="last")], offset=0)
 
     grid_supply = h["grid"]["measured_load"].map(np.abs)
-    # grid_supply.index += timedelta(seconds=1)
-    # grid_supply = grid_supply.resample('300S', origin=START_TIME).last().dropna()
-    print(grid_supply.to_string())
+    grid_supply = shift(grid_supply)
+
+    unresp_load = shift(h["houses"]["sum.measured_unresponsive_load"])
+    hvac_load = shift(h["houses"]["sum.hvac.measured_load"])
+
     supply_breakdown = make_subplots(rows=1, cols=1)
 
     w_to_kwhd = lambda x: x / 1000 * 24
 
-    hvac_rate = rate_integ(h["houses"]["sum.hvac.measured_load"])
+    hvac_rate = rate_integ(hvac_load)
     print(f"HVAC Load {hvac_rate} W = {w_to_kwhd(hvac_rate)} kWh/day")
-    unresp_rate = rate_integ(h["houses"]["sum.measured_unresponsive_load"])
+    unresp_rate = rate_integ(unresp_load)
     print(f"Unresp Load {unresp_rate} W = {w_to_kwhd(unresp_rate)} kWh/day")
     total_rate = unresp_rate + hvac_rate
     print(f"Total Load {total_rate} W = {w_to_kwhd(total_rate)} kWh/day")
 
-    pv_rate = rate_integ(h["houses"]["sum.pv.measured_power"])
+    pv_rate = rate_integ(solar_supply)
     print(f"PV Supply {pv_rate} W = {w_to_kwhd(pv_rate)} kWh/day")
 
     ev_supply = -h["houses"]["values.ev.measured_load"].apply(
         lambda loads: sum(np.real(l) for l in loads if np.real(l) < 0))
     ev_load = h["houses"]["values.ev.measured_load"].apply(
         lambda loads: sum(np.real(l) for l in loads if np.real(l) > 0))
+    ev_supply = shift(ev_supply)
+    ev_load = shift(ev_load)
 
     ev_desired_supply = -h["houses"]["values.ev.desired_charge_rate"].apply(
         lambda loads: sum(l for l in loads if l < 0))
@@ -93,8 +110,7 @@ def load_plot(h, grid_power_cap=100000):
         ]
     ], rows=1, cols=1)
 
-    total_load = h["houses"]["sum.measured_unresponsive_load"] + h["houses"][
-        "sum.hvac.measured_load"] + ev_load
+    total_load = unresp_load + hvac_load + ev_load
 
     supply_breakdown.add_trace({
         "type": "scatter",
@@ -105,14 +121,18 @@ def load_plot(h, grid_power_cap=100000):
     }, row=1, col=1)
 
     grid_cap = pd.Series(np.ones_like(h["grid"].index, dtype=float) * grid_power_cap, index=h["grid"].index)
-    pv_average_capacity = rate_integ(h["houses"]["sum.pv.predicted_max_power"])
+    pv_capacity = h["houses"]["sum.pv.predicted_max_power"][
+        h["houses"]["sum.pv.predicted_max_power"].duplicated(keep="last")]
+
+    pv_average_capacity = rate_integ(pv_capacity)
     print(f"PV Capacity Average: {pv_average_capacity} = {w_to_kwhd(pv_average_capacity)} kWh/day")
 
     grid_cap_average = rate_integ(grid_cap)
     print(f"Grid Capacity Average: {grid_cap_average} = {w_to_kwhd(grid_cap_average)} kWh/day")
 
-    pv_surp = rate_integ(h["houses"]["sum.pv.predicted_max_power"] - solar_supply)
+    pv_surp = pv_average_capacity - rate_integ(solar_supply)
     print(f"PV Surplus: {pv_surp} = {w_to_kwhd(pv_surp)} kWh/day")
+
 
     supply_breakdown.add_traces([
         {
@@ -123,7 +143,7 @@ def load_plot(h, grid_power_cap=100000):
             "line": {"width": 2, "color": color, "dash": "dash"}
         } for name, supply, color in [
             ("Grid Supply Capacity", grid_cap, colors["grid"]),
-            ("PV Supply Capacity", h["houses"]["sum.pv.predicted_max_power"], colors["pv"]),
+            ("PV Supply Capacity", pv_capacity, colors["pv"]),
             ("PV Desired Power", h["houses"]["sum.pv.desired_power"], "red"),
             ("EV Desired Supply", ev_desired_supply, "red"),
             ("Grid Intended Load", h["grid"]["intended_load"], "green"),
@@ -144,8 +164,8 @@ def load_plot(h, grid_power_cap=100000):
             "line": {"width": 0, "color": color},
             "stackgroup": "supply",
         } for name, load, color in [
-            ("Unresponsive Load", h["houses"]["sum.measured_unresponsive_load"], colors["unresp"]),
-            ("HVAC Load", h["houses"]["sum.hvac.measured_load"], colors["hvac"]),
+            ("Unresponsive Load", unresp_load, colors["unresp"]),
+            ("HVAC Load", hvac_load, colors["hvac"]),
             ("EV Load", ev_load, colors["ev"])
         ]
     ], rows=1, cols=1)
@@ -168,7 +188,7 @@ def load_plot(h, grid_power_cap=100000):
             "name": f"{name}",
             "line": {"width": 2, "color": color, "dash": "dash"}
         } for name, load, color in [
-            ("Total Intended Load", h["houses"]["sum.intended_load"], "red"),
+            ("Intended Grid Load", h["houses"]["sum.intended_load"], "red"),
         ]
     ], rows=1, cols=1)
     # load_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
@@ -477,9 +497,10 @@ def layout(fig, w=1000, h=500):
 
 
 def one_figs_capped(hs, name):
-    t = START_TIME + timedelta(hours=11, minutes=50, seconds=1)
+    t = START_TIME + timedelta(hours=12, minutes=35, seconds=0)
     if len(hs[0]["grid"].index) and max(hs[0]["grid"]["measured_load"].index) >= t:
-        print(hs[0]["grid"]["measured_load"][t])
+        pass
+        # print(hs[0]["grid"]["measured_load"][t])
         # bidst = hs[0]["auction"]["bids"][t]
         # print(bidst.to_string())
         # print(bidst.iloc[[idx for idx, val in bidst["trader"].items() if val[1] == "ev"]])
@@ -506,7 +527,7 @@ def one_figs_capped(hs, name):
         # print([t for t in pv_sells if t["seller"][0] == "H2"])
         # print([t for h, t in pv_res if h == "H2"])
         # print(pd.Series(t["quantity"] for t in ev_sells).cumsum())
-
+    # return
     # market = market_curves_plot(hs[0]["auction"])
     # market.write_html(f"figs/{name}_market.html")
     # market.write_image(f"figs/{name}_market.png")

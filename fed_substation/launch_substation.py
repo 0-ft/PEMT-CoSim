@@ -88,13 +88,15 @@ class PETFederate:
                    make power predictions for house load"""
             if time_granted_seconds >= self.next_update_time or True:
                 self.update_states()
+                self.auction.update_lmp(self.current_time)
 
             """ 5. receive capacity from EVs, formulate bids, set loads"""
             if time_granted_seconds >= self.next_market_time:
+                self.auction.update_lmp(self.current_time)  # get local marginal price (LMP) from the bulk power grid
+                self.auction.update_stats()
                 bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [
                     self.grid_supply.formulate_bid()]
                 self.auction.collect_bids(bids)
-                self.auction.update_lmp()  # get local marginal price (LMP) from the bulk power grid
                 self.auction.update_refload()  # get distribution load from gridlabd
                 market_response = self.auction.clear_market(self.current_time)
                 for trader, transactions in market_response.items():

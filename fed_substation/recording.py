@@ -83,7 +83,8 @@ class SubstationRecorder:
         self.grid_recorder = HistoryRecorder(grid, [
             "measured_load",
             "weather_temp",
-            "intended_load"
+            "intended_load",
+            "power_cap"
         ])
         self.house_recorder = HistoryRecorder(houses, [
             "values.hvac.air_temp",
@@ -262,7 +263,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": houses.index,
-                "y": houses["sum.pv.measured_power"] * -1,
+                "y": houses["sum.pv.measured_power"],
                 "name": "Total Solar PV Power Generated",
                 "stackgroup": "house_load"
             },

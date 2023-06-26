@@ -115,7 +115,7 @@ class PV:
         self.desired_power = 0.0
         self.predicted_max_power = 0
 
-        self.sub_measured_power = helics_federate.subscriptions[f"gld1/H{house_id}_solar_meter#measured_power"]
+        self.sub_measured_power = helics_federate.subscriptions[f"gld1/H{house_id}_solar_meter#measured_real_power"]
         # for i in range(helics.helicsFederateGetInputCount(helics_federate)):
         #     print(f"{i} INPUT: ", helics.helicsFederateGetInputByIndex(helics_federate, i))
         self.subSolarDCVOut = helics_federate.subscriptions[f"gld1/H{house_id}_solar#V_Out"]
@@ -125,7 +125,7 @@ class PV:
         self.pubSolarQOut = helics_federate.publications[f"pet1/H{house_id}_solar_inv#Q_Out"]
 
     def update_state(self):
-        self.measured_power = abs(self.sub_measured_power.complex.real)  # unit. kW
+        self.measured_power = self.sub_measured_power.double  # unit. kW
         self.solar_DC_V_out = self.subSolarDCVOut.double  # unit. V
         self.solar_DC_I_out = self.subSolarDCIOut.double  # unit. A
         self.predicted_max_power = self.solar_DC_V_out * self.solar_DC_I_out * 0.9 # account for transformer efficiency
@@ -161,7 +161,7 @@ class EV:
         self.sub_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#charging_load"]
         self.sub_max_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#max_charging_load"]
         self.sub_min_charging_load = helics_federate.subscriptions[f"ev1/H{house_id}_ev#min_charging_load"]
-        self.sub_measured_load = helics_federate.subscriptions[f"gld1/H{house_id}_ev_meter#measured_power"]
+        self.sub_measured_load = helics_federate.subscriptions[f"gld1/H{house_id}_ev_meter#measured_real_power"]
 
         self.pub_desired_charge_rate = helics_federate.publications[f"pet1/H{house_id}_ev#charge_rate"]
 
@@ -209,7 +209,7 @@ class House:
                                                                   f"H{house_id}_meter_billing#bill_mode")
         self.pub_meter_price = helics.helicsFederateGetPublication(helics_federate, f"H{house_id}_meter_billing#price")
 
-        self.sub_house_load = helics_federate.subscriptions[f"gld1/H{house_id}_meter_house#measured_power"]
+        self.sub_house_load = helics_federate.subscriptions[f"gld1/H{house_id}_meter_house#measured_real_power"]
 
         # state
         self.intended_load = 0.0
@@ -301,7 +301,7 @@ class GridSupply:
         self.bid = None
         self.intended_load = 0
 
-        self.sub_vpp_power = helics_federate.subscriptions[f'gld1/grid_meter#measured_power']
+        self.sub_vpp_power = helics_federate.subscriptions[f'gld1/grid_meter#measured_real_power']
         self.sub_weather = helics_federate.subscriptions[f"localWeather/temperature"]
 
     def formulate_bid(self):

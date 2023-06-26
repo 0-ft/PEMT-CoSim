@@ -41,7 +41,7 @@ class HelicsConfigHelper:
         gridlab_pubs_meter = [
             pub(meter_name, prop, prop_type, True)
             for prop, prop_type in
-            [("measured_power", "complex")]#, ("measured_voltage_1", "complex")]#, ("measured_demand", "double")]
+            [("measured_real_power", "double")]#, ("measured_voltage_1", "complex")]#, ("measured_real_power", "double")]
         ]
 
         gridlab_subs_meter = [
@@ -55,7 +55,7 @@ class HelicsConfigHelper:
         pet_subs_meter = [
             sub("gld1", meter_name, prop, prop_type, False)
             for prop, prop_type in
-            [("measured_power", "complex")]#, ("measured_voltage_1", "complex")]#, ("measured_demand", "double")]
+            [("measured_real_power", "double")]#, ("measured_voltage_1", "complex")]#, ("measured_real_power", "double")]
         ]
 
         pet_pubs_meter = [
@@ -175,11 +175,11 @@ class HelicsConfigHelper:
             },
             {
                 "global": False,
-                "key": "grid_meter#measured_power",
-                "type": "complex",
+                "key": "grid_meter#measured_real_power",
+                "type": "double",
                 "info": {
                     "object": "grid_meter",
-                    "property": "measured_power"
+                    "property": "measured_real_power"
                 }
             },
         ]
@@ -255,8 +255,8 @@ class HelicsConfigHelper:
                 "type": "complex"
             },
             {
-                "key": "gld1/grid_meter#measured_power",
-                "type": "complex"
+                "key": "gld1/grid_meter#measured_real_power",
+                "type": "double"
             },
             {
                 "key": "localWeather/temperature",

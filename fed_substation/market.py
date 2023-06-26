@@ -1,13 +1,13 @@
 import json
 import pickle
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import numpy as np
 import pandas
 from dateutil.parser import parse
 from helics import HelicsFederate
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from scipy.stats import iqr
 
 
@@ -105,15 +105,18 @@ class ContinuousDoubleAuction:
         self.num_buyers = 0
         self.num_nontcp = 0
 
+        self.lmp_history = DataFrame({
+            "lmp": self.lmp,
+            "lmp_mean_since": self.lmp,
+            "lmp_median_since": self.lmp,
+            "lmp_iqr_since": self.lmp
+        }, index=[start_time])
+
         self.history = DataFrame({
             "average_price": self.average_price,
             "cleared_quantity": 0.0,
             "average_since": self.average_price,
             "iqr_since": 0,
-            "lmp_median_since": self.lmp,
-            "lmp_mean_since": self.lmp,
-            "lmp": self.lmp,
-            "lmp_iqr_since": 0,
         }, index=[start_time])
         # # substation always sells infinite at LMP
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]
@@ -131,28 +134,32 @@ class ContinuousDoubleAuction:
             self.sub_lmp = helics_federate.subscriptions["pypower/LMP_B7"]
 
     def update_stats(self):
-        self.history["average_since"] = [
+        times = [self.lmp_history.index[-1] - d for d in [timedelta(hours=0.5), timedelta(hours=24)]]
+
+        self.history["average_since"] = Series([
             np.mean(self.history.loc[self.history.index >= i, "average_price"])
-            for i in self.history.index
-        ]
-        # self.history["average_since"] = (self.history.loc[::-1, "average_price"]
-        #                                  .cumsum() / range(1, len(self.history) + 1))[::-1]
-        self.history["lmp_median_since"] = [
-            np.median(self.history.loc[self.history.index >= i, "lmp"])
-            for i in self.history.index
-        ]
-        self.history["lmp_mean_since"] = [
-            np.mean(self.history.loc[self.history.index >= i, "lmp"])
-            for i in self.history.index
-        ]
-        self.history["lmp_iqr_since"] = [
-            iqr(self.history.loc[self.history.index >= i, "lmp"])
-            for i in self.history.index
-        ]
-        self.history["iqr_since"] = [
+            for i in times
+        ], index=times)
+
+        self.history["iqr_since"] = Series([
             iqr(self.history.loc[self.history.index >= i, "average_price"])
-            for i in self.history.index
-        ]
+            for i in times
+        ], index=times)
+
+        self.lmp_history["lmp_median_since"] = Series([
+            np.median(self.lmp_history.loc[self.lmp_history.index >= i, "lmp"])
+            for i in times
+        ], index=times)
+        self.lmp_history["lmp_mean_since"] = Series([
+            np.mean(self.lmp_history.loc[self.lmp_history.index >= i, "lmp"])
+            for i in times
+        ], index=times)
+        self.lmp_history["lmp_iqr_since"] = Series([
+            iqr(self.lmp_history.loc[self.lmp_history.index >= i, "lmp"])
+            for i in times
+        ], index=times)
+
+        print(f"set lmp his @ {self.lmp_history.index[-1]}\n{self.lmp_history.dropna()}")
 
     def collect_bids(self, bids):
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]
@@ -171,8 +178,13 @@ class ContinuousDoubleAuction:
         self.refload_q = c.imag * 0.001
         self.refload = self.refload_p  # math.sqrt(self.refload_p**2 + self.refload_q**2)
 
-    def update_lmp(self):
+    def update_lmp(self, current_time):
+        if self.lmp_history.index[-1] == current_time:
+            return
+
         self.lmp = self.sub_lmp.double
+        self.lmp_history = pandas.concat([self.lmp_history, DataFrame(
+            {"lmp": self.lmp}, index=[current_time])])
 
     def clear_market(self, current_time: datetime):
         self.transactions, self.response = match_orders(self.bids)
@@ -183,7 +195,7 @@ class ContinuousDoubleAuction:
         self.history = pandas.concat([self.history, DataFrame(
             {"average_price": self.average_price, "cleared_quantity": cleared_quantity, "lmp": self.lmp},
             index=[current_time])])
-        self.update_stats()
+        # self.update_stats()
         return self.response
 
     # def clear_market(self, current_time: datetime):

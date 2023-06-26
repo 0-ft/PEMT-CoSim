@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+from math import isnan
 
 
 class BoundedCrossoverTrader:
@@ -16,11 +17,13 @@ class BoundedCrossoverTrader:
         self.ev_sell_threshold_price = float('inf')
 
     def update_averages(self, current_time):
-        if (current_time - self.auction.history.index.min()) < self.long_window:
+        if not (current_time - self.auction.lmp_history.dropna().index.min()) >= self.long_window:
             return False
-        self.long_ma = self.auction.history["lmp_mean_since"].last(self.long_window).iloc[0]
-        self.short_ma = self.auction.history["lmp_mean_since"].last(self.short_window).iloc[0]
-        self.iqr = self.auction.history["iqr_since"].last(self.long_window).iloc[0]
+        print(self.auction.lmp_history.dropna().index.min(), self.auction.lmp_history["lmp_mean_since"])
+        self.long_ma = self.auction.lmp_history["lmp_mean_since"][current_time - self.long_window]
+        self.short_ma = self.auction.lmp_history["lmp_mean_since"][current_time - self.short_window]
+        self.iqr = self.auction.lmp_history["lmp_iqr_since"][current_time - self.long_window]
+        assert not isnan(self.long_ma), "longma is nan"
         return True
 
     def formulate_ev_bids(self, current_time: datetime, ev_buy_range):
