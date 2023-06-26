@@ -169,6 +169,7 @@ class EVFederate:
         print("EV federate entered initializing mode", flush=True)
         for ev in self.evs:
             ev.publish_state()
+            ev.publish_capacity()
         print("published initial states", list(enumerate([ev.location for ev in self.evs])))
 
         print("EV federate to enter execution mode")
@@ -181,34 +182,51 @@ class EVFederate:
         if self.num_evs == 0:
             print("EV federate has 0 EVs, finishing early")
             return
-        time_save = self.current_time
-        next_market_time = 0
-        while self.current_time < self.end_time:
-            print(f"EV Loop @ {self.current_time}")
-            current_time_s = (self.current_time - self.start_time).total_seconds()
-            next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + current_time_s
-            next_location_change = min([ev.next_location_change()[0] for ev in self.evs]) + current_time_s
-            time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600, next_market_time)
-            delta_to_request = time_to_request - current_time_s
 
-            time_granted_seconds, iter_res = self.request_time(time_to_request, time_to_request == next_market_time)
+        next_premarket_time = 0
+        next_market_time = 0
+        next_full_charge = 0
+        next_location_change = 0
+        next_save_time = 0
+        time_to_request = 0
+        time_granted_seconds = 0
+        while time_granted_seconds < self.stop_seconds:
+            time_granted_seconds = self.helics_fed.request_time(time_to_request)
 
             new_time = self.start_time + timedelta(seconds=time_granted_seconds)
+            print(f"\nREQUESTED time {time_to_request}, GRANTED {time_granted_seconds} = {new_time}")
 
             self.update_ev_states(new_time)
             self.current_time = new_time
             print(self.state_summary(), flush=True)
 
-            if time_granted_seconds >= next_market_time:
-                next_market_time += self.market_period
-                next_time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600,
-                                           next_market_time)
-                self.market_update(new_time, next_time_to_request)
+            if time_granted_seconds >= next_premarket_time:
+                # self.current_time = self.start_time + timedelta(seconds=next_market_time)
+                print(f"updating to premarket states for {self.current_time}")
+                for ev in self.evs:
+                    ev.update_state(self.start_time + timedelta(seconds=next_market_time))
+                    ev.publish_capacity()
+                caps = [ev.charging_load_range for ev in self.evs]
+                print(f"published premarket capacities {caps} for {self.current_time}")
+                # self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)
 
-            if self.current_time >= time_save:
+            # if time_granted_seconds >= next_market_time:
+            for ev in self.evs:
+                ev.update_charge_rate()
+            print(f"published charge rates for {self.current_time}")
+
+            if time_granted_seconds >= next_save_time:
                 print(f"writing data @ {self.current_time}")
                 self.save_data()
-                time_save += timedelta(hours=3)
+
+            next_full_charge = min([ev.time_to_full_charge for ev in self.evs]) + time_granted_seconds
+            next_location_change = min([ev.next_location_change()[0] for ev in self.evs]) + time_granted_seconds
+            d = 0.001
+            next_premarket_time = ((time_granted_seconds + d) // self.market_period + 1) * self.market_period - d
+            next_market_time = (time_granted_seconds // self.market_period + 1) * self.market_period
+            next_save_time = (time_granted_seconds // self.scenario.figure_period + 1) * self.scenario.figure_period
+            time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600, next_premarket_time,
+                                  next_market_time, next_save_time)
 
         self.save_data()
         print("EV federate finished + saved", flush=True)

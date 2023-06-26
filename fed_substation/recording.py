@@ -183,12 +183,14 @@ class SubstationRecorder:
         self.grid_recorder.clear()
 
     def save(self):
-        proftime = time()
+        # proftime = time()
+        # with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
+        #     pickle.dump(self.history(), f)
+        # self.file_number += 1
+        # self.clear()
+        # print(f"wrote file {self.file_number - 1} in {time() - proftime:3f}s")
         with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
             pickle.dump(self.history(), f)
-        self.file_number += 1
-        self.clear()
-        print(f"wrote file {self.file_number - 1} in {time() - proftime:3f}s")
 
     @staticmethod
     def load_history(outdir):

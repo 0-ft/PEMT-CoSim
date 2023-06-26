@@ -68,6 +68,7 @@ def load_plot(h, grid_power_cap=100000):
         lambda loads: sum(l for l in loads if l < 0))
     ev_desired_load = h["houses"]["values.ev.desired_charge_rate"].apply(lambda loads: sum(l for l in loads if l > 0))
 
+    print(ev_supply.to_string())
     supply_breakdown.add_traces([
         {
             "type": "scatter",
@@ -464,7 +465,7 @@ def layout(fig, w=1000, h=500):
 
 
 def one_figs_capped(hs, name):
-    t = START_TIME + timedelta(hours=14, minutes=30)
+    t = START_TIME + timedelta(hours=1, minutes=50)
     bidst = hs[0]["auction"]["bids"][t]
     print(bidst.to_string())
     print(bidst.iloc[[idx for idx, val in bidst["trader"].items() if val[1] == "ev"]])
