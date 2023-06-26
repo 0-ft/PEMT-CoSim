@@ -2,6 +2,7 @@ import json
 import os
 import pickle
 import random
+from datetime import timedelta
 
 from scenario import PETScenario
 
@@ -37,7 +38,7 @@ class GlmGenerator:
             The GLM_Configuration class object which contains the configurations for
             .glm file of the GridLAB-D federate
         """
-        self.config = scenario
+        self.scenario = scenario
         self.file_name_np = "TE_Challenge.glm"  # the file name of the .glm file without path added
         self.file_name = "./fed_gridlabd/" + self.file_name_np
         os.system("cp ./fed_gridlabd/glm-template/template.glm " + self.file_name + "")  # copy a standard .glm file
@@ -74,9 +75,9 @@ class GlmGenerator:
     #     replaceInPattern(self.file_name, "{minimum_timestep}", str(self.minimum_timestep))
 
     def generate_glm(self):
-        self.glm_code = self.template.replace("{minimum_timestep}", str(self.config.minimum_timestep))
-        self.glm_code = self.glm_code.replace("{start_time}", self.config.start_time.strftime("'%Y-%m-%d %H:%M:%S'"))
-        self.glm_code = self.glm_code.replace("{end_time}", self.config.end_time.strftime("'%Y-%m-%d %H:%M:%S'"))
+        self.glm_code = self.template.replace("{minimum_timestep}", str(self.scenario.minimum_timestep))
+        self.glm_code = self.glm_code.replace("{start_time}", self.scenario.start_time.strftime("'%Y-%m-%d %H:%M:%S'"))
+        self.glm_code = self.glm_code.replace("{end_time}", self.scenario.end_time.strftime("'%Y-%m-%d %H:%M:%S'"))
         self.configure_vpp_infrastructure()
         self.generate_houses()
         self.configure_helics_msg()
@@ -177,8 +178,8 @@ object helics_msg {\n\
 
     def generate_houses(self):
         houses = [
-            self.generate_house(i, i < self.config.num_ev, i < self.config.num_pv)
-            for i in range(self.config.num_houses)
+            self.generate_house(i, i < self.scenario.num_ev, i < self.scenario.num_pv)
+            for i in range(self.scenario.num_houses)
         ]
         self.glm_code += "\n".join(houses)
 

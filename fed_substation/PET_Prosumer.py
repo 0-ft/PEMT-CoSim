@@ -201,7 +201,7 @@ class House:
         self.name = f"H{house_id}"
         self.auction = auction
         self.hvac = HVAC(helics_federate, house_id, hvac_config, auction) if hvac_config else None
-        print(f"house with {has_pv} PV, {has_ev} EV")
+        # print(f"house with {has_pv} PV, {has_ev} EV")
         self.pv = PV(helics_federate, house_id) if has_pv else None
         self.ev = EV(helics_federate, house_id, auction) if has_ev else None
         self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=0.5), timedelta(hours=24),

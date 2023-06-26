@@ -22,14 +22,16 @@ class HelicsConfigHelper:
     def __init__(self, scenario: PETScenario):
         self.gridlab_config = {
             "name": "gld1",
-            "period": 1,
-            # "uninterruptible": False,
+            "period": scenario.minimum_timestep,
+            "uninterruptible": False,
+            "wait_for_current_time_update": True,
+            "offset": -0.01,
             "publications": self.gridlabd_other_pubs(), "subscriptions": self.gridlabd_other_subs()
         }
         self.pet_config = {
             "name": "pet1",
             # "period": 1,
-            # "uninterruptible": False,
+            "uninterruptible": False,
             "publications": self.pet_other_pubs(), "subscriptions": self.pet_other_subs()
         }
         for i in range(scenario.num_houses):
@@ -130,8 +132,7 @@ class HelicsConfigHelper:
         gridlab_subs_hvac = [
             sub("pet1", f"{house_name}", prop, prop_type, True)
             for prop, prop_type in
-            [("cooling_setpoint", "double"), ("heating_setpoint", "double"), ("thermostat_mode", "string"),
-             ("thermostat_deadband", "double")]
+            [("cooling_setpoint", "double"), ("thermostat_mode", "string")]
         ]
 
         # gridlab_subs_billing = [
