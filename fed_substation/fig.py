@@ -40,6 +40,9 @@ def rate_integ(series):
     trap = trapezoid(y=series.values, x=seconds)
     return trap / total_s
 
+def take_changes_only(series: Series):
+    changes = series != series.shift()
+    return series[changes]
 
 def load_plot(h, grid_power_cap=100000):
     solar_supply = np.abs(h["houses"]["sum.pv.measured_power"])
@@ -68,7 +71,7 @@ def load_plot(h, grid_power_cap=100000):
         lambda loads: sum(l for l in loads if l < 0))
     ev_desired_load = h["houses"]["values.ev.desired_charge_rate"].apply(lambda loads: sum(l for l in loads if l > 0))
 
-    print(ev_supply.to_string())
+    # print(ev_supply.to_string())
     supply_breakdown.add_traces([
         {
             "type": "scatter",
@@ -256,15 +259,16 @@ def ev_plot(h):
             "showlegend": True
         } for name, quant in [
             # ("Driving Power", h["houses"]["sum.ev.driving_load"]),
-            ("Charging/Discharging Power", -h["houses"]["sum.ev.charging_load"])
+            ("Charging/Discharging Power", h["houses"]["sum.ev.charging_load"])
         ]
     ], rows=1, cols=1)
 
+    stored_energy = take_changes_only(h["houses"]["sum.ev.stored_energy"])
     ev.add_trace(
         {
             "type": "scatter",
-            "x": h["houses"]["sum.ev.stored_energy"].index,
-            "y": h["houses"]["sum.ev.stored_energy"],
+            "x": stored_energy.index,
+            "y": stored_energy,
             "name": f"Total EV Stored Energy",
             "showlegend": True
         }, row=1, col=1, secondary_y=True
@@ -467,17 +471,33 @@ def layout(fig, w=1000, h=500):
 
 
 def one_figs_capped(hs, name):
-    t = START_TIME + timedelta(hours=1, minutes=50)
+    t = START_TIME + timedelta(hours=11, minutes=50)
     bidst = hs[0]["auction"]["bids"][t]
     print(bidst.to_string())
-    print(bidst.iloc[[idx for idx, val in bidst["trader"].items() if val[1] == "ev"]])
-    ev_transactions = [
-        t for t in hs[0]["auction"]["transactions"][t]
-        if t["buyer"][1] == "ev" or t["seller"][1] == "ev"
+    # print(bidst.iloc[[idx for idx, val in bidst["trader"].items() if val[1] == "ev"]])
+    # ev_transactions = [
+    #     t for t in hs[0]["auction"]["transactions"][t]
+    #     if t["buyer"][1] == "ev" or t["seller"][1] == "ev"
+    # ]
+    # print(json.dumps(ev_transactions, indent=2))
+    # ev_sells = [t for t in ev_transactions if t["seller"][1] == "ev"]
+    response = hs[0]["auction"]["response"][t]
+    pv_res = [
+        (h, o) for h, os in response.items() for o in os if o["target"] == "pv"
     ]
-    print(json.dumps(ev_transactions, indent=2))
-    ev_sells = [t for t in ev_transactions if t["seller"][1] == "ev"]
-    print(pd.Series(t["quantity"] for t in ev_sells).cumsum())
+    print(pv_res)
+    pv_sells = [t for t in hs[0]["auction"]["transactions"][t] if t["seller"][1] == "pv"]
+    print(json.dumps(pv_sells, indent=2))
+    print(len(pv_sells), len(pv_res))
+    print(sorted(t["seller"][0] for t in pv_sells))
+    print(sorted(h for h, t in pv_res))
+
+    print(sum(t["quantity"] for t in pv_sells))
+    print(sum(t["quantity"] for h, t in pv_res))
+
+    print([t for t in pv_sells if t["seller"][0] == "H2"])
+    print([t for h, t in pv_res if h == "H2"])
+    # print(pd.Series(t["quantity"] for t in ev_sells).cumsum())
 
     # market = market_curves_plot(hs[0]["auction"])
     # market.write_html(f"figs/{name}_market.html")

@@ -155,7 +155,8 @@ class SubstationRecorder:
             "num_sellers",
             "lmp",
             "bids",
-            "transactions"
+            "transactions",
+            "response"
         ])
 
     def record_houses(self, time):
@@ -180,14 +181,14 @@ class SubstationRecorder:
         self.grid_recorder.clear()
 
     def save(self):
-        # proftime = time()
-        # with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
-        #     pickle.dump(self.history(), f)
-        # self.file_number += 1
-        # self.clear()
-        # print(f"wrote file {self.file_number - 1} in {time() - proftime:3f}s")
+        proftime = time()
         with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
             pickle.dump(self.history(), f)
+        self.file_number += 1
+        self.clear()
+        print(f"wrote file {self.file_number - 1} in {time() - proftime:3f}s")
+        # with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
+        #     pickle.dump(self.history(), f)
 
     @staticmethod
     def load_history(outdir):
@@ -218,7 +219,7 @@ class SubstationRecorder:
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
         # specs=[[{}, {}], [{}, {}], [{"secondary_y": True}, {}], [{"secondary_y": True}, {}]])
-        # fig.update_layout(width=2800, height=800)
+        fig.update_layout(width=1000, height=800)
         fig.add_traces([
             {
                 "type": "scatter",

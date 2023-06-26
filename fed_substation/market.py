@@ -57,34 +57,32 @@ def match_orders(bids):
         else:  # no sellers can cover buyer order, and buys are indivisible
             buyers = np.delete(buyers, 0, axis=0)
 
-        # print(insufficient_sellers, sufficient_sellers)
-        # time.sleep(1)
-
-    # while len(match := np.where([b[1] >= s[1] and s[2] >= b[2] for b, s in zip(buyers, sellers)])[0]):
-    #     i, (buyer, seller) = match[0], (buyers[match[0]], sellers[match[0]])
-    #     print(f"matching {i}, {buyer}, {seller}")
-    #     transaction_quantity = min(buyer[2], seller[2])
-    #     transactions.append(
-    #         {"seller": seller[0], "buyer": buyer[0], "quantity": transaction_quantity, "price": seller[1]})
-    #     buyer[2] -= transaction_quantity
-    #     seller[2] -= transaction_quantity
-    #     if buyer[2] == 0.0:
-    #         buyers = np.delete(buyers, i, axis=0)
-    #     if seller[2] == 0.0:
-    #         sellers = np.delete(sellers, i, axis=0)
-    # print(json.dumps(transactions, indent=2))
-    response = {
-        trader: [
-            {
-                "price": t["price"],
-                "quantity": t["quantity"],
-                "role": "buyer" if t["buyer"][0] == trader else "seller",
-                "target": t["buyer"][1] if t["buyer"][0] == trader else t["seller"][1]
-            }
-            for t in transactions
-            if trader in [t["buyer"][0], t["seller"][0]]
-        ] for trader in traders
-    }
+    # response = {
+    #     trader: [
+    #         {
+    #             "price": t["price"],
+    #             "quantity": t["quantity"],
+    #             "role": "buyer" if t["buyer"][0] == trader else "seller",
+    #             "target": t["buyer"][1] if t["buyer"][0] == trader else t["seller"][1]
+    #         }
+    #         for t in transactions
+    #         if trader in [t["buyer"][0], t["seller"][0]]
+    #     ] for trader in traders
+    # }
+    response = {trader: [] for trader in traders}
+    for t in transactions:
+        response[t["buyer"][0]].append({
+            "price": t["price"],
+            "quantity": t["quantity"],
+            "role": "buyer",
+            "target": t["buyer"][1]
+        })
+        response[t["seller"][0]].append({
+            "price": t["price"],
+            "quantity": t["quantity"],
+            "role": "seller",
+            "target": t["seller"][1]
+        })
     # print(json.dumps(response, indent=2))
     return transactions, response
 
@@ -100,6 +98,7 @@ class ContinuousDoubleAuction:
         self.bids: DataFrame = DataFrame()
         self.period = 300
         self.transactions = {}
+        self.response = {}
 
         self.num_bids = 0
         self.num_sellers = 0
@@ -176,7 +175,7 @@ class ContinuousDoubleAuction:
         self.lmp = self.sub_lmp.double
 
     def clear_market(self, current_time: datetime):
-        self.transactions, response = match_orders(self.bids)
+        self.transactions, self.response = match_orders(self.bids)
         cleared_quantity = sum(t["quantity"] for t in self.transactions)
         average_price = sum(t["price"] * t["quantity"] for t in self.transactions) / cleared_quantity
         self.average_price = average_price
@@ -185,7 +184,7 @@ class ContinuousDoubleAuction:
             {"average_price": self.average_price, "cleared_quantity": cleared_quantity, "lmp": self.lmp},
             index=[current_time])])
         self.update_stats()
-        return response
+        return self.response
 
     # def clear_market(self, current_time: datetime):
     #     all_prices = sorted([p for p in set(self.bids["price"])])

@@ -128,7 +128,7 @@ class PV:
         self.measured_power = abs(self.sub_measured_power.complex.real)  # unit. kW
         self.solar_DC_V_out = self.subSolarDCVOut.double  # unit. V
         self.solar_DC_I_out = self.subSolarDCIOut.double  # unit. A
-        self.predicted_max_power = self.solar_DC_V_out * self.solar_DC_I_out
+        self.predicted_max_power = self.solar_DC_V_out * self.solar_DC_I_out * 0.9 # account for transformer efficiency
 
     def power_range(self):
         return 0, self.predicted_max_power
@@ -264,7 +264,6 @@ class House:
         return bids
 
     def post_market_control(self, transactions):
-        # print(self.name, transactions)
         buys = [bid for bid in transactions if bid["role"] == "buyer"]
         sells = [bid for bid in transactions if bid["role"] == "seller"]
         total_bought = sum(bid["quantity"] for bid in buys)
@@ -275,7 +274,8 @@ class House:
         ev_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "ev"])
         ev_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "ev"])
         pv_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "pv"])
-        print(f"{self.name} ev bids {[b for b in self.bids if b[0][1] == 'ev']} bought {ev_bought} sold {ev_sold}")
+        print(f"{self.name} ev bids {[b for b in self.bids if b[0][1] == 'ev']} bought {ev_bought} sold {ev_sold} ")
+        print(f"{self.name} PV sold {pv_sold}")
 
         hvac_allowed = hvac_bought >= self.hvac.predicted_load
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
