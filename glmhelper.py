@@ -50,8 +50,8 @@ class GlmGenerator:
         # self.minimum_timestep = config.minimum_timestep
         # self.helics_connected = config.helics_connected
 
-        with open('./fed_gridlabd/glm-template/line_to_tripmeter_template', 'r') as f:
-            self.line_to_tpm_template = f.read()
+        with open('./fed_gridlabd/glm-template/grid_meter_template', 'r') as f:
+            self.grid_meter_template = f.read()
         with open('./fed_gridlabd/glm-template/house_template', 'r') as f:
             self.house_template = f.read()
         with open('./fed_gridlabd/glm-template/pv_template', 'r') as f:
@@ -102,14 +102,14 @@ object helics_msg {\n\
 
     def configure_vpp_infrastructure(self):
 
-        code_text = ""
+        # code_text = ""
+        #
+        # ltt_code = self.grid_meter_template
+        # ltt_code = ltt_code.replace("{vpp_idx}", "0")
+        # ltt_code = ltt_code.replace("{phase}", "A")
+        # code_text += ltt_code
 
-        ltt_code = self.line_to_tpm_template
-        ltt_code = ltt_code.replace("{vpp_idx}", "0")
-        ltt_code = ltt_code.replace("{phase}", "A")
-        code_text += ltt_code
-
-        self.glm_code += code_text
+        self.glm_code += self.grid_meter_template
 
     def generate_house_parameters(self):
         template_house = random.choice(self.template_houses)

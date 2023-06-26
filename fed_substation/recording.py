@@ -290,7 +290,7 @@ class SubstationRecorder:
             {
                 "type": "scatter",
                 "x": grid.index,
-                "y": np.abs(grid["measured_load"]),
+                "y": np.real(grid["measured_load"]),
                 "name": "Total Grid Load",
             },
             # {

@@ -175,10 +175,10 @@ class HelicsConfigHelper:
             },
             {
                 "global": False,
-                "key": "F0_triplex_node_A#measured_power",
+                "key": "grid_meter#measured_power",
                 "type": "complex",
                 "info": {
-                    "object": "F0_triplex_node_A",
+                    "object": "grid_meter",
                     "property": "measured_power"
                 }
             },
@@ -255,7 +255,7 @@ class HelicsConfigHelper:
                 "type": "complex"
             },
             {
-                "key": "gld1/F0_triplex_node_A#measured_power",
+                "key": "gld1/grid_meter#measured_power",
                 "type": "complex"
             },
             {

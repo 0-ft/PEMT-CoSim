@@ -1,6 +1,6 @@
 object triplex_line {
 	phases {phase}S;
-	from F{vpp_idx}_triplex_node_{phase};
+	from grid_meter;
 	to H{house_idx}_meter_billing;
 	length 10 ft;
 	configuration TLCFG;
