@@ -41,8 +41,10 @@ def rate_integ(series):
     return trap / total_s
 
 def take_changes_only(series: Series):
-    changes = series != series.shift()
-    return series[changes]
+    last_row = pd.Series(False, index=series.index)
+    last_row.iloc[-1] = True
+    mask = (series != series.shift()) | last_row
+    return series[mask]
 
 def load_plot(h, grid_power_cap=100000):
     solar_supply = np.abs(h["houses"]["sum.pv.measured_power"])
@@ -191,11 +193,11 @@ def hvac_plot(day_means, h):
             "y": quant,
             "name": f"{name}",
         } for name, quant in [
-            ("Min House Air Temp", ftoc(day_means["houses"]["min.hvac.air_temp"])),
-            ("Max House Air Temperature", ftoc(day_means["houses"]["max.hvac.air_temp"])),
-            ("Mean House Air Temperature", ftoc(day_means["houses"]["mean.hvac.air_temp"])),
-            ("Mean House Set Point", ftoc(day_means["houses"]["mean.hvac.set_point"])),
-            ("Weather Temperature", ftoc(day_means["grid"]["weather_temp"])),
+            ("Min House Air Temp", take_changes_only(ftoc(day_means["houses"]["min.hvac.air_temp"]))),
+            ("Max House Air Temperature", take_changes_only(ftoc(day_means["houses"]["max.hvac.air_temp"]))),
+            ("Mean House Air Temperature", take_changes_only(ftoc(day_means["houses"]["mean.hvac.air_temp"]))),
+            ("Mean House Set Point", take_changes_only(ftoc(day_means["houses"]["mean.hvac.set_point"]))),
+            ("Weather Temperature", take_changes_only(ftoc(day_means["grid"]["weather_temp"]))),
         ]
     ], rows=1, cols=1)
 
@@ -204,7 +206,7 @@ def hvac_plot(day_means, h):
             "type": "scatter",
             "x": mean_diffs_sq.index,
             "y": mean_diffs_sq["diffs"],
-            "name": r"$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$",
+            "name": "$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$",
             "line": {"dash": "dash"},
             "showlegend": True
         }, row=1, col=1, secondary_y=True
@@ -471,9 +473,10 @@ def layout(fig, w=1000, h=500):
 
 
 def one_figs_capped(hs, name):
-    t = START_TIME + timedelta(hours=11, minutes=50)
-    bidst = hs[0]["auction"]["bids"][t]
-    print(bidst.to_string())
+    t = START_TIME + timedelta(hours=11, minutes=50, seconds=1)
+    print(hs[0]["grid"]["measured_load"][t])
+    # bidst = hs[0]["auction"]["bids"][t]
+    # print(bidst.to_string())
     # print(bidst.iloc[[idx for idx, val in bidst["trader"].items() if val[1] == "ev"]])
     # ev_transactions = [
     #     t for t in hs[0]["auction"]["transactions"][t]
@@ -481,22 +484,22 @@ def one_figs_capped(hs, name):
     # ]
     # print(json.dumps(ev_transactions, indent=2))
     # ev_sells = [t for t in ev_transactions if t["seller"][1] == "ev"]
-    response = hs[0]["auction"]["response"][t]
-    pv_res = [
-        (h, o) for h, os in response.items() for o in os if o["target"] == "pv"
-    ]
-    print(pv_res)
-    pv_sells = [t for t in hs[0]["auction"]["transactions"][t] if t["seller"][1] == "pv"]
-    print(json.dumps(pv_sells, indent=2))
-    print(len(pv_sells), len(pv_res))
-    print(sorted(t["seller"][0] for t in pv_sells))
-    print(sorted(h for h, t in pv_res))
-
-    print(sum(t["quantity"] for t in pv_sells))
-    print(sum(t["quantity"] for h, t in pv_res))
-
-    print([t for t in pv_sells if t["seller"][0] == "H2"])
-    print([t for h, t in pv_res if h == "H2"])
+    # response = hs[0]["auction"]["response"][t]
+    # pv_res = [
+    #     (h, o) for h, os in response.items() for o in os if o["target"] == "pv"
+    # ]
+    # print(pv_res)
+    # pv_sells = [t for t in hs[0]["auction"]["transactions"][t] if t["seller"][1] == "pv"]
+    # print(json.dumps(pv_sells, indent=2))
+    # print(len(pv_sells), len(pv_res))
+    # print(sorted(t["seller"][0] for t in pv_sells))
+    # print(sorted(h for h, t in pv_res))
+    #
+    # print(sum(t["quantity"] for t in pv_sells))
+    # print(sum(t["quantity"] for h, t in pv_res))
+    #
+    # print([t for t in pv_sells if t["seller"][0] == "H2"])
+    # print([t for h, t in pv_res if h == "H2"])
     # print(pd.Series(t["quantity"] for t in ev_sells).cumsum())
 
     # market = market_curves_plot(hs[0]["auction"])
