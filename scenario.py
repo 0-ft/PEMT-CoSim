@@ -35,7 +35,7 @@ deadband_lo = 1.0
 deadband_hi = 1.0
 offset_limit_lo = 2.0
 offset_limit_hi = 4.0
-
+np.random.seed(1234)
 
 class PETScenario:
     def __init__(self, scenario_name=None, minimum_timestep=1, market_period=300, grid_power_cap=80000, num_houses=30,

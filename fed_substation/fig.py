@@ -14,7 +14,6 @@ from scipy.integrate import trapezoid
 
 from recording import SubstationRecorder
 
-print(plotly.colors.qualitative.Plotly)
 colors = plotly.colors.DEFAULT_PLOTLY_COLORS
 colors = {
     "pv": "#2ebde8",
@@ -30,8 +29,13 @@ colors = {
              "total": "black"
          }
 
-START_TIME = datetime.strptime('2013-07-02 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-END_TIME = datetime.strptime('2013-07-04 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+START_TIME = datetime.strptime('2013-07-03 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+END_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+
+DRIVING_POWER = pickle.load(open("../fed_ev/driving_power.pkl", "rb"))
+DRIVING_POWER = DRIVING_POWER.tz_localize("UTC-08:00")
+DRIVING_POWER = DRIVING_POWER[(START_TIME <= DRIVING_POWER.index) & (DRIVING_POWER.index < END_TIME)]
+DRIVING_POWER = DRIVING_POWER[:-1].repeat(2).set_axis(DRIVING_POWER.index.repeat(2)[1:-1])
 
 
 def rate_integ(series):
@@ -42,6 +46,7 @@ def rate_integ(series):
 
 
 def take_changes_only(series: Series):
+    # return series[~series.index.duplicated(keep="last")]
     last_row = pd.Series(False, index=series.index)
     last_row.iloc[-1] = True
     mask = (series != series.shift()) | last_row
@@ -58,11 +63,15 @@ def shift(series: Series, offset=-1, res=300):
     # .reindex(index=idx.repeat(2)[1:-1], method="ffill")
 
 
-def load_plot(h, grid_power_cap=100000):
-    solar_supply = h["houses"]["sum.pv.measured_power"].map(np.abs)
-    solar_supply = shift(solar_supply[solar_supply.duplicated(keep="last")], offset=0)
+def load_plot(h):
+    # qa = h["houses"]["sum.pv.measured_power"]
+    # print(f"S1\n{qa[qa.index>= START_TIME+timedelta(hours=10,minutes=0)]}")
+    solar_supply = -h["houses"]["sum.pv.measured_power"].map(np.real)
+    solar_supply = solar_supply[~solar_supply.index.duplicated(keep="last")]
+    solar_supply = shift(solar_supply, offset=0)
 
-    grid_supply = h["grid"]["measured_load"].map(np.abs)
+    grid_supply = h["grid"]["measured_load"].map(np.real)
+
     grid_supply = shift(grid_supply)
 
     unresp_load = shift(h["houses"]["sum.measured_unresponsive_load"])
@@ -72,57 +81,44 @@ def load_plot(h, grid_power_cap=100000):
 
     w_to_kwhd = lambda x: x / 1000 * 24
 
+    # ev_stored_energy = h["houses"]["sum.ev.stored_energy"]
+    # print(ev_stored_energy)
+    # ev_charging_load = h["houses"]["sum.ev.charging_load"]
+    # print(ev_charging_load)
+    # driving_power = pickle.load("../fed_ev/driving_power.pkl")
+    # print(driving_power)
     hvac_rate = rate_integ(hvac_load)
-    print(f"HVAC Load {hvac_rate} W = {w_to_kwhd(hvac_rate)} kWh/day")
+    print(f"Average HVAC Load {hvac_rate} W = {w_to_kwhd(hvac_rate)} kWh/day")
     unresp_rate = rate_integ(unresp_load)
-    print(f"Unresp Load {unresp_rate} W = {w_to_kwhd(unresp_rate)} kWh/day")
+    print(f"Average Unresp Load {unresp_rate} W = {w_to_kwhd(unresp_rate)} kWh/day")
+    driving_rate = rate_integ(DRIVING_POWER)
+    print(f"Average Driving Load {driving_rate}")
     total_rate = unresp_rate + hvac_rate
-    print(f"Total Load {total_rate} W = {w_to_kwhd(total_rate)} kWh/day")
+    print(f"Average Total Load without driving {total_rate} W = {w_to_kwhd(total_rate)} kWh/day")
+    print(
+        f"Average Total Load WITH driving {total_rate + driving_rate} W = {w_to_kwhd(total_rate + driving_rate)} kWh/day")
 
     pv_rate = rate_integ(solar_supply)
-    print(f"PV Supply {pv_rate} W = {w_to_kwhd(pv_rate)} kWh/day")
+    print(f"Average PV Supply {pv_rate} W = {w_to_kwhd(pv_rate)} kWh/day")
 
     ev_supply = -h["houses"]["values.ev.measured_load"].apply(
-        lambda loads: sum(np.real(l) for l in loads if np.real(l) < 0))
+        lambda loads: sum(np.real(l) for l in loads if l is not None and np.real(l) < 0))
     ev_load = h["houses"]["values.ev.measured_load"].apply(
-        lambda loads: sum(np.real(l) for l in loads if np.real(l) > 0))
+        lambda loads: sum(np.real(l) for l in loads if l is not None and np.real(l) > 0))
+
     ev_supply = shift(ev_supply)
     ev_load = shift(ev_load)
 
+    ev_load_capacity = h["houses"]["values.ev.load_range"].apply(
+        lambda ranges: sum(r[1] for r in ranges if r is not None and r[1] >= 0))
+
     ev_desired_supply = -h["houses"]["values.ev.desired_charge_rate"].apply(
-        lambda loads: sum(l for l in loads if l < 0))
-    ev_desired_load = h["houses"]["values.ev.desired_charge_rate"].apply(lambda loads: sum(l for l in loads if l > 0))
-
-    # print(ev_supply.to_string())
-    print(ev_supply, solar_supply)
-    supply_breakdown.add_traces([
-        {
-            "type": "scatter",
-            "x": supply.index,
-            "y": supply,
-            "name": f"{name}",
-            "line": {"width": 0, "color": color},
-            "stackgroup": "supply",
-        } for name, supply, color in [
-            ("Grid Supply", grid_supply, colors["grid"]),
-            ("PV Supply", solar_supply, colors["pv"]),
-            ("EV Supply", ev_supply, colors["ev"])
-        ]
-    ], rows=1, cols=1)
-
-    total_load = unresp_load + hvac_load + ev_load
-
-    supply_breakdown.add_trace({
-        "type": "scatter",
-        "x": total_load.index,
-        "y": total_load,
-        "name": f"Total Load",
-        "line": {"color": colors["total"]},
-    }, row=1, col=1)
-
-    grid_cap = pd.Series(np.ones_like(h["grid"].index, dtype=float) * grid_power_cap, index=h["grid"].index)
+        lambda loads: sum(l for l in loads if l is not None and l < 0))
+    ev_desired_load = h["houses"]["values.ev.desired_charge_rate"].apply(
+        lambda loads: sum(l for l in loads if l is not None and l > 0))
+    grid_cap = h["grid"]["power_cap"]
     pv_capacity = h["houses"]["sum.pv.predicted_max_power"][
-        h["houses"]["sum.pv.predicted_max_power"].duplicated(keep="last")]
+        ~h["houses"]["sum.pv.predicted_max_power"].index.duplicated(keep="last")]
 
     pv_average_capacity = rate_integ(pv_capacity)
     print(f"PV Capacity Average: {pv_average_capacity} = {w_to_kwhd(pv_average_capacity)} kWh/day")
@@ -133,6 +129,15 @@ def load_plot(h, grid_power_cap=100000):
     pv_surp = pv_average_capacity - rate_integ(solar_supply)
     print(f"PV Surplus: {pv_surp} = {w_to_kwhd(pv_surp)} kWh/day")
 
+    grid_is_capped = grid_cap[0] < 190000
+    has_pv = pv_average_capacity > 0
+    has_ev = sum(h["houses"]["values.ev.desired_charge_rate"].apply(
+        lambda loads: sum(abs(l) for l in loads if l is not None))) > 0
+    supplies = [("Grid Supply", grid_supply, colors["grid"])]
+    if has_pv:
+        supplies += [("PV Supply", solar_supply, colors["pv"])]
+    if has_ev:
+        supplies += [("EV Supply", ev_supply, colors["ev"])]
 
     supply_breakdown.add_traces([
         {
@@ -140,21 +145,72 @@ def load_plot(h, grid_power_cap=100000):
             "x": supply.index,
             "y": supply,
             "name": f"{name}",
-            "line": {"width": 2, "color": color, "dash": "dash"}
-        } for name, supply, color in [
-            ("Grid Supply Capacity", grid_cap, colors["grid"]),
-            ("PV Supply Capacity", pv_capacity, colors["pv"]),
-            ("PV Desired Power", h["houses"]["sum.pv.desired_power"], "red"),
-            ("EV Desired Supply", ev_desired_supply, "red"),
-            ("Grid Intended Load", h["grid"]["intended_load"], "green"),
-        ]
+            "line": {"width": 0, "color": color},
+            "stackgroup": "supply",
+            "showlegend": True
+        } for name, supply, color in supplies], rows=1, cols=1)
+
+    total_load = unresp_load + hvac_load + ev_load
+    print(f"Total Load Range: {max(total_load) - min(total_load)}")
+    # supply_breakdown.add_trace({
+    #     "type": "scatter",
+    #     "x": total_load.index,
+    #     "y": total_load,
+    #     "name": f"Total Load",
+    #     "line": {"color": colors["total"], "width": 1},
+    # }, row=1, col=1)
+
+    # grid_cap = pd.Series(np.ones_like(h["grid"].index, dtype=float) * grid_power_cap, index=h["grid"].index)
+
+    capacities = []
+    if has_pv:
+        capacities += [("PV Supply Capacity", pv_capacity, colors["pv"])]
+
+    if grid_is_capped:
+        capacities += [("Grid Supply Capacity", grid_cap, colors["grid"])]
+
+    supply_breakdown.add_traces([
+        {
+            "type": "scatter",
+            "x": supply.index,
+            "y": supply,
+            "name": f"{name}",
+            "line": {"width": 2, "color": color, "dash": "dash"},
+            "showlegend": True
+        } for name, supply, color in capacities
     ], rows=1, cols=1)
 
-    # supply_breakdown.update_xaxes(row=1, col=1, tickformat="%H:%M")
+    supply_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     supply_breakdown.update_yaxes(title_text="Power (W)", row=1, col=1, rangemode="tozero")
+
+    supply_pv_only = make_subplots(rows=1, cols=1)
+    supply_pv_only.add_trace(
+        {
+            "type": "scatter",
+            "x": solar_supply.index,
+            "y": solar_supply,
+            "name": "PV Supply",
+            "line": {"width": 0, "color": colors["pv"]},
+            "stackgroup": "supply",
+            "showlegend": True
+        }, row=1, col=1)
+
+    supply_pv_only.add_trace(
+        {
+            "type": "scatter",
+            "x": pv_capacity.index,
+            "y": pv_capacity,
+            "name": "PV Capacity",
+            "line": {"width": 2, "color": colors["pv"], "dash": "dash"},
+            "showlegend": True
+        }, row=1, col=1)
 
     load_breakdown = make_subplots(rows=1, cols=1)
 
+    loads = [("Unresponsive Load", unresp_load, colors["unresp"]),
+             ("HVAC Load", hvac_load, colors["hvac"])]
+    if has_ev:
+        loads += [("EV Load", ev_load, colors["ev"])]
     load_breakdown.add_traces([
         {
             "type": "scatter",
@@ -162,40 +218,47 @@ def load_plot(h, grid_power_cap=100000):
             "y": load,
             "name": f"{name}",
             "line": {"width": 0, "color": color},
-            "stackgroup": "supply",
-        } for name, load, color in [
-            ("Unresponsive Load", unresp_load, colors["unresp"]),
-            ("HVAC Load", hvac_load, colors["hvac"]),
-            ("EV Load", ev_load, colors["ev"])
-        ]
-    ], rows=1, cols=1)
+            "stackgroup": "load",
+            "showlegend": True
+        } for name, load, color in loads], rows=1, cols=1)
 
     total_supply = grid_supply + solar_supply + ev_supply
 
-    load_breakdown.add_trace({
-        "type": "scatter",
-        "x": total_supply.index,
-        "y": total_supply,
-        "name": f"Total Supply",
-        "line": {"color": colors["total"]},
-    }, row=1, col=1)
+    # load_breakdown.add_trace({
+    #     "type": "scatter",
+    #     "x": total_supply.index,
+    #     "y": total_supply,
+    #     "name": f"Total Supply",
+    #     "line": {"color": colors["total"], "width": 1},
+    # }, row=1, col=1)
 
-    load_breakdown.add_traces([
-        {
+    if has_ev:
+        load_breakdown.add_trace({
             "type": "scatter",
-            "x": load.index,
-            "y": load,
-            "name": f"{name}",
-            "line": {"width": 2, "color": color, "dash": "dash"}
-        } for name, load, color in [
-            ("Intended Grid Load", h["houses"]["sum.intended_load"], "red"),
-        ]
-    ], rows=1, cols=1)
-    # load_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
+            "x": ev_load_capacity.index,
+            "y": ev_load_capacity,
+            "name": "EV Load Capacity",
+            "showlegend": True,
+            "line": {"width": 2, "color": colors["ev"], "dash": "dash"}
+        })
+    # load_breakdown.add_traces([
+    #     {
+    #         "type": "scatter",
+    #         "x": load.index,
+    #         "y": load,
+    #         "name": f"{name}",
+    #         "line": {"width": 2, "color": color, "dash": "dash"}
+    #     } for name, load, color in [
+    #         # ("Intended Grid Load", h["houses"]["sum.intended_load"], "red"),
+    #         ("EV Load Capacity", ev_load_capacity, colors["ev"]),
+    #         # ("Driving Power", ev_load_capacity, colors["ev"])
+    #     ]
+    # ], rows=1, cols=1)
+    load_breakdown.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     load_breakdown.update_yaxes(title_text="Power (W)", row=1, col=1, rangemode="tozero")
     layout(supply_breakdown, 1200, 400)
     layout(load_breakdown, 1200, 400)
-    return supply_breakdown, load_breakdown
+    return supply_breakdown, load_breakdown, has_ev, has_pv, supply_pv_only
     # return fig
 
 
@@ -208,7 +271,7 @@ def hvac_plot(day_means, h):
     diffs = np.maximum(airtemps - setpoints, 0)
     diffs_sq = np.power(diffs, 2)
     mean_diffs_sq = diffs_sq.mean(axis=1)
-    mean_diffs_sq = df_days_mean(DataFrame({"diffs": mean_diffs_sq}), True)
+    # mean_diffs_sq = df_days_mean(DataFrame({"diffs": mean_diffs_sq}), True)
     # mean_diffs_sq = DataFrame({"diffs": mean_diffs_sq})
     hvac.add_traces([
         {
@@ -229,18 +292,29 @@ def hvac_plot(day_means, h):
         {
             "type": "scatter",
             "x": mean_diffs_sq.index,
-            "y": mean_diffs_sq["diffs"],
+            "y": mean_diffs_sq,
             "name": "$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$",
-            "line": {"dash": "dash"},
+            # "line": {"dash": "dash"},
+            "line": {"width": 0},
+            "stackgroup": "texcess",
             "showlegend": True
         }, row=1, col=1, secondary_y=True
     )
 
-    # seconds = (diff.index - diff.index.min()).total_seconds()
-    # excess_quant = trapezoid(y=diff.values, x=seconds)
-    # print(f"EXC: {excess_quant} Ks = {excess_quant / 60 / 24} Kmin/day")
+    # seconds_diff = mean_diffs_sq.index.to_series().diff().fillna(pd.Timedelta(seconds=0)).dt.total_seconds()
+    # weighted_sum = (mean_diffs_sq * seconds_diff).sum()
+    # total_time = seconds_diff.sum()
+    # time_weighted_mean2 = weighted_sum / total_time
+    # print("tt2", time_weighted_mean2)
+    # seconds = (mean_diffs_sq.index - START_TIME).to_series().dt.total_seconds()
+    # print(seconds)
+    # time_weighted_mean = trapezoid(y=mean_diffs_sq, x=seconds.values)
+    # print(time_weighted_mean)
+    # print(time_weighted_mean/max())
 
-    # hvac.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
+    # print(f"TexcessSq: {time_weighted_mean/max(seconds)}")
+    print(f"TexcessSq: {rate_integ(mean_diffs_sq)}")
+    hvac.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     hvac.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
     hvac.update_yaxes(title_text=r"$\mkern 1.5mu\overline{\mkern-1.5mu T_{excess}^2 \mkern-1.5mu}(t)\mkern 1.5mu$",
                       row=1,
@@ -249,8 +323,17 @@ def hvac_plot(day_means, h):
     return hvac
 
 
-def price_plot(a, h):
+def price_plot(a, h, has_ev, has_pv):
     price = make_subplots(rows=1, cols=1)
+
+    prices = [("LMP", a["auction"]["lmp"]),
+              ("VWAP", a["auction"]["average_price"])]
+    if has_ev:
+        prices += [("Mean EV Sell Price", h["houses"]["mean.trading_policy.ev_sell_threshold_price"]),
+                   ("Mean EV Buy Price", h["houses"]["mean.trading_policy.ev_buy_threshold_price"])]
+
+    if has_pv:
+        prices += [("Mean PV Sell Price", h["houses"]["mean.trading_policy.pv_sell_price"])]
 
     price.add_traces([
         {
@@ -258,22 +341,35 @@ def price_plot(a, h):
             "x": quant.index,
             "y": quant,
             "name": f"{name}",
-        } for name, quant in [
-            ("LMP", a["auction"]["lmp"]),
-            ("VWAP", a["auction"]["average_price"]),
-            ("Mean EV Sell Threshold", h["houses"]["mean.trading_policy.ev_sell_threshold_price"]),
-            ("Mean EV Buy Threshold", h["houses"]["mean.trading_policy.ev_buy_threshold_price"]),
-        ]
+        } for name, quant in prices
     ], rows=1, cols=1)
 
-    # price.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
+    price.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     price.update_yaxes(title_text="Price ($)", row=1, col=1)
     layout(price, 1200, 400)
+    mean_vwap = a["auction"]["average_price"].mean()
+    print(f"Mean VWAP: {mean_vwap}")
     return price
 
 
 def ev_plot(h):
-    ev = make_subplots(rows=2, cols=1, specs=[[{"secondary_y": True}], [{}]])
+    # ev = make_subplots(rows=2, cols=1, specs=[[{"secondary_y": True}], [{}]])
+    ev = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": True}]])
+    idx = pd.date_range(START_TIME, END_TIME, freq=f'300S')
+    stored_energy = take_changes_only(h["houses"]["sum.ev.stored_energy"])
+    stored_energy = stored_energy.reindex(idx, method="ffill")
+    energy_delta = stored_energy.diff()
+    seconds = (stored_energy.index - START_TIME).total_seconds().to_series().set_axis(energy_delta.index)
+    total_power = (energy_delta / seconds.diff()).shift(-1)
+    total_power = total_power[:-1].repeat(2).set_axis(idx.repeat(2)[1:-1])
+    # print(total_power)
+    charging_load = h["houses"]["sum.ev.charging_load"]
+    charging_load = charging_load[~charging_load.index.duplicated(keep="last")]
+    charging_load = charging_load.reindex(idx, method="ffill")
+    # print(charging_load)
+    charging_load = charging_load[:-1].repeat(2).set_axis(idx.repeat(2)[1:-1])
+    driving_power = total_power - charging_load
+    # print(driving_power)
 
     ev.add_traces([
         {
@@ -281,41 +377,71 @@ def ev_plot(h):
             "x": quant.index,
             "y": quant,
             "name": f"{name}",
+            # "line": {"dash": "dash"},
+            "line": {"width": 0},
             "stackgroup": "load",
             "showlegend": True
         } for name, quant in [
-            # ("Driving Power", h["houses"]["sum.ev.driving_load"]),
-            ("Charging/Discharging Power", h["houses"]["sum.ev.charging_load"])
+            ("Driving Power", -DRIVING_POWER),
+            ("Charging/Discharging Power", charging_load),
         ]
     ], rows=1, cols=1)
+    # ev.add_trace(
+    #     {
+    #         "type": "scatter",
+    #         "x": DRIVING_POWER.index,
+    #         "y": -DRIVING_POWER,
+    #         "name": f"DP2",
+    #         "line": {"color": colors["total"], "width": 1},
+    #         "showlegend": True
+    #     }, row=1, col=1
+    # )
+    ev.add_trace(
+        {
+            "type": "scatter",
+            "x": total_power.index,
+            "y": total_power,
+            "name": f"Total Battery Load",
+            "line": {"color": colors["total"], "width": 1},
+            "showlegend": True
+        }, row=1, col=1
+    )
+    # ev.add_trace(
+    #     {
+    #         "type": "scatter",
+    #         "x": h["houses"]["sum.ev.charging_load"].index,
+    #         "y": h["houses"]["sum.ev.charging_load"],
+    #         "name": f"Charging/Discharging Power Raw",
+    #         "showlegend": True
+    #     }, row=1, col=1
+    # )
 
-    stored_energy = take_changes_only(h["houses"]["sum.ev.stored_energy"])
     ev.add_trace(
         {
             "type": "scatter",
             "x": stored_energy.index,
             "y": stored_energy,
-            "name": f"Total EV Stored Energy",
+            "name": f"Total Battery Stored Energy",
             "showlegend": True
         }, row=1, col=1, secondary_y=True
     )
 
-    # price.update_xaxes(title_text="Time", row=1, col=1, tickformat="%H:%M")
+    ev.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
     ev.update_yaxes(title_text="Power (W)", row=1, col=1)
     ev.update_yaxes(title_text="Energy (J)", row=1, col=1, secondary_y=True)
 
-    driving_count = h["houses"]["values.ev.location"].apply(lambda ls: ls.count("driving"))
-    ev.add_trace(
-        {
-            "type": "scatter",
-            "x": driving_count.index,
-            "y": driving_count,
-            "name": f"EVs Driving",
-            "showlegend": True
-        }, row=2, col=1
-    )
+    # driving_count = h["houses"]["values.ev.location"].apply(lambda ls: ls.count("driving"))
+    # ev.add_trace(
+    #     {
+    #         "type": "scatter",
+    #         "x": driving_count.index,
+    #         "y": driving_count,
+    #         "name": f"EVs Driving",
+    #         "showlegend": True
+    #     }, row=2, col=1
+    # )
 
-    layout(ev, 1200, 800)
+    layout(ev, 1200, 400)
     return ev
 
 
@@ -497,13 +623,18 @@ def layout(fig, w=1000, h=500):
 
 
 def one_figs_capped(hs, name):
-    t = START_TIME + timedelta(hours=12, minutes=35, seconds=0)
+    t = START_TIME + timedelta(hours=20, minutes=50, seconds=0)
     if len(hs[0]["grid"].index) and max(hs[0]["grid"]["measured_load"].index) >= t:
         pass
-        # print(hs[0]["grid"]["measured_load"][t])
         # bidst = hs[0]["auction"]["bids"][t]
         # print(bidst.to_string())
         # print(bidst.iloc[[idx for idx, val in bidst["trader"].items() if val[1] == "ev"]])
+        # grid_transactions = [
+        #     t for t in hs[0]["auction"]["transactions"][t]
+        #     if t["seller"][0] == "grid"
+        # ]
+        # print(grid_transactions)
+        #
         # ev_transactions = [
         #     t for t in hs[0]["auction"]["transactions"][t]
         #     if t["buyer"][1] == "ev" or t["seller"][1] == "ev"
@@ -557,9 +688,11 @@ def one_figs_capped(hs, name):
     #     "sum.hvac.hvac_load"] + np.maximum(house_means[0]["houses"]["sum.ev.charging_load"], 0)
     # grid_supply = house_means[0]["grid"]["vpp_load_p"]
 
-    supply_breakdown, load_breakdown = load_plot(house_means[0])
+    supply_breakdown, load_breakdown, has_ev, has_pv, supply_pv_only = load_plot(house_means[0])
     supply_breakdown.write_html(f"figs/{name}_supply.html")
     supply_breakdown.write_image(f"figs/{name}_supply.png")
+    supply_pv_only.write_html(f"figs/{name}_supply_pv.html")
+    supply_pv_only.write_image(f"figs/{name}_supply_pv.png")
     load_breakdown.write_html(f"figs/{name}_load.html")
     load_breakdown.write_image(f"figs/{name}_load.png")
 
@@ -568,23 +701,27 @@ def one_figs_capped(hs, name):
     # }, resample=True)
     # price_means = hs
 
-    price = price_plot(house_means[0], house_means[0])
+    price = price_plot(house_means[0], house_means[0], has_ev, has_pv)
     price.write_html(f"figs/{name}_price.html")
     price.write_image(f"figs/{name}_price.png", scale=1)
     # print(max(total_l), min(total_l), max(total_l) - min(total_l))
 
 
 def all_single_figs():
-    pkls = [f.replace(".pkl", "") for f in listdir("metrics") if "pkl" in f]
-    for pkl in pkls:
-        print(f"\n\n{pkl}")
-        hs = [pickle.load(open(f"metrics/{pkl}.pkl", "rb"))]
-        end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
-        hs = [
-            {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
-            for h in hs
-        ]
-        one_figs_capped(hs, pkl)
+    runs = [f for f in listdir("metrics")]
+    for run in runs:
+        try:
+            print(f"\n\n{run}")
+            hs = [SubstationRecorder.load_history(f"metrics/{run}")]
+            end_time = min(END_TIME, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
+            hs = [
+                {k: h[k][(START_TIME <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
+                for h in hs
+            ]
+            one_figs_capped(hs, run)
+        except Exception as e:
+            print(f"skipping {run}, broken")
+            continue
 
 
 if __name__ == "__main__":

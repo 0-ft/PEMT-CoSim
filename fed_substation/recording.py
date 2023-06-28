@@ -125,6 +125,8 @@ class SubstationRecorder:
             "values.ev.measured_load",
             "sum.ev.measured_load",
 
+            "values.ev.load_range",
+
             "values.pv.measured_power",
             "sum.pv.measured_power",
 
@@ -147,6 +149,7 @@ class SubstationRecorder:
 
             "mean.trading_policy.ev_buy_threshold_price",
             "mean.trading_policy.ev_sell_threshold_price",
+            "mean.trading_policy.pv_sell_price",
         ])
 
         self.auction_recorder = HistoryRecorder(auction, [
@@ -195,12 +198,12 @@ class SubstationRecorder:
     def load_history(outdir):
         files = sorted([os.path.join(outdir, f) for f in os.listdir(outdir) if f.endswith(".pkl")],
                        key=lambda x: int(splitext(basename(x))[0]))
-        print(f"loading {files}")
         dicts = [pickle.load(open(f, "rb")) for f in files]
         res = {
             k: pandas.concat([dict[k] for dict in dicts])
             for k in ["houses", "auction", "grid"]
         }
+        print(f"loaded {len(files)} files for {outdir}")
         return res
 
     @staticmethod
@@ -694,9 +697,10 @@ class SubstationRecorder:
 
 if __name__ == "__main__":
     print(argv[1])
-    with open(f"metrics/{argv[1]}.pkl", "rb") as f:
-        history = pickle.load(f)
+    # with open(f"metrics/{argv[1]}.pkl", "rb") as f:
+    #     history = pickle.load(f)
 
+    history = SubstationRecorder.load_history(f"metrics/{argv[1]}")
     ev_history = pickle.load(open(f"../fed_ev/{argv[1]}_ev_history.pkl", "rb"))
 
     # SubstationRecorder.make_figure_bids(history, "bids_metrics")

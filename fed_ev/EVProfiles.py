@@ -18,6 +18,7 @@ from plotly.subplots import make_subplots
 
 sys.path.append('..')
 from my_tesp_support_api.utils import DotDict
+import plotly.express as px
 
 set_seed(seed=200, dir="emobpy_data/config_files")
 
@@ -44,7 +45,7 @@ STATION_DISTRIBUTION = {
 }
 
 CAR_MODELS_DISTRIBUTION = np.array([
-    [BEVspecs().model(('Tesla', 'Model 3 Long Range AWD', 2020)), 0.6],
+    [BEVspecs().model(('Tesla', 'Model Y Long Range AWD', 2020)), 0.6],
     [BEVspecs().model(('Volkswagen', 'ID.3', 2020)), 0.4],
 ])
 
@@ -256,7 +257,7 @@ class EVProfiles:
                 "y": states[column],
                 "name": f"{column}",
                 "stackgroup": "location",
-                # "line": {"width": 0}
+                "line": {"width": 1}
             }
             for column in states.columns
         ], rows=1, cols=1)
@@ -264,8 +265,8 @@ class EVProfiles:
         fig.update_xaxes(title_text="", row=1, col=1, tickformat="%H:%M")
         fig.update_yaxes(title_text="EV Locations", row=1, col=1)
         layout(fig, 1200, 400)
-        fig.write_html("ev_fig.html")
-        fig.write_image("ev_locations2.png")
+        fig.write_html("ev_locations.html")
+        fig.write_image("ev_locations.png")
 
         fig = make_subplots(rows=1, cols=1,
                             specs=[[{"secondary_y": True}]])
@@ -278,27 +279,38 @@ class EVProfiles:
         START_TIME = datetime.strptime('2013-07-02 00:00:00', '%Y-%m-%d %H:%M:%S')
         END_TIME = datetime.strptime('2013-07-06 00:00:00', '%Y-%m-%d %H:%M:%S')
         driving_loads = driving_loads[(driving_loads.index >= START_TIME) & (driving_loads.index <= END_TIME)]
-        fig.add_traces([
-            {
-                "type": "scatter",
-                "x": driving_loads.index,
-                "y": driving_loads[ev],
-                "name": f"EV {ev} Driving Load",
-                "stackgroup": "dload",
-                "showlegend": False,
-                "line": {"width": 0}
-            }
-            for ev in range(30)
-        ], rows=1, cols=1)
+        bcol = lambda x: f"rgb({255 - x * 5}, 50, {50 + x * 5})"
+        # fig.add_traces([
+        #     {
+        #         "type": "scatter",
+        #         "x": driving_loads.index,
+        #         "y": driving_loads[ev],
+        #         "name": f"EV {ev} Driving Load",
+        #         "stackgroup": "dload",
+        #         "showlegend": False,
+        #         "line": {"width": 0, "color": bcol(ev)}
+        #     }
+        #     for ev in range(30)
+        # ], rows=1, cols=1)
 
-        driving_loads_total = driving_loads.sum(axis=1).cumsum()
+        driving_load_total = driving_loads.sum(axis=1)
         fig.add_trace(
             {
                 "type": "scatter",
-                "x": driving_loads_total.index,
-                "y": driving_loads_total,
-                "name": f"Total battery energy used by driving",
-                "showlegend": False,
+                "x": driving_load_total.index,
+                "y": driving_load_total,
+                "name": f"Total driving load",
+                # "showlegend": False,
+                # "line": {"color": k}
+            }, row=1, col=1)
+        driving_energy_total = driving_load_total.cumsum()
+        fig.add_trace(
+            {
+                "type": "scatter",
+                "x": driving_energy_total.index,
+                "y": driving_energy_total,
+                "name": f"Cumulative driving energy use",
+                # "showlegend": False,
                 # "line": {"color": k}
             }, row=1, col=1, secondary_y=True)
 
@@ -306,8 +318,8 @@ class EVProfiles:
         fig.update_yaxes(title_text="EV Driving Load (W)", row=1, col=1)
         fig.update_yaxes(title_text="EV Energy Used (J)", row=1, col=1, secondary_y=True)
         layout(fig, 1200, 400)
-        fig.write_html("ev_fig.html")
-        fig.write_image("ev_driving_loads2.png")
+        fig.write_html("ev_driving_loads.html")
+        fig.write_image("ev_driving_loads.png")
     # fig.show()
 
     # fig2 = px.area(stored_power, x=stored_power.index, y=stored_power.columns,
@@ -342,12 +354,57 @@ def energy_used_between(ts, start_time: datetime, end_time: datetime):
     # new_t = min()
 
 
+def total_between(ss, start_time: datetime, end_time: datetime):
+    t = start_time
+    energy = 0.0
+    while t < end_time:
+        future_indices = ss.loc[ss.index > t].index
+        next_index = future_indices[0] if len(future_indices) else end_time
+        next_t = min(next_index, end_time)
+        delta = (next_t - t).total_seconds()
+        # print("QA", ss.asof(t))
+        energy += delta * ss.asof(t)
+        t = next_t
+    return energy
+
+
 if __name__ == '__main__':
     start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
+    # BEVspecs().show_models()
     ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
     # ev_profiles.run(pool_size=1)
     ev_profiles.load_from_saved()
     ev_profiles.draw_figures()
+    # START_TIME = datetime.strptime('2013-07-03 00:00:00', '%Y-%m-%d %H:%M:%S')
+    END_TIME = start_t + timedelta(days=8)
+    # END_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+    avg_powers = sum(p.consumption.timeseries["average power in W"] for p in ev_profiles.profiles)
+    avg_powers = avg_powers[(avg_powers.index >= start_t) & (avg_powers.index <= END_TIME)]
+
+    rpt = avg_powers[:-1].repeat(2).set_axis(avg_powers.index.repeat(2)[1:-1])
+    idx = pd.date_range(start_t, END_TIME, freq=f'300S')
+    # total_between(rpt, start_t+timedelta(days=1,hours=23,minutes=45), start_t+timedelta(days=1,hours=23,minutes=50))
+    totals = [total_between(rpt, s, s + timedelta(seconds=300)) / 300 for s in idx]
+    totals = pd.Series(totals, index=idx)
+    pickle.dump(totals, open("driving_power.pkl", "wb"))
+    print("\n", totals)
+
+
+    # idx = pd.date_range(start_t, END_TIME, freq=f'150S')
+    # rpt = rpt.reindex(idx   )
+    # print(rpt)
+    # idx = pd.date_range(start_t, END_TIME, freq=f'300S')
+
+    def time_weighted_average(group):
+        return (group['value'] * group['weights']).sum() / group['weights'].sum()
+
+
+    df = pd.DataFrame(
+        {"weights": rpt.index.to_series().diff().shift(-1).fillna(pd.Timedelta(seconds=0)).dt.total_seconds(),
+         "value": rpt.values})
+    # print(df)
+    fig = px.line(avg_powers)
+    fig.write_html("test.html")
     t = start_t + timedelta(hours=14)
     # sp = ev_profiles.get_stored_power()
     # ev_profiles.get_loads_at_time(t)

@@ -44,7 +44,7 @@ if __name__ == "__main__":
             num_pv=args.num_pv,
             grid_power_cap=args.grid_cap,
             start_time=datetime(2013, 7, 1, 0, 0, 0),
-            end_time=datetime(2013, 7, 9, 0, 0, 0),
+            end_time=datetime(2013, 7, 7, 0, 0, 0),
             workplace_charge_capacity=args.work_charge_rate,
             figure_period=args.figure_period,
             buy_iqr_threshold=args.buy_iqr_ratio,
