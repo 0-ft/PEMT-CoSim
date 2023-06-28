@@ -82,15 +82,16 @@ class PETFederate:
 
             print(f"REQUESTED time {time_to_request}, GRANTED {time_granted_seconds} = {self.current_time}")
 
-            """ 2. houses update state/measurements for all devices, 
+            """ 1. houses update state/measurements for all devices, 
                    update schedule and determine the power needed for hvac,
                    make power predictions for solar,
-                   make power predictions for house load"""
+                   make power predictions for house load,
+                   update lmp"""
             if time_granted_seconds >= self.next_update_time or True:
                 self.update_states()
                 self.auction.update_lmp(self.current_time)
 
-            """ 5. receive capacity from EVs, formulate bids, set loads"""
+            """ 2. receive capacity from EVs, formulate bids, set loads"""
             if time_granted_seconds >= self.next_market_time:
                 self.auction.update_lmp(self.current_time)  # get local marginal price (LMP) from the bulk power grid
                 self.auction.update_stats()
@@ -109,7 +110,7 @@ class PETFederate:
             self.recorder.record_houses(self.current_time)
             self.recorder.record_grid(self.current_time)
 
-            """ 9. visualize some results during the simulation"""
+            """ 3. visualize some results during the simulation"""
             if self.draw_figure and time_granted_seconds >= self.next_figure_time:
                 self.recorder.figure()
                 self.recorder.save()
