@@ -48,7 +48,7 @@ class BoundedCrossoverTrader:
         ev_bids = self.formulate_ev_bids(current_time, ev_buy_range) if ev_buy_range else []
         ev_sell_prices = [bid[1] for bid in ev_bids if bid[0] == "seller"]
         # ev_sell_price = min(ev_sell_prices) if ev_sell_prices else float('inf')
-        self.pv_sell_price = min(self.auction.lmp * 0.9, self.ev_sell_threshold_price * 0.95)
+        # self.pv_sell_price = min(self.auction.lmp * 0.9, self.ev_sell_threshold_price * 0.95)
         self.pv_sell_price = 0.0148
         pv_bids = [[(house_name, "pv"), "seller", self.pv_sell_price, pv_max_power]] if pv_max_power > 0 else []
         return [[(house_name, "ev")] + bid for bid in ev_bids] + pv_bids

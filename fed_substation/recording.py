@@ -472,116 +472,6 @@ class SubstationRecorder:
         grid = h["grid"]
         s = millis()
         fig = make_subplots(rows=4, cols=1, specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
-        # specs=[[{}, {}], [{}, {}], [{"secondary_y": True}, {}], [{"secondary_y": True}, {}]])
-        # fig.update_layout(width=2800, height=800)
-        # fig.add_traces([
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.hvac.air_temp"],
-        #         "name": "House Air Temperature",
-        #     },
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.hvac.set_point"],
-        #         "name": "HVAC Set Point",
-        #     },
-        # ], rows=1, cols=1)
-        #
-        # fig.update_yaxes(title_text="Temperature", row=1, col=1)
-        #
-        # fig.add_traces([
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.pv.measured_power"] * -1,
-        #         "name": "PV Load",
-        #         "line": {"width": 0},
-        #         "stackgroup": "house_load"
-        #     },
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.ev.charging_load"],
-        #         "name": "EV Charging Load",
-        #         "line": {"width": 0},
-        #         "stackgroup": "house_load",
-        #         # "fillcolor": f"rgb({randint(0,255)}, {randint(0,255)}, {randint(0,255)})"
-        #     },
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.unresponsive_load"],
-        #         "name": "Unresponsive Load",
-        #         "line": {"width": 0},
-        #         "stackgroup": "house_load",
-        #         # "fillcolor": f"rgb({randint(0,255)}, {randint(0,255)}, {randint(0,255)})"
-        #     },
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.hvac.measured_load"],
-        #         "name": "HVAC Load",
-        #         "line": {"width": 0},
-        #         "stackgroup": "house_load",
-        #         # "fillcolor": f"rgb({randint(0,255)}, {randint(0,255)}, {randint(0,255)})"
-        #     },
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.total_house_load"],
-        #         "name": "House Load",
-        #     },
-        # ], rows=2, cols=1)
-
-        # fig.update_yaxes(title_text="Load", row=2, col=1)
-        #
-        # fig.add_trace(
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.ev.stored_energy"],
-        #         "name": "EV Energy Stored",
-        #     }, row=3, col=1)
-        # fig.add_trace(
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.ev.desired_charge_rate"],
-        #         "name": "Specified Charge Rate",
-        #     }, row=3, col=1, secondary_y=True)
-        #
-        # fig.add_trace(
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.trading_policy.should_trade"],
-        #         "name": "Should Trade",
-        #     }, row=3, col=1, secondary_y=True)
-        #
-        # fig.add_trace(
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.ev.load_range.0"],
-        #         "name": "Min Load",
-        #     }, row=3, col=1, secondary_y=True)
-        #
-        # fig.add_trace(
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.ev.load_range.1"],
-        #         "name": "Max Load",
-        #     }, row=3, col=1, secondary_y=True)
-        #
-        # fig.update_yaxes(title_text="Energy", row=3, col=1, range=[0, max(houses["F0_house_A0.ev.stored_energy"])],
-        #                  secondary_y=False)
-        # fig.update_yaxes(title_text="Power", row=3, col=1, secondary_y=True)
-        # range=[min(houses["F0_house_A0.ev.desired_charge_rate"]),
-        #        max(houses["F0_house_A0.ev.desired_charge_rate"])])
-
         fig.add_trace(
             {
                 "type": "scatter",
@@ -697,43 +587,9 @@ class SubstationRecorder:
 
 if __name__ == "__main__":
     print(argv[1])
-    # with open(f"metrics/{argv[1]}.pkl", "rb") as f:
-    #     history = pickle.load(f)
-
     history = SubstationRecorder.load_history(f"metrics/{argv[1]}")
     ev_history = pickle.load(open(f"../fed_ev/{argv[1]}_ev_history.pkl", "rb"))
 
     # SubstationRecorder.make_figure_bids(history, "bids_metrics")
     SubstationRecorder.make_figure(history, argv[1], make_html=True, ev_history=ev_history)
     # SubstationRecorder.make_figure_solo(history, "solo_metrics")
-
-# class Tester:
-#     def __init__(self):
-#         self.test = 0
-#         self.tester = None
-#         self.dic = {"a": 2}
-#         self.lis = None
-#         self.lis2 = [{"a": x} for x in range(5)]
-#
-#     def add(self):
-#         self.tester = Tester()
-#
-#
-# a = Tester()
-# a.add()
-# a.lis = [Tester(), Tester(), Tester()]
-# b = a.tester
-# b.test = 1
-#
-# h = HistoryRecorder(a, ["test", "tester.test", "tester.dic.a", "lis.values.test", "lis.values.dic.a", "lis.1.dic.a",
-#                         "lis.0.test"])
-# # h = HistoryRecorder(a, ["lis2.sum.a"])
-# h.record(1)
-#
-# a.test += 1
-# b.test += 3
-# b.dic = {"a": 10}
-# a.lis[0].test = 501
-# h.record(2)
-#
-# print(h.history)
