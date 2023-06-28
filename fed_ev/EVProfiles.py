@@ -372,8 +372,8 @@ if __name__ == '__main__':
     start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
     # BEVspecs().show_models()
     ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
-    # ev_profiles.run(pool_size=1)
-    ev_profiles.load_from_saved()
+    ev_profiles.run(pool_size=1)
+    # ev_profiles.load_from_saved()
     # ev_profiles.draw_figures()
     # START_TIME = datetime.strptime('2013-07-03 00:00:00', '%Y-%m-%d %H:%M:%S')
     END_TIME = start_t + timedelta(days=8)
@@ -383,52 +383,6 @@ if __name__ == '__main__':
 
     rpt = avg_powers[:-1].repeat(2).set_axis(avg_powers.index.repeat(2)[1:-1])
     idx = pd.date_range(start_t, END_TIME, freq=f'300S')
-    # total_between(rpt, start_t+timedelta(days=1,hours=23,minutes=45), start_t+timedelta(days=1,hours=23,minutes=50))
     totals = [total_between(rpt, s, s + timedelta(seconds=300)) / 300 for s in idx]
     totals = pd.Series(totals, index=idx)
     pickle.dump(totals, open("driving_power.pkl", "wb"))
-    print("\n", totals)
-
-
-    # idx = pd.date_range(start_t, END_TIME, freq=f'150S')
-    # rpt = rpt.reindex(idx   )
-    # print(rpt)
-    # idx = pd.date_range(start_t, END_TIME, freq=f'300S')
-
-    def time_weighted_average(group):
-        return (group['value'] * group['weights']).sum() / group['weights'].sum()
-
-
-    df = pd.DataFrame(
-        {"weights": rpt.index.to_series().diff().shift(-1).fillna(pd.Timedelta(seconds=0)).dt.total_seconds(),
-         "value": rpt.values})
-    # print(df)
-    fig = px.line(avg_powers)
-    fig.write_html("test.html")
-    t = start_t + timedelta(hours=14)
-    # sp = ev_profiles.get_stored_power()
-    # ev_profiles.get_loads_at_time(t)
-    # ev_profiles.get_locations_at_time(t)
-    # c = ev_profiles.profiles[2].consumption.timeseries
-    # print(c[c["state"] == "workplace"])
-    # print(set(s for p in ev_profiles.profiles for s in set(p.mobility.timeseries["state"])))
-    # print(ev_profiles.profiles[2].consumption.timeseries.to_string())
-    # print(ev_profiles.profiles[2].car_model.parameters)
-    # c = ev_profiles.profiles[2].consumption.timeseries
-    # loc_changes = (c["state"].shift() != c["state"]).loc[lambda x: x].index
-    # print("FF", loc_changes[loc_changes > datetime.strptime("2013-07-01 09:00:00", '%Y-%m-%d %H:%M:%S')][0])
-    # print(c.to_string())
-    # print(energy_used_between(c, start_t + timedelta(seconds=47940), start_t + timedelta(seconds=47955)))
-    # print(ev_profiles.profiles[0].consumption.timeseries.index.freq)
-    # ev_profiles.draw_figures()
-    # ev_profile.save_profiles()
-    # ev_profile.run()
-
-    # mobility1, consumption1, availability1, demand1 = ev_profile.profiles[0]
-    # PLT = NBplot(DotDict({"db": {availability1.name: availability1.__dict__, demand1.name: demand1.__dict__}}))
-    # PLT.sgplot_ga(availability1.name, rng=None, to_html=False, path=None).write_image("test.png")
-    # PLT.sgplot_ged(demand1.name, rng=None, to_html=False, path=None).write_image("test2.png")
-
-    # print("PROFILE")
-    # print(demand1.profile)
-    # models = [CAR_MODELS_DISTRIBUTION[i, 0] for i in np.random.choice([0,1], size=30, p=CAR_MODELS_DISTRIBUTION[:,1])]
