@@ -55,7 +55,6 @@ RUN echo "root:helics" | chpasswd
 EXPOSE 22
 
 ADD . /PEMT-CoSim
-RUN ls /PEMT-CoSim
 WORKDIR /PEMT-CoSim
 ENTRYPOINT python3 generate_case.py $@ && helics run --path=runner.json
 

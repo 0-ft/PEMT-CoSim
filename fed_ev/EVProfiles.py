@@ -374,7 +374,7 @@ if __name__ == '__main__':
     ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
     # ev_profiles.run(pool_size=1)
     ev_profiles.load_from_saved()
-    ev_profiles.draw_figures()
+    # ev_profiles.draw_figures()
     # START_TIME = datetime.strptime('2013-07-03 00:00:00', '%Y-%m-%d %H:%M:%S')
     END_TIME = start_t + timedelta(days=8)
     # END_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
