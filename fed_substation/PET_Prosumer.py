@@ -1,11 +1,3 @@
-# Copyright (C) 2017-2019 Battelle Memorial Institute
-# file: hvac.py
-"""Class that controls the responsive thermostat for one house.
-
-Implements the ramp bidding method, with HVAC power as the
-bid quantity, and thermostat setting changes as the response
-mechanism.
-"""
 from datetime import timedelta
 
 import helics
@@ -14,8 +6,6 @@ from helics import HelicsFederate
 from market import ContinuousDoubleAuction
 from trading_policies import BoundedCrossoverTrader
 
-
-# hvac_load_predictor = pickle.load(open("hvac_load_predictor.pkl", "rb"))
 
 class HVAC:
 
@@ -72,25 +62,8 @@ class HVAC:
             self.power_needed = False
         self.predict_load(weather_temperature)
 
-        # if self.air_temp < (lower_bound - 3) and self.hvac_on:
-        #     print(
-        #         f"WARN: HVAC {self.name}: Air temperature {self.air_temp} is lower than {lower_bound} - 3, while HVAC is on")
-
-    # def formulate_bid_price(self):
-    #     will_request = random.random() < self.probability
-    #     return self.auction.lmp + 0.01 * (self.probability - 0.5)
-
     def predict_load(self, weather_temperature):
         self.predicted_load = self.power_needed * 4000
-        # self.predicted_load = (4703
-        #                        - 560 * self.set_point
-        #                        + 152 * self.air_temp
-        #                        + 372 * weather_temperature
-        #                        ) * self.power_needed
-        # self.predicted_load = hvac_load_predictor.predict(np.array([[
-        #     self.set_point - self.air_temp, weather_temperature - self.air_temp, weather_temperature - self.set_point
-        # ]]))[0] * self.power_needed
-        # print(self.house_id, self.predicted_load)
 
     def set_on(self, on: bool):
         # on = self.power_needed
@@ -116,8 +89,6 @@ class PV:
         self.predicted_max_power = 0
 
         self.sub_measured_power = helics_federate.subscriptions[f"gld1/H{house_id}_solar_meter#measured_real_power"]
-        # for i in range(helics.helicsFederateGetInputCount(helics_federate)):
-        #     print(f"{i} INPUT: ", helics.helicsFederateGetInputByIndex(helics_federate, i))
         self.subSolarDCVOut = helics_federate.subscriptions[f"gld1/H{house_id}_solar#V_Out"]
         self.subSolarDCIOut = helics_federate.subscriptions[f"gld1/H{house_id}_solar#I_Out"]
 
@@ -132,9 +103,6 @@ class PV:
 
     def power_range(self):
         return 0, self.predicted_max_power
-
-    # def predicted_power(self):
-    #     return self.solar_DC_V_out * self.solar_DC_I_out
 
     def set_power_out(self, p):
         self.desired_power = p
@@ -187,8 +155,6 @@ class EV:
     def predicted_power(self):
         return self.desired_charge_rate
 
-        # print(f"EV {self.house_id} at location {self.location} and stored energy {self.stored_energy}")
-
 
 class House:
     def __init__(self, helics_federate: HelicsFederate, house_id: int, scenario, hvac_config, has_pv,
@@ -224,19 +190,8 @@ class House:
 
     def update_measurements(self, time):
         self.current_time = time
-        # for billing meter measurements ==================
-        # # billing meter voltage
-        # self.mtr_voltage = self.sub_meter_voltage.complex
-
-        # for house meter measurements ==================
-        # house meter power, measured at house_F0_tpm_A(N) (excludes solar + ev)
         self.measured_total_load = self.sub_house_load.double
-        # print(f"{self.name} got house load {self.total_house_load}")
-
-        # for HVAC measurements  ==================
         self.hvac.update_state()  # state update for control
-
-        # for unresponsive load ==================
         self.measured_unresponsive_load = self.measured_total_load - self.hvac.measured_load  # for unresponsive load
 
         if self.pv:
@@ -259,7 +214,7 @@ class House:
 
         bids += self.trading_policy.formulate_bids(self.name, self.current_time,
                                                    self.ev.load_range if self.ev else None, max_pv_power)
-        # print(f"house {self.name} bids: {bids}")
+
         self.bids = bids
         return bids
 

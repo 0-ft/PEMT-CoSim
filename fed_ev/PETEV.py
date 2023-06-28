@@ -7,23 +7,12 @@ from emobpy import ModelSpecs, Consumption
 from helics import HelicsFederate
 
 
-class EVChargingState(IntEnum):
-    DISCONNECTED = 0
-    CHARGING = 1
-    DISCHARGING = 2
-
-
-# MAX_CHARGE_RATE = 3700
-# MAX_DISCHARGE_RATE = 4000
-
 # PET EV controller
 # uses mobility/grid-availability data from emobpy to simulate an EV responding to PET
 # market conditions according to a strategy.
 class V2GEV:
     def __init__(self, helics_fed: HelicsFederate, name: str, start_time: datetime, consumption: Consumption,
                  car_model: ModelSpecs, workplace_charge_capacity=7000, initial_soc=0.5, market_period=300):
-        # self.mobility = mobility
-        # self.consumption = consumption
         self.helics_fed = helics_fed
         self.name = name
         self.profile = consumption.timeseries
@@ -40,6 +29,9 @@ class V2GEV:
         self.charging_efficiency = car_model.parameters["battery_charging_eff"]
         self.discharging_efficiency = car_model.parameters["battery_discharging_eff"]
         self.charging_efficiencies = self.discharging_efficiency, self.charging_efficiency
+        self.enable_movement = True
+        self.enable_charging = True
+        self.enable_discharging = True
 
         # state
         self.stored_energy = initial_soc * self.battery_capacity
@@ -49,7 +41,11 @@ class V2GEV:
         self.workplace_charge_rate = 0.0
         self.time_to_full_charge = float('inf')
         self.charging_load_range = 0.0, 0.0
+        self.prev_time = start_time
+        self.current_time = start_time
+        self.history = []
 
+        # HELICS publications and subscriptions
         self.pub_location = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#location")
         self.pub_stored_energy = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#stored_energy")
         self.pub_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#charging_load")
@@ -59,12 +55,6 @@ class V2GEV:
         self.pub_min_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#min_charging_load")
 
         self.sub_desired_charge_load = helics.helicsFederateGetSubscription(self.helics_fed, f"pet1/{name}#charge_rate")
-        self.prev_time = start_time
-        self.current_time = start_time
-        self.history = []
-        self.enable_movement = True
-        self.enable_charging = True
-        self.enable_discharging = True
 
     def driving_energy_between(self, start_time: datetime, end_time: datetime):
         if not self.enable_movement:
@@ -80,22 +70,6 @@ class V2GEV:
             energy += delta * avg_power.asof(t)
             t = next_t
         return energy
-        # mask = (avg_power.index >= avg_power.index.asof(start_time)) & (avg_power.index <= end_time)
-        # rows = self.profile["average power in W"].iloc[mask]
-        #
-        # first_row_time = (rows.index[0] + rows.index.freq - start_time).total_seconds()
-        # last_row_time = (end_time - rows.index[-1]).total_seconds()
-        # power_times = np.array([first_row_time] + [
-        #     (rows.index[i + 1] - rows.index[i]).total_seconds()
-        #     for i in range(1, len(rows) - 1)
-        # ] + [last_row_time])
-        # return sum(power_times * rows.to_numpy())
-        # print(rows.index[0], rows.index[1], start_time, end_time)
-        # first_row_energy = (rows.index[1] - start_time).total_seconds() * rows[0]
-        # last_row_energy = (end_time - rows.index[-1]).total_seconds() * rows[-1]
-        # middle_rows_energy = sum(rows[i] * (rows.index[i+1] - rows.index[i]).total_seconds() for i in range(1, ))
-        # print(first_row_energy)
-        # print(rows)
 
     def record_history(self):
         self.history.append([self.current_time, self.location, self.stored_energy, self.charging_load,
@@ -150,20 +124,9 @@ class V2GEV:
         discharge_load_cap = discharge_rate_cap * self.enable_discharging * self.discharging_efficiency
 
         home_charge_load = np.clip(home_charge_load_intended, -discharge_load_cap, charge_load_cap)
-        # home_charge_rate = home_charge_load * self.charging_efficiencies[home_charge_load > 0]
-        if home_charge_load > 10000:
-            print(f"HCL {home_charge_load}! charge_rate_cap {charge_rate_cap}, charge_load_cap {charge_load_cap}, discharge_rate_cap {discharge_rate_cap}, discharge_load_cap {discharge_load_cap}")
+
         self.charging_load = home_charge_load
         self.pub_charging_load.publish(complex(self.charging_load, 0))
-
-
-# T=m1: 1. EV sends capacity
-    #       2. PET does bidding
-    #       3. market clears
-    #       4. PET sends desired load
-    #       5. EV sets loads
-    # T=m1>m2: EV energy changes
-    # T=m2-e:
 
     def publish_capacity(self):
         self.charging_load_range = self.grid_load_range()

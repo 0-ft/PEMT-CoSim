@@ -1,17 +1,10 @@
-# file: launch substation.py
-"""
-Function:
-        start running substation federate (main federate) as well as other federates
-last update time: 2022-6-15
-modified by Yuanliang Li
-"""
 import pickle
 from datetime import datetime
 from datetime import timedelta
 from time import time
 import helics
 
-from PET_Prosumer import House, GridSupply  # import user-defined my_hvac class for hvac controllers
+from PET_Prosumer import House, GridSupply
 from federate_helper import FederateHelper
 from market import ContinuousDoubleAuction
 from recording import SubstationRecorder

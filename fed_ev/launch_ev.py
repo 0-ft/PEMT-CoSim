@@ -170,10 +170,6 @@ class EVFederate:
         print("EV federate to enter execution mode")
         self.helics_fed.enter_executing_mode()
         print("EV federate entered execution mode")
-        # pub_count = helics.helicsFederateGetPublicationCount(self.helics_fed)
-        # pub_ID = helics.helicsFederateGetPublicationByIndex(self.helics_fed, 1)
-        # pub_name = helics.helicsPublicationGetKey(pub_ID)
-        # print(f"EV federate has {pub_count} publications, pub_ID = {pub_name}")
         if self.num_evs == 0:
             print("EV federate has 0 EVs, finishing early")
             return

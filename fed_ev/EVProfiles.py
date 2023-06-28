@@ -231,14 +231,6 @@ class EVProfiles:
         row = self.demand_df.xs('charging_point', level=1, axis=1).asof(time)
         return row.values  # convert to W
 
-    # def save_profiles(self):
-    #     for i, p in enumerate(self.profiles):
-    #         p = EVProfile(p[0], p[1], p[2], p[3])
-    #         with gzip.open(f"{self.output_folder}/{i}.pkl", 'wb') as handle:
-    #             pickle.dump(p, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    #     print(f"Profiles saved to {self.output_folder}")
-
     def draw_figures(self):
         fig = make_subplots(rows=1, cols=1,
                             specs=[[{}]])
@@ -279,19 +271,6 @@ class EVProfiles:
         START_TIME = datetime.strptime('2013-07-02 00:00:00', '%Y-%m-%d %H:%M:%S')
         END_TIME = datetime.strptime('2013-07-06 00:00:00', '%Y-%m-%d %H:%M:%S')
         driving_loads = driving_loads[(driving_loads.index >= START_TIME) & (driving_loads.index <= END_TIME)]
-        bcol = lambda x: f"rgb({255 - x * 5}, 50, {50 + x * 5})"
-        # fig.add_traces([
-        #     {
-        #         "type": "scatter",
-        #         "x": driving_loads.index,
-        #         "y": driving_loads[ev],
-        #         "name": f"EV {ev} Driving Load",
-        #         "stackgroup": "dload",
-        #         "showlegend": False,
-        #         "line": {"width": 0, "color": bcol(ev)}
-        #     }
-        #     for ev in range(30)
-        # ], rows=1, cols=1)
 
         driving_load_total = driving_loads.sum(axis=1)
         fig.add_trace(
@@ -320,38 +299,6 @@ class EVProfiles:
         layout(fig, 1200, 400)
         fig.write_html("ev_driving_loads.html")
         fig.write_image("ev_driving_loads.png")
-    # fig.show()
-
-    # fig2 = px.area(stored_power, x=stored_power.index, y=stored_power.columns,
-    #                labels={str(int(i)): f"EV {i}" for i in stored_power.columns})
-    # fig2.show()
-
-
-def energy_used_between(ts, start_time: datetime, end_time: datetime):
-    # print("ss", start_time)
-    avg_power = ts["average power in W"]
-    # mask = (avg_power.index >= avg_power.index.asof(start_time)) & (avg_power.index <= end_time)
-    # rows = ts["average power in W"].iloc[mask]
-    # first_row_time = (rows.index[0] + rows.index.freq - start_time).total_seconds()
-    # last_row_time = (end_time - rows.index[-1]).total_seconds()
-    # power_times = np.array([first_row_time] + [
-    #     (rows.index[i + 1] - rows.index[i]).total_seconds()
-    #     for i in range(1, len(rows) - 1)
-    # ] + [last_row_time])
-    # print(rows)
-    # print(power_times)
-    # return sum(power_times * rows.to_numpy())
-    t = start_time
-    print("start", start_time)
-    energy = 0.0
-    while t < end_time:
-        next_index = avg_power.loc[avg_power.index > t].index[0]
-        next_t = min(next_index, end_time)
-        delta = (next_t - t).total_seconds()
-        energy += delta * avg_power.asof(t)
-        t = next_t
-    print(energy, start_time, end_time)
-    # new_t = min()
 
 
 def total_between(ss, start_time: datetime, end_time: datetime):
@@ -362,7 +309,6 @@ def total_between(ss, start_time: datetime, end_time: datetime):
         next_index = future_indices[0] if len(future_indices) else end_time
         next_t = min(next_index, end_time)
         delta = (next_t - t).total_seconds()
-        # print("QA", ss.asof(t))
         energy += delta * ss.asof(t)
         t = next_t
     return energy
