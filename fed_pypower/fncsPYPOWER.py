@@ -24,7 +24,6 @@ from math import sqrt
 import math
 import re
 from copy import deepcopy
-import my_tesp_support_api.helpers as helpers
 
 # import cProfile
 # import pstats
@@ -75,6 +74,7 @@ def load_json_case(fname):
 
     Args:
       fname (str): the JSON file to open
+
 
     Returns:
       dict: the loaded PYPOWER case structure
@@ -590,7 +590,7 @@ def pypower_loop(casefile, rootname, helicsConfig=None):
     sys_mp.close()
     op.close()
     if hFed is not None:
-        helpers.stop_helics_federate(hFed)
+        helics.helicsFederateDestroy(hFed)
     else:
         print('finalizing DSO', flush=True)
         fncs.finalize()

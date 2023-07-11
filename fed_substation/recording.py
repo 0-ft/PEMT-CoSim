@@ -185,12 +185,12 @@ class SubstationRecorder:
         self.grid_recorder.clear()
 
     def save(self):
-        proftime = time()
+        save_time = time()
         with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
             pickle.dump(self.history(), f)
         self.file_number += 1
         self.clear()
-        print(f"wrote file {self.file_number - 1} in {time() - proftime:3f}s")
+        print(f"wrote file {self.file_number - 1} in {time() - save_time:3f}s")
         # with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
         #     pickle.dump(self.history(), f)
 
@@ -207,23 +207,19 @@ class SubstationRecorder:
         return res
 
     @staticmethod
-    def make_figure(h: dict, path, freq=None, make_html=False, ev_history=None):
-        start_time = datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-        end_time = datetime.strptime('2013-07-09 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
-        houses = h["houses"][(start_time <= h["houses"].index) & (h["houses"].index < end_time)]
-        # bids = h["bids"][(start_time <= h["bids"].index) & (h["bids"].index < end_time)]
-        auction = h["auction"][(start_time <= h["auction"].index) & (h["auction"].index < end_time)]
-        grid = h["grid"][(start_time <= h["grid"].index) & (h["grid"].index < end_time)]
-        # if freq:
-        #     houses = houses.resample(freq)
-        #     bids = bids.resample(freq)
-        #     auction = auction.resample(freq)
-        #     grid = grid.resample(freq)
+    def make_progress_figure(h: dict, path, make_html=False, ev_history=None):
+        houses = h["houses"]
+        auction = h["auction"]
+        grid = h["grid"]
+        if len(houses) == 0:
+            return
+        start_time = houses.index[0]
+        end_time = houses.index[-1]
         s = millis()
         fig = make_subplots(rows=4, cols=1,
-                            specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
+                            specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]], shared_xaxes=True)
         # specs=[[{}, {}], [{}, {}], [{"secondary_y": True}, {}], [{"secondary_y": True}, {}]])
-        fig.update_layout(width=1000, height=800)
+        fig.update_layout(width=1000, height=800, xaxis=dict(range=[start_time, end_time]))
         fig.add_traces([
             {
                 "type": "scatter",
@@ -297,42 +293,12 @@ class SubstationRecorder:
                 "y": np.real(grid["measured_load"]),
                 "name": "Total Grid Load",
             },
-            # {
-            #     "type": "scatter",
-            #     "x": grid.index,
-            #     "y": np.imag(grid["vpp_load"]),
-            #     "name": "Total VPP Q",
-            # },
-            # {
-            #     "type": "scatter",
-            #     "x": grid.index,
-            #     "y": abs(grid["vpp_load"]) * np.sign(np.real(grid["vpp_load"])),
-            #     "name": "Total VPP Load",
-            # },
             {
                 "type": "scatter",
                 "x": houses.index,
                 "y": houses["sum.intended_load"],
                 "name": "Total Purchased Load",
             },
-            # {
-            #     "type": "scatter",
-            #     "x": houses.index,
-            #     "y": houses["max.hvac.measured_load"],
-            #     "name": "Max HVAC Load",
-            # },
-            # {
-            #     "type": "scatter",
-            #     "x": houses.index,
-            #     "y": houses["sum.hvac.measured_load"] / houses["sum.hvac.hvac_on"],
-            #     "name": "Avg HVAC Load",
-            # },
-            # {
-            #     "type": "scatter",
-            #     "x": houses.index,
-            #     "y": houses["sum.total_house_load"],
-            #     "name": "Total House Load",
-            # },
         ], rows=2, cols=1)
 
         fig.update_yaxes(title_text="Load", row=2, col=1)
@@ -455,7 +421,7 @@ class SubstationRecorder:
         #         "y": auction["fraction_sellers_cleared"],
         #         "name": "Fraction Sellers Cleared",
         #     }, row=4, col=1)
-
+        print(auction)
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
 
@@ -582,14 +548,13 @@ class SubstationRecorder:
         fig.write_html(f"{path}.html")
 
     def figure(self):
-        self.make_figure(self.history(), "progress", make_html=False)
+        self.make_progress_figure(self.history(), "progress", make_html=False)
 
 
 if __name__ == "__main__":
-    print(argv[1])
     history = SubstationRecorder.load_history(f"metrics/{argv[1]}")
     ev_history = pickle.load(open(f"../fed_ev/{argv[1]}_ev_history.pkl", "rb"))
 
     # SubstationRecorder.make_figure_bids(history, "bids_metrics")
-    SubstationRecorder.make_figure(history, argv[1], make_html=True, ev_history=ev_history)
+    SubstationRecorder.make_progress_figure(history, make_html=True, ev_history=ev_history)
     # SubstationRecorder.make_figure_solo(history, "solo_metrics")

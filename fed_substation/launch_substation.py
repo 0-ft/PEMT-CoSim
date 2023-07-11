@@ -1,13 +1,16 @@
 import pickle
+import sys
 from datetime import datetime
 from datetime import timedelta
-from time import time
+
 import helics
 
 from PET_Prosumer import House, GridSupply
-from federate_helper import FederateHelper
 from market import ContinuousDoubleAuction
 from recording import SubstationRecorder
+
+sys.path.append("../")
+from scenario import PETScenario
 
 
 class PETFederate:
@@ -71,6 +74,11 @@ class PETFederate:
             time_to_request = max(0, min([self.next_update_time, self.next_market_time, self.stop_seconds]))
             time_granted_seconds = self.helics_federate.request_time(time_to_request)
 
+            """ 0. visualize some results during the simulation"""
+            if self.draw_figure and time_granted_seconds >= self.next_figure_time:
+                self.recorder.figure()
+                self.recorder.save()
+
             self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)  # this is the actual time
 
             print(f"REQUESTED time {time_to_request}, GRANTED {time_granted_seconds} = {self.current_time}")
@@ -100,13 +108,9 @@ class PETFederate:
                         self.houses[trader].post_market_control(transactions)
                 self.recorder.record_auction(self.current_time)
 
+            """ 3. record data"""
             self.recorder.record_houses(self.current_time)
             self.recorder.record_grid(self.current_time)
-
-            """ 3. visualize some results during the simulation"""
-            if self.draw_figure and time_granted_seconds >= self.next_figure_time:
-                self.recorder.figure()
-                self.recorder.save()
 
             self.next_market_time = (time_granted_seconds // self.market_period + 1) * self.market_period
             self.next_figure_time = (time_granted_seconds // self.fig_update_period + 1) * self.fig_update_period
@@ -119,11 +123,11 @@ class PETFederate:
 
 
 with open("../scenario.pkl", "rb") as f:
-    scenario = pickle.load(f)
+    scenario: PETScenario = pickle.load(f)
 
 fed = PETFederate(
     scenario,
-    'TE_Challenge_HELICS_substation.json',
+    'substation_helics_config.json',
     datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z'),
     192
 )

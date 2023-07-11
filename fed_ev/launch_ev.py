@@ -1,16 +1,17 @@
 import json
 import pickle
+import sys
 from collections import namedtuple
 from datetime import datetime, timedelta
-from random import randint
 
 import helics
 import numpy as np
 import pandas
 from helics import HelicsFederate
 
-from EVProfiles import EVProfiles, EVProfile
-from fed_ev.PETEV import V2GEV
+from PETEV import V2GEV
+from ev_profiles import EVProfiles, EVProfile
+sys.path.append("../")
 from scenario import PETScenario
 
 EVPublications = namedtuple("EVPublications", "location load")
@@ -27,15 +28,15 @@ class EVFederate:
         self.start_time = scenario.start_time
         self.current_time = self.start_time
         self.end_time = scenario.end_time
-        self.hour_stop = (self.end_time - self.start_time).total_seconds() / 3600
+        # self.hour_stop = (self.end_time - self.start_time).total_seconds() / 3600
         self.market_period = 300
 
-        self.ev_profiles = EVProfiles(self.start_time, self.hour_stop, self.time_period_hours, self.num_evs,
+        self.ev_profiles = EVProfiles(self.start_time, self.end_time, self.time_period_hours, self.num_evs,
                                       "emobpy_data/profiles").load_from_saved()
 
         self.evs: list[V2GEV] = []
 
-        self.stop_seconds = int(self.hour_stop * 3600)  # co-simulation stop time in seconds
+        self.stop_seconds = (self.end_time - self.start_time).total_seconds() * 3600  # co-simulation stop time in seconds
         self.enabled = True
 
         self.prev_state_strings = [""] * self.num_evs
@@ -112,7 +113,6 @@ class EVFederate:
             columns=["location", "stored_energy", "charge_rate", "soc", "time_to_full_charge"])
 
         return f"{self.current_time}: {len(data)} EVs charging, next battery full in {min(data['time_to_full_charge']) if len(data) else '<inf>'}s"
-        return data
 
     def save_data(self):
         nparr = np.array([ev.history for ev in self.evs])
@@ -216,7 +216,7 @@ class EVFederate:
             next_premarket_time = ((time_granted_seconds + d) // self.market_period + 1) * self.market_period - d
             next_market_time = (time_granted_seconds // self.market_period + 1) * self.market_period
             next_save_time = (time_granted_seconds // self.scenario.figure_period + 1) * self.scenario.figure_period
-            time_to_request = min(next_location_change, next_full_charge, self.hour_stop * 3600, next_premarket_time,
+            time_to_request = min(next_location_change, next_full_charge, self.stop_seconds, next_premarket_time,
                                   next_market_time, next_save_time)
 
         self.save_data()

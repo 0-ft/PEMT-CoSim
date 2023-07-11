@@ -1,11 +1,12 @@
+import argparse
 import collections
 import glob
 import gzip
 import os
 import pickle
-import sys
 from collections import namedtuple
 from datetime import datetime, timedelta
+from math import ceil
 from multiprocessing import Pool
 from pathlib import Path
 from random import choices
@@ -16,14 +17,18 @@ from emobpy import Mobility, Consumption, HeatInsulation, BEVspecs, Availability
 from emobpy.tools import set_seed
 from plotly.subplots import make_subplots
 
-sys.path.append('..')
-from my_tesp_support_api.utils import DotDict
-import plotly.express as px
-
 set_seed(seed=200, dir="emobpy_data/config_files")
 
-# Dictionary with charging stations type probability distribution per the purpose of the trip (location or destination)
+
+class DotDict(dict):
+    """dot.notation access to dictionary attributes"""
+    __getattr__ = lambda self, key: DotDict(self.get(key)) if type(self.get(key)) is dict else self.get(key)
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
 STATION_DISTRIBUTION = {
+    # charging stations type probability distribution by location
     'prob_charging_point': {
         'errands': {'none': 1},
         'escort': {'none': 1},
@@ -33,7 +38,7 @@ STATION_DISTRIBUTION = {
         'workplace': {'workplace': 0.8},
         'driving': {'none': 1}
     },
-    # with the low probability given to fast charging is to ensure fast charging only for very long trips (assumption)
+
     'capacity_charging_point': {  # Nominal power rating of charging station in kW
         'public': 22,
         'home': 3.7,
@@ -68,12 +73,15 @@ def layout(fig, w=None, h=None):
 
 
 class EVProfiles:
-    def __init__(self, start_date: datetime, hours, time_step, num_evs, output_folder,
-                 station_distribution=STATION_DISTRIBUTION, car_models_distribution=CAR_MODELS_DISTRIBUTION):
+    def __init__(self, start_date: datetime, end_date: datetime, time_step, num_evs, output_folder,
+                 station_distribution=None, car_models_distribution=CAR_MODELS_DISTRIBUTION):
+        if station_distribution is None:
+            station_distribution = STATION_DISTRIBUTION
         self.consumption_df = None
         self.demand_df = None
         self.start_date = start_date
-        self.hours = hours
+        self.end_date = end_date
+        self.length_hours = ceil((self.end_date - self.start_date).total_seconds() / 3600)
         self.time_step = time_step
         self.num_evs = num_evs
         self.profiles = []
@@ -84,39 +92,36 @@ class EVProfiles:
     def load_from_saved(self):
         if self.num_evs == 0:
             return self
-        print("Loading EV profiles from saved")
+        print(f"Loading {self.num_evs} EV profiles from saved")
         files = glob.glob(f"{self.output_folder}/*")
         if len(files) < self.num_evs:
             raise Exception(f"Not enough saved EV profiles. Found {len(files)}, expected {self.num_evs}")
-        for f in files[:self.num_evs]:
-            with gzip.open(f, 'rb') as handle:
-                self.profiles.append(pickle.load(handle))
+        self.profiles = [pickle.load(gzip.open(f, 'rb')) for f in files[:self.num_evs]]
         self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
                                         keys=range(self.num_evs))
 
         # self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
         #                            keys=range(self.num_evs))
 
-        print("Finished loading EV profiles from saved")
-        print("Loaded " + ", ".join(
+        print(f"Finished loading {self.num_evs} EV profiles from saved:", ", ".join(
             [f"{n}x{m}" for m, n in collections.Counter(p.car_model.name for p in self.profiles).items()]))
         return self
 
     def clear_output_folder(self):
-        print(f"Clearing output folder {self.output_folder}")
         Path(self.output_folder).mkdir(parents=True, exist_ok=True)
         files = glob.glob(f"{self.output_folder}/*")
         for f in files:
             os.remove(f)
+        print(f"Emptied output folder {self.output_folder}")
 
     def run(self, pool_size=2):
         self.profiles = []
         self.clear_output_folder()
-        print("Generating EV profiles")
         models = choices(population=self.car_models_distribution[:, 0], weights=self.car_models_distribution[:, 1],
                          k=self.num_evs)
 
-        print("Generating " + ", ".join([f"{n}x{m.name}" for m, n in collections.Counter(models).items()]))
+        print(f"Generating EV Profiles on {pool_size} threads: " + ", ".join(
+            [f"{n}x{m.name}" for m, n in collections.Counter(models).items()]))
 
         with Pool(pool_size) as p:
             self.profiles = p.starmap(self.create_ev_profile, zip(range(self.num_evs), models))
@@ -130,8 +135,11 @@ class EVProfiles:
     def create_ev_profile(self, i, car_model: ModelSpecs):
         print(f"Creating EV profile {i}, car model {car_model.name}")
         try:
-            mobility = self.create_mobility_timeseries(np.random.uniform(0, 1) < 0.8, np.random.uniform(0, 1) < 0.8)
+            mobility = self.create_mobility_timeseries(np.random.uniform(0, 1) < 0.8, True)
             consumption = self.create_consumption_timeseries(mobility, car_model)
+            # availability and demand profiles are not used, since the EV federate handles charging/discharging
+            # differently
+
             # availability = self.create_availability_timeseries(consumption)
             # demand = self.create_demand_timeseries(availability)
             result = EVProfile(mobility, consumption, None, None, car_model)
@@ -147,12 +155,11 @@ class EVProfiles:
             return self.create_ev_profile(i, car_model)
 
     def create_mobility_timeseries(self, worker=True, full_time=True):
-        full_time = True
         print(f"Creating mobility timeseries, worker={worker}, full_time={full_time}")
         m = Mobility(config_folder='emobpy_data/config_files')
         m.set_params(
             name_prefix="evprofile",
-            total_hours=self.hours,  # one week
+            total_hours=self.length_hours,  # one week
             time_step_in_hrs=self.time_step,  # 15 minutes
             category="user_defined",
             reference_date=self.start_date.strftime("%Y-%m-%d")
@@ -198,8 +205,7 @@ class EVProfiles:
         print(f"Availability timeseries created {ga.name}")
         return ga
 
-    @staticmethod
-    def create_demand_timeseries(availability: Availability):
+    def create_demand_timeseries(self, availability: Availability):
         print(f"Creating demand timeseries for availability {availability.name}")
         ged = Charging(availability.name)
         ged.load_scenario(DotDict({"db": {availability.name: availability.__dict__}}))
@@ -239,9 +245,7 @@ class EVProfiles:
         # EV Locations
         states = self.consumption_df.xs('state', level=1, axis=1).apply(lambda x: collections.Counter(x), axis=1,
                                                                         result_type="expand")
-        START_TIME = datetime.strptime('2013-07-02 00:00:00', '%Y-%m-%d %H:%M:%S')
-        END_TIME = datetime.strptime('2013-07-06 00:00:00', '%Y-%m-%d %H:%M:%S')
-        states = states[(states.index >= START_TIME) & (states.index <= END_TIME)]
+        states = states[(states.index >= self.start_date) & (states.index <= self.end_date)]
         fig.add_traces([
             {
                 "type": "scatter",
@@ -259,6 +263,7 @@ class EVProfiles:
         layout(fig, 1200, 400)
         fig.write_html("ev_locations.html")
         fig.write_image("ev_locations.png")
+        print(f"Wrote EV locations figure to ev_locations.html and ev_locations.png")
 
         fig = make_subplots(rows=1, cols=1,
                             specs=[[{"secondary_y": True}]])
@@ -268,9 +273,7 @@ class EVProfiles:
         driving_loads = self.consumption_df.xs('average power in W', level=1, axis=1).apply(lambda x: x, axis=1,
                                                                                             result_type="expand")
 
-        START_TIME = datetime.strptime('2013-07-02 00:00:00', '%Y-%m-%d %H:%M:%S')
-        END_TIME = datetime.strptime('2013-07-06 00:00:00', '%Y-%m-%d %H:%M:%S')
-        driving_loads = driving_loads[(driving_loads.index >= START_TIME) & (driving_loads.index <= END_TIME)]
+        driving_loads = driving_loads[(driving_loads.index >= self.start_date) & (driving_loads.index <= self.end_date)]
 
         driving_load_total = driving_loads.sum(axis=1)
         fig.add_trace(
@@ -299,6 +302,7 @@ class EVProfiles:
         layout(fig, 1200, 400)
         fig.write_html("ev_driving_loads.html")
         fig.write_image("ev_driving_loads.png")
+        print(f"Saved EV driving loads figure to ev_driving_loads.html, ev_driving_loads.png")
 
 
 def total_between(ss, start_time: datetime, end_time: datetime):
@@ -315,20 +319,37 @@ def total_between(ss, start_time: datetime, end_time: datetime):
 
 
 if __name__ == '__main__':
-    start_t = datetime.strptime("2013-07-01 00:00:00", '%Y-%m-%d %H:%M:%S')
-    # BEVspecs().show_models()
-    ev_profiles = EVProfiles(start_t, 192, 0.125, 30, "emobpy_data/profiles")
-    ev_profiles.run(pool_size=1)
-    # ev_profiles.load_from_saved()
-    # ev_profiles.draw_figures()
-    # START_TIME = datetime.strptime('2013-07-03 00:00:00', '%Y-%m-%d %H:%M:%S')
-    END_TIME = start_t + timedelta(days=8)
-    # END_TIME = datetime.strptime('2013-07-05 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z')
+    parser = argparse.ArgumentParser(
+        prog='ev_profiles',
+        description='Generate collections of EV profiles using emobpy for use by the EV federate')
+
+    parser.add_argument("-n", "--num_ev", type=int, default=30)
+    # start date argument
+    date_type = lambda s: datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+    parser.add_argument("-s", "--start_date", type=date_type, default=datetime(2013, 7, 1, 0, 0, 0))
+    end_time_group = parser.add_mutually_exclusive_group()
+    end_time_group.add_argument("-e", "--end_date", type=date_type)
+    end_time_group.add_argument("-t", "--total_hours", type=int, default=192)
+
+    command_group = parser.add_mutually_exclusive_group()
+    command_group.add_argument("-g", "--generate_profiles", help="Generate profiles", action="store_true")
+    command_group.add_argument("-f", "--show_figures", default=192, help="Load saved profiles and show figures",
+                               action="store_true")
+
+    args = parser.parse_args()
+    end_date = args.end_date if args.end_date else args.start_date + timedelta(hours=args.total_hours)
+
+    ev_profiles = EVProfiles(args.start_date, end_date, 0.125, args.num_ev, "emobpy_data/profiles")
+    if args.generate_profiles:
+        ev_profiles.run(pool_size=1)
+    elif args.show_figures:
+        ev_profiles.load_from_saved()
+        ev_profiles.draw_figures()
+
     avg_powers = sum(p.consumption.timeseries["average power in W"] for p in ev_profiles.profiles)
-    avg_powers = avg_powers[(avg_powers.index >= start_t) & (avg_powers.index <= END_TIME)]
+    avg_powers = avg_powers[(avg_powers.index >= args.start_date) & (avg_powers.index <= end_date)]
 
     rpt = avg_powers[:-1].repeat(2).set_axis(avg_powers.index.repeat(2)[1:-1])
-    idx = pd.date_range(start_t, END_TIME, freq=f'300S')
-    totals = [total_between(rpt, s, s + timedelta(seconds=300)) / 300 for s in idx]
-    totals = pd.Series(totals, index=idx)
-    pickle.dump(totals, open("driving_power.pkl", "wb"))
+    idx = pd.date_range(args.start_date, end_date, freq=f'300S')
+    driving_power_totals = pd.Series([total_between(rpt, s, s + timedelta(seconds=300)) / 300 for s in idx], index=idx)
+    pickle.dump(driving_power_totals, open("driving_power.pkl", "wb"))

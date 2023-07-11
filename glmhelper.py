@@ -97,7 +97,7 @@ class GlmGenerator:
         self.glm_code += "\n\
 module connection;\n\
 object helics_msg {\n\
-  configure TE_Challenge_HELICS_gld_msg.json;\n\
+  configure gridlabd_helics_config.json;\n\
 }\n"
 
     def configure_vpp_infrastructure(self):

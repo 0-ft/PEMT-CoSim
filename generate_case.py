@@ -22,37 +22,36 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='generate_case',
         description='Generate a PET scenario for simulation')
+    parser.add_argument("-a", "--name", type=str, default=None, help="scenario name")
+    parser.add_argument("-n", "--num_houses", type=int, default=30, help="number of houses")
+    parser.add_argument("-e", "--num_ev", type=int, default=30, help="number of EVs")
+    parser.add_argument("-p", "--num_pv", type=int, default=30, help="number of PVs")
+    parser.add_argument("-g", "--grid_cap", type=int, default=200000, help="grid power capacity")
+    # parser.add_argument("-w", "--work_charge_rate", type=int, default=7000, help="work charge rate")
+    parser.add_argument("-f", "--figure_period", type=int, default=3600*24, help="figure drawing period (seconds)")
+    parser.add_argument("-b", "--buy_iqr_ratio", type=float, default=0.3, help="buy iqr ratio")
+    parser.add_argument("-s", "--sell_iqr_ratio", type=float, default=0.3, help="sell iqr ratio")
     parser.add_argument("-i", "--input_file", type=argparse.FileType('rb'), required=False)
-    # parser.add_argument("-o", "--output_file", type=argparse.FileType('wb'), required=False)
-    parser.add_argument("-n", "--num_houses", type=int, default=30)
-    parser.add_argument("-e", "--num_ev", type=int, default=30)
-    parser.add_argument("-p", "--num_pv", type=int, default=30)
-    parser.add_argument("-g", "--grid_cap", type=int, default=200000)
-    parser.add_argument("-w", "--work_charge_rate", type=int, default=7000)
-    parser.add_argument("-f", "--figure_period", type=int, default=3600*24)
-    parser.add_argument("-b", "--buy_iqr_ratio", type=float, default=0.3)
-    parser.add_argument("-s", "--sell_iqr_ratio", type=float, default=0.3)
-    parser.add_argument("-a", "--name", type=str, default=None)
     args = parser.parse_args()
     if args.input_file:
         scenario = pickle.load(args.input_file)
     else:
         scenario = PETScenario(
-            scenario_name=args.name,
+            scenario_name=args.name if args.name else f"scenario_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
             num_houses=args.num_houses,
             num_ev=args.num_ev,
             num_pv=args.num_pv,
             grid_power_cap=args.grid_cap,
             start_time=datetime(2013, 7, 1, 0, 0, 0),
             end_time=datetime(2013, 7, 7, 0, 0, 0),
-            workplace_charge_capacity=args.work_charge_rate,
+            workplace_charge_capacity=0,
             figure_period=args.figure_period,
             buy_iqr_threshold=args.buy_iqr_ratio,
             sell_iqr_threshold=args.sell_iqr_ratio
         )
         pickle.dump(scenario, open(f"scenarios/{scenario.name}.pkl", "wb"))
     pickle.dump(scenario, open("scenario.pkl", "wb"))
-    print(f"Saved scenario:\n{scenario.__dict__}")
+    print(f"Saved scenario {scenario.name} to scenario.pkl")
 
     GlmGenerator(scenario).save("fed_gridlabd")
 
@@ -63,14 +62,14 @@ if __name__ == "__main__":
 
     # generate HELICS configs for fed_gridlabd and fed_substation
     helics_config_helper = HelicsConfigHelper(scenario)
-    with open("fed_gridlabd/TE_Challenge_HELICS_gld_msg.json", "w") as f:
+    with open("fed_gridlabd/gridlabd_helics_config.json", "w") as f:
         json.dump(helics_config_helper.gridlab_config, f, indent=4)
 
-    with open("fed_substation/TE_Challenge_HELICS_substation.json", "w") as f:
+    with open("fed_substation/substation_helics_config.json", "w") as f:
         json.dump(helics_config_helper.pet_config, f, indent=4)
 
     # update weather config
-    weather_config_path = "fed_weather/TE_Challenge_HELICS_Weather_Config.json"
+    weather_config_path = "fed_weather/weather_helics_config.json"
     weather_config = json.load(open(weather_config_path, "r"))
     weather_config["time_stop"] = f"{int((scenario.end_time - scenario.start_time).total_seconds() / 60)}m"
     json.dump(weather_config, open(weather_config_path, "w"), indent=4)

@@ -164,7 +164,7 @@ def startWeatherAgent(datafile, configfile):
         print('HELICS initialized to publish', hPubs, flush=True)
     else:
         try:
-            import tesp_support.fncs as fncs
+            import support.fncs as fncs
         except:
             pass
         configstr = zplstr.encode('utf-8')

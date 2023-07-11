@@ -23,8 +23,8 @@ module tape;
 module generators;
 
 // only the heating setpoint schedule is used here
-#include "${SCHED_PATH}/water_and_setpoint_schedule_v3.glm";
-#include "${SCHED_PATH}/appliance_schedules.glm";
+#include "schedules/water_and_setpoint_schedule_v3.glm";
+#include "schedules/appliance_schedules.glm";
 
 // summer
 #define FIXED_PRICE=0.127

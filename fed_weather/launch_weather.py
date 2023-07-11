@@ -1,3 +1,3 @@
 from weather_agent import startWeatherAgent
 
-startWeatherAgent('weather.dat', 'TE_Challenge_HELICS_Weather_Config.json')
+startWeatherAgent('weather.dat', 'weather_helics_config.json')
