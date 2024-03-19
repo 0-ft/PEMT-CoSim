@@ -49,10 +49,16 @@ STATION_DISTRIBUTION = {
     }
 }
 
-CAR_MODELS_DISTRIBUTION = np.array([
+CAR_MODELS_DISTRIBUTION = pd.DataFrame([
     [BEVspecs().model(('Tesla', 'Model Y Long Range AWD', 2020)), 0.6],
     [BEVspecs().model(('Volkswagen', 'ID.3', 2020)), 0.4],
-])
+], columns=["car_model", "probability"])
+
+USER_TYPE_DISTRIBUTION = pd.DataFrame([
+    [True, True, 0.8],
+    [True, False, 0],
+    [False, False, 0.2],
+], columns=["worker", "full_time", "probability"])
 
 EVProfile = namedtuple("EVProfile", ["mobility", "consumption", "availability", "demand", "car_model"])
 
@@ -73,8 +79,9 @@ def layout(fig, w=None, h=None):
 
 
 class EVProfiles:
-    def __init__(self, start_date: datetime, end_date: datetime, time_step, num_evs, output_folder,
-                 station_distribution=None, car_models_distribution=CAR_MODELS_DISTRIBUTION):
+    def __init__(self, start_date: datetime, end_date: datetime, time_step, num_evs, profiles_dir,
+                 station_distribution=STATION_DISTRIBUTION, car_models_distribution=CAR_MODELS_DISTRIBUTION,
+                 user_type_distribution=USER_TYPE_DISTRIBUTION):
         if station_distribution is None:
             station_distribution = STATION_DISTRIBUTION
         self.consumption_df = None
@@ -85,15 +92,16 @@ class EVProfiles:
         self.time_step = time_step
         self.num_evs = num_evs
         self.profiles = []
-        self.output_folder = output_folder
+        self.profiles_dir = profiles_dir
         self.car_models_distribution = car_models_distribution
+        self.user_type_distribution = user_type_distribution
         self.station_distribution = station_distribution
 
     def load_from_saved(self):
         if self.num_evs == 0:
             return self
         print(f"Loading {self.num_evs} EV profiles from saved")
-        files = glob.glob(f"{self.output_folder}/*")
+        files = glob.glob(f"{self.profiles_dir}/*")
         if len(files) < self.num_evs:
             raise Exception(f"Not enough saved EV profiles. Found {len(files)}, expected {self.num_evs}")
         self.profiles = [pickle.load(gzip.open(f, 'rb')) for f in files[:self.num_evs]]
@@ -107,35 +115,37 @@ class EVProfiles:
             [f"{n}x{m}" for m, n in collections.Counter(p.car_model.name for p in self.profiles).items()]))
         return self
 
-    def clear_output_folder(self):
-        Path(self.output_folder).mkdir(parents=True, exist_ok=True)
-        files = glob.glob(f"{self.output_folder}/*")
+    def clear_profiles_dir(self):
+        Path(self.profiles_dir).mkdir(parents=True, exist_ok=True)
+        files = glob.glob(f"{self.profiles_dir}/*")
         for f in files:
             os.remove(f)
-        print(f"Emptied output folder {self.output_folder}")
+        print(f"Emptied profiles directory {self.profiles_dir}")
 
     def run(self, pool_size=2):
         self.profiles = []
-        self.clear_output_folder()
-        models = choices(population=self.car_models_distribution[:, 0], weights=self.car_models_distribution[:, 1],
-                         k=self.num_evs)
+        self.clear_profiles_dir()
+        models = self.car_models_distribution.sample(n=self.num_evs, weights="probability", replace=True)
+        user_types = self.user_type_distribution.sample(n=self.num_evs, weights="probability", replace=True)
 
-        print(f"Generating EV Profiles on {pool_size} threads: " + ", ".join(
-            [f"{n}x{m.name}" for m, n in collections.Counter(models).items()]))
+        print(f"Generating EV Profiles on {pool_size} threads:", ", ".join(
+            [f"{n}x{m.name}" for m, n in collections.Counter(models["car_model"]).items()]))
 
         with Pool(pool_size) as p:
-            self.profiles = p.starmap(self.create_ev_profile, zip(range(self.num_evs), models))
-            print("Finished generating EV profiles")
+            self.profiles = p.starmap(self.create_ev_profile,
+                                      zip(range(self.num_evs), models["car_model"], user_types["worker"], user_types["full_time"]))
+
+        print("Finished generating EV profiles")
         self.consumption_df = pd.concat([profile.consumption.timeseries for profile in self.profiles], axis=1,
                                         keys=range(self.num_evs))
         # self.demand_df = pd.concat([profile.demand.timeseries for profile in self.profiles], axis=1,
         #                            keys=range(self.num_evs))
         return self.profiles
 
-    def create_ev_profile(self, i, car_model: ModelSpecs):
+    def create_ev_profile(self, i, car_model: ModelSpecs, worker: bool, full_time: bool):
         print(f"Creating EV profile {i}, car model {car_model.name}")
         try:
-            mobility = self.create_mobility_timeseries(np.random.uniform(0, 1) < 0.8, True)
+            mobility = self.create_mobility_timeseries(worker, full_time)
             consumption = self.create_consumption_timeseries(mobility, car_model)
             # availability and demand profiles are not used, since the EV federate handles charging/discharging
             # differently
@@ -145,16 +155,16 @@ class EVProfiles:
             result = EVProfile(mobility, consumption, None, None, car_model)
             print(f"EV profile {i} created, saving now")
 
-            with gzip.open(f"{self.output_folder}/{i}.pkl", 'wb') as handle:
+            with gzip.open(f"{self.profiles_dir}/{i}.pkl", 'wb') as handle:
                 pickle.dump(result, handle, protocol=pickle.HIGHEST_PROTOCOL)
             print(f"EV profile {i} saved")
             return result
         except Exception as e:
             print(e)
             print(f"Failed to create mobility timeseries. Retrying...")
-            return self.create_ev_profile(i, car_model)
+            return self.create_ev_profile(i, car_model, worker, full_time)
 
-    def create_mobility_timeseries(self, worker=True, full_time=True):
+    def create_mobility_timeseries(self, worker: bool, full_time: bool):
         print(f"Creating mobility timeseries, worker={worker}, full_time={full_time}")
         m = Mobility(config_folder='emobpy_data/config_files')
         m.set_params(
@@ -320,11 +330,11 @@ def total_between(ss, start_time: datetime, end_time: datetime):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        prog='ev_profiles',
+        prog='python3 ev_profiles.py',
         description='Generate collections of EV profiles using emobpy for use by the EV federate')
 
     parser.add_argument("-n", "--num_ev", type=int, default=30)
-    # start date argument
+
     date_type = lambda s: datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
     parser.add_argument("-s", "--start_date", type=date_type, default=datetime(2013, 7, 1, 0, 0, 0))
     end_time_group = parser.add_mutually_exclusive_group()

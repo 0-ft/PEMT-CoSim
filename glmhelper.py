@@ -4,6 +4,8 @@ import pickle
 import random
 from datetime import timedelta
 
+import glm
+
 from scenario import PETScenario
 
 
@@ -62,12 +64,13 @@ class GlmGenerator:
         with open("template_houses.pkl", "rb") as f:
             self.template_houses = pickle.load(f)
 
-        # template_glm = glm.load("./fed_gridlabd/glm-template/TE_Challenge_TE30.glm")
-        # global template_houses_list
-        # template_houses_list = [obj for obj in template_glm['objects'] if obj['name'] == 'house']
-        # with open("template_houses.pkl", "wb") as f:
-        #     pickle.dump(template_houses_list, f)
         pass
+
+    def write_template_houses(self):
+        template_glm = glm.load("./fed_gridlabd/glm-template/TE_Challenge_TE30.glm")
+        template_houses_list = [obj for obj in template_glm['objects'] if obj['name'] == 'house']
+        with open("template_houses.pkl", "wb") as f:
+            pickle.dump(template_houses_list, f)
 
     # def configure_minimum_timestep(self):
     #     """configure the minimum time step for .glm file

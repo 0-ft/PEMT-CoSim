@@ -8,13 +8,13 @@
     },
     {
       "directory": "./fed_substation",
-      "exec": "python3 launch_substation.py",
+      "exec": "python3 -u launch_substation.py",
       "host": "localhost",
       "name": "pet1"
     },
     {
       "directory": "./fed_ev",
-      "exec": "python3 launch_ev.py",
+      "exec": "python3 -u launch_ev.py",
       "host": "localhost",
       "name": "ev1"
     },

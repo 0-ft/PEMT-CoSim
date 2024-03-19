@@ -1,6 +1,6 @@
 import pickle
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from datetime import timedelta
 
 import helics
@@ -14,16 +14,15 @@ from scenario import PETScenario
 
 
 class PETFederate:
-    def __init__(self, scenario, helics_config: str, start_time: datetime, hour_stop: int):
+    def __init__(self, scenario, helics_config: str):
         print("initialising PETFederate", flush=True)
-        self.start_time = start_time
-        self.current_time = start_time
-        self.end_time = scenario.end_time
-        self.hour_stop = hour_stop
-        self.stop_seconds = int(hour_stop * 3600)  # co-simulation stop time in seconds
+        # localise the provided start times to the simulation area
+        self.start_time = scenario.start_time.replace(tzinfo=timezone(timedelta(hours=-8)))
+        self.current_time = self.start_time
+        self.end_time = scenario.end_time.replace(tzinfo=timezone(timedelta(hours=-8)))
+        self.stop_seconds = (self.end_time - self.start_time).total_seconds()  # co-simulation stop time in seconds
 
         self.draw_figure = True  # draw figures during the simulation
-        # self.fh = FederateHelper(configfile)  # initialize the federate helper
         self.helics_federate = helics.helicsCreateValueFederateFromConfig(helics_config)
 
         self.auction = ContinuousDoubleAuction(self.helics_federate, self.current_time)
@@ -76,7 +75,7 @@ class PETFederate:
 
             """ 0. visualize some results during the simulation"""
             if self.draw_figure and time_granted_seconds >= self.next_figure_time:
-                self.recorder.figure()
+                self.recorder.save_progress_figure(False)
                 self.recorder.save()
 
             self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)  # this is the actual time
@@ -94,6 +93,7 @@ class PETFederate:
 
             """ 2. receive capacity from EVs, formulate bids, set loads"""
             if time_granted_seconds >= self.next_market_time:
+                print(f"Market round @  {self.current_time}")
                 self.auction.update_lmp(self.current_time)  # get local marginal price (LMP) from the bulk power grid
                 self.auction.update_stats()
                 bids = [bid for house in self.houses.values() for bid in house.formulate_bids()] + [
@@ -127,9 +127,7 @@ with open("../scenario.pkl", "rb") as f:
 
 fed = PETFederate(
     scenario,
-    'substation_helics_config.json',
-    datetime.strptime('2013-07-01 00:00:00 -0800', '%Y-%m-%d %H:%M:%S %z'),
-    192
+    'substation_helics_config.json'
 )
 
 fed.initialise()

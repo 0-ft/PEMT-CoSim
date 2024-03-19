@@ -131,7 +131,7 @@ class ContinuousDoubleAuction:
             for i in times
         ], index=times)
 
-        print(f"set lmp his @ {self.lmp_history.index[-1]}\n{self.lmp_history.dropna()}")
+        # print(f"set lmp his @ {self.lmp_history.index[-1]}\n{self.lmp_history.dropna()}")
 
     def collect_bids(self, bids):
         # self.substation_seller_bid = [self.lmp, float('inf'), False, "seller", 0, "substation", False]

@@ -9,7 +9,7 @@ import numpy as np
 import pandas
 from helics import HelicsFederate
 
-from PETEV import V2GEV
+from pet_ev import V2GEV
 from ev_profiles import EVProfiles, EVProfile
 sys.path.append("../")
 from scenario import PETScenario
@@ -115,9 +115,6 @@ class EVFederate:
         return f"{self.current_time}: {len(data)} EVs charging, next battery full in {min(data['time_to_full_charge']) if len(data) else '<inf>'}s"
 
     def save_data(self):
-        nparr = np.array([ev.history for ev in self.evs])
-        with open("arr.pkl", "wb") as out:
-            pickle.dump(nparr, out)
         data = pandas.concat(
             [pandas.DataFrame(ev.history, columns=["time", "location", "stored_energy", "charge_rate", "soc",
                                                    "workplace_charge_rate"]) for ev in
@@ -147,7 +144,7 @@ class EVFederate:
         diff_state_strings = [s for i, s in enumerate(new_state_strings) if self.prev_state_strings[i] != s]
         self.prev_state_strings = new_state_strings
         print(
-            f"EVs updated state: changed {diff_state_strings}")
+            f"{self.current_time}: EVs updated state: changed {diff_state_strings}")
 
     def request_time(self, time_to_request, needs_iteration):
         time_granted_seconds, iter_res = self.helics_fed.request_time_iterative(time_to_request,
@@ -193,12 +190,12 @@ class EVFederate:
 
             if time_granted_seconds >= next_premarket_time:
                 # self.current_time = self.start_time + timedelta(seconds=next_market_time)
-                print(f"updating to premarket states for {self.current_time}")
+                # print(f"updating to premarket states for {self.current_time}")
                 for ev in self.evs:
                     ev.update_state(self.start_time + timedelta(seconds=next_market_time))
                     ev.publish_capacity()
                 caps = [ev.charging_load_range for ev in self.evs]
-                print(f"published premarket capacities {caps} for {self.current_time}")
+                # print(f"published premarket capacities {caps} for {self.current_time}")
                 # self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)
 
             # if time_granted_seconds >= next_market_time:

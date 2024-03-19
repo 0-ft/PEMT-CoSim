@@ -4,15 +4,14 @@ from math import isnan
 
 class BoundedCrossoverTrader:
 
-    def __init__(self, auction, short_window: timedelta, long_window: timedelta, buy_iqr_ratio, sell_iqr_ratio):
+    def __init__(self, auction, short_window: timedelta, long_window: timedelta, ev_buy_iqr_ratio: float):
         self.auction = auction
         self.short_window = short_window
         self.long_window = long_window
         self.short_ma = 0.0
         self.long_ma = 0.0
         self.iqr = 0.0
-        self.buy_iqr_ratio = buy_iqr_ratio
-        self.sell_iqr_ratio = sell_iqr_ratio
+        self.ev_buy_iqr_ratio = ev_buy_iqr_ratio
         self.ev_buy_threshold_price = float('inf')
         self.ev_sell_threshold_price = float('inf')
         self.pv_sell_price = float('inf')
@@ -37,7 +36,7 @@ class BoundedCrossoverTrader:
         if not self.update_averages(current_time):
             return []
 
-        self.ev_buy_threshold_price = self.long_ma - self.iqr * self.buy_iqr_ratio
+        self.ev_buy_threshold_price = self.long_ma - self.iqr * self.ev_buy_iqr_ratio
         self.ev_sell_threshold_price = max(self.ev_buy_threshold_price + 0.05 * self.iqr, self.short_ma + 0.1 * self.iqr)
 
         buy_bid = [["buyer", self.ev_buy_threshold_price, ev_buy_range[1]]] if ev_buy_range[1] > 0 else []

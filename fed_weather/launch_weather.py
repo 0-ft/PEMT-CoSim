@@ -1,3 +1,3 @@
 from weather_agent import startWeatherAgent
 
-startWeatherAgent('weather.dat', 'weather_helics_config.json')
+startWeatherAgent('weather.csv', 'weather_helics_config.json')

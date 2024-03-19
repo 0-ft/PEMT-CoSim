@@ -207,7 +207,7 @@ class SubstationRecorder:
         return res
 
     @staticmethod
-    def make_progress_figure(h: dict, path, make_html=False, ev_history=None):
+    def make_progress_figure(h: dict, ev_history=None):
         houses = h["houses"]
         auction = h["auction"]
         grid = h["grid"]
@@ -215,7 +215,6 @@ class SubstationRecorder:
             return
         start_time = houses.index[0]
         end_time = houses.index[-1]
-        s = millis()
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]], shared_xaxes=True)
         # specs=[[{}, {}], [{}, {}], [{"secondary_y": True}, {}], [{"secondary_y": True}, {}]])
@@ -425,131 +424,134 @@ class SubstationRecorder:
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
 
-        fig.write_image(f"metrics/{path}.svg")
-        if make_html:
-            fig.write_html(f"metrics/{path}.html")
-        print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
+        return fig
+    #
+    # @staticmethod
+    # def make_figure_solo(h: dict, path):
+    #     houses = h["houses"]
+    #     # bids = h["bids"]
+    #     auction = h["auction"]
+    #     grid = h["grid"]
+    #     s = millis()
+    #     fig = make_subplots(rows=4, cols=1, specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": auction.index,
+    #             "y": auction["average_price"],
+    #             "name": "Average Price",
+    #         }, row=4, col=1, secondary_y=True)
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": houses.index,
+    #             "y": houses["F0_house_A0.trading_policy.long_ma"],
+    #             "name": "Long MA",
+    #         }, row=4, col=1, secondary_y=True)
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": houses.index,
+    #             "y": houses["F0_house_A0.trading_policy.short_ma"],
+    #             "name": "Short MA",
+    #         }, row=4, col=1, secondary_y=True)
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": houses.index,
+    #             "y": houses["F0_house_A0.trading_policy.iqr"],
+    #             "name": "IQR",
+    #         }, row=4, col=1, secondary_y=True)
+    #
+    #     # print(houses["F0_house_A0.trading_policy.should_buy"])
+    #     # print(houses["F0_house_A0.trading_policy.should_sell"])
+    #
+    #     # fig.add_trace(
+    #     #     {
+    #     #         "type": "scatter",
+    #     #         "x": houses.index,
+    #     #         "y": houses["F0_house_A0.hvac.hvac_on"].apply(lambda x: int(x)),
+    #     #         "name": "HVAC On",
+    #     #     }, row=4, col=1)
+    #
+    #     fig.update_yaxes(title_text="Count", row=4, col=1)
+    #     fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
+    #
+    #     fig.write_image(f"metrics/{path}.svg")
+    #     fig.write_html(f"metrics/{path}.html")
+    #     print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
+    #
+    # @staticmethod
+    # def make_figure_bids(h: dict, path):
+    #     houses = h["houses"]
+    #     bids = h["bids"]
+    #     auction = h["auction"]
+    #     grid = h["grid"]
+    #     fig = make_subplots(rows=3, cols=1,
+    #                         specs=[[{}], [{}], [{"secondary_y": True}]])
+    #     prices = []
+    #     for t, bids_round in bids["values.bid.values"].items():
+    #         bids_round = pandas.DataFrame(bids_round,
+    #                                       columns=["price", "quantity", "hvac_needed", "role", "unresp_load", "name",
+    #                                                "base_covered"])
+    #         sellers = bids_round[bids_round["role"] == "seller"]
+    #         buyers = bids_round[bids_round["role"] == "buyer"]
+    #         prices.append([sellers["price"].min(), sellers["price"].mean(), sellers[
+    #             "price"].max(), buyers["price"].min(), buyers["price"].mean(), buyers[
+    #                            "price"].max()])
+    #
+    #     prices = pandas.DataFrame(prices, columns=["min_seller_price", "avg_seller_price", "max_seller_price",
+    #                                                "min_buyer_price", "avg_buyer_price", "max_buyer_price"],
+    #                               index=bids.index)
+    #
+    #     fig = make_subplots(rows=4, cols=1,
+    #                         specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
+    #
+    #     for name in ["min_seller_price", "avg_seller_price", "max_seller_price",
+    #                  "min_buyer_price", "avg_buyer_price", "max_buyer_price"]:
+    #         fig.add_trace(
+    #             {
+    #                 "type": "scatter",
+    #                 "x": prices.index,
+    #                 "y": prices[name],
+    #                 "name": name,
+    #             }, row=1, col=1)
+    #
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": auction.index,
+    #             "y": auction["average_price"],
+    #             "name": "Average Price",
+    #         }, row=2, col=1)
+    #
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": auction.index,
+    #             "y": auction["num_sellers"],
+    #             "name": "Sellers",
+    #         }, row=3, col=1)
+    #     fig.add_trace(
+    #         {
+    #             "type": "scatter",
+    #             "x": auction.index,
+    #             "y": auction["num_buyers"],
+    #             "name": "Buyers",
+    #         }, row=3, col=1)
+    #
+    #     fig.write_image(f"{path}.svg")
+    #     fig.write_html(f"{path}.html")
 
-    @staticmethod
-    def make_figure_solo(h: dict, path):
-        houses = h["houses"]
-        # bids = h["bids"]
-        auction = h["auction"]
-        grid = h["grid"]
+    def save_progress_figure(self, make_html=False):
         s = millis()
-        fig = make_subplots(rows=4, cols=1, specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": auction.index,
-                "y": auction["average_price"],
-                "name": "Average Price",
-            }, row=4, col=1, secondary_y=True)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": houses["F0_house_A0.trading_policy.long_ma"],
-                "name": "Long MA",
-            }, row=4, col=1, secondary_y=True)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": houses["F0_house_A0.trading_policy.short_ma"],
-                "name": "Short MA",
-            }, row=4, col=1, secondary_y=True)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": houses.index,
-                "y": houses["F0_house_A0.trading_policy.iqr"],
-                "name": "IQR",
-            }, row=4, col=1, secondary_y=True)
+        fig = self.make_progress_figure(self.history())
 
-        # print(houses["F0_house_A0.trading_policy.should_buy"])
-        # print(houses["F0_house_A0.trading_policy.should_sell"])
+        fig.write_image(f"figures/progress.svg")
+        if make_html:
+            fig.write_html(f"figures/progress.html")
 
-        # fig.add_trace(
-        #     {
-        #         "type": "scatter",
-        #         "x": houses.index,
-        #         "y": houses["F0_house_A0.hvac.hvac_on"].apply(lambda x: int(x)),
-        #         "name": "HVAC On",
-        #     }, row=4, col=1)
-
-        fig.update_yaxes(title_text="Count", row=4, col=1)
-        fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
-
-        fig.write_image(f"metrics/{path}.svg")
-        fig.write_html(f"metrics/{path}.html")
         print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
-
-    @staticmethod
-    def make_figure_bids(h: dict, path):
-        houses = h["houses"]
-        bids = h["bids"]
-        auction = h["auction"]
-        grid = h["grid"]
-        fig = make_subplots(rows=3, cols=1,
-                            specs=[[{}], [{}], [{"secondary_y": True}]])
-        prices = []
-        for t, bids_round in bids["values.bid.values"].items():
-            bids_round = pandas.DataFrame(bids_round,
-                                          columns=["price", "quantity", "hvac_needed", "role", "unresp_load", "name",
-                                                   "base_covered"])
-            sellers = bids_round[bids_round["role"] == "seller"]
-            buyers = bids_round[bids_round["role"] == "buyer"]
-            prices.append([sellers["price"].min(), sellers["price"].mean(), sellers[
-                "price"].max(), buyers["price"].min(), buyers["price"].mean(), buyers[
-                               "price"].max()])
-
-        prices = pandas.DataFrame(prices, columns=["min_seller_price", "avg_seller_price", "max_seller_price",
-                                                   "min_buyer_price", "avg_buyer_price", "max_buyer_price"],
-                                  index=bids.index)
-
-        fig = make_subplots(rows=4, cols=1,
-                            specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]])
-
-        for name in ["min_seller_price", "avg_seller_price", "max_seller_price",
-                     "min_buyer_price", "avg_buyer_price", "max_buyer_price"]:
-            fig.add_trace(
-                {
-                    "type": "scatter",
-                    "x": prices.index,
-                    "y": prices[name],
-                    "name": name,
-                }, row=1, col=1)
-
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": auction.index,
-                "y": auction["average_price"],
-                "name": "Average Price",
-            }, row=2, col=1)
-
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": auction.index,
-                "y": auction["num_sellers"],
-                "name": "Sellers",
-            }, row=3, col=1)
-        fig.add_trace(
-            {
-                "type": "scatter",
-                "x": auction.index,
-                "y": auction["num_buyers"],
-                "name": "Buyers",
-            }, row=3, col=1)
-
-        fig.write_image(f"{path}.svg")
-        fig.write_html(f"{path}.html")
-
-    def figure(self):
-        self.make_progress_figure(self.history(), "progress", make_html=False)
-
 
 if __name__ == "__main__":
     history = SubstationRecorder.load_history(f"metrics/{argv[1]}")

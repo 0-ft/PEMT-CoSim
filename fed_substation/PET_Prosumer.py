@@ -168,7 +168,7 @@ class House:
         self.pv = PV(helics_federate, house_id) if has_pv else None
         self.ev = EV(helics_federate, house_id, auction) if has_ev else None
         self.trading_policy = BoundedCrossoverTrader(auction, timedelta(hours=0.5), timedelta(hours=24),
-                                                     scenario.buy_iqr_threshold, scenario.sell_iqr_threshold)
+                                                     scenario.ev_buy_iqr_ratio)
 
         self.pub_meter_monthly_fee = helics_federate.publications[f"pet1/H{house_id}_meter_billing#monthly_fee"]
         self.pub_meter_mode = helics.helicsFederateGetPublication(helics_federate,
@@ -229,8 +229,8 @@ class House:
         ev_bought = sum([bid["quantity"] for bid in buys if bid["target"] == "ev"])
         ev_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "ev"])
         pv_sold = sum([bid["quantity"] for bid in sells if bid["target"] == "pv"])
-        print(f"{self.name} ev bids {[b for b in self.bids if b[0][1] == 'ev']} bought {ev_bought} sold {ev_sold} ")
-        print(f"{self.name} PV sold {pv_sold}")
+        # print(f"{self.name} ev bids {[b for b in self.bids if b[0][1] == 'ev']} bought {ev_bought} sold {ev_sold} ")
+        # print(f"{self.name} PV sold {pv_sold}")
 
         hvac_allowed = hvac_bought >= self.hvac.predicted_load
         self.hvac.set_on(self.hvac.power_needed and hvac_allowed)
