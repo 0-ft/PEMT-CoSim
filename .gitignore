@@ -12,3 +12,6 @@ fed_substation/metrics/*
 fed_ev/emobpy_data/profiles/*
 fed_ev/ev_helics_config.json
 fed_ev/*history.pkl
+fed_ev/driving_power.pkl
+fed_pypower/TE_ChallengeH.csv
+scenario.pkl
