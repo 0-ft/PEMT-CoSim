@@ -173,6 +173,7 @@ class SubstationRecorder:
         self.grid_recorder.record(time)
 
     def history(self):
+        print(self.house_recorder.target)
         return {
             "houses": self.house_recorder.df(),
             "auction": self.auction_recorder.df(),
@@ -211,12 +212,12 @@ class SubstationRecorder:
         houses = h["houses"]
         auction = h["auction"]
         grid = h["grid"]
-        if len(houses) == 0:
-            return
-        start_time = houses.index[0]
-        end_time = houses.index[-1]
         fig = make_subplots(rows=4, cols=1,
                             specs=[[{}], [{}], [{"secondary_y": True}], [{"secondary_y": True}]], shared_xaxes=True)
+        if len(houses) == 0:
+            return fig
+        start_time = houses.index[0]
+        end_time = houses.index[-1]
         # specs=[[{}, {}], [{}, {}], [{"secondary_y": True}, {}], [{"secondary_y": True}, {}]])
         fig.update_layout(width=1000, height=800, xaxis=dict(range=[start_time, end_time]))
         fig.add_traces([

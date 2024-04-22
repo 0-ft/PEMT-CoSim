@@ -2,7 +2,7 @@ FROM ubuntu:jammy
 SHELL ["/bin/bash", "-l", "-c"]
 
 ARG DEBIAN_FRONTEND=noninteractive
-
+ARG HOME=/root
 RUN apt update
 RUN apt install -y \
   python3-pip \
