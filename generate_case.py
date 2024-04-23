@@ -17,8 +17,6 @@ from helics_config_helper import HelicsConfigHelper
 from case_runner import PETRunner
 from scenario import PETScenario
 
-"""0. generate a glm file (TE_Challenge.glm) according to user's preference"""
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='python3 generate_case.py',

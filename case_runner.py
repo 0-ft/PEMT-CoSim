@@ -34,17 +34,15 @@ class PETRunner:
         print(f"wrote substation HELICS config")
 
         # update weather config
-        weather_config_path = "fed_weather/weather_helics_config.json"
-        weather_config = json.load(open(weather_config_path, "r"))
+        weather_config = json.load(open("fed_weather/weather_helics_config_template.json", "r"))
         weather_config["time_stop"] = f"{int((self.scenario.end_time - self.scenario.start_time).total_seconds() / 60)}m"
-        json.dump(weather_config, open(weather_config_path, "w"), indent=4)
+        json.dump(weather_config, open("fed_weather/weather_helics_config.json", "w"), indent=4)
         print(f"wrote weather HELICS config")
 
         # update pypower config
-        pypower_config_path = "fed_pypower/te30_pp.json"
-        pypower_config = json.load(open(pypower_config_path, "r"))
+        pypower_config = json.load(open("fed_pypower/pypower_config_template.json", "r"))
         pypower_config["Tmax"] = int((self.scenario.end_time - self.scenario.start_time).total_seconds())
-        json.dump(pypower_config, open(pypower_config_path, "w"), indent=4)
+        json.dump(pypower_config, open("fed_pypower/pypower_config.json", "w"), indent=4)
         print(f"wrote pypower HELICS config")
 
     def run(self):
