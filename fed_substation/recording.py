@@ -173,7 +173,6 @@ class SubstationRecorder:
         self.grid_recorder.record(time)
 
     def history(self):
-        print(self.house_recorder.target)
         return {
             "houses": self.house_recorder.df(),
             "auction": self.auction_recorder.df(),
@@ -191,7 +190,7 @@ class SubstationRecorder:
             pickle.dump(self.history(), f)
         self.file_number += 1
         self.clear()
-        print(f"wrote file {self.file_number - 1} in {time() - save_time:3f}s")
+        print(f"wrote metrics file {self.file_number - 1} in {time() - save_time:3f}s")
         # with open(os.path.join(self.out_dir, f"{self.file_number}.pkl"), "wb") as f:
         #     pickle.dump(self.history(), f)
 
@@ -421,7 +420,6 @@ class SubstationRecorder:
         #         "y": auction["fraction_sellers_cleared"],
         #         "name": "Fraction Sellers Cleared",
         #     }, row=4, col=1)
-        print(auction)
         fig.update_yaxes(title_text="Count", row=4, col=1)
         fig.update_yaxes(title_text="Price", row=4, col=1, secondary_y=True)
 
@@ -552,7 +550,7 @@ class SubstationRecorder:
         if make_html:
             fig.write_html(f"figures/progress.html")
 
-        print(f"wrote figure in {(millis() - s) * 1000:3f}ms")
+        print(f"wrote progress figure in {(millis() - s) * 1000:3f}ms")
 
 if __name__ == "__main__":
     history = SubstationRecorder.load_history(f"metrics/{argv[1]}")
