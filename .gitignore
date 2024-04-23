@@ -8,6 +8,7 @@ fed_gridlabd/TE_Challenge_HELICS_msg.json
 fed_gridlabd/TE_Challenge_glm_dict.json
 fed_gridlabd/gridlabd_helics_config.json
 fed_gridlabd/eplus_load.csv
+fed_gridlabd/weather.csv
 fed_substation/TE_Challenge_HELICS_substation.json
 fed_substation/substation_helics_config.json
 fed_substation/figures/*
