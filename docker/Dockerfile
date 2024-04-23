@@ -53,5 +53,6 @@ RUN sed -i 's/\#PermitRootLogin.*/PermitRootLogin Yes/' /etc/ssh/sshd_config
 RUN systemctl enable ssh & update-rc.d ssh defaults & systemctl enable ssh.socket & systemctl enable ssh.service
 RUN echo "root:helics" | chpasswd
 EXPOSE 22
+RUN git config --global --add safe.directory /PEMT-CoSim
 
 ENTRYPOINT service ssh start && sleep infinity
