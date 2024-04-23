@@ -40,19 +40,18 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b
 RUN sed -e '/[ -z "$PS1" ] && return/s/^/#/g' -i /root/.bashrc
 
-# install python requirements
+# create conda environment & install python requirements
 RUN /root/miniconda3/bin/conda init bash
-RUN conda create -n cosim python=3.10
+COPY conda_env.yml .
+RUN conda env create -f conda_env.yml
 RUN echo "conda activate cosim" >> ~/.bashrc
-COPY requirements.txt .
-RUN pip install -r ./requirements.txt
 RUN emobpy create -n unused
 
-RUN apt -y install openssh-server
-RUN sed -i 's/\#PermitRootLogin.*/PermitRootLogin Yes/' /etc/ssh/sshd_config
-RUN systemctl enable ssh & update-rc.d ssh defaults & systemctl enable ssh.socket & systemctl enable ssh.service
-RUN echo "root:helics" | chpasswd
-EXPOSE 22
+# RUN apt -y install openssh-server
+# RUN sed -i 's/\#PermitRootLogin.*/PermitRootLogin Yes/' /etc/ssh/sshd_config
+# RUN systemctl enable ssh & update-rc.d ssh defaults & systemctl enable ssh.socket & systemctl enable ssh.service
+# RUN echo "root:helics" | chpasswd
+# EXPOSE 22
 RUN git config --global --add safe.directory /PEMT-CoSim
 
 ENTRYPOINT service ssh start && sleep infinity

@@ -7,6 +7,7 @@ fed_gridlabd/TE_Challenge.glm
 fed_gridlabd/TE_Challenge_HELICS_msg.json
 fed_gridlabd/TE_Challenge_glm_dict.json
 fed_substation/TE_Challenge_HELICS_substation.json
+fed_substation/substation_helics_config.json
 fed_substation/figures/*
 fed_substation/metrics/*
 fed_ev/emobpy_data/profiles/*
@@ -14,8 +15,7 @@ fed_ev/ev_helics_config.json
 fed_ev/*history.pkl
 fed_ev/driving_power.pkl
 fed_pypower/TE_ChallengeH.csv
-fed_weather/weather_helics_config.json
 fed_weather/weather.csv
-fed_pypower/te30_pp.json
+fed_weather/weather_helics_config.json
 scenario.pkl
 scenarios/*
