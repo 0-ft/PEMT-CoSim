@@ -32,7 +32,7 @@ module generators;
 //#define FIXED_PRICE=0.088
 
 object climate {
-  name localWeather;
+  name weather;
 //     tmyfile "../../support/weather/AZ-Tucson_International_Ap.tmy3";
   interpolate QUADRATIC;
 	latitude 32.133;

@@ -1,5 +1,5 @@
 {
-    "name": "localWeather",
+    "name": "weather",
     "StartTime": "2013-07-01 00:00:00",
     "time_stop": "43200m",
     "time_delta": "1s",

@@ -92,9 +92,6 @@ class GlmGenerator:
         with open(filename, "w") as f:
             f.write(glm)
         print(f"wrote GridLab-D config to {filename}")
-        #
-        # with open(f"{gridlab_path}/TE_Challenge_HELICS_gld_msg.json", "w") as f:
-        #     f.write(json.dumps(helics_config, indent=4))
 
     def configure_helics_msg(self):
         """configure helics msg module in .glm file

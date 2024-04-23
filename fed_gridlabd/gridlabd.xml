@@ -136,7 +136,7 @@
 				<longitude>111W57:0.00</longitude>
 				<out_svc>NEVER</out_svc>
 				<clock>2013-07-01 00:00:00 PDT</clock>
-				<name>localWeather</name>
+				<name>weather</name>
 				<solar_elevation>-0.534413787821</solar_elevation>
 				<solar_azimuth>+0</solar_azimuth>
 				<solar_zenith>+2.10521011462</solar_zenith>
@@ -30754,7 +30754,7 @@
 				<parent>H0_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H0</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1417.573 sf</floor_area>
 				<gross_wall_area>+1229.66575404 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -30974,7 +30974,7 @@
 				<parent>H1_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H1</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1437.574 sf</floor_area>
 				<gross_wall_area>+1238.31024653 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -31194,7 +31194,7 @@
 				<parent>H2_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H2</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1428.754 sf</floor_area>
 				<gross_wall_area>+1234.50567705 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -31414,7 +31414,7 @@
 				<parent>H3_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H3</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1411.424 sf</floor_area>
 				<gross_wall_area>+1226.99589785 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -31634,7 +31634,7 @@
 				<parent>H4_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H4</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1425.084 sf</floor_area>
 				<gross_wall_area>+1232.91913766 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -31854,7 +31854,7 @@
 				<parent>H5_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H5</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1404.883 sf</floor_area>
 				<gross_wall_area>+1224.14944621 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -32074,7 +32074,7 @@
 				<parent>H6_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H6</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1458.911 sf</floor_area>
 				<gross_wall_area>+1247.46612512 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -32294,7 +32294,7 @@
 				<parent>H7_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H7</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1478.781 sf</floor_area>
 				<gross_wall_area>+1255.93248226 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -32514,7 +32514,7 @@
 				<parent>H8_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H8</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+2713.952 sf</floor_area>
 				<gross_wall_area>+1701.43531565 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -32734,7 +32734,7 @@
 				<parent>H9_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H9</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+599.945 sf</floor_area>
 				<gross_wall_area>+799.963332493 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -32954,7 +32954,7 @@
 				<parent>H10_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H10</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1438.584 sf</floor_area>
 				<gross_wall_area>+1238.74517153 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -33174,7 +33174,7 @@
 				<parent>H11_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H11</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+843.329 sf</floor_area>
 				<gross_wall_area>+948.446589605 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -33394,7 +33394,7 @@
 				<parent>H12_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H12</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+3215.62 sf</floor_area>
 				<gross_wall_area>+1852.02447788 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -33614,7 +33614,7 @@
 				<parent>H13_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H13</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1143.728 sf</floor_area>
 				<gross_wall_area>+1104.52547881 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -33834,7 +33834,7 @@
 				<parent>H14_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H14</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+2700.752 sf</floor_area>
 				<gross_wall_area>+1697.29258919 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -34054,7 +34054,7 @@
 				<parent>H15_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H15</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1216.808 sf</floor_area>
 				<gross_wall_area>+1139.26666472 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -34274,7 +34274,7 @@
 				<parent>H16_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H16</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+811.858 sf</floor_area>
 				<gross_wall_area>+930.581466969 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -34494,7 +34494,7 @@
 				<parent>H17_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H17</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+849.193 sf</floor_area>
 				<gross_wall_area>+951.738339391 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -34714,7 +34714,7 @@
 				<parent>H18_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H18</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+3219 sf</floor_area>
 				<gross_wall_area>+1852.9975715 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -34934,7 +34934,7 @@
 				<parent>H19_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H19</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+2994.232 sf</floor_area>
 				<gross_wall_area>+1787.13386926 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -35154,7 +35154,7 @@
 				<parent>H20_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H20</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+722.882 sf</floor_area>
 				<gross_wall_area>+878.10826971 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -35374,7 +35374,7 @@
 				<parent>H21_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H21</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1452.171 sf</floor_area>
 				<gross_wall_area>+1244.58121471 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -35594,7 +35594,7 @@
 				<parent>H22_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H22</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1346.924 sf</floor_area>
 				<gross_wall_area>+1198.63210925 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -35814,7 +35814,7 @@
 				<parent>H23_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H23</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1413.804 sf</floor_area>
 				<gross_wall_area>+1228.02996706 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -36034,7 +36034,7 @@
 				<parent>H24_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H24</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1203.718 sf</floor_area>
 				<gross_wall_area>+1133.12217641 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -36254,7 +36254,7 @@
 				<parent>H25_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H25</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1425.444 sf</floor_area>
 				<gross_wall_area>+1233.0748558 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -36474,7 +36474,7 @@
 				<parent>H26_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H26</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+810.378 sf</floor_area>
 				<gross_wall_area>+929.73286486 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -36694,7 +36694,7 @@
 				<parent>H27_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H27</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+2714.262 sf</floor_area>
 				<gross_wall_area>+1701.53248573 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -36914,7 +36914,7 @@
 				<parent>H28_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H28</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+1153.318 sf</floor_area>
 				<gross_wall_area>+1109.14645862 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -37134,7 +37134,7 @@
 				<parent>H29_meter_house</parent>
 				<clock>2013-07-01 00:00:00 PDT</clock>
 				<name>H29</name>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<floor_area>+3209.83 sf</floor_area>
 				<gross_wall_area>+1850.35636207 sf</gross_wall_area>
 				<ceiling_height>+8 ft</ceiling_height>
@@ -54336,7 +54336,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54396,7 +54396,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54456,7 +54456,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54516,7 +54516,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54576,7 +54576,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54636,7 +54636,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54696,7 +54696,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54756,7 +54756,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54816,7 +54816,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54876,7 +54876,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54936,7 +54936,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -54996,7 +54996,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55056,7 +55056,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55116,7 +55116,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55176,7 +55176,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55236,7 +55236,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55296,7 +55296,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55356,7 +55356,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55416,7 +55416,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55476,7 +55476,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55536,7 +55536,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55596,7 +55596,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55656,7 +55656,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55716,7 +55716,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55776,7 +55776,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55836,7 +55836,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55896,7 +55896,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -55956,7 +55956,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -56016,7 +56016,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>
@@ -56076,7 +56076,7 @@
 				<P_Out>+0 kW</P_Out>
 				<V_Out>+0 V</V_Out>
 				<I_Out>+0 A</I_Out>
-				<weather>localWeather</weather>
+				<weather>weather</weather>
 				<shading_factor>+1 pu</shading_factor>
 				<tilt_angle>+45 deg</tilt_angle>
 				<orientation_azimuth>+180 deg</orientation_azimuth>

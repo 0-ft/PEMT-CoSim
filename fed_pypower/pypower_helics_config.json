@@ -16,32 +16,32 @@
   "subscriptions":[
     {
       "name": "SUBSTATION7",
-      "key": "gld1/distribution_load",
+      "key": "gridlabd/distribution_load",
       "type": "complex"
     },
     {
       "name": "UNRESPONSIVE_MW",
-      "key": "pet1/unresponsive_mw",
+      "key": "substation/unresponsive_mw",
       "type": "double"
     },
     {
       "name": "RESPONSIVE_MAX_MW",
-      "key": "pet1/responsive_max_mw",
+      "key": "substation/responsive_max_mw",
       "type": "double"
     },
     {
       "name": "RESPONSIVE_C1",
-      "key": "pet1/responsive_c1",
+      "key": "substation/responsive_c1",
       "type": "double"
     },
     {
       "name": "RESPONSIVE_C2",
-      "key": "pet1/responsive_c2",
+      "key": "substation/responsive_c2",
       "type": "double"
     },
     {
       "name": "RESPONSIVE_DEG",
-      "key": "pet1/responsive_deg",
+      "key": "substation/responsive_deg",
       "type": "integer"
     }
   ]

@@ -41,7 +41,7 @@ class EVFederate:
     def create_federate(self):
         print(f"Creating EV federate")
         fed_json = {
-            "name": "ev1",
+            "name": "ev",
             "uninterruptible": False,
             "publications": [
                 p for i in range(self.num_evs) for p in [
@@ -79,7 +79,7 @@ class EVFederate:
             ],
             "subscriptions": [
                 {
-                    "key": f"pet1/H{i}_ev#charge_rate",
+                    "key": f"substation/H{i}_ev#charge_rate",
                     "type": "double"
                 } for i in range(self.num_evs)
             ]

@@ -95,14 +95,14 @@ class ContinuousDoubleAuction:
 
         # publications and subscriptions
         if helics_federate is not None:
-            self.pubUnresp = helics_federate.publications["pet1/unresponsive_mw"]
-            self.pubMax = helics_federate.publications["pet1/responsive_max_mw"]
-            self.pubC1 = helics_federate.publications["pet1/responsive_c1"]
-            self.pubC2 = helics_federate.publications["pet1/responsive_c2"]
-            self.pubDeg = helics_federate.publications["pet1/responsive_deg"]
-            self.pub_clearing_price = helics_federate.publications["pet1/clear_price"]
+            self.pubUnresp = helics_federate.publications["substation/unresponsive_mw"]
+            self.pubMax = helics_federate.publications["substation/responsive_max_mw"]
+            self.pubC1 = helics_federate.publications["substation/responsive_c1"]
+            self.pubC2 = helics_federate.publications["substation/responsive_c2"]
+            self.pubDeg = helics_federate.publications["substation/responsive_deg"]
+            self.pub_clearing_price = helics_federate.publications["substation/clear_price"]
 
-            self.subFeeder = helics_federate.subscriptions["gld1/distribution_load"]
+            self.subFeeder = helics_federate.subscriptions["gridlabd/distribution_load"]
             self.sub_lmp = helics_federate.subscriptions["pypower/LMP_B7"]
 
     def update_stats(self):

@@ -54,7 +54,7 @@ class V2GEV:
         self.pub_max_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#max_charging_load")
         self.pub_min_charging_load = helics.helicsFederateGetPublication(self.helics_fed, f"{name}#min_charging_load")
 
-        self.sub_desired_charge_load = helics.helicsFederateGetSubscription(self.helics_fed, f"pet1/{name}#charge_rate")
+        self.sub_desired_charge_load = helics.helicsFederateGetSubscription(self.helics_fed, f"substation/{name}#charge_rate")
 
     def driving_energy_between(self, start_time: datetime, end_time: datetime):
         if not self.enable_movement:

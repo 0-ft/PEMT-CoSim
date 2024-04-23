@@ -43,7 +43,7 @@ The cosimulation has 5 federates in folders `fed_ev`, `fed_gridlabd`, `fed_pypow
 First, build and run the Docker container using these commands:
 
 1. Build the Docker image: `docker build -t v2gpet -f docker/Dockerfile .`
-2. Run the Docker container, mounting the project directory as a volume and entering an interactive shell: `docker run -it --mount type=bind,source=<PATH_TO_THIS_DIR>,destination=/PEMT-CoSim --name v2gpet1 v2gpet`
+2. Run the Docker container, mounting the project directory as a volume and entering an interactive shell: `docker run -it --mount type=bind,source=<PATH_TO_THIS_DIR>,destination=/PEMT-CoSim --name v2gsubstation v2gpet`
 3. Activate the Conda environment: `conda activate cosim`
 
 ## Usage

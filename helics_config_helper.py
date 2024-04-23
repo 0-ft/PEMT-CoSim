@@ -21,7 +21,7 @@ def sub(source, obj, prop, prop_type, info=False, target_name=None):
 class HelicsConfigHelper:
     def __init__(self, scenario: PETScenario):
         self.gridlab_config = {
-            "name": "gld1",
+            "name": "gridlabd",
             "period": scenario.minimum_timestep,
             "uninterruptible": False,
             "wait_for_current_time_update": True,
@@ -29,7 +29,7 @@ class HelicsConfigHelper:
             "publications": self.gridlabd_other_pubs(), "subscriptions": self.gridlabd_other_subs()
         }
         self.pet_config = {
-            "name": "pet1",
+            "name": "substation",
             # "period": 1,
             "uninterruptible": False,
             "publications": self.pet_other_pubs(), "subscriptions": self.pet_other_subs()
@@ -45,7 +45,7 @@ class HelicsConfigHelper:
         ]
 
         gridlab_subs_meter = [
-            sub("pet1", meter_name, prop, prop_type, True)
+            sub("substation", meter_name, prop, prop_type, True)
             for prop, prop_type in
             [("bill_mode", "string"), ("monthly_fee", "double"), ("price", "double")]
         ] if billing else []
@@ -53,7 +53,7 @@ class HelicsConfigHelper:
         self.gridlab_config["publications"] += gridlab_pubs_meter
         self.gridlab_config["subscriptions"] += gridlab_subs_meter
         pet_subs_meter = [
-            sub("gld1", meter_name, prop, prop_type, False)
+            sub("gridlabd", meter_name, prop, prop_type, False)
             for prop, prop_type in
             [("measured_real_power", "double")]#, ("measured_voltage_1", "complex")]#, ("measured_real_power", "double")]
         ]
@@ -70,7 +70,7 @@ class HelicsConfigHelper:
     def add_pv(self, solar_name):
         self.add_meter(f"{solar_name}_meter", billing=False)
         pet_subs_pv = [
-            sub("gld1", solar_name, prop, prop_type, False)
+            sub("gridlabd", solar_name, prop, prop_type, False)
             for prop, prop_type in [("I_Out", "double"), ("V_Out", "double")]
         ]
 
@@ -83,7 +83,7 @@ class HelicsConfigHelper:
         self.pet_config["publications"] += pet_pubs_pv
 
         gridlabd_subs_pv = [
-            sub("pet1", f"{solar_name}_inv", prop, prop_type, True)
+            sub("substation", f"{solar_name}_inv", prop, prop_type, True)
             for prop, prop_type in [("P_Out", "double"), ("Q_Out", "double")]
         ]
 
@@ -98,7 +98,7 @@ class HelicsConfigHelper:
         self.add_meter(f"{ev_name}_meter", billing=False)
 
         pet_subs_ev = [
-            sub("ev1", ev_name, prop, prop_type, False)
+            sub("ev", ev_name, prop, prop_type, False)
             for prop, prop_type in
             [("location", "string"), ("charging_load", "double"), ("soc", "double"), ("stored_energy", "double"),
              ("max_charging_load", "double"), ("min_charging_load", "double")]
@@ -113,7 +113,7 @@ class HelicsConfigHelper:
         self.pet_config["publications"] += pet_pubs_ev
 
         gridlabd_subs_ev = [
-            sub("ev1", f"{ev_name}", "charging_load", "complex", True, "constant_power_A")
+            sub("ev", f"{ev_name}", "charging_load", "complex", True, "constant_power_A")
         ]
 
         self.gridlab_config["subscriptions"] += gridlabd_subs_ev
@@ -130,7 +130,7 @@ class HelicsConfigHelper:
         ]
 
         gridlab_subs_hvac = [
-            sub("pet1", f"{house_name}", prop, prop_type, True)
+            sub("substation", f"{house_name}", prop, prop_type, True)
             for prop, prop_type in
             [("cooling_setpoint", "double"), ("thermostat_mode", "string")]
         ]
@@ -149,7 +149,7 @@ class HelicsConfigHelper:
         ]
 
         pet_subs_house = [
-            sub("gld1", house_name, prop, prop_type, False)
+            sub("gridlabd", house_name, prop, prop_type, False)
             for prop, prop_type in [("hvac_load", "double"), ("air_temperature", "double"), ("total_load", "double"),
                                     ("power_state", "string")]
         ]
@@ -195,50 +195,50 @@ class HelicsConfigHelper:
                 }
             },
             {
-                "key": "localWeather/temperature",
+                "key": "weather/temperature",
                 "type": "double",
                 "info": {
-                    "object": "localWeather",
+                    "object": "weather",
                     "property": "temperature"
                 }
             },
             {
-                "key": "localWeather/humidity",
+                "key": "weather/humidity",
                 "type": "double",
                 "info": {
-                    "object": "localWeather",
+                    "object": "weather",
                     "property": "humidity"
                 }
             },
             {
-                "key": "localWeather/solar_direct",
+                "key": "weather/solar_direct",
                 "type": "double",
                 "info": {
-                    "object": "localWeather",
+                    "object": "weather",
                     "property": "solar_direct"
                 }
             },
             {
-                "key": "localWeather/solar_diffuse",
+                "key": "weather/solar_diffuse",
                 "type": "double",
                 "info": {
-                    "object": "localWeather",
+                    "object": "weather",
                     "property": "solar_diffuse"
                 }
             },
             {
-                "key": "localWeather/pressure",
+                "key": "weather/pressure",
                 "type": "double",
                 "info": {
-                    "object": "localWeather",
+                    "object": "weather",
                     "property": "pressure"
                 }
             },
             {
-                "key": "localWeather/wind_speed",
+                "key": "weather/wind_speed",
                 "type": "double",
                 "info": {
-                    "object": "localWeather",
+                    "object": "weather",
                     "property": "wind_speed"
                 }
             }
@@ -251,15 +251,15 @@ class HelicsConfigHelper:
                 "type": "double"
             },
             {
-                "key": "gld1/distribution_load",
+                "key": "gridlabd/distribution_load",
                 "type": "complex"
             },
             {
-                "key": "gld1/grid_meter#measured_real_power",
+                "key": "gridlabd/grid_meter#measured_real_power",
                 "type": "double"
             },
             {
-                "key": "localWeather/temperature",
+                "key": "weather/temperature",
                 "type": "double"
             }
         ]
