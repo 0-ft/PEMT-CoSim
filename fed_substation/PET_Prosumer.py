@@ -240,8 +240,8 @@ class House:
             self.ev.set_desired_charge_rate(ev_bought - ev_sold)
         if self.pv:
             self.pv.set_power_out(pv_sold)
-        print(
-            f"{self.name} bought {total_bought}, sold {total_sold}, unresponsive @ {self.measured_unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {ev_bought - ev_sold}, solar @ {pv_sold}")
+        # print(
+        #     f"{self.name} bought {total_bought}, sold {total_sold}, unresponsive @ {self.measured_unresponsive_load} HVAC on={self.hvac.hvac_on}, EV @ {ev_bought - ev_sold}, solar @ {pv_sold}")
 
 
 class GridSupply:

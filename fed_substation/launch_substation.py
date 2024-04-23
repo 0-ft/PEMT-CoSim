@@ -80,7 +80,7 @@ class PETFederate:
 
             self.current_time = self.start_time + timedelta(seconds=time_granted_seconds)  # this is the actual time
 
-            print(f"REQUESTED time {time_to_request}, GRANTED {time_granted_seconds} = {self.current_time}")
+            # print(f"REQUESTED time {time_to_request}, GRANTED {time_granted_seconds} = {self.current_time}")
 
             """ 1. houses update state/measurements for all devices, 
                    update schedule and determine the power needed for hvac,
@@ -116,8 +116,9 @@ class PETFederate:
             self.next_figure_time = (time_granted_seconds // self.fig_update_period + 1) * self.fig_update_period
             self.next_update_time = (time_granted_seconds // self.update_period + 1) * self.update_period
 
-        self.recorder.save()
         print('writing metrics', flush=True)
+        self.recorder.save()
+        print('wrote metrics', flush=True)
         helics.helicsFederateDestroy(self.helics_federate)
         print(f"federate {self.helics_federate.name} has been destroyed")
 

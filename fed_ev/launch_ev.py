@@ -14,9 +14,6 @@ from ev_profiles import EVProfiles, EVProfile
 sys.path.append("../")
 from scenario import PETScenario
 
-EVPublications = namedtuple("EVPublications", "location load")
-
-
 class EVFederate:
     def __init__(self, scenario: PETScenario):
         self.scenario = scenario
@@ -36,7 +33,7 @@ class EVFederate:
 
         self.evs: list[V2GEV] = []
 
-        self.stop_seconds = (self.end_time - self.start_time).total_seconds() * 3600  # co-simulation stop time in seconds
+        self.stop_seconds = (self.end_time - self.start_time).total_seconds()  # co-simulation stop time in seconds
         self.enabled = True
 
         self.prev_state_strings = [""] * self.num_evs

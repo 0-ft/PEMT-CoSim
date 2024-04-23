@@ -1,7 +1,9 @@
 import json
 import pickle
 from datetime import datetime
+import subprocess
 
+from fed_weather.TMY3toCSV import weathercsv
 import numpy as np
 
 wakeup_start_lo = 5.0
@@ -81,6 +83,6 @@ class PETScenario:
         }
 
     def save(self, path):
-        with open(f"{path}/scenario.pkl", "wb") as f:
+        with open(path, "wb") as f:
             pickle.dump(self, f)
-        print(f"Saved scenario:\n{json.dumps(self.__dict__, indent=4)}")
+        # print(f"Saved scenario:\n{json.dumps(self.__dict__, indent=4)}")

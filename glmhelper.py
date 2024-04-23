@@ -88,8 +88,10 @@ class GlmGenerator:
 
     def save(self, gridlab_path):
         glm = self.generate_glm()
-        with open(f"{gridlab_path}/TE_Challenge.glm", "w") as f:
+        filename = f"{gridlab_path}/TE_Challenge.glm"
+        with open(filename, "w") as f:
             f.write(glm)
+        print(f"wrote GridLab-D config to {filename}")
         #
         # with open(f"{gridlab_path}/TE_Challenge_HELICS_gld_msg.json", "w") as f:
         #     f.write(json.dumps(helics_config, indent=4))
