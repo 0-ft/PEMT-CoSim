@@ -16,6 +16,5 @@ fed_ev/*history.pkl
 fed_ev/driving_power.pkl
 fed_pypower/TE_ChallengeH.csv
 fed_weather/weather.csv
-fed_weather/weather_helics_config.json
 scenario.pkl
 scenarios/*
