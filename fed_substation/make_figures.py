@@ -21,9 +21,12 @@ colors = {
              "total": "black"
          }
 
-ev_driving_power_all = pickle.load(open("../fed_ev/driving_power.pkl", "rb"))
-ev_driving_power_all = ev_driving_power_all.tz_localize("UTC-08:00")
-
+ev_driving_power_all = None
+if os.path.exists("../fed_ev/driving_power.pkl"):
+    ev_driving_power_all = pickle.load(open("../fed_ev/driving_power.pkl", "rb")) 
+    ev_driving_power_all = ev_driving_power_all.tz_localize("UTC-08:00")
+else:
+    ev_driving_power_all = pd.Series([0], pd.date_range("2018-01-01", periods=1, freq="h"))
 START_TIME = None
 END_TIME = None
 
