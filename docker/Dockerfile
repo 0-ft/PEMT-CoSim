@@ -48,4 +48,6 @@ RUN emobpy create -n unused
 WORKDIR /PEMT-CoSim
 
 RUN git config --global --add safe.directory /PEMT-CoSim
-ENTRYPOINT [ "conda", "run", "--no-capture-output", "-n", "cosim", "python3", "-u", "generate_case.py"]
+# ENTRYPOINT [ "conda", "run", "--no-capture-output", "-n", "cosim", "python3", "-u", "generate_case.py"]
+
+ENTRYPOINT ["/bin/bash"]

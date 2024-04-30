@@ -38,12 +38,27 @@ The cosimulation has 5 federates in folders `fed_ev`, `fed_gridlabd`, `fed_pypow
 └── template_houses.pkl       # Template house data
 ```
 
-## Docker Setup
+## Using PEMT-CoSim with Docker
+### Dev Container Usage with VSCode
+To run the project using the Dev Container configuration in Visual Studio Code, follow these steps:
 
-First, build and run the Docker container using these commands:
+1. Install the Dev Containers extension from the VSCode marketplace.
+2. Open the project in VSCode.
+3. Press F1 to open the command palette and type Dev Containers: Reopen in Container. Select this command to start the Dev Container.
 
-1. Build the Docker image: `docker build -t v2gpet -f docker/Dockerfile .`
-2. Run the Docker container, mounting the project directory as a volume and entering an interactive shell: `docker run -it --mount type=bind,source=<PATH_TO_THIS_DIR>,destination=/PEMT-CoSim --name v2gsubstation v2gpet`
+### Running on a Remote Machine
+To run the Dev Container on a remote machine, you need the Remote Development extension pack in addition to the Dev Containers extension.
+
+1. Install the Remote Development extension pack from the VSCode marketplace.
+2. Connect to the remote machine using the Remote-SSH: Connect to Host... command from the command palette.
+3. Once connected, open the project and use the Dev Containers: Reopen in Container command as described above.
+
+### Manual Docker Setup
+
+If you wish to build the container manually, use these commands:
+
+1. Build the Docker image: `docker build -t pemtcosim -f docker/Dockerfile .`
+2. Run the Docker container, mounting the project directory as a volume and entering an interactive shell: `docker run -it --mount type=bind,source=<PATH_TO_THIS_DIR>,destination=/PEMT-CoSim --name pemtcosim1 pemtcosim`
 3. Activate the Conda environment: `conda activate cosim`
 
 ## Usage
@@ -54,10 +69,12 @@ To run a simulation, you first need to generate EV movement profiles and prepare
 1. `cd fed_ev`
 2. `python3 ev_profiles.py -n 30 -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -g`
 3. `cd ..`
-4. `python3 generate_case.py -a example -n 30 -p 30 -e 30 -g 100000 -f 7200 -b 0.0`
+4. `python3 generate_case.py -a example_name -n 30 -p 30 -e 30 -g 100000 -f 7200 -b 0.0`
 5. `helics run --path=runner.json`
-6. `cd fed_substation`
-7. `python3 make_figures.py -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -m metrics/example`
+6. ... wait ...
+7. `cd fed_substation`
+8. `python3 make_figures.py -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -m metrics/example_name`
+9. Figures will now be in `fed_substation/figures`
 
 ### Detailed Version
 - Before running a simulation, EV movement profiles must be generated using the `fed_ev/ev_profiles.py` script (run this from inside `fed_ev`).

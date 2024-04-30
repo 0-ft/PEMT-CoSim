@@ -625,13 +625,13 @@ def one_figs_capped(hs, name, start_time, end_time):
     ev_driving_power = ev_driving_power_all[(start_time <= ev_driving_power_all.index) & (ev_driving_power_all.index < end_time)]
     ev_driving_power = ev_driving_power[:-1].repeat(2).set_axis(ev_driving_power.index.repeat(2)[1:-1])
 
-    ev = ev_plot(house_means[0])
-    ev.write_html(f"figures/{name}_ev.html")
-    ev.write_image(f"figures/{name}_ev.png")
+    # ev = ev_plot(house_means[0])
+    # ev.write_html(f"figures/{name}_ev.html")
+    # ev.write_image(f"figures/{name}_ev.png")
 
-    hvac = hvac_plot(house_means[0], hs[0])
-    hvac.write_html(f"figures/{name}_hvac.html")
-    hvac.write_image(f"figures/{name}_hvac.png", scale=1)
+    # hvac = hvac_plot(house_means[0], hs[0])
+    # hvac.write_html(f"figures/{name}_hvac.html")
+    # hvac.write_image(f"figures/{name}_hvac.png", scale=1)
 
     supply_breakdown, load_breakdown, has_ev, has_pv, supply_pv_only = load_plot(house_means[0], ev_driving_power)
     supply_breakdown.write_html(f"figures/{name}_supply.html")
@@ -690,6 +690,17 @@ if __name__ == "__main__":
     elif args.metrics:
         h = SubstationRecorder.load_history(args.metrics)
         hs = [h]
+        hvac_load = h["houses"]["values.hvac.measured_load"]
+        hvac_load = pd.DataFrame(hvac_load.tolist(), index=hvac_load.index, columns=[f"house_{i}" for i in range(len(hvac_load[0]))])
+        unresp_load = h["houses"]["values.measured_unresponsive_load"]
+        unresp_load = pd.DataFrame(unresp_load.tolist(), index=unresp_load.index, columns=[f"house_{i}" for i in range(len(unresp_load[0]))])
+        total_load = hvac_load + unresp_load
+        print("HVAC", hvac_load)
+        print("UNRESP", unresp_load)
+        print("TOTAL", total_load)
+        total_load.to_csv("./house_loads_sample.csv")
+        # print("hs", hvac_load.combine(unresp_load, lambda xs, ys: [x+y for x, y in zip(xs, ys)]))
+        exit()
         end_time = min(args.end_date, hs[0]["houses"].index.max(), hs[0]["houses"].index.max())
         hs = [
             {k: h[k][(args.start_date <= h[k].index) & (h[k].index < end_time)] for k in h.keys()}
